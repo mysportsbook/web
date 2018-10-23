@@ -1,0 +1,335 @@
+﻿@model MySportsBook.Model.Master_Batch
+@{
+
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin)
+    {
+        Layout = "/Views/Shared/Layout/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/Layout/_Layout.cshtml";
+    }
+}
+
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Batch", "")</li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Create</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Back to List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BatchCode, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.BatchCode, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.BatchCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BatchName, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.BatchName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.BatchName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Sport", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Sport", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FK_CourtId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FK_CourtId, "Court", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Court", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FK_CourtId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.MaxPlayers, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.MaxPlayers, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.MaxPlayers, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Fee, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.Fee, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Fee, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control date" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control date" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FK_BatchTypeId, "Batch Type", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("BatchType", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FK_BatchTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 coach-div">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FK_CoachId, "FK_CoachId", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Coach", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FK_CoachId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Monday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Monday)
+                                                    @Html.ValidationMessageFor(model => model.Monday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Tuesday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Tuesday)
+                                                    @Html.ValidationMessageFor(model => model.Tuesday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Wednesday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Wednesday)
+                                                    @Html.ValidationMessageFor(model => model.Wednesday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Thursday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Thursday)
+                                                    @Html.ValidationMessageFor(model => model.Thursday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Friday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Friday)
+                                                    @Html.ValidationMessageFor(model => model.Friday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Saturday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Saturday)
+                                                    @Html.ValidationMessageFor(model => model.Saturday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Sunday, htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.Sunday)
+                                                    @Html.ValidationMessageFor(model => model.Sunday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+<script>
+    $('#Sport').change(function () {
+        loader();
+        $.ajax({
+            type: "POST",
+            url: "/DropDown/GetCourt",
+            data: { sportid: $('#Sport').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                loader();
+                var batch = '';
+                for (var i = 0; i < data.length; i++) {
+                    batch = batch + '<option fee=' + data[i].Fee + ' value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                $('#Court').html(batch);
+            },
+            error: function (jqXHR, exception) {
+                loader();
+            }
+        });
+    });
+    $('#Court').change(function (e) {
+        $('#Fee').val($('option:selected', this).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', this).attr('fee')).toFixed(2));
+    });
+
+    $('#BatchType').change(function () {
+        showCoach();
+    });
+
+    function validate() {
+        if (new Date(parseTime($('input[name="StartTime"]').val())).toTimeString().substring(0, 8) > new Date(parseTime($('input[name="EndTime"]').val())).toTimeString().substring(0, 8) || new Date(parseTime($('input[name="StartTime"]').val())).toTimeString().substring(0, 8) == new Date(parseTime($('input[name="EndTime"]').val())).toTimeString().substring(0, 8)) {
+            swal("Failed!", "Start Time should be less than End time!", "error");
+        }
+        else if (new Date($('input[name="StartDate"]').val()) != new Date($('input[name="EndDate"]').val()) && new Date($('input[name="StartDate"]').val()) > new Date($('input[name="EndDate"]').val())) {
+            swal("Failed!", "Start date should be less than End date!", "error");
+        }
+    }
+
+    function save() {
+
+        var batchmodel = {
+            "BatchCode": $('input[name="BatchCode"]').val(),
+            "BatchName": $('input[name="BatchName"]').val(),
+            "FK_SportId": $('select[name="Sport"]').val(),
+            "FK_CourtId": $('select[name="Court"]').val(),
+            "FK_BatchTypeId": $('select[name="BatchType"]').val(),
+            "Fee": $('input[name="Fee"]').val(),
+            "StartTime": new Date(parseTime($('input[name="StartTime"]').val())).toTimeString().substring(0, 8),
+            "EndTime": new Date(parseTime($('input[name="EndTime"]').val())).toTimeString().substring(0, 8),
+            "MaxPlayers": $('input[name="MaxPlayers"]').val(),
+            "FK_CoachId": $('select[name="Coach"]').val(),
+            "StartDate": new Date($('input[name="StartDate"]').val()),
+            "EndDate": new Date($('input[name="EndDate"]').val()),
+            "Monday": $('input[name="Monday"]').is(":checked"),
+            "Tuesday": $('input[name="Tuesday"]').is(":checked"),
+            "Wednesday": $('input[name="Wednesday"]').is(":checked"),
+            "Thursday": $('input[name="Thursday"]').is(":checked"),
+            "Friday": $('input[name="Friday"]').is(":checked"),
+            "Saturday": $('input[name="Saturday"]').is(":checked"),
+            "Sunday": $('input[name="Sunday"]').is(":checked")
+        }
+        saveData(batchmodel, $('input[name="BatchName"]').val(), SaveOrUpdate.save);
+    }
+
+    function showCoach() {
+        if ($('#BatchType').val() == 1) {
+            $('.coach-div').hide();
+        }
+        else {
+            $('.coach-div').show();
+        }
+    }
+    showCoach();
+</script>

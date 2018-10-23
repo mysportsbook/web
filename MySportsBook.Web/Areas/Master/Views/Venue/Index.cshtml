@@ -1,0 +1,109 @@
+﻿@model IEnumerable<MySportsBook.Model.Master_Venue>
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Venue", "")</li>
+        <li class="breadcrumb-item active">View</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Venues</strong>
+                    <i class="fa fa-plus float-right">  @Html.ActionLink("Create New", "Create")</i>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Code")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Address")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Email")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("SMS")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Whatsapp")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Should AdvInv Generate")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Status")
+                                </th>
+                                <th width="65px">@Html.DisplayName("Action")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VenueName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VenueCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmailEnabled)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SMSEnabled)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.WhatsappEnabled)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ShouldAdvInvGenerate)
+                                    </td>
+                                    <td>
+                                        @if (item.FK_StatusId == 1)
+                                        {
+                                            <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button class="btn btn-primary" onclick="editData(@item.PK_VenueId)" title="Edit" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-danger" onclick="deleteData(@item.PK_VenueId)" title="Delete" type="button">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

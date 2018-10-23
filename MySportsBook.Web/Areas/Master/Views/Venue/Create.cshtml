@@ -1,0 +1,145 @@
+﻿@model MySportsBook.Model.Master_Venue
+
+@{
+    ViewBag.Title = "Create";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Venue", "")</li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Create</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Venue List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.VenueName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.VenueName, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
+                                            @Html.ValidationMessage("Please provide a Name!")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.VenueCode, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.VenueCode, new { htmlAttributes = new { @class = "form-control", @maxlength = "10", data_required = "true" } })
+                                            @Html.ValidationMessage("Please provide a Code!")
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @maxlength = "100" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.WhatsappEnabled, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.WhatsappEnabled)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Automatically generate Inv", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.ShouldAdvInvGenerate)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EmailEnabled, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.EmailEnabled)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SMSEnabled, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.SMSEnabled)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+<script>
+    function validate() {
+
+        return true;
+    }
+    function save() {
+        var venuemodel = {
+            "VenueName": $('input[name="VenueName"]').val(),
+            "VenueCode": $('input[name="VenueCode"]').val(),
+            "Mobile": $('input[name="Mobile"]').val(),
+            "Email": $('input[name="Email"]').val(),
+            "Address": $('textarea[name="Address"]').val(),
+            "EmailEnabled": $('input[name="EmailEnabled"]').is(":checked"),
+            "SMSEnabled": $('input[name="SMSEnabled"]').is(":checked"),
+            "WhatsappEnabled": $('input[name="WhatsappEnabled"]').is(":checked"),
+            "ShouldAdvInvGenerate": $('input[name="ShouldAdvInvGenerate"]').is(":checked")
+        }
+        saveData(venuemodel, $('input[name="VenueName"]').val(), SaveOrUpdate.save);
+    }
+</script>

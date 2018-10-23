@@ -1,0 +1,49 @@
+﻿<script>
+    $(function () {
+        $('.table').DataTable();
+    });
+    function editData(id) {
+        loader();
+        window.location.href = "@Url.Action("Edit", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })"+"/"+id;
+    }
+    function deleteData(id) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                loader();
+                $.ajax({
+                    url: "@Url.Action("Delete", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })" + "/" + id,
+                    type: "GET",
+                    success: function (data) {
+                        loader();
+                        if (data) {
+                            swal({
+                                title: "Deleted!",
+                                text: "Your data has been deleted!",
+                                icon: "success",
+                                type: "success",
+                            }).then(function () {
+                                window.location.reload();
+                            });
+                        }
+                        else
+                            swal("Failed!", "failed to delete!", "error", {
+                                icon: "error"
+                            });
+                    },
+                    error: function (jqXHR, exception) {
+                        loader();
+                        swal("Failed!", "Failed to delete! -" + exception, "error", {
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>

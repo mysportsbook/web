@@ -1,0 +1,264 @@
+﻿@model MySportsBook.Model.ViewModel.InvoiceModel
+<div class="row">
+    @if (Model.NoDues)
+    {
+        <div class="col-sm-12">
+            <span><strong>No Pending due(s).</strong></span>
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-6">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Sport</th>
+                        <th scope="col">Month</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col"><input type="checkbox" class="inv-list-all" />Select All</th>
+                    </tr>
+                </thead>
+                @foreach (MySportsBook.Model.ViewModel.InvoiceDetailModel detail in Model.InvoiceDetails)
+                {
+                    <tr>
+                        <td>@detail.SportName</td>
+                        <td>@detail.InvoicePeriod</td>
+                        <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
+                        <td>
+                            <input type="checkbox" class="inv-list" />
+                            <input id="hidbatch" type="hidden" class="inv-batch-id" name="hidbatch" value="@detail.BatchId" />
+                            <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
+                            <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
+                            <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Total Fee")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtTotalFee", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Discount")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtDiscount", "0.00", new { @class = "form-control text-right" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Fine")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Total")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Paid")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Balance")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtBalance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Payment Mode")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-primary" onclick="confirmation()">Pay</button>
+                    @Html.HiddenFor(model => model.PlayerId)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="venueModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-2">
+                    @Html.Label("Comments")
+                </div>
+                <div class="col-sm-12">
+                    @Html.TextArea("txtComments", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnOk">Ok</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.inv-list-all').click(function () {
+        $('.inv-list').prop("checked", $(this).is(":checked"));
+        calculate();
+    });
+    $('.inv-list').click(function () {
+        calculate();
+    });
+    $('#txtDiscount,#txtPaid,#txtLateFee').on('blur', function () {
+        calculate();
+    });
+    function calculate() {
+        var total = 0;
+        var checkall = true;
+        $('.inv-list').each(function () {
+            if ($(this).is(":checked")) {
+                total += parseFloat($(this).parent().parent().find('label').text());
+            }
+            else if (checkall) { checkall = false; }
+            $('.inv-list-all').prop("checked", checkall);
+        });
+        $('#txtTotalFee').val(total.toFixed(2));
+        $('#txtLateFee').val(parseFloat($('#txtLateFee').val() == "" ? 0 : $('#txtLateFee').val()).toFixed(2));
+        $('#txtTotalFee').val(parseFloat($('#txtTotalFee').val() == "" ? 0 : $('#txtTotalFee').val()).toFixed(2));
+        $('#txtDiscount').val(parseFloat($('#txtDiscount').val() == "" ? 0 : $('#txtDiscount').val()).toFixed(2));
+        $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2));
+        $('#txtPaid').val(parseFloat($('#txtPaid').val() == "" ? 0 : $('#txtPaid').val()).toFixed(2));
+        $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
+        $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
+
+    }
+    function confirmation() {
+        $('#confirmModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        }).one('click', '#btnOk', function (e) {
+            payment($('#txtComments').val());
+        });
+    }
+    function payment(comment) {
+        var invoicedetails = [];
+        $('.inv-list').each(function () {
+            if ($(this).is(":checked")) {
+                invoicedetails.push({
+                    BatchId: parseInt($(this).parent().find('input[name="hidbatch"]').val().trim()),
+                    InvoicePeriodId: parseInt($(this).parent().find('input[name="hidinvperiodid"]').val().trim()),
+                    InvoicePeriod: $(this).parent().find('input[name="hidinvperiod"]').val().trim(),
+                    Fee: parseFloat($(this).parent().find('input[name="hidinvfee"]').val().trim())
+                });
+            }
+        });
+        if (invoicedetails.length <= 0) {
+            swal("Failed!", "Please select the month(s) to pay!", "error", {
+                icon: "error"
+            });
+            return false;
+        }
+        if (parseFloat($('#txtPaid').val()) <= 0) {
+            swal("Failed!", "Please select the month(s) to pay!", "error", {
+                icon: "error"
+            });
+            return false;
+        }
+        var invoiceobj = {
+            PlayerId: $('#PlayerId').val(),
+            TotalFee: parseFloat($('#txtTotalFee').val()),
+            LateFee: parseFloat($('#txtLateFee').val()),
+            Discount: parseFloat($('#txtDiscount').val()),
+            Paid: parseFloat($('#txtPaid').val()),
+            PaymentId:$('select[name="PaymentMode"]').val(),
+            Comments: comment,
+            InvoiceDetails: invoicedetails
+        }
+        $.ajax({
+            type: "POST",
+            url: 'Transaction/Invoice/Payment',
+            data: JSON.stringify(invoiceobj),
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response) {
+                    swal({
+                        title: "Success!",
+                        text: "Paid sucessfully!",
+                        type: "success",
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonClass: "btn-success",
+                        confirmButtonText: "Ok!",
+                        closeOnConfirm: false
+                    }).then(function () {
+                        location.reload();
+                    });
+                }
+                else {
+                    swal("Failed!", "Payment failed!", "error", {
+                        icon: "error"
+                    });
+                }
+            },
+            error: function (jqXHR, exception) {
+                swal("Failed!", "Payment failed! -" + exception, "error", {
+                    icon: "error"
+                });
+            }
+        });
+    }
+</script>

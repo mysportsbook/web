@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MySportsBook.Model.Master_Court>
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Court", "")</li>
+        <li class="breadcrumb-item active">View</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Courts</strong>
+                    <i class="fa fa-plus float-right">  @Html.ActionLink("Create New", "Create")</i>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CourtName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CourtCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Master_Sport.SportName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Configuration_Status.Status)
+                                </th>
+                                <th width="65px">@Html.DisplayName("Action")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CourtName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CourtCode)
+                                </td>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.Master_Sport.SportName)
+                                </th>
+                                <td>
+                                    @if (item.FK_StatusId == 1)
+                                    {
+                                        <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    <div>
+                                        <button class="btn btn-primary" onclick="editData(@item.PK_CourtId)" title="Edit" type="button">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-danger" onclick="deleteData(@item.PK_CourtId)" title="Delete" type="button">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

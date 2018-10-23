@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <base href="./../">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>CoreUI Free Bootstrap Admin Template</title>
+    <!-- Icons-->
+    <link href="/Content/coreui-icons.min.css" rel="stylesheet">
+    <link href="/Content/flag-icon.min.css" rel="stylesheet">
+    <link href="/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="/Content/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Main styles for this application-->
+    <link href="/Content/style.css" rel="stylesheet">
+    <link href="/Content/pace.min.css" rel="stylesheet">
+    <link href="/Content/hover.css" rel="stylesheet" />
+    <link href="/Content/sweetalert.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    @*<script src="/Scripts/popper.min.js"></script>*@
+    <link href="/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="/Scripts/jquery.dataTables.min.js"></script>
+    <script src="/Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="/Scripts/sweetalert.min.js"></script>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/Account/Home">
+            <img class="navbar-brand-full" src="/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
+            <img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
+        </a>
+        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="img-avatar" src="/img/avatars/6.jpg"><span>@ViewBag.Name</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-user"></i> Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-wrench"></i> Settings
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-usd"></i> Payments
+                        <span class="badge badge-secondary">42</span>
+                    </a>
+                    <div class="divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-shield"></i> Lock Account
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
+                        <i class="fa fa-lock"></i> Logout
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-map-marker fa-2x hvr-wobble-vertical" data-toggle="tooltip" title="Change Venue" aria-hidden="true"></i><span class="sr-only"><strong>@ViewBag.Venue</strong></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="@Url.Action("SelectVenue", "Account" , new { Area = "" })">
+                        <i class="fa fa-plane"></i> Change Venue
+                    </a>
+                </div>
+            </li>
+        </ul>
+
+    </header>
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/Home">
+                            <i class="nav-icon icon-speedometer"></i> Dashboard
+                            <span class="badge badge-primary">NEW</span>
+                        </a>
+                    </li>
+                    <li class="nav-title">Master</li>
+                    <li class="nav-item">
+                        <a class="nav-link hvr-icon-spin" href="@Url.Action("", "Sport", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-futbol-o hvr-icon"></i> Sport
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Court", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-object-ungroup"></i> Court
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Batch", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-users"></i> Batch
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Player", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-id-badge"></i> Player
+                        </a>
+                    </li>
+                    <li class="nav-title">Transaction</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Transaction" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Invoice
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+        </div>
+        @RenderBody()
+    </div>
+    <footer class="app-footer">
+        <div>
+            <a>MySportsBook.com</a>
+            <span>&copy;2018</span>
+        </div>
+    </footer>
+
+    <!-- CoreUI and necessary plugins-->
+    <script src="/Scripts/pace.min.js"></script>
+    <script src="/Scripts/perfect-scrollbar.min.js"></script>
+    <script src="/Scripts/coreui.min.js"></script>
+    <script type="text/javascript">
+        function parseTime(t) {
+            var d = new Date();
+            var time = t.match(/(\d+)(?::(\d\d))?\s*(p?)/);
+            d.setHours(parseInt(time[1]) + (time[3] ? 12 : 0));
+            d.setMinutes(parseInt(time[2]) || 0);
+            return d;
+        }
+
+    </script>
+    @Html.Partial("/Views/Shared/Script/_Loader.cshtml")
+</body>
+</html>

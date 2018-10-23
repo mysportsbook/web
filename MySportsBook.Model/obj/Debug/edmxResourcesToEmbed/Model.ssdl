@@ -1,0 +1,2075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MySportsBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BatchCount">
+    <Key>
+      <PropertyRef Name="PK_BatchCount" />
+    </Key>
+    <Property Name="PK_BatchCount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_BatchId" Type="int" Nullable="false" />
+    <Property Name="FK_CourtId" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configuration_BatchType">
+    <Key>
+      <PropertyRef Name="PK_BatchTypeId" />
+    </Key>
+    <Property Name="PK_BatchTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BatchType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BatchTypeCode" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configuration_Format">
+    <Key>
+      <PropertyRef Name="PK_NumberFormatId" />
+    </Key>
+    <Property Name="PK_NumberFormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumberFormat" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configuration_InvoicePeriod">
+    <Key>
+      <PropertyRef Name="PK_InvoicePeriodId" />
+    </Key>
+    <Property Name="PK_InvoicePeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoicePeriodCode" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configuration_PlayerType">
+    <Key>
+      <PropertyRef Name="PK_PlayerTypeId" />
+    </Key>
+    <Property Name="PK_PlayerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlayerType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PlayerTypeCode" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configuration_Screen">
+    <Key>
+      <PropertyRef Name="PK_ScreenId" />
+    </Key>
+    <Property Name="PK_ScreenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Screen" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ScreenCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Configuration_Status">
+    <Key>
+      <PropertyRef Name="PK_StatusId" />
+    </Key>
+    <Property Name="PK_StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StatusCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Configuration_User">
+    <Key>
+      <PropertyRef Name="PK_UserId" />
+    </Key>
+    <Property Name="PK_UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="PasswordHash" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="PasswordSalt" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Confirguration_PaymentMode">
+    <Key>
+      <PropertyRef Name="PK_PaymentModeId" />
+    </Key>
+    <Property Name="PK_PaymentModeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentMode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PaymentModeCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Master_Batch">
+    <Key>
+      <PropertyRef Name="PK_BatchId" />
+    </Key>
+    <Property Name="PK_BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="BatchName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BatchCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="FK_CourtId" Type="int" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Fee" Type="money" Nullable="false" />
+    <Property Name="MaxPlayers" Type="int" Nullable="false" />
+    <Property Name="FK_BatchTypeId" Type="int" Nullable="false" />
+    <Property Name="FK_CoachId" Type="int" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="Monday" Type="bit" Nullable="false" />
+    <Property Name="Tuesday" Type="bit" Nullable="false" />
+    <Property Name="Wednesday" Type="bit" Nullable="false" />
+    <Property Name="Thursday" Type="bit" Nullable="false" />
+    <Property Name="Friday" Type="bit" Nullable="false" />
+    <Property Name="Saturday" Type="bit" Nullable="false" />
+    <Property Name="Sunday" Type="bit" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Count" Type="int" />
+    <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Master_CoachingLevel">
+    <Key>
+      <PropertyRef Name="PK_CoachingLevelId" />
+    </Key>
+    <Property Name="PK_CoachingLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="LevelName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_Court">
+    <Key>
+      <PropertyRef Name="PK_CourtId" />
+    </Key>
+    <Property Name="PK_CourtId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourtName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CourtCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_SportId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_Enquiry">
+    <Key>
+      <PropertyRef Name="PK_EnquiryId" />
+    </Key>
+    <Property Name="PK_EnquiryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Game" Type="varchar" MaxLength="50" />
+    <Property Name="Slot" Type="varchar" MaxLength="10" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Master_Player">
+    <Key>
+      <PropertyRef Name="PK_PlayerId" />
+    </Key>
+    <Property Name="PK_PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_PlayerTypeId" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmailEnabled" Type="bit" />
+    <Property Name="SMSEnabled" Type="bit" />
+    <Property Name="WhatsupEnabled" Type="bit" />
+    <Property Name="LoginRequired" Type="bit" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_Role">
+    <Key>
+      <PropertyRef Name="PK_RoleId" />
+    </Key>
+    <Property Name="PK_RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_RoleScreen">
+    <Key>
+      <PropertyRef Name="PK_RoleScreenId" />
+    </Key>
+    <Property Name="PK_RoleScreenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_RoleId" Type="int" Nullable="false" />
+    <Property Name="FK_VenueScreenId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_ScreenNumberFormat">
+    <Key>
+      <PropertyRef Name="PK_ScreenNumberFormatId" />
+    </Key>
+    <Property Name="PK_ScreenNumberFormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_ScreenId" Type="int" Nullable="false" />
+    <Property Name="Prefix" Type="varchar" MaxLength="10" />
+    <Property Name="CurrentNo" Type="int" Nullable="false" />
+    <Property Name="FK_FormatId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_Sport">
+    <Key>
+      <PropertyRef Name="PK_SportId" />
+    </Key>
+    <Property Name="PK_SportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SportName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SportCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="Fee" Type="money" Nullable="false" />
+    <Property Name="AllowCoaching" Type="bit" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_UserRole">
+    <Key>
+      <PropertyRef Name="PK_UserRoleId" />
+    </Key>
+    <Property Name="PK_UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_UserId" Type="int" Nullable="false" />
+    <Property Name="FK_RoleId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_UserVenue">
+    <Key>
+      <PropertyRef Name="PK_UserVenueId" />
+    </Key>
+    <Property Name="PK_UserVenueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_UserId" Type="int" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Master_Venue">
+    <Key>
+      <PropertyRef Name="PK_VenueId" />
+    </Key>
+    <Property Name="PK_VenueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VenueName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VenueCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="EmailEnabled" Type="bit" Nullable="false" />
+    <Property Name="SMSEnabled" Type="bit" Nullable="false" />
+    <Property Name="WhatsappEnabled" Type="bit" Nullable="false" />
+    <Property Name="ShouldAdvInvGenerate" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OtherBooking">
+    <Key>
+      <PropertyRef Name="PK_BookingId" />
+    </Key>
+    <Property Name="PK_BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookingNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="varchar" MaxLength="50" />
+    <Property Name="Mode" Type="varchar" MaxLength="20" />
+    <Property Name="Message" Type="varchar" MaxLength="5000" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OtherBookingDetail">
+    <Key>
+      <PropertyRef Name="PK_BookingDetailId" />
+    </Key>
+    <Property Name="PK_BookingDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_BookingId" Type="int" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="Court" Type="varchar" MaxLength="50" />
+    <Property Name="Date" Type="varchar" MaxLength="50" />
+    <Property Name="Slot" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Transaction_Attendance">
+    <Key>
+      <PropertyRef Name="PK_AttendanceId" />
+    </Key>
+    <Property Name="PK_AttendanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_BatchId" Type="int" Nullable="false" />
+    <Property Name="FK_PlayerId" Type="int" Nullable="false" />
+    <Property Name="Present" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction_Enquiry_Comments">
+    <Key>
+      <PropertyRef Name="PK_EnquiryCommentsId" />
+    </Key>
+    <Property Name="PK_EnquiryCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_EnquiryId" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction_Invoice">
+    <Key>
+      <PropertyRef Name="PK_InvoiceId" />
+    </Key>
+    <Property Name="PK_InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_PlayerId" Type="int" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" Nullable="false" />
+    <Property Name="TotalFee" Type="money" Nullable="false" />
+    <Property Name="TotalDiscount" Type="money" />
+    <Property Name="LateFee" Type="money" />
+    <Property Name="PaidAmount" Type="money" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Transaction_InvoiceDetail">
+    <Key>
+      <PropertyRef Name="PK_InvoiceDetailId" />
+    </Key>
+    <Property Name="PK_InvoiceDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_InvoiceId" Type="int" Nullable="false" />
+    <Property Name="FK_BatchId" Type="int" Nullable="false" />
+    <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Transaction_PlayerSport">
+    <Key>
+      <PropertyRef Name="PK_PlayerSportId" />
+    </Key>
+    <Property Name="PK_PlayerSportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_PlayerId" Type="int" Nullable="false" />
+    <Property Name="FK_SportId" Type="int" Nullable="false" />
+    <Property Name="FK_BatchId" Type="int" Nullable="false" />
+    <Property Name="FK_CourtId" Type="int" Nullable="false" />
+    <Property Name="FK_InvoicePeriodId" Type="int" Nullable="false" />
+    <Property Name="LastGeneratedMonth" Type="varchar" MaxLength="10" />
+    <Property Name="IsCoach" Type="bit" Nullable="false" />
+    <Property Name="FK_CoachingLevelId" Type="int" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Fee" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction_Receipt">
+    <Key>
+      <PropertyRef Name="PK_ReceiptId" />
+    </Key>
+    <Property Name="PK_ReceiptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReceiptNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReceiptDate" Type="datetime" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_InvoiceId" Type="int" Nullable="false" />
+    <Property Name="AmountTobePaid" Type="money" Nullable="false" />
+    <Property Name="OtherAmount" Type="money" />
+    <Property Name="DiscountAmount" Type="money" />
+    <Property Name="AmountPaid" Type="money" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="FK_PaymentModeId" Type="int" Nullable="false" />
+    <Property Name="TransactionNumber" Type="varchar" MaxLength="500" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Transaction_Voucher">
+    <Key>
+      <PropertyRef Name="PK_VoucherId" />
+    </Key>
+    <Property Name="PK_VoucherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VoucherNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VoucherDate" Type="datetime" Nullable="false" />
+    <Property Name="PaymentFor" Type="varchar" MaxLength="50" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="PaymentMode" Type="int" />
+    <Property Name="ReceivedBy" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="TransactionNumer" Type="varchar" MaxLength="100" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_BatchCount_Master_Batch">
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
+    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Batch">
+        <PropertyRef Name="PK_BatchId" />
+      </Principal>
+      <Dependent Role="BatchCount">
+        <PropertyRef Name="FK_BatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BatchCount_Master_Court">
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="1" />
+    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Court">
+        <PropertyRef Name="PK_CourtId" />
+      </Principal>
+      <Dependent Role="BatchCount">
+        <PropertyRef Name="FK_CourtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BatchCount_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="BatchCount">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Configuration_User_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Configuration_User">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Enquiry_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Enquiry" Type="Self.Master_Enquiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Enquiry">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Configuration_BatchType">
+    <End Role="Configuration_BatchType" Type="Self.Configuration_BatchType" Multiplicity="1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_BatchType">
+        <PropertyRef Name="PK_BatchTypeId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="FK_BatchTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Master_Court">
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Court">
+        <PropertyRef Name="PK_CourtId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="FK_CourtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Master_Player">
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="0..1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Player">
+        <PropertyRef Name="PK_PlayerId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="FK_CoachId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Batch_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Batch">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_CoachingLevel_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_CoachingLevel" Type="Self.Master_CoachingLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_CoachingLevel">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_CoachingLevel_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_CoachingLevel" Type="Self.Master_CoachingLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_CoachingLevel">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_CoachingLevel_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_CoachingLevel" Type="Self.Master_CoachingLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_CoachingLevel">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_CoachingLevel_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_CoachingLevel" Type="Self.Master_CoachingLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_CoachingLevel">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Court_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Court">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Court_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Court">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Court_Master_Sport">
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="1" />
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Sport">
+        <PropertyRef Name="PK_SportId" />
+      </Principal>
+      <Dependent Role="Master_Court">
+        <PropertyRef Name="FK_SportId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Court_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Court">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Player_Configuration_PlayerType">
+    <End Role="Configuration_PlayerType" Type="Self.Configuration_PlayerType" Multiplicity="1" />
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_PlayerType">
+        <PropertyRef Name="PK_PlayerTypeId" />
+      </Principal>
+      <Dependent Role="Master_Player">
+        <PropertyRef Name="FK_PlayerTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Player_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Player">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Player_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Player">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Player_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Player">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Player_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Player">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Role_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Role">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Role_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Role">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Role_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Role">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Role_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Role">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Master_Role">
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Role">
+        <PropertyRef Name="PK_RoleId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="FK_RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Master_ScreenNumberFormat">
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="PK_ScreenNumberFormatId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="FK_VenueScreenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleScreen_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_RoleScreen" Type="Self.Master_RoleScreen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_RoleScreen">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format">
+    <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Format">
+        <PropertyRef Name="PK_NumberFormatId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_FormatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen">
+    <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Screen">
+        <PropertyRef Name="PK_ScreenId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_ScreenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Sport_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Sport">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Sport_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Sport">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Sport_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Sport">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Sport_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_Sport">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserRole_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_UserRole" Type="Self.Master_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserRole">
+        <PropertyRef Name="FK_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserRole_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_UserRole" Type="Self.Master_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserRole">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserRole_Configuration_User2">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_UserRole" Type="Self.Master_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserRole">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserRole_Master_Role">
+    <End Role="Master_Role" Type="Self.Master_Role" Multiplicity="1" />
+    <End Role="Master_UserRole" Type="Self.Master_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Role">
+        <PropertyRef Name="PK_RoleId" />
+      </Principal>
+      <Dependent Role="Master_UserRole">
+        <PropertyRef Name="FK_RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserRole_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_UserRole" Type="Self.Master_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_UserRole">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserVenue_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_UserVenue" Type="Self.Master_UserVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_UserVenue">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserVenue_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_UserVenue" Type="Self.Master_UserVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserVenue">
+        <PropertyRef Name="FK_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserVenue_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_UserVenue" Type="Self.Master_UserVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserVenue">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserVenue_Configuration_User2">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_UserVenue" Type="Self.Master_UserVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_UserVenue">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserVenue_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_UserVenue" Type="Self.Master_UserVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_UserVenue">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Venue_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_Venue">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Venue_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Venue">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Venue_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Venue">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Venue_Configuration_User2">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Venue">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_Venue_Configuration_User3">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_Venue">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBooking_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="OtherBooking" Type="Self.OtherBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="OtherBooking">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBooking_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="OtherBooking" Type="Self.OtherBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="OtherBooking">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBooking_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="OtherBooking" Type="Self.OtherBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="OtherBooking">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBookingDetail_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="OtherBookingDetail" Type="Self.OtherBookingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="OtherBookingDetail">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBookingDetail_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="OtherBookingDetail" Type="Self.OtherBookingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="OtherBookingDetail">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBookingDetail_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="OtherBookingDetail" Type="Self.OtherBookingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="OtherBookingDetail">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherBookingDetail_OtherBooking">
+    <End Role="OtherBooking" Type="Self.OtherBooking" Multiplicity="1" />
+    <End Role="OtherBookingDetail" Type="Self.OtherBookingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OtherBooking">
+        <PropertyRef Name="PK_BookingId" />
+      </Principal>
+      <Dependent Role="OtherBookingDetail">
+        <PropertyRef Name="FK_BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Attendance_Master_Batch">
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
+    <End Role="Transaction_Attendance" Type="Self.Transaction_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Batch">
+        <PropertyRef Name="PK_BatchId" />
+      </Principal>
+      <Dependent Role="Transaction_Attendance">
+        <PropertyRef Name="FK_BatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Attendance_Master_Player">
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="1" />
+    <End Role="Transaction_Attendance" Type="Self.Transaction_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Player">
+        <PropertyRef Name="PK_PlayerId" />
+      </Principal>
+      <Dependent Role="Transaction_Attendance">
+        <PropertyRef Name="FK_PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Attendance_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Transaction_Attendance" Type="Self.Transaction_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Transaction_Attendance">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Enquiry_Comments_Master_Enquiry">
+    <End Role="Master_Enquiry" Type="Self.Master_Enquiry" Multiplicity="1" />
+    <End Role="Transaction_Enquiry_Comments" Type="Self.Transaction_Enquiry_Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Enquiry">
+        <PropertyRef Name="PK_EnquiryId" />
+      </Principal>
+      <Dependent Role="Transaction_Enquiry_Comments">
+        <PropertyRef Name="FK_EnquiryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Invoice_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Transaction_Invoice">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Invoice_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Invoice">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Invoice_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Invoice">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Invoice_Master_Player">
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="1" />
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Player">
+        <PropertyRef Name="PK_PlayerId" />
+      </Principal>
+      <Dependent Role="Transaction_Invoice">
+        <PropertyRef Name="FK_PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Invoice_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Transaction_Invoice">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_InvoiceDetail_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Transaction_InvoiceDetail" Type="Self.Transaction_InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Transaction_InvoiceDetail">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_InvoiceDetail_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Transaction_InvoiceDetail" Type="Self.Transaction_InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_InvoiceDetail">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_InvoiceDetail_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Transaction_InvoiceDetail" Type="Self.Transaction_InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_InvoiceDetail">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_InvoiceDetail_Master_Batch">
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
+    <End Role="Transaction_InvoiceDetail" Type="Self.Transaction_InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Batch">
+        <PropertyRef Name="PK_BatchId" />
+      </Principal>
+      <Dependent Role="Transaction_InvoiceDetail">
+        <PropertyRef Name="FK_BatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_InvoiceDetail_Transaction_Invoice">
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="1" />
+    <End Role="Transaction_InvoiceDetail" Type="Self.Transaction_InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Invoice">
+        <PropertyRef Name="PK_InvoiceId" />
+      </Principal>
+      <Dependent Role="Transaction_InvoiceDetail">
+        <PropertyRef Name="FK_InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Configuration_InvoicePeriod">
+    <End Role="Configuration_InvoicePeriod" Type="Self.Configuration_InvoicePeriod" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_InvoicePeriod">
+        <PropertyRef Name="PK_InvoicePeriodId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_InvoicePeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_Batch">
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Batch">
+        <PropertyRef Name="PK_BatchId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_BatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_CoachingLevel">
+    <End Role="Master_CoachingLevel" Type="Self.Master_CoachingLevel" Multiplicity="0..1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_CoachingLevel">
+        <PropertyRef Name="PK_CoachingLevelId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_CoachingLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_Court">
+    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Court">
+        <PropertyRef Name="PK_CourtId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_CourtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_Player">
+    <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Player">
+        <PropertyRef Name="PK_PlayerId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_Sport">
+    <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Sport">
+        <PropertyRef Name="PK_SportId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_SportId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_PlayerSport_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Transaction_PlayerSport">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Confirguration_PaymentMode">
+    <End Role="Confirguration_PaymentMode" Type="Self.Confirguration_PaymentMode" Multiplicity="1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Confirguration_PaymentMode">
+        <PropertyRef Name="PK_PaymentModeId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="FK_PaymentModeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Receipt_Transaction_Invoice">
+    <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="1" />
+    <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Invoice">
+        <PropertyRef Name="PK_InvoiceId" />
+      </Principal>
+      <Dependent Role="Transaction_Receipt">
+        <PropertyRef Name="FK_InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Voucher_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Transaction_Voucher" Type="Self.Transaction_Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Transaction_Voucher">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Voucher_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Transaction_Voucher" Type="Self.Transaction_Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Voucher">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Voucher_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Transaction_Voucher" Type="Self.Transaction_Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Transaction_Voucher">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MySportsBookModelStoreContainer">
+    <EntitySet Name="BatchCount" EntityType="Self.BatchCount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_BatchType" EntityType="Self.Configuration_BatchType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_Format" EntityType="Self.Configuration_Format" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_InvoicePeriod" EntityType="Self.Configuration_InvoicePeriod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_PlayerType" EntityType="Self.Configuration_PlayerType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_Screen" EntityType="Self.Configuration_Screen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_Status" EntityType="Self.Configuration_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Batch" EntityType="Self.Master_Batch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_CoachingLevel" EntityType="Self.Master_CoachingLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Court" EntityType="Self.Master_Court" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Enquiry" EntityType="Self.Master_Enquiry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Player" EntityType="Self.Master_Player" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Role" EntityType="Self.Master_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_ScreenNumberFormat" EntityType="Self.Master_ScreenNumberFormat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Sport" EntityType="Self.Master_Sport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_UserRole" EntityType="Self.Master_UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_UserVenue" EntityType="Self.Master_UserVenue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Venue" EntityType="Self.Master_Venue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherBooking" EntityType="Self.OtherBooking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherBookingDetail" EntityType="Self.OtherBookingDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Attendance" EntityType="Self.Transaction_Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Enquiry_Comments" EntityType="Self.Transaction_Enquiry_Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Invoice" EntityType="Self.Transaction_Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_InvoiceDetail" EntityType="Self.Transaction_InvoiceDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Receipt" EntityType="Self.Transaction_Receipt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Voucher" EntityType="Self.Transaction_Voucher" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BatchCount_Master_Batch" Association="Self.FK_BatchCount_Master_Batch">
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+      <End Role="BatchCount" EntitySet="BatchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BatchCount_Master_Court" Association="Self.FK_BatchCount_Master_Court">
+      <End Role="Master_Court" EntitySet="Master_Court" />
+      <End Role="BatchCount" EntitySet="BatchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BatchCount_Master_Venue" Association="Self.FK_BatchCount_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="BatchCount" EntitySet="BatchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Enquiry_Master_Venue" Association="Self.FK_Enquiry_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Enquiry" EntitySet="Master_Enquiry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Configuration_BatchType" Association="Self.FK_Master_Batch_Configuration_BatchType">
+      <End Role="Configuration_BatchType" EntitySet="Configuration_BatchType" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Configuration_Status" Association="Self.FK_Master_Batch_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Configuration_User" Association="Self.FK_Master_Batch_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Configuration_User1" Association="Self.FK_Master_Batch_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Master_Court" Association="Self.FK_Master_Batch_Master_Court">
+      <End Role="Master_Court" EntitySet="Master_Court" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Master_Player" Association="Self.FK_Master_Batch_Master_Player">
+      <End Role="Master_Player" EntitySet="Master_Player" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Batch_Master_Venue" Association="Self.FK_Master_Batch_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_CoachingLevel_Configuration_Status" Association="Self.FK_Master_CoachingLevel_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_CoachingLevel" EntitySet="Master_CoachingLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_CoachingLevel_Configuration_User" Association="Self.FK_Master_CoachingLevel_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_CoachingLevel" EntitySet="Master_CoachingLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_CoachingLevel_Configuration_User1" Association="Self.FK_Master_CoachingLevel_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_CoachingLevel" EntitySet="Master_CoachingLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_CoachingLevel_Master_Venue" Association="Self.FK_Master_CoachingLevel_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_CoachingLevel" EntitySet="Master_CoachingLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Court_Configuration_Status" Association="Self.FK_Master_Court_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Court" EntitySet="Master_Court" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Court_Configuration_User" Association="Self.FK_Master_Court_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Court" EntitySet="Master_Court" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Court_Master_Sport" Association="Self.FK_Master_Court_Master_Sport">
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+      <End Role="Master_Court" EntitySet="Master_Court" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Court_Master_Venue" Association="Self.FK_Master_Court_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Court" EntitySet="Master_Court" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Player_Configuration_PlayerType" Association="Self.FK_Master_Player_Configuration_PlayerType">
+      <End Role="Configuration_PlayerType" EntitySet="Configuration_PlayerType" />
+      <End Role="Master_Player" EntitySet="Master_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Player_Configuration_Status" Association="Self.FK_Master_Player_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Player" EntitySet="Master_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Player_Configuration_User" Association="Self.FK_Master_Player_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Player" EntitySet="Master_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Player_Configuration_User1" Association="Self.FK_Master_Player_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Player" EntitySet="Master_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Player_Master_Venue" Association="Self.FK_Master_Player_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Player" EntitySet="Master_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Role_Configuration_Status" Association="Self.FK_Master_Role_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Role" EntitySet="Master_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Role_Configuration_User" Association="Self.FK_Master_Role_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Role" EntitySet="Master_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Role_Configuration_User1" Association="Self.FK_Master_Role_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Role" EntitySet="Master_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Role_Master_Venue" Association="Self.FK_Master_Role_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Role" EntitySet="Master_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Configuration_Status" Association="Self.FK_Master_RoleScreen_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Configuration_User" Association="Self.FK_Master_RoleScreen_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Configuration_User1" Association="Self.FK_Master_RoleScreen_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Master_Role" Association="Self.FK_Master_RoleScreen_Master_Role">
+      <End Role="Master_Role" EntitySet="Master_Role" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Master_ScreenNumberFormat" Association="Self.FK_Master_RoleScreen_Master_ScreenNumberFormat">
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleScreen_Master_Venue" Association="Self.FK_Master_RoleScreen_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Format" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Format">
+      <End Role="Configuration_Format" EntitySet="Configuration_Format" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen">
+      <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Sport_Configuration_Status" Association="Self.FK_Master_Sport_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Sport_Configuration_User" Association="Self.FK_Master_Sport_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Sport_Configuration_User1" Association="Self.FK_Master_Sport_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Sport_Master_Venue" Association="Self.FK_Master_Sport_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserRole_Configuration_User" Association="Self.FK_Master_UserRole_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserRole" EntitySet="Master_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserRole_Configuration_User1" Association="Self.FK_Master_UserRole_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserRole" EntitySet="Master_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserRole_Configuration_User2" Association="Self.FK_Master_UserRole_Configuration_User2">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserRole" EntitySet="Master_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserRole_Master_Role" Association="Self.FK_Master_UserRole_Master_Role">
+      <End Role="Master_Role" EntitySet="Master_Role" />
+      <End Role="Master_UserRole" EntitySet="Master_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserRole_Master_Venue" Association="Self.FK_Master_UserRole_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_UserRole" EntitySet="Master_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserVenue_Configuration_Status" Association="Self.FK_Master_UserVenue_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_UserVenue" EntitySet="Master_UserVenue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserVenue_Configuration_User" Association="Self.FK_Master_UserVenue_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserVenue" EntitySet="Master_UserVenue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserVenue_Configuration_User1" Association="Self.FK_Master_UserVenue_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserVenue" EntitySet="Master_UserVenue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserVenue_Configuration_User2" Association="Self.FK_Master_UserVenue_Configuration_User2">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_UserVenue" EntitySet="Master_UserVenue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserVenue_Master_Venue" Association="Self.FK_Master_UserVenue_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_UserVenue" EntitySet="Master_UserVenue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Venue_Configuration_Status" Association="Self.FK_Master_Venue_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Venue_Configuration_User" Association="Self.FK_Master_Venue_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Venue_Configuration_User1" Association="Self.FK_Master_Venue_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Venue_Configuration_User2" Association="Self.FK_Master_Venue_Configuration_User2">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_Venue_Configuration_User3" Association="Self.FK_Master_Venue_Configuration_User3">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBooking_Configuration_User" Association="Self.FK_OtherBooking_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="OtherBooking" EntitySet="OtherBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBooking_Configuration_User1" Association="Self.FK_OtherBooking_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="OtherBooking" EntitySet="OtherBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBooking_Master_Venue" Association="Self.FK_OtherBooking_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="OtherBooking" EntitySet="OtherBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBookingDetail_Configuration_User" Association="Self.FK_OtherBookingDetail_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBookingDetail_Configuration_User1" Association="Self.FK_OtherBookingDetail_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBookingDetail_Master_Venue" Association="Self.FK_OtherBookingDetail_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherBookingDetail_OtherBooking" Association="Self.FK_OtherBookingDetail_OtherBooking">
+      <End Role="OtherBooking" EntitySet="OtherBooking" />
+      <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Attendance_Master_Batch" Association="Self.FK_Transaction_Attendance_Master_Batch">
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+      <End Role="Transaction_Attendance" EntitySet="Transaction_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Attendance_Master_Player" Association="Self.FK_Transaction_Attendance_Master_Player">
+      <End Role="Master_Player" EntitySet="Master_Player" />
+      <End Role="Transaction_Attendance" EntitySet="Transaction_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Attendance_Master_Venue" Association="Self.FK_Transaction_Attendance_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Transaction_Attendance" EntitySet="Transaction_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Enquiry_Comments_Master_Enquiry" Association="Self.FK_Transaction_Enquiry_Comments_Master_Enquiry">
+      <End Role="Master_Enquiry" EntitySet="Master_Enquiry" />
+      <End Role="Transaction_Enquiry_Comments" EntitySet="Transaction_Enquiry_Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Invoice_Configuration_Status" Association="Self.FK_Transaction_Invoice_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Invoice_Configuration_User" Association="Self.FK_Transaction_Invoice_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Invoice_Configuration_User1" Association="Self.FK_Transaction_Invoice_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Invoice_Master_Player" Association="Self.FK_Transaction_Invoice_Master_Player">
+      <End Role="Master_Player" EntitySet="Master_Player" />
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Invoice_Master_Venue" Association="Self.FK_Transaction_Invoice_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_InvoiceDetail_Configuration_Status" Association="Self.FK_Transaction_InvoiceDetail_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_InvoiceDetail_Configuration_User" Association="Self.FK_Transaction_InvoiceDetail_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_InvoiceDetail_Configuration_User1" Association="Self.FK_Transaction_InvoiceDetail_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_InvoiceDetail_Master_Batch" Association="Self.FK_Transaction_InvoiceDetail_Master_Batch">
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+      <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_InvoiceDetail_Transaction_Invoice" Association="Self.FK_Transaction_InvoiceDetail_Transaction_Invoice">
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+      <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Configuration_InvoicePeriod" Association="Self.FK_Transaction_PlayerSport_Configuration_InvoicePeriod">
+      <End Role="Configuration_InvoicePeriod" EntitySet="Configuration_InvoicePeriod" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Configuration_Status" Association="Self.FK_Transaction_PlayerSport_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Configuration_User" Association="Self.FK_Transaction_PlayerSport_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Configuration_User1" Association="Self.FK_Transaction_PlayerSport_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_Batch" Association="Self.FK_Transaction_PlayerSport_Master_Batch">
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_CoachingLevel" Association="Self.FK_Transaction_PlayerSport_Master_CoachingLevel">
+      <End Role="Master_CoachingLevel" EntitySet="Master_CoachingLevel" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_Court" Association="Self.FK_Transaction_PlayerSport_Master_Court">
+      <End Role="Master_Court" EntitySet="Master_Court" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_Player" Association="Self.FK_Transaction_PlayerSport_Master_Player">
+      <End Role="Master_Player" EntitySet="Master_Player" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_Sport" Association="Self.FK_Transaction_PlayerSport_Master_Sport">
+      <End Role="Master_Sport" EntitySet="Master_Sport" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_PlayerSport_Master_Venue" Association="Self.FK_Transaction_PlayerSport_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Configuration_Status" Association="Self.FK_Transaction_Receipt_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Configuration_User" Association="Self.FK_Transaction_Receipt_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Configuration_User1" Association="Self.FK_Transaction_Receipt_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Confirguration_PaymentMode" Association="Self.FK_Transaction_Receipt_Confirguration_PaymentMode">
+      <End Role="Confirguration_PaymentMode" EntitySet="Confirguration_PaymentMode" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Master_Venue" Association="Self.FK_Transaction_Receipt_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Receipt_Transaction_Invoice" Association="Self.FK_Transaction_Receipt_Transaction_Invoice">
+      <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
+      <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Voucher_Configuration_Status" Association="Self.FK_Transaction_Voucher_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Transaction_Voucher" EntitySet="Transaction_Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Voucher_Configuration_User" Association="Self.FK_Transaction_Voucher_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Voucher" EntitySet="Transaction_Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Voucher_Configuration_User1" Association="Self.FK_Transaction_Voucher_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Transaction_Voucher" EntitySet="Transaction_Voucher" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

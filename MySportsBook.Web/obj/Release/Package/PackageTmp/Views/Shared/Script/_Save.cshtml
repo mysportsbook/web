@@ -1,0 +1,48 @@
+﻿
+<script>
+    //Enum
+    var SaveOrUpdate = {
+        save: 'save',
+        update: 'update'
+    };
+    //Common ajax method to save or updated
+    function saveData(objModel, name, saveorupdate) {
+        loader();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })",
+            data: JSON.stringify(objModel),
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                loader();
+                if (data) {
+                    swal({
+                        title: "Success!",
+                        text: name + " " + saveorupdate + "d successfully!",
+                        type: "success",
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonClass: "btn-success",
+                        confirmButtonText: "Ok!",
+                        closeOnConfirm: false
+                    }).then(function () {
+                        window.location.href = "@Url.Action("", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })";
+                    });
+                }
+                else {
+                    swal("Failed!", name + " failed to " + saveorupdate + "!", "error", {
+                        icon: "error"
+                    });
+                }
+            },
+            error: function (jqXHR, exception) {
+                loader();
+                swal("Failed!", name + " failed to " + saveorupdate + "! -" + exception, "error", {
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+</script>

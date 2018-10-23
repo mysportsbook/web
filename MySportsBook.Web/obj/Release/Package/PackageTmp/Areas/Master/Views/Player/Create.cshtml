@@ -1,0 +1,310 @@
+﻿@model MySportsBook.Model.Master_Player
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Player</li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Create</strong>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FK_PlayerTypeId, "Player Type", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("FK_PlayerTypeId", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FK_PlayerTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EmailEnabled, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.EmailEnabled.Value)
+                                                @Html.ValidationMessageFor(model => model.EmailEnabled, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SMSEnabled, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.SMSEnabled.Value)
+                                                @Html.ValidationMessageFor(model => model.SMSEnabled, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.WhatsupEnabled, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.WhatsupEnabled.Value)
+                                                @Html.ValidationMessageFor(model => model.WhatsupEnabled, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LoginRequired, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.LoginRequired)
+                                                @Html.ValidationMessageFor(model => model.LoginRequired, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Sports</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-list-alt float-right">  @Html.ActionLink("Back to List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="Sport">Sport</label>
+                                            @Html.DropDownList("Sport", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="batch">Batch</label>
+                                            @Html.DropDownList("Batch", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="Invoice">BillCycle</label>
+                                            @Html.DropDownList("InvoicePeriod", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="Invoice">Fee</label>
+                                            @Html.TextBox("Fee", "0.00", htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group">
+                                            <label for="select1">&nbsp;</label>
+                                            <br />
+                                            <button class="btn btn-sm btn-primary" id="addrow" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <table id="myTable" class=" table order-list">
+                                        <thead>
+                                            <tr>
+                                                <td>Sport</td>
+                                                <td>Batch</td>
+                                                <td>BillCycle</td>
+                                                <td>Fee</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        var counter = 0;
+        $("#addrow").on("click", function () {
+            loader();
+            var duplicate = false;
+            $('table.order-list > tbody  > tr').each(function () {
+                if ($(this).find('td:nth-child(2) > label > input:hidden').val() == $("#Batch").val() && !duplicate) { duplicate = true; }
+            });
+            if (!duplicate) {
+                var newRow = $("<tr>");
+                var cols = "";
+                cols += '<td><label>' + $("#Sport option:selected").text() + '<label/><input name="hidsport" type="hidden" value="' + $("#Sport").val() + '"></td>';
+                cols += '<td><label>' + $("#Batch option:selected").text() + '<label/><input name="hidbatch" type="hidden" value="' + $("#Batch").val() + '"></td>';
+                cols += '<td><label>' + $("#InvoicePeriod option:selected").text() + '<label/><input name="hidinv" type="hidden" value="' + $("#InvoicePeriod").val() + '"></td>';
+                cols += '<td><label>' + parseFloat($("#Fee").val()).toFixed(2) + '<label/><input name="hidfee" type="hidden" value="' + $("#Fee").val() + '"></td>';
+                cols += '<td><button type="button" class="ibtnDel btn btn-md btn-danger"><i class="fa fa-trash-o"></i></button></td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+                counter++;
+            }
+            loader();
+            if (duplicate)
+                sweetAlert("Duplicate!", "Same batch cannot be added twice!", MessageType.error);
+        });
+        $("table.order-list").on("click", ".ibtnDel", function (event) {
+            loader();
+            $(this).closest("tr").remove();
+            counter -= 1
+            loader();
+        });
+        $('#Sport').change(function () {
+            loader();
+            $.ajax({
+                type: "POST",
+                url: "/DropDown/GetBatch",
+                data: { sportid: $('#Sport').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    loader();
+                    var batch = '';
+                    for (var i = 0; i < data.length; i++) {
+                        batch = batch + '<option fee=' + data[i].Fee + ' value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    $('#Batch').html(batch);
+                    $('#Fee').val("0.00");
+                    $('#InvoicePeriod').val("");
+                },
+                error: function (jqXHR, exception) {
+                    loader();
+                }
+            });
+        });
+
+        
+
+        $('#Batch').change(function (e) {
+            $('#Fee').val($('option:selected', this).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', this).attr('fee')).toFixed(2));
+            calculateFee();
+        });
+        $('#InvoicePeriod').change(function (e) {
+            calculateFee();
+        });
+
+        function calculateFee() {
+            if ($('#InvoicePeriod').val() == "2") {
+                $('#Fee').val(($('option:selected', $('#Batch')).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', $('#Batch')).attr('fee')).toFixed(2) * 3).toFixed(2));
+            }
+            else if ($('#InvoicePeriod').val() == "3") {
+                $('#Fee').val(($('option:selected', $('#Batch')).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', $('#Batch')).attr('fee')).toFixed(2) * 6).toFixed(2));
+            }
+            else if ($('#InvoicePeriod').val() == "4") {
+                $('#Fee').val(($('option:selected', $('#Batch')).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', $('#Batch')).attr('fee')).toFixed(2) * 12).toFixed(2));
+            }
+            else {
+                $('#Fee').val($('option:selected', $('#Batch')).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', $('#Batch')).attr('fee')).toFixed(2));
+            }
+        }
+    });
+    function save() {
+        var playersport = [];
+        $('table.order-list>tbody>tr').each(function () {
+            playersport.push({
+                FK_SportId: parseInt($(this).find('label > input[name="hidsport"]').val().trim()),
+                FK_BatchId: parseInt($(this).find('label > input[name="hidbatch"]').val().trim()),
+                FK_InvoicePeriodId: parseInt($(this).find('label > input[name="hidinv"]').val().trim()),
+                Fee: parseFloat($(this).find('label > input[name="hidfee"]').val().trim())
+            });
+        });
+        if (playersport.length > 0 || $('#FK_PlayerTypeId').val() == "2") {
+            var playermodel = {
+                Player: {
+                    FK_PlayerTypeId: $('#FK_PlayerTypeId').val(),
+                    FirstName: $('#FirstName').val(),
+                    LastName: $('#LastName').val(),
+                    Address: $('#Address').val(),
+                    Email: $('#Email').val(),
+                    Mobile: $('#Mobile').val(),
+                    EmailEnabled: $("input[name^='EmailEnabled']").is(":checked"),
+                    SMSEnabled: $("input[name^='SMSEnabled']").is(":checked"),
+                    WhatsupEnabled: $("input[name^='WhatsupEnabled']").is(":checked"),
+                    LoginRequired: $("input[name^='LoginRequired']").is(":checked"),
+                    FK_StatusId: 1
+                },
+                PlayerSports: playersport
+            }
+            saveData(playermodel, $('input[name="FirstName"]').val(), SaveOrUpdate.save);
+        }
+        else {
+            swal("Failed!", "Please add atleast one sport!", "error", {
+                icon: "error"
+            });
+        }
+    }
+</script>

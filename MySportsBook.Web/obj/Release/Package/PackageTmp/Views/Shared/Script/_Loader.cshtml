@@ -1,0 +1,29 @@
+﻿<div id="overlay">
+    <div id="circle">
+        <div class="loader">
+            <div class="loader">
+                <div class="loader">
+                    <div class="loader">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function loader(show) {
+        if (show == undefined) {
+            if ($('#overlay').is(':visible'))
+                $('#overlay').hide();
+            else
+                $('#overlay').show();
+        }
+        else {
+            if (!show)
+                $('#overlay').hide();
+            else
+                $('#overlay').show();
+        }
+    }
+</script>
+@Html.Partial("~/Views/Shared/Script/_SweetAlert.cshtml")

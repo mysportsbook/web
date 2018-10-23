@@ -1,0 +1,24 @@
+﻿@model List<MySportsBook.Model.Master_UserVenue>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    @foreach (MySportsBook.Model.Master_UserVenue venue in Model)
+    {
+        <tr>
+            <td>@venue.Master_Venue.VenueCode</td>
+            <td>@venue.Master_Venue.VenueName</td>
+
+            <td>
+                <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("SetVenue", "Account",new { id = venue.Master_Venue.PK_VenueId })'">
+                    <i class="fa fa-external-link-square"></i>&nbsp;Select
+                </button>
+        </tr>
+    }
+
+</table>

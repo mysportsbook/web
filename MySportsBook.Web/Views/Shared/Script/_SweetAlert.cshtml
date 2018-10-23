@@ -1,0 +1,26 @@
+﻿<script type="text/javascript">
+    var MessageType = {
+        success:'success',
+        error: 'error',
+        info:'info',
+        warning:'warning'
+    };
+    function sweetAlert(title) {
+        swal({
+            title: title,
+        });
+    }
+    function sweetAlert(title, msg) {
+        swal({
+            title: title,
+            text: msg
+        });
+    }
+    function sweetAlert(title, msg, type) {
+        swal({
+            title: title,
+            text: msg,
+            icon: type
+        });
+    }
+</script>

@@ -1,0 +1,82 @@
+﻿@model MySportsBook.Model.Master_CoachingLevel
+
+@{
+    ViewBag.Title = "Details";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin)
+    {
+        Layout = "/Views/Shared/Layout/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/Layout/_Layout.cshtml";
+    }
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Master_CoachingLevel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LevelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Configuration_Status.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Configuration_Status.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Configuration_User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Configuration_User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Configuration_User1.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Configuration_User1.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Master_Venue.VenueName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Master_Venue.VenueName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PK_CoachingLevelId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
