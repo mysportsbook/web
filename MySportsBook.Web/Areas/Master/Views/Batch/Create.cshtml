@@ -26,7 +26,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -148,7 +148,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -164,7 +164,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Monday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Monday", htmlAttributes: new { @class = "week" })
@@ -174,37 +174,35 @@
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
                                             <div class="input-group">
-                                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control time" } })
+                                                @Html.Editor("MonStartTime", new { htmlAttributes = new { @class = "form-control time" } })
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">
                                                         <i class="fa fa-clock-o"></i>
                                                     </span>
                                                 </div>
                                             </div>
-                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
                                             <div class="input-group">
-                                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control time" } })
+                                                @Html.Editor("MonEndTime", new { htmlAttributes = new { @class = "form-control time" } })
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">
                                                         <i class="fa fa-clock-o"></i>
                                                     </span>
                                                 </div>
                                             </div>
-                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Tuesday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Tuesday", htmlAttributes: new { @class = "week" })
@@ -242,7 +240,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Wednesday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Wednesday", htmlAttributes: new { @class = "week" })
@@ -280,7 +278,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Thursday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Thursday", htmlAttributes: new { @class = "week" })
@@ -318,7 +316,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Friday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Friday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Friday", htmlAttributes: new { @class = "week" })
@@ -356,7 +354,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Saturday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Saturday", htmlAttributes: new { @class = "week" })
@@ -394,7 +392,7 @@
                                 <div class="row time-row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Sunday, htmlAttributes: new { @class = "control-label" })
+                                            @Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
                                             <div class="col-md-10">
                                                 <div class="checkbox">
                                                     @Html.CheckBox("Sunday", htmlAttributes: new { @class = "week" })
@@ -488,21 +486,28 @@
                 });
             }
         });
-        var batchmodel = {
-            BatchCode: $('input[name="BatchCode"]').val(),
-            BatchName: $('input[name="BatchName"]').val(),
-            SportId: $('select[name="Sport"]').val(),
-            CourtId: $('select[name="Court"]').val(),
-            BatchTypeId: $('select[name="BatchType"]').val(),
-            Fee: $('input[name="Fee"]').val(),
-            MaxPlayers: $('input[name="MaxPlayers"]').val(),
-            CoachId: $('select[name="Coach"]').val(),
-            StartDate: new Date($('input[name="StartDate"]').val()),
-            EndDate: new Date($('input[name="EndDate"]').val()),
-            AttendanceRequired: $('input[name = "AttendanceRequired"]').is(":checked"),
-            BatchTimings: batchTimings
+        if (batchTimings.length > 0) {
+            var batchmodel = {
+                BatchCode: $('input[name="BatchCode"]').val(),
+                BatchName: $('input[name="BatchName"]').val(),
+                SportId: $('select[name="Sport"]').val(),
+                CourtId: $('select[name="Court"]').val(),
+                BatchTypeId: $('select[name="BatchType"]').val(),
+                Fee: $('input[name="Fee"]').val(),
+                MaxPlayers: $('input[name="MaxPlayers"]').val(),
+                CoachId: $('select[name="Coach"]').val(),
+                StartDate: new Date($('input[name="StartDate"]').val()),
+                EndDate: new Date($('input[name="EndDate"]').val()),
+                AttendanceRequired: $('input[name="IsAttendanceRequired"]').is(":checked"),
+                BatchTimings: batchTimings
+            }
+            saveData(batchmodel, $('input[name="BatchName"]').val(), SaveOrUpdate.save);
         }
-        saveData(batchmodel, $('input[name="BatchName"]').val(), SaveOrUpdate.save);
+        else {
+            swal("Failed!", "Please add atleast one day!", "error", {
+                icon: "error"
+            });
+        }
     }
 
     function showCoach() {

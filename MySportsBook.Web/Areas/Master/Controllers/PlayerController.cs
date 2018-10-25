@@ -17,10 +17,19 @@ namespace MySportsBook.Web.Areas.Master.Controllers
     public class PlayerController : BaseController
     {
         // GET: Master/Player
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
+            List<PlayerModel> _playermodel = new List<PlayerModel>();
             var master_Player = dbContext.Master_Player.Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1).OrderByDescending(x => x.CreatedDate).Include(m => m.Configuration_PlayerType).Include(m => m.Configuration_Status);
-            return View(await master_Player.ToListAsync());
+            master_Player.ToList().ForEach(p =>
+            {
+                _playermodel.Add(new PlayerModel
+                {
+                    Player = p,
+                    PlayerSports = dbContext.Transaction_PlayerSport.Include(i => i.Master_Sport).Include(i => i.Master_Batch).Where(s => s.FK_StatusId == 1 && s.FK_VenueId == currentUser.CurrentVenueId && s.FK_PlayerId == p.PK_PlayerId).ToList()
+                });
+            });
+            return View(_playermodel);
         }
 
         // GET: Master/Player/Create
@@ -94,7 +103,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 }
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
@@ -278,7 +287,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     return Json(false, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return Json(false, JsonRequestBehavior.AllowGet);

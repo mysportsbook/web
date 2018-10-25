@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MySportsBook.Model.Master_Player>
+﻿@model IEnumerable<MySportsBook.Model.ViewModel.PlayerModel>
 
 @{
     ViewBag.Title = "Index";
@@ -25,26 +25,22 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.FirstName)
+                                    @Html.DisplayNameFor(model => model.Player.FirstName)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.LastName)
+                                    @Html.DisplayNameFor(model => model.Player.LastName)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Address)
+                                    @Html.DisplayNameFor(model => model.Player.Mobile)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Email)
+                                    @Html.DisplayName("Sport")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Mobile)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Configuration_PlayerType.PlayerType)
+                                    @Html.DisplayName("Batch")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Configuration_Status.Status)
+                                    @Html.DisplayNameFor(model => model.Player.Configuration_Status.Status)
                                 </th>
                                 <th width="65px">@Html.DisplayName("Action")</th>
                             </tr>
@@ -54,40 +50,43 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                        @Html.DisplayFor(modelItem => item.Player.FirstName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
+                                        @Html.DisplayFor(modelItem => item.Player.LastName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
+                                        @Html.DisplayFor(modelItem => item.Player.Mobile)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
+                                        @{
+                                            string _sports = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Sport.SportName)) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _sports)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                        @{
+                                            string _batches = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Batch.BatchName)) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _batches)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Configuration_PlayerType.PlayerType)
-                                    </td>
-                                    <td>
-                                        @if (item.FK_StatusId == 1)
+                                        @if (item.Player.FK_StatusId == 1)
                                         {
-                                            <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                            <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
                                         }
                                         else
                                         {
-                                            <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                            <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
                                         }
 
                                     </td>
                                     <td>
                                         <div>
-                                             <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                                            <button class="btn btn-primary" onclick="editData(@item.Player.PK_PlayerId)" title="Edit" type="button">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
-                                            <button class="btn btn-danger" onclick="deleteData(@item.PK_PlayerId)" title="Delete" type="button">
+                                            <button class="btn btn-danger" onclick="deleteData(@item.Player.PK_PlayerId)" title="Delete" type="button">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </div>

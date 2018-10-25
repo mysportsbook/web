@@ -114,7 +114,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 dbContext.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
 
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -129,10 +129,37 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Master_Batch master_Batch = dbContext.Master_Batch.ToList().Find(x => x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId == id && x.FK_StatusId == 1);
+
             if (master_Batch == null)
             {
                 return HttpNotFound();
             }
+            BatchModel batchModel = new BatchModel
+            {
+                BatchId = master_Batch.PK_BatchId,
+                BatchCode = master_Batch.BatchCode,
+                BatchName = master_Batch.BatchName,
+                MaxPlayers = master_Batch.MaxPlayers,
+                CourtId = master_Batch.FK_CourtId,
+                Fee = (double)master_Batch.Fee,
+                AttendanceRequired = master_Batch.IsAttendanceRequired,
+                BatchTypeId = master_Batch.FK_BatchTypeId,
+                CoachId = master_Batch.FK_CourtId,
+                StartDate = master_Batch.StartDate,
+                EndDate = master_Batch.EndDate,
+            };
+            batchModel.BatchTimings = new List<BatchTimingModel>();
+            dbContext.Master_BatchTiming.Where(x => x.FK_BatchId == master_Batch.PK_BatchId).ToList().ForEach(b =>
+            {
+                batchModel.BatchTimings.Add(new BatchTimingModel
+                {
+                    WeekDay = b.WeekDay,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime
+                });
+            });
+
+
             ViewBag.BatchType = new SelectList(dbContext.Configuration_BatchType, "PK_BatchTypeId", "BatchType", master_Batch.FK_BatchTypeId);
 
             List<SelectListItem> ddlList = new List<SelectListItem>();
@@ -183,7 +210,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             {
                 ViewBag.Court = new SelectList((new SelectListItem[] { new SelectListItem { Text = "--Select--", Value = string.Empty } }).ToList(), "Value", "Text");
             }
-            return View(master_Batch);
+            return View(batchModel);
         }
 
         // POST: Master/Batch/Edit/5
@@ -198,11 +225,20 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 {
                     Master_Batch _batch = dbContext.Master_Batch.ToList().Find(x => x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId == master_Batch.BatchId && x.FK_StatusId == 1);
                     if (_batch == null)
+                    {
                         return HttpNotFound();
+                    }
+
                     if (dbContext.Master_Batch.Any(x => x.BatchName == master_Batch.BatchName && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
+                    {
                         return Json(false, JsonRequestBehavior.AllowGet);
+                    }
+
                     if (dbContext.Master_Batch.Any(x => x.BatchCode == master_Batch.BatchCode && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
+                    {
                         return Json(false, JsonRequestBehavior.AllowGet);
+                    }
+
                     _batch.BatchCode = master_Batch.BatchCode;
                     _batch.BatchName = master_Batch.BatchName;
                     _batch.FK_CourtId = master_Batch.CourtId;
@@ -210,18 +246,54 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     _batch.EndDate = master_Batch.EndDate;
                     _batch.MaxPlayers = master_Batch.MaxPlayers;
                     _batch.Fee = (decimal)master_Batch.Fee;
-                    _batch.FK_BatchTypeId = master_Batch.BatchId;
-                    _batch.FK_CoachId = master_Batch.CourtId;
+                    _batch.FK_BatchTypeId = master_Batch.BatchTypeId;
+                    _batch.FK_CoachId = master_Batch.CoachId;
+                    _batch.IsAttendanceRequired = master_Batch.AttendanceRequired;
                     _batch.FK_StatusId = 1;
                     _batch.ModifiedBy = currentUser.UserId;
                     _batch.ModifiedDate = DateTime.Now.ToUniversalTime();
                     dbContext.Entry(_batch).State = EntityState.Modified;
                     dbContext.SaveChanges();
-                    return Json(true, JsonRequestBehavior.AllowGet);
+                    var _deleteTiming = dbContext.Master_BatchTiming.ToList().Where(x => !master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay));
+                    var _updateTiming = dbContext.Master_BatchTiming.ToList().Where(x => master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay));
+                    var _insertTiming = master_Batch.BatchTimings.ToList().Where(x => !dbContext.Master_BatchTiming.Any(t => t.WeekDay == x.WeekDay));
+                    if (_deleteTiming.ToList().Any())
+                    {
+                        dbContext.Master_BatchTiming.RemoveRange(_deleteTiming);
+                    }
+                    if (_updateTiming.ToList().Any())
+                    {
+                        _updateTiming.ToList().ForEach(t =>
+                        {
+                            t.StartTime = master_Batch.BatchTimings.Find(b => b.WeekDay == t.WeekDay).StartTime;
+                            t.EndTime = master_Batch.BatchTimings.Find(b => b.WeekDay == t.WeekDay).EndTime;
+                            t.ModifiedBy = currentUser.UserId;
+                            t.ModifiedDate = DateTime.Now.ToUniversalTime();
+                            dbContext.Entry(t).State = EntityState.Modified;
+                        });
+                    }
+                    if (_insertTiming.Any())
+                    {
+                        _insertTiming.ToList().ForEach(t =>
+                        {
+                            dbContext.Master_BatchTiming.Add(new Master_BatchTiming
+                            {
+                                FK_BatchId = master_Batch.BatchId,
+                                WeekDay = t.WeekDay,
+                                StartTime = t.StartTime,
+                                EndTime = t.EndTime,
+                                CreatedBy = currentUser.UserId,
+                                CreatedDate = DateTime.Now.ToUniversalTime()
+                            });
+
+                        });
+                    }
+                    dbContext.SaveChanges();
                 }
-                return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(true, JsonRequestBehavior.AllowGet);
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
