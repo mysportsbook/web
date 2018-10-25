@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MySportsBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="BatchCount">
-    <Key>
-      <PropertyRef Name="PK_BatchCount" />
-    </Key>
-    <Property Name="PK_BatchCount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FK_VenueId" Type="int" Nullable="false" />
-    <Property Name="FK_BatchId" Type="int" Nullable="false" />
-    <Property Name="FK_CourtId" Type="int" Nullable="false" />
-    <Property Name="Count" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Configuration_BatchType">
     <Key>
       <PropertyRef Name="PK_BatchTypeId" />
@@ -92,28 +82,33 @@
     <Property Name="BatchName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="BatchCode" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="FK_CourtId" Type="int" Nullable="false" />
-    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
-    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
     <Property Name="Fee" Type="money" Nullable="false" />
     <Property Name="MaxPlayers" Type="int" Nullable="false" />
     <Property Name="FK_BatchTypeId" Type="int" Nullable="false" />
     <Property Name="FK_CoachId" Type="int" />
     <Property Name="StartDate" Type="date" />
     <Property Name="EndDate" Type="date" />
-    <Property Name="Monday" Type="bit" Nullable="false" />
-    <Property Name="Tuesday" Type="bit" Nullable="false" />
-    <Property Name="Wednesday" Type="bit" Nullable="false" />
-    <Property Name="Thursday" Type="bit" Nullable="false" />
-    <Property Name="Friday" Type="bit" Nullable="false" />
-    <Property Name="Saturday" Type="bit" Nullable="false" />
-    <Property Name="Sunday" Type="bit" Nullable="false" />
+    <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
+    <Property Name="IsFull" Type="bit" Nullable="false" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="Count" Type="int" />
-    <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Master_BatchTiming">
+    <Key>
+      <PropertyRef Name="PK_BatchTimingId" />
+    </Key>
+    <Property Name="PK_BatchTimingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_BatchId" Type="int" Nullable="false" />
+    <Property Name="WeekDay" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="2" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="2" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Master_CoachingLevel">
     <Key>
@@ -165,7 +160,7 @@
     <Property Name="FK_VenueId" Type="int" Nullable="false" />
     <Property Name="FK_PlayerTypeId" Type="int" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" />
     <Property Name="Address" Type="varchar" MaxLength="100" />
     <Property Name="Email" Type="varchar" MaxLength="100" />
     <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
@@ -440,42 +435,6 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
-  <Association Name="FK_BatchCount_Master_Batch">
-    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Master_Batch">
-        <PropertyRef Name="PK_BatchId" />
-      </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_BatchId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BatchCount_Master_Court">
-    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Master_Court">
-        <PropertyRef Name="PK_CourtId" />
-      </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_CourtId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BatchCount_Master_Venue">
-    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Master_Venue">
-        <PropertyRef Name="PK_VenueId" />
-      </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_VenueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Configuration_User_Configuration_Status">
     <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
     <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="*" />
@@ -581,6 +540,42 @@
       </Principal>
       <Dependent Role="Master_Batch">
         <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_BatchTiming_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_BatchTiming" Type="Self.Master_BatchTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_BatchTiming">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_BatchTiming_Configuration_User1">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_BatchTiming" Type="Self.Master_BatchTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_BatchTiming">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_BatchTiming_Master_Batch">
+    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
+    <End Role="Master_BatchTiming" Type="Self.Master_BatchTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Batch">
+        <PropertyRef Name="PK_BatchId" />
+      </Principal>
+      <Dependent Role="Master_BatchTiming">
+        <PropertyRef Name="FK_BatchId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1641,7 +1636,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="MySportsBookModelStoreContainer">
-    <EntitySet Name="BatchCount" EntityType="Self.BatchCount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_BatchType" EntityType="Self.Configuration_BatchType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Format" EntityType="Self.Configuration_Format" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_InvoicePeriod" EntityType="Self.Configuration_InvoicePeriod" Schema="dbo" store:Type="Tables" />
@@ -1651,6 +1645,7 @@
     <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Batch" EntityType="Self.Master_Batch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_BatchTiming" EntityType="Self.Master_BatchTiming" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_CoachingLevel" EntityType="Self.Master_CoachingLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Court" EntityType="Self.Master_Court" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Enquiry" EntityType="Self.Master_Enquiry" Schema="dbo" store:Type="Tables" />
@@ -1671,18 +1666,6 @@
     <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Receipt" EntityType="Self.Transaction_Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Voucher" EntityType="Self.Transaction_Voucher" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_BatchCount_Master_Batch" Association="Self.FK_BatchCount_Master_Batch">
-      <End Role="Master_Batch" EntitySet="Master_Batch" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BatchCount_Master_Court" Association="Self.FK_BatchCount_Master_Court">
-      <End Role="Master_Court" EntitySet="Master_Court" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BatchCount_Master_Venue" Association="Self.FK_BatchCount_Master_Venue">
-      <End Role="Master_Venue" EntitySet="Master_Venue" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
     <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
       <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -1718,6 +1701,18 @@
     <AssociationSet Name="FK_Master_Batch_Master_Venue" Association="Self.FK_Master_Batch_Master_Venue">
       <End Role="Master_Venue" EntitySet="Master_Venue" />
       <End Role="Master_Batch" EntitySet="Master_Batch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_BatchTiming_Configuration_User" Association="Self.FK_Master_BatchTiming_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_BatchTiming" EntitySet="Master_BatchTiming" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_BatchTiming_Configuration_User1" Association="Self.FK_Master_BatchTiming_Configuration_User1">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_BatchTiming" EntitySet="Master_BatchTiming" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_BatchTiming_Master_Batch" Association="Self.FK_Master_BatchTiming_Master_Batch">
+      <End Role="Master_Batch" EntitySet="Master_Batch" />
+      <End Role="Master_BatchTiming" EntitySet="Master_BatchTiming" />
     </AssociationSet>
     <AssociationSet Name="FK_Master_CoachingLevel_Configuration_Status" Association="Self.FK_Master_CoachingLevel_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />

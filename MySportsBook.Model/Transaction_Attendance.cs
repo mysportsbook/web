@@ -23,8 +23,8 @@ namespace MySportsBook.Model
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
     
-        public virtual Master_Batch Master_Batch { get; set; }
         public virtual Master_Player Master_Player { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
+        public virtual Master_Batch Master_Batch { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Master_Batch()
         {
-            this.BatchCounts = new HashSet<BatchCount>();
+            this.Master_BatchTiming = new HashSet<Master_BatchTiming>();
+            this.Transaction_Attendance = new HashSet<Transaction_Attendance>();
             this.Transaction_InvoiceDetail = new HashSet<Transaction_InvoiceDetail>();
             this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
-            this.Transaction_Attendance = new HashSet<Transaction_Attendance>();
         }
     
         public int PK_BatchId { get; set; }
@@ -28,31 +28,20 @@ namespace MySportsBook.Model
         public string BatchName { get; set; }
         public string BatchCode { get; set; }
         public int FK_CourtId { get; set; }
-        public System.TimeSpan StartTime { get; set; }
-        public System.TimeSpan EndTime { get; set; }
         public decimal Fee { get; set; }
         public int MaxPlayers { get; set; }
         public int FK_BatchTypeId { get; set; }
         public Nullable<int> FK_CoachId { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
-        public bool Monday { get; set; }
-        public bool Tuesday { get; set; }
-        public bool Wednesday { get; set; }
-        public bool Thursday { get; set; }
-        public bool Friday { get; set; }
-        public bool Saturday { get; set; }
-        public bool Sunday { get; set; }
+        public bool IsAttendanceRequired { get; set; }
+        public bool IsFull { get; set; }
         public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<int> Count { get; set; }
-        public bool IsAttendanceRequired { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BatchCount> BatchCounts { get; set; }
         public virtual Configuration_BatchType Configuration_BatchType { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
@@ -61,10 +50,12 @@ namespace MySportsBook.Model
         public virtual Master_Player Master_Player { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Master_BatchTiming> Master_BatchTiming { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Attendance> Transaction_Attendance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Attendance> Transaction_Attendance { get; set; }
     }
 }

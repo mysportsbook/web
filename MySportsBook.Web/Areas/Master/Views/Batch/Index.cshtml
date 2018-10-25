@@ -44,12 +44,12 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Master_Court.CourtName)
                                 </th>
-                                <th>
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.StartTime)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.EndTime)
-                                </th>
+                                </th>*@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Fee)
                                 </th>
@@ -76,7 +76,7 @@
                                     <th>
                                         @Html.DisplayFor(modelItem => item.Master_Court.CourtName)
                                     </th>
-                                    <td>
+                                    @*<td>
                                         @{
                                             string _startTime = item.StartTime.ToString().Substring(0, 5);
                                         }
@@ -87,7 +87,7 @@
                                             string _endTime = item.EndTime.ToString().Substring(0, 5);
                                         }
                                         @Html.DisplayFor(modelItem => _endTime)
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Fee)
                                     </td>

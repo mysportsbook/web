@@ -17,10 +17,9 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Master_Venue()
         {
-            this.BatchCounts = new HashSet<BatchCount>();
-            this.Master_Batch = new HashSet<Master_Batch>();
             this.Master_CoachingLevel = new HashSet<Master_CoachingLevel>();
             this.Master_Court = new HashSet<Master_Court>();
+            this.Master_Enquiry = new HashSet<Master_Enquiry>();
             this.Master_Player = new HashSet<Master_Player>();
             this.Master_Role = new HashSet<Master_Role>();
             this.Master_RoleScreen = new HashSet<Master_RoleScreen>();
@@ -28,13 +27,13 @@ namespace MySportsBook.Model
             this.Master_Sport = new HashSet<Master_Sport>();
             this.Master_UserRole = new HashSet<Master_UserRole>();
             this.Master_UserVenue = new HashSet<Master_UserVenue>();
-            this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
-            this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
-            this.Transaction_Receipt = new HashSet<Transaction_Receipt>();
-            this.Master_Enquiry = new HashSet<Master_Enquiry>();
             this.OtherBookings = new HashSet<OtherBooking>();
             this.OtherBookingDetails = new HashSet<OtherBookingDetail>();
             this.Transaction_Attendance = new HashSet<Transaction_Attendance>();
+            this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
+            this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
+            this.Transaction_Receipt = new HashSet<Transaction_Receipt>();
+            this.Master_Batch = new HashSet<Master_Batch>();
         }
     
         public int PK_VenueId { get; set; }
@@ -53,19 +52,17 @@ namespace MySportsBook.Model
         public string Email { get; set; }
         public string Mobile { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BatchCount> BatchCounts { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
         public virtual Configuration_User Configuration_User2 { get; set; }
         public virtual Configuration_User Configuration_User3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_Batch> Master_Batch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_CoachingLevel> Master_CoachingLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Court> Master_Court { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Master_Enquiry> Master_Enquiry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Player> Master_Player { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -81,18 +78,18 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_UserVenue> Master_UserVenue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OtherBooking> OtherBookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OtherBookingDetail> OtherBookingDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Attendance> Transaction_Attendance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Receipt> Transaction_Receipt { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_Enquiry> Master_Enquiry { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OtherBooking> OtherBookings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OtherBookingDetail> OtherBookingDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Attendance> Transaction_Attendance { get; set; }
+        public virtual ICollection<Master_Batch> Master_Batch { get; set; }
     }
 }

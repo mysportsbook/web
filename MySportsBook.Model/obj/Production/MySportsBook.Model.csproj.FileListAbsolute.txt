@@ -1,0 +1,11 @@
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\MySportsBook.Model.dll.config
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\MySportsBook.Model.dll
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\MySportsBook.Model.pdb
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\EntityFramework.dll
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\EntityFramework.SqlServer.dll
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\EntityFramework.xml
+D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Production\EntityFramework.SqlServer.xml
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Production\MySportsBook.Model.csproj.CoreCompileInputs.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Production\MySportsBook.Model.csproj.CopyComplete
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Production\MySportsBook.Model.dll
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Production\MySportsBook.Model.pdb

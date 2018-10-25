@@ -1,4 +1,5 @@
 ﻿using MySportsBook.Model;
+using MySportsBook.Model.ViewModel;
 using MySportsBook.Web.Controllers;
 using MySportsBook.Web.Filters;
 using System;
@@ -65,33 +66,56 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "BatchName,BatchCode,FK_CourtId,StartTime,EndTime,Fee,MaxPlayers,FK_BatchTypeId,StartDate,EndDate,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] Master_Batch master_Batch)
+        public ActionResult Create(BatchModel master_Batch)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dbContext.Master_Batch.Any(x => x.BatchName == master_Batch.BatchName && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId))
                 {
-                    if (dbContext.Master_Batch.Any(x => x.BatchName == master_Batch.BatchName && x.FK_StatusId == 1 && x.FK_VenueId == currentUser.CurrentVenueId))
-                    {
-                        return Json(false, JsonRequestBehavior.AllowGet);
-                    }
-
-                    if (dbContext.Master_Batch.Any(x => x.BatchCode == master_Batch.BatchCode && x.FK_StatusId == 1 && x.FK_VenueId == currentUser.CurrentVenueId))
-                    {
-                        return Json(false, JsonRequestBehavior.AllowGet);
-                    }
-
-                    master_Batch.FK_StatusId = 1;
-                    master_Batch.FK_VenueId = currentUser.CurrentVenueId;
-                    master_Batch.CreatedBy = currentUser.UserId;
-                    master_Batch.CreatedDate = DateTime.Now.ToUniversalTime();
-                    dbContext.Master_Batch.Add(master_Batch);
-                    dbContext.SaveChanges();
-                    return Json(true, JsonRequestBehavior.AllowGet);
+                    return Json(false, JsonRequestBehavior.AllowGet);
                 }
-                return Json(false, JsonRequestBehavior.AllowGet);
+
+                if (dbContext.Master_Batch.Any(x => x.BatchCode == master_Batch.BatchCode && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId))
+                {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+                Master_Batch _Batch = new Master_Batch();
+                _Batch.BatchCode = master_Batch.BatchCode;
+                _Batch.BatchName = master_Batch.BatchName;
+                _Batch.Fee = (decimal)master_Batch.Fee;
+                _Batch.FK_CourtId = master_Batch.CourtId;
+                _Batch.MaxPlayers = master_Batch.MaxPlayers;
+                _Batch.StartDate = master_Batch.StartDate;
+                _Batch.EndDate = master_Batch.EndDate;
+                _Batch.IsAttendanceRequired = master_Batch.AttendanceRequired;
+                _Batch.FK_BatchTypeId = master_Batch.BatchTypeId;
+                _Batch.FK_CoachId = master_Batch.CoachId;
+                _Batch.FK_StatusId = 1;
+                _Batch.FK_VenueId = currentUser.CurrentVenueId;
+                _Batch.CreatedBy = currentUser.UserId;
+                _Batch.CreatedDate = DateTime.Now.ToUniversalTime();
+                dbContext.Master_Batch.Add(_Batch);
+                dbContext.SaveChanges();
+                if (master_Batch.BatchTimings.Count > 0)
+                {
+                    master_Batch.BatchTimings.ForEach(t =>
+                    {
+                        dbContext.Master_BatchTiming.Add(new Master_BatchTiming
+                        {
+                            FK_BatchId = _Batch.PK_BatchId,
+                            WeekDay = t.WeekDay,
+                            StartTime = t.StartTime,
+                            EndTime = t.EndTime,
+                            CreatedBy = currentUser.UserId,
+                            CreatedDate = DateTime.Now.ToUniversalTime()
+                        });
+                    });
+                }
+                dbContext.SaveChanges();
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
+
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
@@ -166,42 +190,31 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "PK_BatchId,BatchName,BatchCode,FK_CourtId,StartTime,EndTime,Fee,MaxPlayers,FK_BatchTypeId,StartDate,EndDate,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,FK_StatusId,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Master_Batch master_Batch)
+        public ActionResult Edit(BatchModel master_Batch)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Master_Batch _batch = dbContext.Master_Batch.ToList().Find(x => x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId == master_Batch.PK_BatchId && x.FK_StatusId == 1);
+                    Master_Batch _batch = dbContext.Master_Batch.ToList().Find(x => x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId == master_Batch.BatchId && x.FK_StatusId == 1);
                     if (_batch == null)
                         return HttpNotFound();
-                    if (dbContext.Master_Batch.Any(x => x.BatchName == master_Batch.BatchName && x.FK_StatusId == 1 && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
+                    if (dbContext.Master_Batch.Any(x => x.BatchName == master_Batch.BatchName && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
                         return Json(false, JsonRequestBehavior.AllowGet);
-                    if (dbContext.Master_Batch.Any(x => x.BatchCode == master_Batch.BatchCode && x.FK_StatusId == 1 && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
+                    if (dbContext.Master_Batch.Any(x => x.BatchCode == master_Batch.BatchCode && x.FK_StatusId == 1 && x.FK_CourtId == master_Batch.CourtId && x.FK_CourtId == master_Batch.CourtId && x.FK_VenueId == currentUser.CurrentVenueId && x.PK_BatchId != _batch.PK_BatchId))
                         return Json(false, JsonRequestBehavior.AllowGet);
                     _batch.BatchCode = master_Batch.BatchCode;
                     _batch.BatchName = master_Batch.BatchName;
-                    _batch.FK_CourtId = master_Batch.FK_CourtId;
-                    _batch.StartTime = master_Batch.StartTime;
-                    _batch.EndTime = master_Batch.EndTime;
+                    _batch.FK_CourtId = master_Batch.CourtId;
                     _batch.StartDate = master_Batch.StartDate;
                     _batch.EndDate = master_Batch.EndDate;
                     _batch.MaxPlayers = master_Batch.MaxPlayers;
-                    _batch.Fee = master_Batch.Fee;
-                    _batch.FK_BatchTypeId = master_Batch.FK_BatchTypeId;
-                    _batch.FK_CoachId = master_Batch.FK_CoachId;
-                    _batch.Sunday = master_Batch.Sunday;
-                    _batch.Monday = master_Batch.Monday;
-                    _batch.Tuesday = master_Batch.Tuesday;
-                    _batch.Wednesday = master_Batch.Wednesday;
-                    _batch.Thursday = master_Batch.Thursday;
-                    _batch.Friday = master_Batch.Friday;
-                    _batch.Saturday = master_Batch.Saturday;
+                    _batch.Fee = (decimal)master_Batch.Fee;
+                    _batch.FK_BatchTypeId = master_Batch.BatchId;
+                    _batch.FK_CoachId = master_Batch.CourtId;
                     _batch.FK_StatusId = 1;
                     _batch.ModifiedBy = currentUser.UserId;
                     _batch.ModifiedDate = DateTime.Now.ToUniversalTime();
-                    //_batch. = master_Batch.BatchCode;
-                    //_batch.BatchCode = master_Batch.BatchCode;
                     dbContext.Entry(_batch).State = EntityState.Modified;
                     dbContext.SaveChanges();
                     return Json(true, JsonRequestBehavior.AllowGet);

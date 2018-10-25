@@ -35,7 +35,7 @@ namespace MySportsBook.Web.Controllers
                     selectListBatches.Add(new DropDownItem { Text = "--Select--", Value = string.Empty, Fee = "0" });
                     batches.ToList().ForEach(x =>
                     {
-                        selectListBatches.Add(new DropDownItem { Text = x.Batch.Batch.BatchName + " - " + x.Batch.Court.CourtName, Value = x.Batch.Batch.PK_BatchId.ToString(), Fee = x.Sport.Fee.ToString("0.00") });
+                        selectListBatches.Add(new DropDownItem { Text = x.Batch.Batch.BatchName + " - " + x.Batch.Court.CourtName, Value = x.Batch.Batch.PK_BatchId.ToString(), Fee = x.Batch.Batch.Fee.ToString("0.00") });
                     });
                 }
                 else selectListBatches.Add(new DropDownItem { Text = "No Batch(s) Found.", Value = string.Empty });
