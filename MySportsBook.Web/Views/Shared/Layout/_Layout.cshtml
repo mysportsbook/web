@@ -43,6 +43,7 @@
         </button>
 
         <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">@ViewBag.Venue</li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="img-avatar" src="/img/avatars/6.jpg"><span>@ViewBag.Name</span>
@@ -145,7 +146,10 @@
             d.setMinutes(parseInt(time[2]) || 0);
             return d;
         }
-
+        function goBack() {
+            alert();
+            window.history.back();
+        }
     </script>
     @Html.Partial("/Views/Shared/Script/_Loader.cshtml")
 </body>

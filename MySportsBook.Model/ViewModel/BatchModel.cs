@@ -13,8 +13,8 @@ namespace MySportsBook.Model.ViewModel
         public int CourtId { get; set; }
         public int MaxPlayers { get; set; }
         public bool AttendanceRequired { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int BatchTypeId { get; set; }
         public int? CoachId { get; set; }
         public List<BatchTimingModel> BatchTimings { get; set; }

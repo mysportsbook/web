@@ -43,7 +43,17 @@ namespace MySportsBook.Web.Controllers
         // GET: Account
         public ActionResult SelectVenue()
         {
-            if (dbContext.Master_UserVenue.Where(v => v.FK_UserId == currentUser.UserId && v.FK_StatusId == 1).Count() > 1) { return View(); }
+            if (dbContext.Master_UserVenue.Where(v => v.FK_UserId == currentUser.UserId && v.FK_StatusId == 1).Count() > 1) {
+                if (!string.IsNullOrEmpty(currentUser.CurrentVenueName))
+                {
+                    ViewBag.VenueName = currentUser.CurrentVenueName;
+                }
+                else
+                {
+                    ViewBag.VenueName = "";
+                }
+                return View();
+            }
             else
             {
                 var _userVenue = dbContext.Master_UserVenue.Where(v => v.FK_UserId == currentUser.UserId && v.FK_StatusId == 1);
