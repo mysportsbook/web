@@ -1,4 +1,4 @@
-﻿@model MySportsBook.Model.Master_Batch
+﻿@model MySportsBook.Model.ViewModel.BatchModel
 @{
     ViewBag.Title = "Index";
     if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin)
@@ -11,7 +11,7 @@
     }
 }
 
-@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+
 <main class="main">
     <!-- Breadcrumb-->
     <ol class="breadcrumb">
@@ -25,98 +25,59 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-7">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <strong>Edit</strong>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        @Html.HiddenFor(model => model.PK_BatchId)
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Back to List", "")</i>
+                                        @Html.HiddenFor(model => model.BatchId)
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.BatchCode, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.BatchCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.BatchCode, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.BatchName, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.BatchName, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.BatchName, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @Html.Label("Sport", htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownList("Sport", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FK_CourtId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_CourtId, "Court", htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownList("Court", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FK_CourtId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @{
-                                                string _startTime = Model.StartTime.ToString().Substring(0, 5);
-                                            }
-                                            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label" })
-                                            <div class="input-group bootstrap-timepicker timepicker">
-                                                @Html.TextBoxFor(model => model.StartTime, new { id = "StartTime", Value = _startTime, @class = "form-control time" })
-                                                @*@Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })*@
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @{
-                                                string _endTime = Model.EndTime.ToString().Substring(0, 5);
-                                            }
-                                            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label" })
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control time", id = "EndTime", Value = _endTime })
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.MaxPlayers, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.MaxPlayers, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.MaxPlayers, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-3">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Sport", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Sport", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SportId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CourtId, "Court", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Court", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CourtId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Fee, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.Fee, new { htmlAttributes = new { @class = "form-control" } })
@@ -125,8 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
                                             <div class="input-group">
@@ -140,7 +100,7 @@
                                             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
                                             <div class="input-group">
@@ -154,103 +114,30 @@
                                             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_BatchTypeId, "Batch Type", htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownList("BatchType", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FK_BatchTypeId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 coach-div">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_CoachId, "FK_CoachId", htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownList("Coach", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FK_CoachId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Monday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Monday)
-                                                    @Html.ValidationMessageFor(model => model.Monday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Tuesday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Tuesday)
-                                                    @Html.ValidationMessageFor(model => model.Tuesday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Wednesday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Wednesday)
-                                                    @Html.ValidationMessageFor(model => model.Wednesday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Thursday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Thursday)
-                                                    @Html.ValidationMessageFor(model => model.Thursday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Friday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Friday)
-                                                    @Html.ValidationMessageFor(model => model.Friday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Saturday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Saturday)
-                                                    @Html.ValidationMessageFor(model => model.Saturday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Sunday, htmlAttributes: new { @class = "control-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(model => model.Sunday)
-                                                    @Html.ValidationMessageFor(model => model.Sunday, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
+                                            @Html.Label("Attendance Required", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.AttendanceRequired)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BatchTypeId, "Batch Type", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("BatchType", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BatchTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 coach-div">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CoachId, "Coach", htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownList("Coach", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CoachId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -260,11 +147,339 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <strong>Timing</strong>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Back to List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Monday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("MonStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("MonEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Tuesday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("TueStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("TueEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Wednesday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("WedStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("WedEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Thursday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("ThuStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("ThuEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Friday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Friday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("FriStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("FriEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Saturday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("SatStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("SatEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row time-row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            @Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("Sunday", htmlAttributes: new { @class = "week" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("SunStartTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                @Html.Editor("SunEndTime", new { htmlAttributes = new { @class = "form-control time" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
     </div>
 </main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script>
+    var model = @Html.Raw(Json.Encode(Model));
+    //model.BatchTimings
+    $.each(model.BatchTimings, function (k, v) {
+    switch (v.WeekDay.toLowerCase()) {
+        case "monday":
+            $('#Monday').prop('checked', true);
+            $('#MonStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#MonEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "tuesday":
+            $('#Tuesday').prop('checked', true);
+            $('#TueStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#TueEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "wednesday":
+            $('#Wednesday').prop('checked', true);
+            $('#WedStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#WedEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "thursday":
+            $('#Thursday').prop('checked', true);
+            $('#ThuStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#ThuEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "friday":
+            $('#Friday').prop('checked', true);
+            $('#FriStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#FriEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "saturday":
+            $('#Saturday').prop('checked', true);
+            $('#SatStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#SatEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        case "sunday":
+            $('#Sunday').prop('checked', true);
+            $('#SunStartTime').val(v.StartTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.StartTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            $('#SunEndTime').val(v.EndTime.Hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + v.EndTime.Minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }));
+            break;
+        default:
+        }
+    });
+    console.log(model);
+</script>
 <script>
     $('#Sport').change(function () {
         loader();
@@ -305,29 +520,40 @@
     }
 
     function save() {
-        var batchmodel = {
-            "PK_BatchId": $('input[name="PK_BatchId"]').val(),
-            "BatchCode": $('input[name="BatchCode"]').val(),
-            "BatchName": $('input[name="BatchName"]').val(),
-            "FK_SportId": $('select[name="Sport"]').val(),
-            "FK_CourtId": $('select[name="Court"]').val(),
-            "FK_BatchTypeId": $('select[name="BatchType"]').val(),
-            "Fee": $('input[name="Fee"]').val(),
-            "StartTime": new Date(parseTime($('input[name="StartTime"]').val())).toTimeString().substring(0, 8),
-            "EndTime": new Date(parseTime($('input[name="EndTime"]').val())).toTimeString().substring(0, 8),
-            "MaxPlayers": $('input[name="MaxPlayers"]').val(),
-            "FK_CoachId": $('select[name="Coach"]').val(),
-            "StartDate": new Date($('input[name="StartDate"]').val()),
-            "EndDate": new Date($('input[name="EndDate"]').val()),
-            "Monday": $('input[name="Monday"]').is(":checked"),
-            "Tuesday": $('input[name="Tuesday"]').is(":checked"),
-            "Wednesday": $('input[name="Wednesday"]').is(":checked"),
-            "Thursday": $('input[name="Thursday"]').is(":checked"),
-            "Friday": $('input[name="Friday"]').is(":checked"),
-            "Saturday": $('input[name="Saturday"]').is(":checked"),
-            "Sunday": $('input[name="Sunday"]').is(":checked")
+        var batchTimings = [];
+        $('.week').each(function () {
+            if ($(this).is(":checked")) {
+                batchTimings.push({
+                    WeekDay: $(this).attr('name').trim(),
+                    StartTime: new Date(parseTime($(this).closest('.time-row').find('input[name*="Start"]').val())).toTimeString().substring(0, 8),
+                    EndTime: new Date(parseTime($(this).closest('.time-row').find('input[name*="End"]').val())).toTimeString().substring(0, 8),
+                });
+            }
+        });
+        if (batchTimings.length > 0) {
+            var batchmodel = {
+                BatchId: $('input[name="BatchId"]').val(),
+                BatchCode: $('input[name="BatchCode"]').val(),
+                BatchName: $('input[name="BatchName"]').val(),
+                SportId: $('select[name="Sport"]').val(),
+                CourtId: $('select[name="Court"]').val(),
+                BatchTypeId: $('select[name="BatchType"]').val(),
+                Fee: $('input[name="Fee"]').val(),
+                MaxPlayers: $('input[name="MaxPlayers"]').val(),
+                CoachId: $('select[name="Coach"]').val(),
+                StartDate: new Date($('input[name="StartDate"]').val()),
+                EndDate: new Date($('input[name="EndDate"]').val()),
+                AttendanceRequired: $('input[name="AttendanceRequired"]').is(":checked"),
+                BatchTimings: batchTimings
+
+            }
+            saveData(batchmodel, $('input[name="BatchName"]').val(), SaveOrUpdate.update);
         }
-        saveData(batchmodel, $('input[name="BatchName"]').val(), SaveOrUpdate.update);
+        else {
+            swal("Failed!", "Please add atleast one day!", "error", {
+                icon: "error"
+            });
+        }
     }
 
     function showCoach() {
@@ -338,5 +564,50 @@
             $('.coach-div').show();
         }
     }
+    $('.time').prop("disabled", true);
+    $('.week').change(function () {
+        if ($(this).is(":checked")) {
+            //TO GET THE VALUE FROM THE PREVIOUS DAY
+            $(this).closest('.time-row').find('input[type=text]').removeAttr("disabled");
+
+            var _shouldcontinue = true;
+            var _previousdiv = $(this).closest('.time-row').prev();
+            var _currdiv = $(this).closest('.time-row');
+
+            while (_shouldcontinue) {
+                if (_previousdiv.length > 0) {
+                    if ($(_previousdiv).find('input[type=checkbox]:checked').length > 0) {
+                        $(_previousdiv).find('input[type=text]').each(function () {
+
+                            if ($(this).attr('name').toLowerCase().indexOf('starttime') > -1) {
+                                $(_currdiv).find('input[name*="Start"]').val($(this).val());
+                            }
+                            if ($(this).attr('name').toLowerCase().indexOf('endtime') > -1) {
+                                $(_currdiv).find('input[name*="End"]').val($(this).val());
+                            }
+                        });
+                        _previousdiv = [];
+                        _shouldcontinue = false;
+                    }
+                    else {
+                        _previousdiv = $(_previousdiv).prev();
+                    }
+                }
+                else {
+                    _previousdiv = [];
+                    _shouldcontinue = false;
+                }
+            }
+        }
+        else {
+            $(this).closest('.time-row').find('input[type=text]').val('');
+            $(this).closest('.time-row').find('input[type=text]').prop("disabled", true);
+        }
+    });
     showCoach();
+    $('.week').each(function () {
+        if ($(this).is(":checked")) {
+            $(this).closest('.time-row').find('input[type=text]').removeAttr("disabled");
+        }
+    });
 </script>

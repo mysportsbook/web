@@ -82,27 +82,19 @@
     <Property Name="BatchName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="BatchCode" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="FK_CourtId" Type="int" Nullable="false" />
-    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
-    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
     <Property Name="Fee" Type="money" Nullable="false" />
     <Property Name="MaxPlayers" Type="int" Nullable="false" />
     <Property Name="FK_BatchTypeId" Type="int" Nullable="false" />
     <Property Name="FK_CoachId" Type="int" />
     <Property Name="StartDate" Type="date" />
     <Property Name="EndDate" Type="date" />
-    <Property Name="Monday" Type="bit" Nullable="false" />
-    <Property Name="Tuesday" Type="bit" Nullable="false" />
-    <Property Name="Wednesday" Type="bit" Nullable="false" />
-    <Property Name="Thursday" Type="bit" Nullable="false" />
-    <Property Name="Friday" Type="bit" Nullable="false" />
-    <Property Name="Saturday" Type="bit" Nullable="false" />
-    <Property Name="Sunday" Type="bit" Nullable="false" />
+    <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
+    <Property Name="IsFull" Type="bit" Nullable="false" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Master_BatchTiming">
     <Key>

@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<MySportsBook.Model.Master_Court>
 
 @{
-    ViewBag.Title = "Index";
-    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+                /**/
+
+                ViewBag.Title = "Index";
+                if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
 <main class="main">
@@ -42,38 +44,38 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CourtName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CourtCode)
-                                </td>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.Master_Sport.SportName)
-                                </th>
-                                <td>
-                                    @if (item.FK_StatusId == 1)
-                                    {
-                                        <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
-                                    }
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourtName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourtCode)
+                                    </td>
+                                    <th>
+                                        @Html.DisplayFor(modelItem => item.Master_Sport.SportName)
+                                    </th>
+                                    <td>
+                                        @if (item.FK_StatusId == 1)
+                                        {
+                                            <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Configuration_Status.Status)</span>
+                                        }
 
-                                </td>
-                                <td>
-                                    <div>
-                                        <button class="btn btn-primary" onclick="editData(@item.PK_CourtId)" title="Edit" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-danger" onclick="deleteData(@item.PK_CourtId)" title="Delete" type="button">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button class="btn btn-primary" onclick="editData(@item.PK_CourtId)" title="Edit" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-danger" onclick="deleteData(@item.PK_CourtId)" title="Delete" type="button">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

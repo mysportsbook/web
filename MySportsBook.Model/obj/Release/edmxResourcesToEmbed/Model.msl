@@ -82,38 +82,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Master_Batch">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Batch">
-        <MappingFragment StoreEntitySet="Master_Batch">
-          <ScalarProperty Name="IsAttendanceRequired" ColumnName="IsAttendanceRequired" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="Sunday" ColumnName="Sunday" />
-          <ScalarProperty Name="Saturday" ColumnName="Saturday" />
-          <ScalarProperty Name="Friday" ColumnName="Friday" />
-          <ScalarProperty Name="Thursday" ColumnName="Thursday" />
-          <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
-          <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
-          <ScalarProperty Name="Monday" ColumnName="Monday" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="FK_CoachId" ColumnName="FK_CoachId" />
-          <ScalarProperty Name="FK_BatchTypeId" ColumnName="FK_BatchTypeId" />
-          <ScalarProperty Name="MaxPlayers" ColumnName="MaxPlayers" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
-          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
-          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Master_BatchTiming">
       <EntityTypeMapping TypeName="MySportsBookModel.Master_BatchTiming">
         <MappingFragment StoreEntitySet="Master_BatchTiming">
@@ -471,6 +439,30 @@
           <ScalarProperty Name="VoucherDate" ColumnName="VoucherDate" />
           <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
           <ScalarProperty Name="PK_VoucherId" ColumnName="PK_VoucherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Batch">
+      <EntityTypeMapping TypeName="MySportsBookModel.Master_Batch">
+        <MappingFragment StoreEntitySet="Master_Batch">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="IsFull" ColumnName="IsFull" />
+          <ScalarProperty Name="IsAttendanceRequired" ColumnName="IsAttendanceRequired" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="FK_CoachId" ColumnName="FK_CoachId" />
+          <ScalarProperty Name="FK_BatchTypeId" ColumnName="FK_BatchTypeId" />
+          <ScalarProperty Name="MaxPlayers" ColumnName="MaxPlayers" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
+          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
