@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MySportsBook.Model.Transaction_Enquiry_Comments>
+
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Followup Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Comments)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>

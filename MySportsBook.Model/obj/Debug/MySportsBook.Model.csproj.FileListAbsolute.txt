@@ -45,3 +45,14 @@ D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.cspro
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CopyComplete
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\MySportsBook.Model.dll.config
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\MySportsBook.Model.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\MySportsBook.Model.pdb
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\EntityFramework.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\EntityFramework.xml
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CoreCompileInputs.cache
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CopyComplete
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb

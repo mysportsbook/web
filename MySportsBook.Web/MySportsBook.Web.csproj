@@ -155,6 +155,10 @@
     <Compile Include="Areas\Master\Controllers\SportController.cs" />
     <Compile Include="Areas\Master\Controllers\VenueController.cs" />
     <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
+    <Compile Include="Areas\Report\Controllers\BookingController.cs" />
+    <Compile Include="Areas\Report\Controllers\EnquiryController.cs" />
+    <Compile Include="Areas\Report\Controllers\InvoiceController.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\Transaction\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Transaction\Controllers\ReceiptController.cs" />
     <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
@@ -267,6 +271,11 @@
     <Content Include="Areas\Master\Views\CoachingLevel\Details.cshtml" />
     <Content Include="Areas\Master\Views\CoachingLevel\Edit.cshtml" />
     <Content Include="Areas\Master\Views\CoachingLevel\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Web.config" />
+    <Content Include="Areas\Report\Views\Invoice\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Enquiry\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Booking\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_enquiryComments.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -337,6 +346,7 @@
     <Folder Include="Areas\Configuration\Views\Shared\" />
     <Folder Include="Areas\Master\Models\" />
     <Folder Include="Areas\Master\Views\Shared\" />
+    <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Transaction\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\DropDown\" />

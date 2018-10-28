@@ -26,4 +26,15 @@ namespace MySportsBook.Model.ViewModel
         public string InvoicePeriod { get; set; }
         public double Fee { get; set; }
     }
+
+
+    public class InvoiceReportModel
+    {
+        public string Name { get; set; }
+        public string Batch { get; set; }
+        public string Mobile { get; set; }
+        public string Month { get; set; }
+        public decimal Amount { get; set; }
+        public string Status { get; set; }
+    }
 }
