@@ -254,9 +254,15 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     _batch.ModifiedDate = DateTime.Now.ToUniversalTime();
                     dbContext.Entry(_batch).State = EntityState.Modified;
                     dbContext.SaveChanges();
+<<<<<<< HEAD
                     var _deleteTiming = dbContext.Master_BatchTiming.ToList().Where(x => x.FK_BatchId == master_Batch.BatchId && !master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay));
                     var _updateTiming = dbContext.Master_BatchTiming.ToList().Where(x => x.FK_BatchId == master_Batch.BatchId && master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay));
                     var _insertTiming = master_Batch.BatchTimings.ToList().Where(x => !dbContext.Master_BatchTiming.Any(t => t.WeekDay == x.WeekDay && t.FK_BatchId == master_Batch.BatchId));
+=======
+                    var _deleteTiming = dbContext.Master_BatchTiming.ToList().Where(x => !master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay) && x.FK_BatchId == master_Batch.BatchId);
+                    var _updateTiming = dbContext.Master_BatchTiming.ToList().Where(x => master_Batch.BatchTimings.Any(t => t.WeekDay == x.WeekDay) && x.FK_BatchId == master_Batch.BatchId);
+                    var _insertTiming = master_Batch.BatchTimings.ToList().Where(x => !dbContext.Master_BatchTiming.Any(t => t.WeekDay == x.WeekDay && t.FK_BatchId==master_Batch.BatchId));
+>>>>>>> c7d187bbb6d15c0e52c7242db6124de9f07af3b6
                     if (_deleteTiming.ToList().Any())
                     {
                         dbContext.Master_BatchTiming.RemoveRange(_deleteTiming);

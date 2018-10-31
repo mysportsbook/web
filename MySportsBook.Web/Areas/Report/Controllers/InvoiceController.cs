@@ -18,13 +18,13 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string StartDate,string EndDate,bool Collected,bool Pending)
+        public ActionResult Index(InvoiceReportSearchModel _invoiceReportSearchModel)
         {
-            DateTime _startDate = Convert.ToDateTime(StartDate);
-            DateTime _endDate = Convert.ToDateTime(EndDate);
+            //DateTime _startDate = Convert.ToDateTime(StartDate);
+            //DateTime _endDate = Convert.ToDateTime(EndDate);
             List<InvoiceReportModel> _invoiceReportModel = new List<InvoiceReportModel>();
             
-                var _Invoices = dbContext.Transaction_Invoice.Where(x => x.InvoiceDate >= _startDate && x.InvoiceDate <= _endDate && x.PaidAmount==(Collected == true? x.TotalFee+x.TotalDiscount: x.PaidAmount) && x.TotalFee + x.TotalDiscount != (Pending==true? x.PaidAmount : x.TotalDiscount)).ToList();
+                var _Invoices = dbContext.Transaction_Invoice.Where(x => x.InvoiceDate >= _invoiceReportSearchModel.StartDate && x.InvoiceDate <= _invoiceReportSearchModel.EndDate && x.PaidAmount==(_invoiceReportSearchModel.Collected == true? x.TotalFee+x.TotalDiscount: x.PaidAmount) && x.TotalFee + x.TotalDiscount != (_invoiceReportSearchModel.Pending == true? x.PaidAmount : x.TotalDiscount) && x.FK_VenueId == currentUser.CurrentVenueId).ToList();
 
             _Invoices.ForEach(invoice => {
             var _PlayerSport = dbContext.Transaction_PlayerSport.Where(x => x.FK_PlayerId == invoice.FK_PlayerId).FirstOrDefault();

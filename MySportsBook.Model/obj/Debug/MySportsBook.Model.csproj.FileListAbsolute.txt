@@ -56,3 +56,4 @@ C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debu
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CopyComplete
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Debug\MySportsBook.Model.csprojAssemblyReference.cache
