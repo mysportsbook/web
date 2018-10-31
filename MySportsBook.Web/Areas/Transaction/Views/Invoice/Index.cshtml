@@ -74,7 +74,8 @@
                                         @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
                                     </td>
                                     <td>
-                                       c
+                                        <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
+                                        @Html.HiddenFor(modelItem => item.PK_PlayerId)
                                     </td>
                                 </tr>
                             }

@@ -40,7 +40,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             batchdetails.ToList().ForEach(batch =>
             {
                 _date = DateTime.ParseExact(batch.LastGeneratedMonth, "MMMyyyy", CultureInfo.CurrentCulture);
-                _months = ((DateTime.Now.Year - _date.Year) * 12) + (DateTime.Now.Month - _date.Month);
+                _months = ((DateTime.Now.Year - _date.Year) * 12) + (DateTime.Now.Month + 1 - _date.Month);
                 if (_months > 0)
                 {
                     _freq = batch.FK_InvoicePeriodId == 1 ? 1 : batch.FK_InvoicePeriodId == 2 ? 3 : batch.FK_InvoicePeriodId == 3 ? 6 : 12;
