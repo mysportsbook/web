@@ -37,4 +37,14 @@ namespace MySportsBook.Model.ViewModel
         public decimal Amount { get; set; }
         public string Status { get; set; }
     }
+
+    public class InvoiceReportSearchModel
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool Collected { get; set; }
+        public bool Pending { get; set; }
+        
+    }
+
 }

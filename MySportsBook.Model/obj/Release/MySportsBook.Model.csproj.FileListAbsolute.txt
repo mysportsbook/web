@@ -22,3 +22,15 @@ D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csp
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CopyComplete
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\MySportsBook.Model.dll.config
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\MySportsBook.Model.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\MySportsBook.Model.pdb
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\EntityFramework.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\EntityFramework.xml
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.csprojAssemblyReference.cache
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CoreCompileInputs.cache
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CopyComplete
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
+C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb

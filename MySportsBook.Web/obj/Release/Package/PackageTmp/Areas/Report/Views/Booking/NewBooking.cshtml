@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Booking";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Booking", "")</li>
+        <li class="breadcrumb-item active">New Booking</li>
+    </ol>
+
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Payment Report</strong>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-sm-12 col-md-8">
+                                <div class="form-group">
+                                    @Html.Label("Booking Message")
+                                    @Html.TextArea("Booking", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <div class="form-group">
+                                    @Html.Label(" ", htmlAttributes: new { @class = "control-label" })
+                                    <input type="submit" value="Submit" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+     function save() {
+
+         if ($("#Booking").val() != "") {
+             alert($('#Booking').val());
+            var bookinghmodel = {
+                Name: $('#Booking').val(),
+            }
+             saveData(bookinghmodel, "Booking", SaveOrUpdate.save);
+             $('#Booking').val() = "";
+        }
+        else {
+            swal("Failed!", "Please enter booking!", "error", {
+                icon: "error"
+            });
+        }
+    }
+
+</script>

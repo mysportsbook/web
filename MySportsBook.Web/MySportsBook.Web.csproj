@@ -276,6 +276,7 @@
     <Content Include="Areas\Report\Views\Enquiry\Index.cshtml" />
     <Content Include="Areas\Report\Views\Booking\Index.cshtml" />
     <Content Include="Areas\Report\Views\Shared\_enquiryComments.cshtml" />
+    <Content Include="Areas\Report\Views\Booking\NewBooking.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
