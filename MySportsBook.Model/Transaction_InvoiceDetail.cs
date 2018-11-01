@@ -18,7 +18,7 @@ namespace MySportsBook.Model
         public int FK_InvoiceId { get; set; }
         public int FK_BatchId { get; set; }
         public string InvoicePeriod { get; set; }
-        public decimal Amount { get; set; }
+        public decimal BatchAmount { get; set; }
         public string Comments { get; set; }
         public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
@@ -29,7 +29,7 @@ namespace MySportsBook.Model
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
-        public virtual Transaction_Invoice Transaction_Invoice { get; set; }
         public virtual Master_Batch Master_Batch { get; set; }
+        public virtual Transaction_Invoice Transaction_Invoice { get; set; }
     }
 }

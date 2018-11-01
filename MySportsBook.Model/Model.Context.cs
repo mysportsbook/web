@@ -51,11 +51,11 @@ namespace MySportsBook.Model
         public virtual DbSet<OtherBookingDetail> OtherBookingDetails { get; set; }
         public virtual DbSet<Transaction_Attendance> Transaction_Attendance { get; set; }
         public virtual DbSet<Transaction_Enquiry_Comments> Transaction_Enquiry_Comments { get; set; }
-        public virtual DbSet<Transaction_Invoice> Transaction_Invoice { get; set; }
-        public virtual DbSet<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
         public virtual DbSet<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         public virtual DbSet<Transaction_Receipt> Transaction_Receipt { get; set; }
         public virtual DbSet<Transaction_Voucher> Transaction_Voucher { get; set; }
         public virtual DbSet<Master_Batch> Master_Batch { get; set; }
+        public virtual DbSet<Transaction_Invoice> Transaction_Invoice { get; set; }
+        public virtual DbSet<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
     }
 }

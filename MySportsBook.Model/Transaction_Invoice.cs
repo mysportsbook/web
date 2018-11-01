@@ -29,7 +29,7 @@ namespace MySportsBook.Model
         public System.DateTime DueDate { get; set; }
         public decimal TotalFee { get; set; }
         public Nullable<decimal> TotalDiscount { get; set; }
-        public Nullable<decimal> LateFee { get; set; }
+        public Nullable<decimal> OtherAmount { get; set; }
         public Nullable<decimal> PaidAmount { get; set; }
         public string Comments { get; set; }
         public int FK_StatusId { get; set; }

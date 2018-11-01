@@ -29,8 +29,6 @@
         <EntityTypeShape EntityType="MySportsBookModel.OtherBookingDetail" Width="1.5" PointX="21.75" PointY="31" />
         <EntityTypeShape EntityType="MySportsBookModel.Transaction_Attendance" Width="1.5" PointX="18.75" PointY="30.5" />
         <EntityTypeShape EntityType="MySportsBookModel.Transaction_Enquiry_Comments" Width="1.5" PointX="12.75" PointY="46.375" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Invoice" Width="1.5" PointX="13.5" PointY="26.25" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_InvoiceDetail" Width="1.5" PointX="18.75" PointY="42.5" />
         <EntityTypeShape EntityType="MySportsBookModel.Transaction_PlayerSport" Width="1.5" PointX="18.75" PointY="34.875" />
         <EntityTypeShape EntityType="MySportsBookModel.Transaction_Receipt" Width="1.5" PointX="15.75" PointY="24.625" />
         <EntityTypeShape EntityType="MySportsBookModel.Transaction_Voucher" Width="1.5" PointX="5.25" PointY="32.375" />
@@ -48,8 +46,6 @@
         <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status" />
@@ -82,10 +78,6 @@
         <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User1" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User1" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_User" />
@@ -102,7 +94,6 @@
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Enquiry_Comments_Master_Enquiry" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Player" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Player" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Player" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Role_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Master_Role" />
@@ -117,12 +108,9 @@
         <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Venue" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_OtherBooking" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Transaction_Invoice" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Transaction_Invoice" />
         <EntityTypeShape EntityType="MySportsBookModel.Master_Batch" Width="1.5" PointX="24.75" PointY="34.625" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_BatchType" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_Status" />
@@ -133,8 +121,20 @@
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_BatchTiming_Master_Batch" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Batch" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Master_Batch" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Batch" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Invoice" Width="1.5" PointX="10.5" PointY="37.25" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_InvoiceDetail" Width="1.5" PointX="27" PointY="38.375" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_Status" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User1" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User1" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Master_Batch" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Player" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Venue" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Transaction_Invoice" />
+        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Transaction_Invoice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,9 +18,9 @@ namespace MySportsBook.Model
         public Master_Player()
         {
             this.Transaction_Attendance = new HashSet<Transaction_Attendance>();
-            this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
             this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
             this.Master_Batch = new HashSet<Master_Batch>();
+            this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
         }
     
         public int PK_PlayerId { get; set; }
@@ -49,10 +49,10 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Attendance> Transaction_Attendance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Batch> Master_Batch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
     }
 }
