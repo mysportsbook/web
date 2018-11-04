@@ -35,11 +35,11 @@ namespace MySportsBook.Model
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
+        public virtual Master_Batch Master_Batch { get; set; }
         public virtual Master_CoachingLevel Master_CoachingLevel { get; set; }
         public virtual Master_Court Master_Court { get; set; }
         public virtual Master_Player Master_Player { get; set; }
         public virtual Master_Sport Master_Sport { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
-        public virtual Master_Batch Master_Batch { get; set; }
     }
 }

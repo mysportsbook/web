@@ -156,6 +156,7 @@
     <Compile Include="Areas\Master\Controllers\VenueController.cs" />
     <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
     <Compile Include="Areas\Report\Controllers\BookingController.cs" />
+    <Compile Include="Areas\Report\Controllers\CollectionController.cs" />
     <Compile Include="Areas\Report\Controllers\EnquiryController.cs" />
     <Compile Include="Areas\Report\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
@@ -277,6 +278,8 @@
     <Content Include="Areas\Report\Views\Booking\Index.cshtml" />
     <Content Include="Areas\Report\Views\Shared\_enquiryComments.cshtml" />
     <Content Include="Areas\Report\Views\Booking\NewBooking.cshtml" />
+    <Content Include="Areas\Report\Views\Collection\Daily.cshtml" />
+    <Content Include="Areas\Report\Views\Collection\Player.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -348,6 +351,7 @@
     <Folder Include="Areas\Master\Models\" />
     <Folder Include="Areas\Master\Views\Shared\" />
     <Folder Include="Areas\Report\Models\" />
+    <Folder Include="Areas\Report\Views\Report\" />
     <Folder Include="Areas\Transaction\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\DropDown\" />

@@ -31,6 +31,10 @@ namespace MySportsBook.Model
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public decimal TotalFee { get; set; }
+        public Nullable<decimal> TotalOtherAmount { get; set; }
+        public Nullable<decimal> TotalDiscountAmount { get; set; }
+        public Nullable<System.DateTime> TransactionDate { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }

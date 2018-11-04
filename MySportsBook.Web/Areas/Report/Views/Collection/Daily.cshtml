@@ -1,0 +1,150 @@
+﻿@model IEnumerable<MySportsBook.Model.rp_COLLECTIONDETAIL_Result>
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+@using System.Data;
+@{ var data = Model.AsEnumerable().ToList(); }
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Collection", "Daily")</li>
+        <li class="breadcrumb-item active">Daily</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Daily Collection</strong>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    @Html.Label("Date")
+                                    @Html.Editor("Date", new { htmlAttributes = new { @class = "form-control date" } })
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <div class="form-group">
+                                    @Html.Label(" ", htmlAttributes: new { @class = "control-label" })
+                                    <input type="submit" value="Submit" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("InvoicePeriod")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Collected On")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("PaymentMode")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("SportName")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("BatchCode")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("TotalFee")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("TotalOtherAmount")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("TotalDiscountAmount")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("AmountPaid")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in data)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InvoicePeriod)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CollectedDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PaymentMode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SportName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BatchCode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalFee)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalOtherAmount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalDiscountAmount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AmountPaid)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtCash", data.FindAll(x => x.PaymentMode == "Cash").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtTransfer", data.FindAll(x => x.PaymentMode == "Transfer").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtCheque", data.FindAll(x => x.PaymentMode == "Cheque").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script type="text/javascript">
+    $(function () {
+        $('.table').DataTable();
+    });
+</script>

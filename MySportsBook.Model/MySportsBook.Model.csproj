@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchCount.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration_BatchType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -143,6 +146,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rp_COLLECTIONDETAIL_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Transaction_Attendance.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

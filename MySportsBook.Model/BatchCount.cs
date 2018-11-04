@@ -12,19 +12,16 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Transaction_Attendance
+    public partial class BatchCount
     {
-        public int PK_AttendanceId { get; set; }
-        public System.DateTime Date { get; set; }
+        public int PK_BatchCount { get; set; }
         public int FK_VenueId { get; set; }
         public int FK_BatchId { get; set; }
-        public int FK_PlayerId { get; set; }
-        public bool Present { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
+        public int FK_CourtId { get; set; }
+        public int Count { get; set; }
     
         public virtual Master_Batch Master_Batch { get; set; }
-        public virtual Master_Player Master_Player { get; set; }
+        public virtual Master_Court Master_Court { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
     }
 }
