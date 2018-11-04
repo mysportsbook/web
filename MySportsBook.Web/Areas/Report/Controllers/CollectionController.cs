@@ -21,7 +21,8 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         [HttpPost]
         public ActionResult Daily(DateTime Date)
         {
-            return View(GetCollection(Date, "DAILY"));
+            var _date = Convert.ToDateTime(Date.ToString("dd/MM/yyyy"));
+            return View(GetCollection(_date, "DAILY"));
         }
 
         public ActionResult Player()
