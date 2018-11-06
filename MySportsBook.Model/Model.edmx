@@ -189,6 +189,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CreditBalance" Type="money" />
         </EntityType>
         <EntityType Name="Master_Role">
           <Key>
@@ -388,6 +389,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="PaidAmount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Transaction_PlayerSport">
           <Key>
@@ -2591,7 +2593,7 @@
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
             <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Transaction_Receipt">
           <Key>
             <PropertyRef Name="PK_ReceiptId" />
@@ -2620,7 +2622,7 @@
           <NavigationProperty Name="Confirguration_PaymentMode" Relationship="MySportsBookModel.FK_Transaction_Receipt_Confirguration_PaymentMode" FromRole="Transaction_Receipt" ToRole="Confirguration_PaymentMode" />
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBookModel.FK_Transaction_Receipt_Master_Venue" FromRole="Transaction_Receipt" ToRole="Master_Venue" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBookModel.FK_Transaction_Receipt_Transaction_Invoice" FromRole="Transaction_Receipt" ToRole="Transaction_Invoice" />
-        </EntityType>
+          </EntityType>
         <ComplexType Name="rp_COLLECTIONDETAIL_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="201" />
           <Property Type="String" Name="InvoicePeriod" Nullable="false" MaxLength="50" />
@@ -2916,6 +2918,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreditBalance" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Configuration_PlayerType" Relationship="MySportsBookModel.FK_Master_Player_Configuration_PlayerType" FromRole="Master_Player" ToRole="Configuration_PlayerType" />
           <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Master_Player_Configuration_Status" FromRole="Master_Player" ToRole="Configuration_Status" />
           <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_Master_Player_Configuration_User" FromRole="Master_Player" ToRole="Configuration_User" />
@@ -3201,6 +3204,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PaidAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_Status" />
           <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_User" />
           <NavigationProperty Name="Configuration_User1" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User1" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_User" />
@@ -4725,6 +4729,7 @@
           <EntitySetMapping Name="Master_Player">
             <EntityTypeMapping TypeName="MySportsBookModel.Master_Player">
               <MappingFragment StoreEntitySet="Master_Player">
+                <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -4943,6 +4948,7 @@
           <EntitySetMapping Name="Transaction_InvoiceDetail">
             <EntityTypeMapping TypeName="MySportsBookModel.Transaction_InvoiceDetail">
               <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -4999,7 +5005,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

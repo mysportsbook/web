@@ -774,6 +774,7 @@
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreditBalance" Type="Decimal" Precision="19" Scale="4" />
     <NavigationProperty Name="Configuration_PlayerType" Relationship="MySportsBookModel.FK_Master_Player_Configuration_PlayerType" FromRole="Master_Player" ToRole="Configuration_PlayerType" />
     <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Master_Player_Configuration_Status" FromRole="Master_Player" ToRole="Configuration_Status" />
     <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_Master_Player_Configuration_User" FromRole="Master_Player" ToRole="Configuration_User" />
@@ -1059,6 +1060,7 @@
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="PaidAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
     <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_Status" />
     <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_User" />
     <NavigationProperty Name="Configuration_User1" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User1" FromRole="Transaction_InvoiceDetail" ToRole="Configuration_User" />

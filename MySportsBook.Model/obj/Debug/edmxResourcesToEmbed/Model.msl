@@ -224,6 +224,7 @@
     <EntitySetMapping Name="Master_Player">
       <EntityTypeMapping TypeName="MySportsBookModel.Master_Player">
         <MappingFragment StoreEntitySet="Master_Player">
+          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -442,6 +443,7 @@
     <EntitySetMapping Name="Transaction_InvoiceDetail">
       <EntityTypeMapping TypeName="MySportsBookModel.Transaction_InvoiceDetail">
         <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

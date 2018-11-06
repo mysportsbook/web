@@ -10,9 +10,10 @@ namespace MySportsBook.Model.ViewModel
         public int PlayerId { get; set; }
         public int VenueId { get; set; }
         public double TotalFee { get; set; }
-        public double OtherAmount { get; set; }
+        public double TotalOtherAmount { get; set; }
         public double TotalDiscount { get; set; }
-        public double PaidAmount { get; set; }
+        public double TotalPaidAmount { get; set; }
+        public double ExtraPaidAmount { get; set; }
         public string Comments { get; set; }
         public string TransactionNo { get; set; }
         public DateTime? TransactionDate { get; set; }
@@ -28,6 +29,7 @@ namespace MySportsBook.Model.ViewModel
         public string InvoicePeriod { get; set; }
         public double Fee { get; set; }
         public int PayOrder { get; set; }
+        public double PaidAmount { get; set; }
     }
 
 

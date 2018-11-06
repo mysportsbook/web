@@ -19,9 +19,6 @@ namespace MySportsBook.Model
         public System.DateTime ReceiptDate { get; set; }
         public int FK_VenueId { get; set; }
         public int FK_InvoiceId { get; set; }
-        public decimal AmountTobePaid { get; set; }
-        public Nullable<decimal> OtherAmount { get; set; }
-        public Nullable<decimal> DiscountAmount { get; set; }
         public decimal AmountPaid { get; set; }
         public string Description { get; set; }
         public int FK_PaymentModeId { get; set; }
