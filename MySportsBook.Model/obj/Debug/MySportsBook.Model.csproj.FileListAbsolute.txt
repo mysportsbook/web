@@ -69,3 +69,4 @@ E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Mode
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csprojAssemblyReference.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csprojAssemblyReference.cache

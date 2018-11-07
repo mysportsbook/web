@@ -151,6 +151,7 @@
     }
 </div>
 <script>
+    var success = "SUCCESS";
     $('#PaymentMode').change(function () {
         //Cash
         if ($('#PaymentMode').val() == "1") {
@@ -215,46 +216,77 @@
         }
     }
     function payment() {
-        loader();
-        var invoicedetails = [];
-        $('.inv-list').each(function () {
-            if ($(this).is(":checked")) {
-                invoicedetails.push({
-                    BatchId: parseInt($(this).parent().find('input[name="hidbatch"]').val().trim()),
-                    InvoicePeriodId: parseInt($(this).parent().find('input[name="hidinvperiodid"]').val().trim()),
-                    InvoicePeriod: $(this).parent().find('input[name="hidinvperiod"]').val().trim(),
-                    Fee: parseFloat($(this).parent().find('input[name="hidinvfee"]').val().trim()),
-                    PayOrder: parseFloat($(this).parent().find('input[name="hidinvserno"]').val().trim())
+        try {
+            loader();
+            var invoicedetails = [];
+            $('.inv-list').each(function () {
+                if ($(this).is(":checked")) {
+                    invoicedetails.push({
+                        BatchId: parseInt($(this).parent().find('input[name="hidbatch"]').val().trim()),
+                        InvoicePeriodId: parseInt($(this).parent().find('input[name="hidinvperiodid"]').val().trim()),
+                        InvoicePeriod: $(this).parent().find('input[name="hidinvperiod"]').val().trim(),
+                        Fee: parseFloat($(this).parent().find('input[name="hidinvfee"]').val().trim()),
+                        PayOrder: parseFloat($(this).parent().find('input[name="hidinvserno"]').val().trim())
+                    });
+                }
+            });
+            if (invoicedetails.length <= 0) {
+                swal("Failed!", "Please select the month(s) to pay!", "error", {
+                    icon: "error"
                 });
+                loader();
+                return false;
             }
-        });
-        if (invoicedetails.length <= 0) {
-            swal("Failed!", "Please select the month(s) to pay!", "error", {
-                icon: "error"
-            });
-            return false;
-        }
-        if (parseFloat($('#txtPaid').val()) <= 0) {
-            swal("Failed!", "Please select the month(s) to pay!", "error", {
-                icon: "error"
-            });
-            return false;
-        }
+            if (parseFloat($('#txtPaid').val()) <= 0) {
+                swal("Failed!", "Please select the month(s) to pay!", "error", {
+                    icon: "error"
+                });
+                loader();
+                return false;
+            }
 
-        var invoiceobj = {
-            PlayerId: $('#PlayerId').val(),
-            TotalFee: parseFloat($('#txtTotalFee').val()),
-            TotalOtherAmount: parseFloat($('#txtLateFee').val()),
-            TotalDiscount: parseFloat($('#txtDiscount').val()),
-            TotalPaidAmount: parseFloat($('#txtPaid').val()),
-            PaymentId: $('select[name="PaymentMode"]').val(),
-            Comments: $('#txtComments').val(),
-            TransactionNo: $('#PaymentMode').val() != "1" ? $('#txtTransNo').val() : '',
-            TransactionDate: $('#PaymentMode').val() != "1" ? $('#txtTransDate').val() : null,
-            InvoiceDetails: invoicedetails
+            var invoiceobj = {
+                PlayerId: $('#PlayerId').val(),
+                TotalFee: parseFloat($('#txtTotalFee').val()),
+                TotalOtherAmount: parseFloat($('#txtLateFee').val()),
+                TotalDiscount: parseFloat($('#txtDiscount').val()),
+                TotalPaidAmount: parseFloat($('#txtPaid').val()),
+                PaymentId: $('select[name="PaymentMode"]').val(),
+                Comments: $('#txtComments').val(),
+                TransactionNo: $('#PaymentMode').val() != "1" ? $('#txtTransNo').val() : '',
+                TransactionDate: $('#PaymentMode').val() != "1" ? $('#txtTransDate').val() : null,
+                InvoiceDetails: invoicedetails
+            }
+            if (validatePaidAmount(invoiceobj) == success) {
+                if (checkForClosingPrevInv(invoiceobj)) {
+                    swal({
+                        type: 'info',
+                        title: 'Closing Invoice',
+                        text: 'Some of the invoice(s) will be closed automatically!'
+                    }).then(() => {
+                        save(invoiceobj);
+                    });
+                }
+                else {
+                    save(invoiceobj);
+                }
+            }
+            else {
+                swal("Failed!", validAmt, "error", {
+                    icon: "error"
+                });
+                loader();
+                return false;
+            }
+        } catch (e) {
+            swal("Failed!", e.message, "error", {
+                icon: "error"
+            });
+            loader();
+            return false;
         }
-        debugger
-        var valid = validateDetail(invoicedetails);
+    }
+    function save(invoiceobj) {
         $.ajax({
             type: "POST",
             url: 'Transaction/Invoice/Payment',
@@ -291,11 +323,34 @@
             }
         });
     }
-    function validateDetail(_detail) {
-        var sortedDetails = _.sortBy(_detail, ['BatchId', 'PayOrder']);
-        _.each(sortedDetails, function (detailItem) {
-
+    function validatePaidAmount(_invoice) {
+        if (_invoice.InvoiceDetails.length > 1) {
+            var sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
+            var objDetails = _.last(sortedDetails);
+            if ((_invoice.TotalFee - objDetails.Fee) > _invoice.TotalPaidAmount) {
+                return "Paid Amount is insufficient!"
+            }
+        }
+        return success;
+    }
+    function checkForClosingPrevInv(_invoice) {
+        var _sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
+        var _batchIds = _.countBy(_sortedDetails, "BatchId");
+        var _valid = false;
+        _.each(_batchIds, function (value, key) {
+            if (_valid) {
+                var _batchDetail = _.filter(_sortedDetails, { "BatchId": parseInt(key) })
+                for (var i = 1; i < _batchDetail.length; i++) {
+                    if (_batchDetail[0].PayOrder != 1 && _valid) {
+                        _valid = true;
+                    }
+                    else {
+                        if (_batchDetail[i].PayOrder !== _batchDetail[i - 1].PayOrder && _batchDetail[i].PayOrder != _batchDetail[i - 1].PayOrder + 1 && _valid)
+                            _valid = true;
+                    }
+                }
+            }
         });
-        return true;
+        return _valid;
     }
 </script>
