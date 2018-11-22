@@ -446,23 +446,30 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     _invoice.ModifiedDate = DateTime.Now.ToUniversalTime();
                     dbContext.Entry(_invoice).State = EntityState.Modified;
                 }
-                var _invoiceDetails = dbContext.Transaction_InvoiceDetail.Where(d => d.FK_InvoiceId == InvoiceId && d.FK_StatusId == 4);
-                if (_invoiceDetails?.Count() > 0)
-                {
-                    _invoiceDetails.ToList().ForEach(detail =>
-                    {
-                        var _updateInvoice = dbContext.Transaction_InvoiceDetail.Where(d => d.InvoicePeriod == detail.InvoicePeriod && dbContext.Transaction_Invoice.Any(i => i.FK_VenueId == currentUser.CurrentVenueId && i.FK_PlayerId == PlayerId));
-                        if (_updateInvoice != null)
-                        {
-                            _updateInvoice.ToList().ForEach(inv =>
-                            {
-
-                            });
-                        }
-
-                    });
-                }
             }
+            //CLOSE THE INVOICE DETAILS IF PAID
+            var _invoiceDetails = dbContext.Transaction_InvoiceDetail.Where(d => d.FK_InvoiceId == InvoiceId && d.FK_StatusId == 4);
+            if (_invoiceDetails?.Count() > 0)
+            {
+                _invoiceDetails.ToList().ForEach(detail =>
+                {
+                    var _updateInvoiceDetails = dbContext.Transaction_InvoiceDetail.Where(d => d.InvoicePeriod == detail.InvoicePeriod && dbContext.Transaction_Invoice.Any(i => i.FK_VenueId == currentUser.CurrentVenueId && i.FK_PlayerId == PlayerId && i.FK_StatusId==3));
+                    if (_updateInvoiceDetails != null)
+                    {
+                        _updateInvoiceDetails.ToList().ForEach(inv =>
+                        {
+                            inv.FK_StatusId = 4;
+                            inv.ModifiedBy = currentUser.UserId;
+                            inv.ModifiedDate = DateTime.Now.ToUniversalTime();
+                            dbContext.Entry(inv).State = EntityState.Modified;
+                            if(dbContext.Transaction_Invoice.Any(i =>i.FK_PlayerId== PlayerId)
+                        });
+                    }
+
+                });
+            }
+            dbContext.SaveChanges();
+
         }
         #endregion [ NonAction Methods ]
     }
