@@ -1054,7 +1054,7 @@
     <Property Name="FK_BatchId" Type="Int32" Nullable="false" />
     <Property Name="InvoicePeriod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="BatchAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="Comments" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
     <Property Name="CreatedBy" Type="Int32" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />

@@ -378,7 +378,7 @@
     <Property Name="FK_BatchId" Type="int" Nullable="false" />
     <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="BatchAmount" Type="money" Nullable="false" />
-    <Property Name="Comments" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />

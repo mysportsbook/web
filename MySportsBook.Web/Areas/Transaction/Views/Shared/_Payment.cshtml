@@ -253,7 +253,6 @@
             TransactionDate: $('#PaymentMode').val() != "1" ? $('#txtTransDate').val() : null,
             InvoiceDetails: invoicedetails
         }
-        debugger
         var valid = validateDetail(invoicedetails);
         $.ajax({
             type: "POST",

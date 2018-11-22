@@ -39,7 +39,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 Save(invoiceModel);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -106,6 +106,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     SaveDetail(_transInvoice.PK_InvoiceId, invoice.PlayerId, invoice.Comments, _transInvoice.FK_StatusId, d);
                 });
                 dbContext.SaveChanges();
+
                 //Update the Last Generated Inv Month
                 invoice.InvoiceDetails.ForEach(d =>
                 {
@@ -239,19 +240,35 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         [NonAction]
         public void SaveDetail(int invoiceid, int playerid, string comments, int statusid, InvoiceDetailModel detail)
         {
+            int _statusid = detail.Fee == detail.PaidAmount ? 4 : 3;
             dbContext.Transaction_InvoiceDetail.Add(new Transaction_InvoiceDetail()
             {
                 FK_BatchId = detail.BatchId,
                 FK_InvoiceId = invoiceid,
-                FK_StatusId = statusid,
+                FK_StatusId = _statusid,
                 BatchAmount = (decimal)detail.Fee,
                 InvoicePeriod = detail.InvoicePeriod,
-                PaidAmount= (decimal)detail.PaidAmount,
+                PaidAmount = (decimal)detail.PaidAmount,
                 Comments = comments,
                 CreatedBy = currentUser.UserId,
                 CreatedDate = DateTime.Now.ToUniversalTime()
             });
+            if (_statusid == 4 && dbContext.Transaction_InvoiceDetail.Any(d => d.FK_StatusId == 3 && d.InvoicePeriod == detail.InvoicePeriod && dbContext.Transaction_Invoice.Any(i => i.FK_StatusId == 3 && i.PK_InvoiceId == d.FK_InvoiceId && i.FK_PlayerId == playerid)))
+            {
+                var _details = dbContext.Transaction_InvoiceDetail.Where(d => d.FK_StatusId == 3 && d.InvoicePeriod == detail.InvoicePeriod && dbContext.Transaction_Invoice.Any(i => i.FK_StatusId == 3 && i.PK_InvoiceId == d.FK_InvoiceId && i.FK_PlayerId == playerid));
+                if (_details?.Count() > 0)
+                {
+                    _details.ToList().ForEach(d =>
+                    {
+                        //CLOSE THE INVOICE DETAIL IF PAID
+                        d.FK_StatusId = 4;
+                        d.ModifiedBy = currentUser.UserId;
+                        d.ModifiedDate = DateTime.Now.ToUniversalTime();
+                        dbContext.Entry(d).State = EntityState.Modified;
 
+                    });
+                }
+            }
         }
         [NonAction]
         public void UpdateLastInvGenerated(int invoiceid, int playerid, int BatchId, string InvoicePeriod)
@@ -342,8 +359,20 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     else if (_CreditBalance > 0 && (double)_CreditBalance < x.Fee)
                     {
                         x.Fee -= (double)_CreditBalance;
+                        _CreditBalance = 0;
                     }
 
+                });
+            }
+            var _openInvoice = dbContext.Transaction_InvoiceDetail.Where(x => dbContext.Transaction_Invoice.Any(i => i.FK_PlayerId == playerId && i.FK_StatusId == 3 && i.PK_InvoiceId == x.FK_InvoiceId));
+            if (_openInvoice != null)
+            {
+                invoiceModel.InvoiceDetails.ForEach(x =>
+                {
+                    if (_openInvoice.Any(o => o.InvoicePeriod == x.InvoicePeriod))
+                    {
+                        x.Fee -= (double)_openInvoice.Where(o => o.InvoicePeriod == x.InvoicePeriod).Sum(s => s.PaidAmount);
+                    }
                 });
             }
             return invoiceModel;
@@ -400,6 +429,39 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             if (_totalPaidAmount > 0)
             {
                 invoice.ExtraPaidAmount = _totalPaidAmount;
+            }
+        }
+
+        [NonAction]
+        private void ChangeStatus(int PlayerId, int InvoiceId)
+        {
+            //CLOSE THE INVOICE IF PAID
+            if (dbContext.Transaction_Invoice.Any(i => i.FK_PlayerId == PlayerId && i.FK_StatusId == 3 && i.PK_InvoiceId == InvoiceId && dbContext.Transaction_InvoiceDetail.All(l => l.FK_InvoiceId == i.PK_InvoiceId && l.FK_StatusId == 4)))
+            {
+                var _invoice = dbContext.Transaction_Invoice.Find(InvoiceId);
+                if (_invoice != null)
+                {
+                    _invoice.FK_StatusId = 4;
+                    _invoice.ModifiedBy = currentUser.UserId;
+                    _invoice.ModifiedDate = DateTime.Now.ToUniversalTime();
+                    dbContext.Entry(_invoice).State = EntityState.Modified;
+                }
+                var _invoiceDetails = dbContext.Transaction_InvoiceDetail.Where(d => d.FK_InvoiceId == InvoiceId && d.FK_StatusId == 4);
+                if (_invoiceDetails?.Count() > 0)
+                {
+                    _invoiceDetails.ToList().ForEach(detail =>
+                    {
+                        var _updateInvoice = dbContext.Transaction_InvoiceDetail.Where(d => d.InvoicePeriod == detail.InvoicePeriod && dbContext.Transaction_Invoice.Any(i => i.FK_VenueId == currentUser.CurrentVenueId && i.FK_PlayerId == PlayerId));
+                        if (_updateInvoice != null)
+                        {
+                            _updateInvoice.ToList().ForEach(inv =>
+                            {
+
+                            });
+                        }
+
+                    });
+                }
             }
         }
         #endregion [ NonAction Methods ]
