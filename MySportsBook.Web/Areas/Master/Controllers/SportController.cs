@@ -52,7 +52,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                     return Json(false, JsonRequestBehavior.AllowGet);

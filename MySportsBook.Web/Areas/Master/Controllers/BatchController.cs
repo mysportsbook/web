@@ -295,7 +295,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }

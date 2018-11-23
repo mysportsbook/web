@@ -46,7 +46,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                     return Json(false, JsonRequestBehavior.AllowGet);
@@ -57,7 +57,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         }
 
         // GET: Master/Venue/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -103,7 +103,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                     return Json(false, JsonRequestBehavior.AllowGet);
