@@ -50,12 +50,58 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("Discount")
+                        @Html.Label("Received By")
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.TextBox("txtDiscount", "0.00", new { @class = "form-control text-right" })
+                        @Html.DropDownList("ReceivedBy", null, htmlAttributes: new { @class = "form-control", @tabindex = 5 })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Discount(-)")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtDiscount", "0.00", new { @class = "form-control text-right", @tabindex = 2 })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Payment Mode")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control", @tabindex = 6 })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("OtherAmount(+)")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right", @tabindex = 3 })
+                    </div>
+                </div>
+                <div class="col-sm-3 transaction" style="display:none">
+                    <div class="form-group">
+                        @Html.Label("Trans/Cheque#")
+                    </div>
+                </div>
+                <div class="col-sm-3 transaction" style="display:none">
+                    <div class="form-group">
+                        @Html.TextBox("TransactionNo", "", new { @class = "form-control", @tabindex = 7 })
                     </div>
                 </div>
             </div>
@@ -70,16 +116,32 @@
                         @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
+                <div class="col-sm-3 transaction" style="display:none">
+                    @Html.Label("Trans/Cheque Date")
+                </div>
+                <div class="col-sm-3 transaction" style="display:none">
+                    @Html.TextBox("TransactionDate", "", new { @class = "form-control date", @tabindex = 8 })
+                </div>
+
+            </div>
+            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("OtherAmount")
+                        @Html.Label("Paid")
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right" })
+                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right", @tabindex = 4 })
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    @Html.Label("Comments")
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextArea("txtComments", new { @class = "form-control", @tabindex = 9 })
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-sm-3">
@@ -92,58 +154,10 @@
                         @Html.TextBox("txtBalance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Paid")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right" })
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-sm-3">
-                    @Html.Label("Comments")
-                </div>
-                <div class="col-sm-9">
-                    @Html.TextArea("txtComments", new { @class = "form-control" })
-                </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Payment Mode")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
-            <div class="row transaction" style="display:none">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Trans/Cheque#")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtTransNo", "", new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    @Html.Label("Trans/Cheque Date")
-                </div>
-                <div class="col-sm-3">
-                    @Html.TextBox("txtTransDate", "", new { @class = "form-control date" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary btn-block" onclick="confirmation()">Pay</button>
+                <div class="offset-md-9 col-sm-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="confirmation()" tabindex="10">Pay</button>
                     @Html.HiddenFor(model => model.PlayerId)
                 </div>
             </div>
@@ -253,10 +267,12 @@
                 TotalPaidAmount: parseFloat($('#txtPaid').val()),
                 PaymentId: $('select[name="PaymentMode"]').val(),
                 Comments: $('#txtComments').val(),
-                TransactionNo: $('#PaymentMode').val() != "1" ? $('#txtTransNo').val() : '',
-                TransactionDate: $('#PaymentMode').val() != "1" ? $('#txtTransDate').val() : null,
+                TransactionNo: $('#PaymentMode').val() != "1" ? $('#TransactionNo').val() : '',
+                TransactionDate: $('#PaymentMode').val() != "1" ? $('#TransactionDate').val() : null,
+                ReceivedBy: $('select[name="ReceivedBy"]').val(),
                 InvoiceDetails: invoicedetails
             }
+            debugger
             if (validatePaidAmount(invoiceobj) == success) {
                 if (checkForClosingPrevInv(invoiceobj)) {
                     swal({

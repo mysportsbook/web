@@ -32,10 +32,12 @@ namespace MySportsBook.Model
         public Nullable<decimal> TotalOtherAmount { get; set; }
         public Nullable<decimal> TotalDiscountAmount { get; set; }
         public Nullable<System.DateTime> TransactionDate { get; set; }
+        public Nullable<int> ReceivedBy { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
+        public virtual Configuration_User Configuration_User2 { get; set; }
         public virtual Confirguration_PaymentMode Confirguration_PaymentMode { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
         public virtual Transaction_Invoice Transaction_Invoice { get; set; }

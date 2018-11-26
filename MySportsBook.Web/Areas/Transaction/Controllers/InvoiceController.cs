@@ -28,6 +28,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         {
             InvoiceModel invoiceModel = GetInvoiceDetailList(id);
             ViewBag.PaymentMode = new SelectList(dbContext.Confirguration_PaymentMode, "PK_PaymentModeId", "PaymentMode");
+            ViewBag.ReceivedBy = new SelectList(dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0), "PK_UserId", "UserName", currentUser.UserId.ToString());
             return PartialView("_Payment", (invoiceModel.InvoiceDetails != null && invoiceModel.InvoiceDetails.ToList().Count > 0) ? invoiceModel : new InvoiceModel() { NoDues = true });
         }
 
@@ -64,7 +65,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 //Get all the Month to be closed
                 var ClosedInv = GetMonthToBeClosed(invoice);
                 //Split the Amount in the Invoice Detail
-                SplitTheAmountInDetail(ref invoice, invoice.TotalPaidAmount);
+                SplitTheAmountInDetail(ref invoice, invoice.TotalPaidAmount, invoice.TotalDiscount, invoice.TotalOtherAmount);
                 //Close all the Month Automatically
                 if (ClosedInv != null && ClosedInv.Count > 0)
                 {
@@ -128,6 +129,9 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     TotalOtherAmount = _invoice.OtherAmount,
                     TotalDiscountAmount = _invoice.TotalDiscount,
                     AmountPaid = (decimal)_invoice.PaidAmount,
+                    TransactionDate = invoice.TransactionDate,
+                    TransactionNumber = invoice.TransactionNo,
+                    ReceivedBy = invoice.ReceivedBy,
                     FK_InvoiceId = _invoice.PK_InvoiceId,
                     FK_PaymentModeId = invoice.PaymentId,
                     FK_StatusId = 1,
@@ -411,11 +415,17 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         }
 
         [NonAction]
-        private void SplitTheAmountInDetail(ref InvoiceModel invoice, double totalAmount)
+        private void SplitTheAmountInDetail(ref InvoiceModel invoice, double totalAmount, double discount, double otherAmount)
         {
             double _totalPaidAmount = totalAmount;
+            int count = 0;
             invoice.InvoiceDetails.OrderByDescending(x => x.Fee).ToList().ForEach(x =>
             {
+                if (count == 0)
+                {
+                    x.Fee += otherAmount - discount;
+                    count += 1;
+                }
                 if (_totalPaidAmount > 0 && _totalPaidAmount >= x.Fee)
                 {
                     x.PaidAmount = x.Fee;

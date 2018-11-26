@@ -17,6 +17,7 @@ namespace MySportsBook.Model.ViewModel
         public string Comments { get; set; }
         public string TransactionNo { get; set; }
         public DateTime? TransactionDate { get; set; }
+        public int ReceivedBy { get; set; }
         public bool NoDues { get; set; }
         public List<InvoiceDetailModel> InvoiceDetails { get; set; }
     }

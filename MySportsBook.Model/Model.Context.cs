@@ -20,6 +20,8 @@ namespace MySportsBook.Model
         public MySportsBookEntities()
             : base("name=MySportsBookEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,7 +30,6 @@ namespace MySportsBook.Model
         }
     
         public virtual DbSet<Transaction_Receipt> Transaction_Receipt { get; set; }
-        public virtual DbSet<BatchCount> BatchCounts { get; set; }
         public virtual DbSet<Configuration_BatchType> Configuration_BatchType { get; set; }
         public virtual DbSet<Configuration_Format> Configuration_Format { get; set; }
         public virtual DbSet<Configuration_InvoicePeriod> Configuration_InvoicePeriod { get; set; }
