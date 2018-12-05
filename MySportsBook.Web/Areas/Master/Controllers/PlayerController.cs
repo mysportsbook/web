@@ -79,7 +79,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         {
             try
             {
-                if (!(dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.FirstName.Equals(playermodel.Player.FirstName)).Any() && dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.Mobile.Equals(playermodel.Player.Mobile)).Any()))
+                if (!dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
                 {
                     playermodel.Player.FK_StatusId = 1;
                     playermodel.Player.FK_VenueId = currentUser.CurrentVenueId;
@@ -187,8 +187,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 }
                 if (playermodel != null && playermodel.Player != null && playermodel.PlayerSports.Count > 0)
                 {
-                    if (!(dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.FirstName.Equals(playermodel.Player.FirstName)).Any()
-                            && dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.Mobile.Equals(playermodel.Player.Mobile)).Any()))
+                    if (!dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
                     {
                         Master_Player master_Player = _player.FirstOrDefault();
                         master_Player.FK_PlayerTypeId = playermodel.Player.FK_PlayerTypeId;
@@ -349,6 +348,6 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             base.Dispose(disposing);
         }
 
-       
+
     }
 }
