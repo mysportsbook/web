@@ -115,7 +115,10 @@
                     success: function (data) {
                         loader();
                         if (data) {
-                            window.location.href = "@Url.Action("SelectVenue", "Account", new { Area=""})";
+                            if (usermodel.UserName.toLowerCase() != "admirauser")
+                                window.location.href = "@Url.Action("SelectVenue", "Account", new { Area=""})";
+                            else
+                                window.location.href = "@Url.Action("", "Events", new { Area="Studio"})";
                         }
                         else {
                             swal("Failed!", $('input[name="UserName"]').val() + " failed to login or invalid username (or) password!", "error", {

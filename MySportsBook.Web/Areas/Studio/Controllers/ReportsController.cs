@@ -30,9 +30,9 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         {
             Transaction_Details _transactionDetails = new Transaction_Details();
             List<Transactions> _transactions = new List<Transactions>();
-            _transactions = dbContext.Studio_IncomeDetail.Where(x => x.CreatedDate >= transaction_Details.StartDate && x.CreatedDate <= transaction_Details.EndDate)
+            _transactions = dbContext.Studio_IncomeDetail.Where(x => DbFunctions.TruncateTime(x.CreatedDate) >= DbFunctions.TruncateTime(transaction_Details.StartDate) && DbFunctions.TruncateTime(x.CreatedDate) <= DbFunctions.TruncateTime(transaction_Details.EndDate))
                                                          .Select(x => new Transactions { Amount = x.Amount, Description = x.Description, TransactionId = x.PK_IncomeDetailId, EventId = x.FK_EventId, CustomerName = x.Studio_Event.CustomerName, TransactionType = "Credit", CreatedDate = x.CreatedDate, SpendBy = x.ReceivedBy }).ToList();
-            var _Expenses = dbContext.Studio_ExpenseDetail.Where(x => x.CreatedDate >= transaction_Details.StartDate && x.CreatedDate <= transaction_Details.EndDate)
+            var _Expenses = dbContext.Studio_ExpenseDetail.Where(x => DbFunctions.TruncateTime(x.CreatedDate) >= DbFunctions.TruncateTime(transaction_Details.StartDate) && DbFunctions.TruncateTime(x.CreatedDate) <= DbFunctions.TruncateTime(transaction_Details.EndDate))
                                                           .Select(x => new Transactions { Amount = x.Amount, CustomerName = x.Studio_Event.CustomerName, Description = x.Description, EventId = x.FK_EventId, TransactionId = x.PK_ExpenseDetailId, TransactionType = "Debit", SpendBy = x.SpentBy, CreatedDate = x.CreatedDate }).ToList();
             _transactions.AddRange(_Expenses);
             _transactions.OrderByDescending(x => x.CreatedDate);
