@@ -17,13 +17,15 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Configuration_Format()
         {
-            this.Master_ScreenNumberFormat = new HashSet<Master_ScreenNumberFormat>();
+            this.Master_VenueScreen = new HashSet<Master_VenueScreen>();
         }
     
         public int PK_NumberFormatId { get; set; }
         public string NumberFormat { get; set; }
+        public string Divider { get; set; }
+        public int NumberLength { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_ScreenNumberFormat> Master_ScreenNumberFormat { get; set; }
+        public virtual ICollection<Master_VenueScreen> Master_VenueScreen { get; set; }
     }
 }

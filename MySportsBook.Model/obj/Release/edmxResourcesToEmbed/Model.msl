@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Transaction_Receipt">
       <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Receipt">
         <MappingFragment StoreEntitySet="Transaction_Receipt">
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
           <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
           <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
           <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
@@ -44,17 +45,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="BatchCounts">
-      <EntityTypeMapping TypeName="MySportsBookModel.BatchCount">
-        <MappingFragment StoreEntitySet="BatchCount">
-          <ScalarProperty Name="Count" ColumnName="Count" />
-          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="PK_BatchCount" ColumnName="PK_BatchCount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Configuration_BatchType">
       <EntityTypeMapping TypeName="MySportsBookModel.Configuration_BatchType">
         <MappingFragment StoreEntitySet="Configuration_BatchType">
@@ -224,6 +214,7 @@
     <EntitySetMapping Name="Master_Player">
       <EntityTypeMapping TypeName="MySportsBookModel.Master_Player">
         <MappingFragment StoreEntitySet="Master_Player">
+          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -442,6 +433,7 @@
     <EntitySetMapping Name="Transaction_InvoiceDetail">
       <EntityTypeMapping TypeName="MySportsBookModel.Transaction_InvoiceDetail">
         <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

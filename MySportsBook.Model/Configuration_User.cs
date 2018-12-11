@@ -17,6 +17,7 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Configuration_User()
         {
+            this.Studio_ExpenseDetail = new HashSet<Studio_ExpenseDetail>();
             this.Master_Batch = new HashSet<Master_Batch>();
             this.Master_Batch1 = new HashSet<Master_Batch>();
             this.Master_BatchTiming = new HashSet<Master_BatchTiming>();
@@ -30,8 +31,8 @@ namespace MySportsBook.Model
             this.Master_Role1 = new HashSet<Master_Role>();
             this.Master_RoleScreen = new HashSet<Master_RoleScreen>();
             this.Master_RoleScreen1 = new HashSet<Master_RoleScreen>();
-            this.Master_ScreenNumberFormat = new HashSet<Master_ScreenNumberFormat>();
-            this.Master_ScreenNumberFormat1 = new HashSet<Master_ScreenNumberFormat>();
+            this.Master_VenueScreen = new HashSet<Master_VenueScreen>();
+            this.Master_VenueScreen1 = new HashSet<Master_VenueScreen>();
             this.Master_Sport = new HashSet<Master_Sport>();
             this.Master_Sport1 = new HashSet<Master_Sport>();
             this.Master_UserRole = new HashSet<Master_UserRole>();
@@ -48,6 +49,7 @@ namespace MySportsBook.Model
             this.OtherBookings1 = new HashSet<OtherBooking>();
             this.OtherBookingDetails = new HashSet<OtherBookingDetail>();
             this.OtherBookingDetails1 = new HashSet<OtherBookingDetail>();
+            this.Studio_Event = new HashSet<Studio_Event>();
             this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
             this.Transaction_Invoice1 = new HashSet<Transaction_Invoice>();
             this.Transaction_InvoiceDetail = new HashSet<Transaction_InvoiceDetail>();
@@ -77,6 +79,8 @@ namespace MySportsBook.Model
     
         public virtual Configuration_Status Configuration_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Batch> Master_Batch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Batch> Master_Batch1 { get; set; }
@@ -103,9 +107,9 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_RoleScreen> Master_RoleScreen1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_ScreenNumberFormat> Master_ScreenNumberFormat { get; set; }
+        public virtual ICollection<Master_VenueScreen> Master_VenueScreen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_ScreenNumberFormat> Master_ScreenNumberFormat1 { get; set; }
+        public virtual ICollection<Master_VenueScreen> Master_VenueScreen1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Sport> Master_Sport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -138,6 +142,8 @@ namespace MySportsBook.Model
         public virtual ICollection<OtherBookingDetail> OtherBookingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OtherBookingDetail> OtherBookingDetails1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studio_Event> Studio_Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

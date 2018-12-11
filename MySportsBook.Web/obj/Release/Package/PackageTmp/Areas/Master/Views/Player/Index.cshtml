@@ -51,56 +51,56 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Player.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Player.LastName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Player.Mobile)
-                                </td>
-                                <td>
-                                    @{
-                                        string _sports = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Sport.SportName)) : string.Empty;
-                                    }
-                                    @Html.DisplayFor(modelItem => _sports)
-                                </td>
-                                <td>
-                                    @{
-                                        string _batches = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Batch.BatchName)) : string.Empty;
-                                    }
-                                    @Html.DisplayFor(modelItem => _batches)
-                                </td>
-                                <td>
-                                    @{
-                                        string _Fees = item.PlayerSports.Count > 0 ? String.Format("{0:0.00}", item.PlayerSports.Select(i => i.Master_Batch.Fee).FirstOrDefault()) : string.Empty;
-                                    }
-                                    @Html.DisplayFor(modelItem => _Fees)
-                                </td>
-                                <td>
-                                    @if (item.Player.FK_StatusId == 1)
-                                    {
-                                        <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
-                                    }
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Player.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Player.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Player.Mobile)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string _sports = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Sport.SportName)) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _sports)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string _batches = item.PlayerSports.Count > 0 ? string.Join(", ", item.PlayerSports.Select(i => i.Master_Batch.BatchName)) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _batches)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string _Fees = item.PlayerSports.Count > 0 ? String.Format("{0:0.00}", item.PlayerSports.Sum(i => i.Fee)) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _Fees)
+                                    </td>
+                                    <td>
+                                        @if (item.Player.FK_StatusId == 1)
+                                        {
+                                            <span class="badge badge-success"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger"> @Html.DisplayFor(modelItem => item.Player.Configuration_Status.Status)</span>
+                                        }
 
-                                </td>
-                                <td>
-                                    <div>
-                                        <button class="btn btn-primary" onclick="editData(@item.Player.PK_PlayerId)" title="Edit" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-danger" onclick="deleteData(@item.Player.PK_PlayerId)" title="Delete" type="button">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button class="btn btn-primary" onclick="editData(@item.Player.PK_PlayerId)" title="Edit" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-danger" onclick="deleteData(@item.Player.PK_PlayerId)" title="Delete" type="button">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

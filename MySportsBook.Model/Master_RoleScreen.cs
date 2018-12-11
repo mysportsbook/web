@@ -28,7 +28,7 @@ namespace MySportsBook.Model
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
         public virtual Master_Role Master_Role { get; set; }
-        public virtual Master_ScreenNumberFormat Master_ScreenNumberFormat { get; set; }
+        public virtual Master_VenueScreen Master_VenueScreen { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
     }
 }

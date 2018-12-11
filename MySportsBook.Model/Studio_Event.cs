@@ -12,33 +12,36 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Master_ScreenNumberFormat
+    public partial class Studio_Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Master_ScreenNumberFormat()
+        public Studio_Event()
         {
-            this.Master_RoleScreen = new HashSet<Master_RoleScreen>();
+            this.Studio_ExpenseDetail = new HashSet<Studio_ExpenseDetail>();
+            this.Studio_IncomeDetail = new HashSet<Studio_IncomeDetail>();
         }
     
-        public int PK_ScreenNumberFormatId { get; set; }
-        public int FK_VenueId { get; set; }
-        public int FK_ScreenId { get; set; }
-        public string Prefix { get; set; }
-        public int CurrentNo { get; set; }
-        public int FK_FormatId { get; set; }
+        public int PK_EventId { get; set; }
+        public string OrderNumber { get; set; }
+        public string CustomerName { get; set; }
+        public string Mobile { get; set; }
+        public string EmailId { get; set; }
+        public string Description { get; set; }
+        public System.DateTime EventDate { get; set; }
+        public string Venue { get; set; }
+        public string Remarks { get; set; }
+        public Nullable<decimal> Amount { get; set; }
         public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Configuration_Format Configuration_Format { get; set; }
-        public virtual Configuration_Screen Configuration_Screen { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
-        public virtual Configuration_User Configuration_User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_RoleScreen> Master_RoleScreen { get; set; }
-        public virtual Master_Venue Master_Venue { get; set; }
+        public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
     }
 }

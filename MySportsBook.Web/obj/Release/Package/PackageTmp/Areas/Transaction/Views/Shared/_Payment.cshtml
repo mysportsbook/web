@@ -8,14 +8,14 @@
     }
     else
     {
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Sport</th>
                         <th scope="col">Month</th>
                         <th scope="col">Amount</th>
-                        <th scope="col"><input type="checkbox" class="inv-list-all" />Select All</th>
+                        <th scope="col"><input type="checkbox" class="inv-list-all" /></th>
                     </tr>
                 </thead>
                 @foreach (MySportsBook.Model.ViewModel.InvoiceDetailModel detail in Model.InvoiceDetails)
@@ -30,12 +30,13 @@
                             <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
                             <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
                             <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
+                            <input id="hidinvserno" type="hidden" class="inv-fee" name="hidinvserno" value="@detail.PayOrder" />
                         </td>
                     </tr>
                 }
             </table>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -47,8 +48,6 @@
                         @Html.TextBox("txtTotalFee", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Discount")
@@ -63,18 +62,6 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("Fine")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
                         @Html.Label("Total")
                     </div>
                 </div>
@@ -83,16 +70,14 @@
                         @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("Paid")
+                        @Html.Label("OtherAmount")
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right" })
+                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right" })
                     </div>
                 </div>
             </div>
@@ -107,7 +92,24 @@
                         @Html.TextBox("txtBalance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
-
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Paid")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right" })
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-sm-3">
+                    @Html.Label("Comments")
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextArea("txtComments", new { @class = "form-control" })
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
@@ -120,41 +122,53 @@
                         @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="row transaction" style="display:none">
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary" onclick="confirmation()">Pay</button>
+                    <div class="form-group">
+                        @Html.Label("Trans/Cheque#")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtTransNo", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    @Html.Label("Trans/Cheque Date")
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBox("txtTransDate", "", new { @class = "form-control date" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="confirmation()">Pay</button>
                     @Html.HiddenFor(model => model.PlayerId)
                 </div>
             </div>
         </div>
     }
 </div>
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="venueModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-2">
-                    @Html.Label("Comments")
-                </div>
-                <div class="col-sm-12">
-                    @Html.TextArea("txtComments", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnOk">Ok</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
+    var success = "SUCCESS";
+    $('#PaymentMode').change(function () {
+        //Cash
+        if ($('#PaymentMode').val() == "1") {
+            $('.transaction').css('display', 'none');
+        }
+        else {
+            $('.transaction').removeAttr('style');
+        }
+    });
+    $('.date').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 2000,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    });
     $('.inv-list-all').click(function () {
         $('.inv-list').prop("checked", $(this).is(":checked"));
         calculate();
@@ -183,50 +197,97 @@
         $('#txtPaid').val(parseFloat($('#txtPaid').val() == "" ? 0 : $('#txtPaid').val()).toFixed(2));
         $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
         $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
-
     }
     function confirmation() {
-        $('#confirmModal').modal({
-            backdrop: 'static',
-            keyboard: false
-        }).one('click', '#btnOk', function (e) {
-            payment($('#txtComments').val());
-        });
+        if (parseFloat($('#txtTotal').val()) == parseFloat($('#txtPaid').val())) {
+            payment();
+        }
+        else {
+            swal({
+                title: "Are you sure?",
+                text: "You want to generate a receipt!",
+                icon: "warning",
+                buttons: true,
+            }).then((confirm) => {
+                if (confirm) {
+                    payment();
+                }
+            });
+        }
     }
-    function payment(comment) {
-        var invoicedetails = [];
-        $('.inv-list').each(function () {
-            if ($(this).is(":checked")) {
-                invoicedetails.push({
-                    BatchId: parseInt($(this).parent().find('input[name="hidbatch"]').val().trim()),
-                    InvoicePeriodId: parseInt($(this).parent().find('input[name="hidinvperiodid"]').val().trim()),
-                    InvoicePeriod: $(this).parent().find('input[name="hidinvperiod"]').val().trim(),
-                    Fee: parseFloat($(this).parent().find('input[name="hidinvfee"]').val().trim())
+    function payment() {
+        try {
+            loader();
+            var invoicedetails = [];
+            $('.inv-list').each(function () {
+                if ($(this).is(":checked")) {
+                    invoicedetails.push({
+                        BatchId: parseInt($(this).parent().find('input[name="hidbatch"]').val().trim()),
+                        InvoicePeriodId: parseInt($(this).parent().find('input[name="hidinvperiodid"]').val().trim()),
+                        InvoicePeriod: $(this).parent().find('input[name="hidinvperiod"]').val().trim(),
+                        Fee: parseFloat($(this).parent().find('input[name="hidinvfee"]').val().trim()),
+                        PayOrder: parseFloat($(this).parent().find('input[name="hidinvserno"]').val().trim())
+                    });
+                }
+            });
+            if (invoicedetails.length <= 0) {
+                swal("Failed!", "Please select the month(s) to pay!", "error", {
+                    icon: "error"
                 });
+                loader();
+                return false;
             }
-        });
-        if (invoicedetails.length <= 0) {
-            swal("Failed!", "Please select the month(s) to pay!", "error", {
+            if (parseFloat($('#txtPaid').val()) <= 0) {
+                swal("Failed!", "Please select the month(s) to pay!", "error", {
+                    icon: "error"
+                });
+                loader();
+                return false;
+            }
+
+            var invoiceobj = {
+                PlayerId: $('#PlayerId').val(),
+                TotalFee: parseFloat($('#txtTotalFee').val()),
+                TotalOtherAmount: parseFloat($('#txtLateFee').val()),
+                TotalDiscount: parseFloat($('#txtDiscount').val()),
+                TotalPaidAmount: parseFloat($('#txtPaid').val()),
+                PaymentId: $('select[name="PaymentMode"]').val(),
+                Comments: $('#txtComments').val(),
+                TransactionNo: $('#PaymentMode').val() != "1" ? $('#txtTransNo').val() : '',
+                TransactionDate: $('#PaymentMode').val() != "1" ? $('#txtTransDate').val() : null,
+                InvoiceDetails: invoicedetails
+            }
+            if (validatePaidAmount(invoiceobj) == success) {
+                if (checkForClosingPrevInv(invoiceobj)) {
+                    swal({
+                        type: 'info',
+                        title: 'Closing Invoice',
+                        text: 'Some of the invoice(s) will be closed automatically!'
+                    }).then(() => {
+                        save(invoiceobj);
+                    });
+                }
+                else {
+                    save(invoiceobj);
+                }
+            }
+            else {
+                swal("Failed!", validAmt, "error", {
+                    icon: "error"
+                });
+                loader();
+                return false;
+            }
+        } catch (e) {
+            swal("Failed!", e.message, "error", {
                 icon: "error"
             });
+            loader();
             return false;
         }
-        if (parseFloat($('#txtPaid').val()) <= 0) {
-            swal("Failed!", "Please select the month(s) to pay!", "error", {
-                icon: "error"
-            });
-            return false;
-        }
-        var invoiceobj = {
-            PlayerId: $('#PlayerId').val(),
-            TotalFee: parseFloat($('#txtTotalFee').val()),
-            LateFee: parseFloat($('#txtLateFee').val()),
-            Discount: parseFloat($('#txtDiscount').val()),
-            PaidAmount: parseFloat($('#txtPaid').val()),
-            PaymentId:$('select[name="PaymentMode"]').val(),
-            Comments: comment,
-            InvoiceDetails: invoicedetails
-        }
+
+    }
+    function save(invoiceobj) {
         $.ajax({
             type: "POST",
             url: 'Transaction/Invoice/Payment',
@@ -234,6 +295,7 @@
             datatype: "json",
             contentType: "application/json; charset=utf-8",
             success: function (response) {
+                loader();
                 if (response) {
                     swal({
                         title: "Success!",
@@ -255,10 +317,41 @@
                 }
             },
             error: function (jqXHR, exception) {
+                loader();
                 swal("Failed!", "Payment failed! -" + exception, "error", {
                     icon: "error"
                 });
             }
         });
+    }
+    function validatePaidAmount(_invoice) {
+        if (_invoice.InvoiceDetails.length > 1) {
+            var sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
+            var objDetails = _.last(sortedDetails);
+            if ((_invoice.TotalFee - objDetails.Fee) > _invoice.TotalPaidAmount) {
+                return "Paid Amount is insufficient!"
+            }
+        }
+        return success;
+    }
+    function checkForClosingPrevInv(_invoice) {
+        var _sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
+        var _batchIds = _.countBy(_sortedDetails, "BatchId");
+        var _valid = false;
+        _.each(_batchIds, function (value, key) {
+            if (_valid) {
+                var _batchDetail = _.filter(_sortedDetails, { "BatchId": parseInt(key) })
+                for (var i = 1; i < _batchDetail.length; i++) {
+                    if (_batchDetail[0].PayOrder != 1 && _valid) {
+                        _valid = true;
+                    }
+                    else {
+                        if (_batchDetail[i].PayOrder !== _batchDetail[i - 1].PayOrder && _batchDetail[i].PayOrder != _batchDetail[i - 1].PayOrder + 1 && _valid)
+                            _valid = true;
+                    }
+                }
+            }
+        });
+        return _valid;
     }
 </script>

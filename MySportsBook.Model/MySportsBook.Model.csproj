@@ -109,9 +109,6 @@
     <Compile Include="Master_RoleScreen.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Master_ScreenNumberFormat.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Master_Sport.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -122,6 +119,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Master_Venue.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Master_VenueScreen.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
@@ -149,6 +149,18 @@
     <Compile Include="rp_COLLECTIONDETAIL_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Studio_Event.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Studio_ExpenseDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Studio_ExpenseType.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Studio_IncomeDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Transaction_Attendance.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -167,6 +179,9 @@
     <Compile Include="Transaction_Receipt.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Transaction_SaveInvoice_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Transaction_Voucher.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -176,6 +191,10 @@
     <Compile Include="ViewModel\EnquiryModel.cs" />
     <Compile Include="ViewModel\InvoiceModel.cs" />
     <Compile Include="ViewModel\PlayerModel.cs" />
+    <Compile Include="ViewModel\StudioReportFilters.cs" />
+    <Compile Include="ViewModel\Studio_Home_Index.cs" />
+    <Compile Include="ViewModel\Studio_Report_Filters.cs" />
+    <Compile Include="ViewModel\Transaction_Details.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
