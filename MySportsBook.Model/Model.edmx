@@ -65,6 +65,14 @@
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusCode" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="Configuration_StudioUser">
+          <Key>
+            <PropertyRef Name="PK_StudioUserId" />
+          </Key>
+          <Property Name="PK_StudioUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FK_StatusId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Configuration_User">
           <Key>
             <PropertyRef Name="PK_UserId" />
@@ -352,6 +360,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="LastEventStatusChangedBy" Type="int" />
         </EntityType>
         <EntityType Name="Studio_ExpenseDetail">
           <Key>
@@ -360,7 +369,7 @@
           <Property Name="PK_ExpenseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_EventId" Type="int" Nullable="false" />
           <Property Name="FK_ExpenseTypeId" Type="int" Nullable="false" />
-          <Property Name="SpentBy" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FK_SpentBy" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="SpentDate" Type="date" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -384,7 +393,7 @@
           <Property Name="ReceivedDate" Type="date" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ReceivedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="FK_ReceivedBy" Type="int" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="FK_StatusId" Type="int" Nullable="false" />
@@ -548,6 +557,18 @@
             </Principal>
             <Dependent Role="BatchCount">
               <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Configuration_StudioUser_Configuration_Status">
+          <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+          <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Configuration_StudioUser">
+              <PropertyRef Name="FK_StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1415,6 +1436,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Studio_ExpenseDetail_Configuration_StudioUser">
+          <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="1" />
+          <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_StudioUser">
+              <PropertyRef Name="PK_StudioUserId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="FK_SpentBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Studio_ExpenseDetail_Studio_ExpenseType">
           <End Role="Studio_ExpenseType" Type="Self.Studio_ExpenseType" Multiplicity="1" />
           <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
@@ -1436,6 +1469,18 @@
             </Principal>
             <Dependent Role="Studio_ExpenseType">
               <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio_IncomeDetail_Configuration_StudioUser">
+          <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="0..1" />
+          <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_StudioUser">
+              <PropertyRef Name="PK_StudioUserId" />
+            </Principal>
+            <Dependent Role="Studio_IncomeDetail">
+              <PropertyRef Name="FK_ReceivedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1902,6 +1947,7 @@
           <EntitySet Name="Configuration_PlayerType" EntityType="Self.Configuration_PlayerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_Screen" EntityType="Self.Configuration_Screen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_Status" EntityType="Self.Configuration_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configuration_StudioUser" EntityType="Self.Configuration_StudioUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Batch" EntityType="Self.Master_Batch" Schema="dbo" store:Type="Tables" />
@@ -1941,6 +1987,10 @@
           <AssociationSet Name="FK_BatchCount_Master_Venue" Association="Self.FK_BatchCount_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="BatchCount" EntitySet="BatchCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
           </AssociationSet>
           <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -2230,6 +2280,10 @@
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Studio_Event" EntitySet="Studio_Event" />
           </AssociationSet>
+          <AssociationSet Name="FK_Studio_ExpenseDetail_Configuration_StudioUser" Association="Self.FK_Studio_ExpenseDetail_Configuration_StudioUser">
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_Studio_ExpenseDetail_Studio_ExpenseType" Association="Self.FK_Studio_ExpenseDetail_Studio_ExpenseType">
             <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
             <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
@@ -2237,6 +2291,10 @@
           <AssociationSet Name="FK_Studio_ExpenseType_Configuration_Status" Association="Self.FK_Studio_ExpenseType_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio_IncomeDetail_Configuration_StudioUser" Association="Self.FK_Studio_IncomeDetail_Configuration_StudioUser">
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_Studio_IncomeDetail_Studio_Event" Association="Self.FK_Studio_IncomeDetail_Studio_Event">
             <End Role="Studio_Event" EntitySet="Studio_Event" />
@@ -2418,10 +2476,7 @@
           <EntitySet Name="Master_VenueScreen" EntityType="MySportsBookModel.Master_VenueScreen" />
           <EntitySet Name="OtherBookings" EntityType="MySportsBookModel.OtherBooking" />
           <EntitySet Name="OtherBookingDetails" EntityType="MySportsBookModel.OtherBookingDetail" />
-          <EntitySet Name="Studio_Event" EntityType="MySportsBookModel.Studio_Event" />
-          <EntitySet Name="Studio_ExpenseDetail" EntityType="MySportsBookModel.Studio_ExpenseDetail" />
           <EntitySet Name="Studio_ExpenseType" EntityType="MySportsBookModel.Studio_ExpenseType" />
-          <EntitySet Name="Studio_IncomeDetail" EntityType="MySportsBookModel.Studio_IncomeDetail" />
           <EntitySet Name="Transaction_Attendance" EntityType="MySportsBookModel.Transaction_Attendance" />
           <EntitySet Name="Transaction_Enquiry_Comments" EntityType="MySportsBookModel.Transaction_Enquiry_Comments" />
           <EntitySet Name="Transaction_Invoice" EntityType="MySportsBookModel.Transaction_Invoice" />
@@ -2464,14 +2519,6 @@
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Configuration_User" EntitySet="Configuration_User" />
           </AssociationSet>
-          <AssociationSet Name="FK_ExpenseDetail_Configuration_Status" Association="MySportsBookModel.FK_ExpenseDetail_Configuration_Status">
-            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_IncomeDetail_Configuration_Status" Association="MySportsBookModel.FK_IncomeDetail_Configuration_Status">
-            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_Master_Batch_Configuration_Status" Association="MySportsBookModel.FK_Master_Batch_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Master_Batch" EntitySet="Master_Batch" />
@@ -2512,10 +2559,6 @@
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Master_Venue" EntitySet="Master_Venue" />
           </AssociationSet>
-          <AssociationSet Name="FK_Studio_Event_Configuration_Status" Association="MySportsBookModel.FK_Studio_Event_Configuration_Status">
-            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-            <End Role="Studio_Event" EntitySet="Studio_Event" />
-          </AssociationSet>
           <AssociationSet Name="FK_Studio_ExpenseType_Configuration_Status" Association="MySportsBookModel.FK_Studio_ExpenseType_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
@@ -2539,10 +2582,6 @@
           <AssociationSet Name="FK_Transaction_Voucher_Configuration_Status" Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Transaction_Voucher" EntitySet="Transaction_Voucher" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExpenseDetail_Configuration_User" Association="MySportsBookModel.FK_ExpenseDetail_Configuration_User">
-            <End Role="Configuration_User" EntitySet="Configuration_User" />
-            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_Batch_Configuration_User" Association="MySportsBookModel.FK_Master_Batch_Configuration_User">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -2667,10 +2706,6 @@
           <AssociationSet Name="FK_OtherBookingDetail_Configuration_User1" Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User1">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
             <End Role="OtherBookingDetail" EntitySet="OtherBookingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudioEvent_Configuration_Status" Association="MySportsBookModel.FK_StudioEvent_Configuration_Status">
-            <End Role="Configuration_User" EntitySet="Configuration_User" />
-            <End Role="Studio_Event" EntitySet="Studio_Event" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Invoice_Configuration_User" Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -2860,18 +2895,6 @@
             <End Role="OtherBooking" EntitySet="OtherBookings" />
             <End Role="OtherBookingDetail" EntitySet="OtherBookingDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ExpenseDetail_StudioEvent" Association="MySportsBookModel.FK_ExpenseDetail_StudioEvent">
-            <End Role="Studio_Event" EntitySet="Studio_Event" />
-            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Studio_IncomeDetail_Studio_Event" Association="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event">
-            <End Role="Studio_Event" EntitySet="Studio_Event" />
-            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Studio_ExpenseDetail_Studio_ExpenseType" Association="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType">
-            <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
-            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_Transaction_InvoiceDetail_Transaction_Invoice" Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Transaction_Invoice">
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
             <End Role="Transaction_InvoiceDetail" EntitySet="Transaction_InvoiceDetail" />
@@ -2889,8 +2912,56 @@
             <Parameter Name="Delimiter" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Transaction_SaveInvoice" ReturnType="Collection(MySportsBookModel.Transaction_SaveInvoice_Result)">
-            <Parameter Name="XML" Mode="In" Type="String" />
+          <Parameter Name="XML" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Configuration_StudioUser" EntityType="MySportsBookModel.Configuration_StudioUser" />
+          <EntitySet Name="Studio_ExpenseDetail" EntityType="MySportsBookModel.Studio_ExpenseDetail" />
+          <EntitySet Name="Studio_IncomeDetail" EntityType="MySportsBookModel.Studio_IncomeDetail" />
+          <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetail_Configuration_Status" Association="MySportsBookModel.FK_ExpenseDetail_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomeDetail_Configuration_Status" Association="MySportsBookModel.FK_IncomeDetail_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio_ExpenseDetail_Configuration_StudioUser" Association="MySportsBookModel.FK_Studio_ExpenseDetail_Configuration_StudioUser">
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio_IncomeDetail_Configuration_StudioUser" Association="MySportsBookModel.FK_Studio_IncomeDetail_Configuration_StudioUser">
+            <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetail_Configuration_User" Association="MySportsBookModel.FK_ExpenseDetail_Configuration_User">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio_ExpenseDetail_Studio_ExpenseType" Association="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType">
+            <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
+          <EntitySet Name="Studio_Event" EntityType="MySportsBookModel.Studio_Event" />
+          <AssociationSet Name="FK_Studio_Event_Configuration_Status" Association="MySportsBookModel.FK_Studio_Event_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Studio_Event" EntitySet="Studio_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudioEvent_Configuration_Status" Association="MySportsBookModel.FK_StudioEvent_Configuration_Status">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Studio_Event" EntitySet="Studio_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetail_StudioEvent" Association="MySportsBookModel.FK_ExpenseDetail_StudioEvent">
+            <End Role="Studio_Event" EntitySet="Studio_Event" />
+            <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio_IncomeDetail_Studio_Event" Association="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event">
+            <End Role="Studio_Event" EntitySet="Studio_Event" />
+            <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Transaction_Receipt">
           <Key>
@@ -3006,8 +3077,6 @@
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_Configuration_User_Configuration_Status" FromRole="Configuration_Status" ToRole="Configuration_User" />
-          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_ExpenseDetail" />
-          <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_IncomeDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_IncomeDetail" />
           <NavigationProperty Name="Master_Batch" Relationship="MySportsBookModel.FK_Master_Batch_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Batch" />
           <NavigationProperty Name="Master_CoachingLevel" Relationship="MySportsBookModel.FK_Master_CoachingLevel_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_CoachingLevel" />
           <NavigationProperty Name="Master_Court" Relationship="MySportsBookModel.FK_Master_Court_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Court" />
@@ -3018,13 +3087,16 @@
           <NavigationProperty Name="Master_Sport" Relationship="MySportsBookModel.FK_Master_Sport_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_UserVenue" Relationship="MySportsBookModel.FK_Master_UserVenue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_UserVenue" />
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBookModel.FK_Master_Venue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Venue" />
-          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_Studio_Event_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_Event" />
           <NavigationProperty Name="Studio_ExpenseType" Relationship="MySportsBookModel.FK_Studio_ExpenseType_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_ExpenseType" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBookModel.FK_Transaction_Invoice_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_InvoiceDetail" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_InvoiceDetail" />
           <NavigationProperty Name="Transaction_PlayerSport" Relationship="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_PlayerSport" />
           <NavigationProperty Name="Transaction_Receipt" Relationship="MySportsBookModel.FK_Transaction_Receipt_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Receipt" />
           <NavigationProperty Name="Transaction_Voucher" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Voucher" />
+          <NavigationProperty Name="Configuration_StudioUser" Relationship="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status" FromRole="Configuration_Status" ToRole="Configuration_StudioUser" />
+          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_ExpenseDetail" />
+          <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_IncomeDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_IncomeDetail" />
+          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_Studio_Event_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_Event" />
         </EntityType>
         <EntityType Name="Configuration_User">
           <Key>
@@ -3044,7 +3116,6 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Configuration_User_Configuration_Status" FromRole="Configuration_User" ToRole="Configuration_Status" />
-          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_User" FromRole="Configuration_User" ToRole="Studio_ExpenseDetail" />
           <NavigationProperty Name="Master_Batch" Relationship="MySportsBookModel.FK_Master_Batch_Configuration_User" FromRole="Configuration_User" ToRole="Master_Batch" />
           <NavigationProperty Name="Master_Batch1" Relationship="MySportsBookModel.FK_Master_Batch_Configuration_User1" FromRole="Configuration_User" ToRole="Master_Batch" />
           <NavigationProperty Name="Master_BatchTiming" Relationship="MySportsBookModel.FK_Master_BatchTiming_Configuration_User" FromRole="Configuration_User" ToRole="Master_BatchTiming" />
@@ -3076,7 +3147,6 @@
           <NavigationProperty Name="OtherBookings1" Relationship="MySportsBookModel.FK_OtherBooking_Configuration_User1" FromRole="Configuration_User" ToRole="OtherBooking" />
           <NavigationProperty Name="OtherBookingDetails" Relationship="MySportsBookModel.FK_OtherBookingDetail_Configuration_User" FromRole="Configuration_User" ToRole="OtherBookingDetail" />
           <NavigationProperty Name="OtherBookingDetails1" Relationship="MySportsBookModel.FK_OtherBookingDetail_Configuration_User1" FromRole="Configuration_User" ToRole="OtherBookingDetail" />
-          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_StudioEvent_Configuration_Status" FromRole="Configuration_User" ToRole="Studio_Event" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBookModel.FK_Transaction_Invoice_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_Invoice1" Relationship="MySportsBookModel.FK_Transaction_Invoice_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_InvoiceDetail" Relationship="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_InvoiceDetail" />
@@ -3088,6 +3158,8 @@
           <NavigationProperty Name="Transaction_Receipt2" Relationship="MySportsBookModel.FK_Transaction_Receipt_Configuration_User2" FromRole="Configuration_User" ToRole="Transaction_Receipt" />
           <NavigationProperty Name="Transaction_Voucher" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Voucher" />
           <NavigationProperty Name="Transaction_Voucher1" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Voucher" />
+          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_User" FromRole="Configuration_User" ToRole="Studio_ExpenseDetail" />
+          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_StudioEvent_Configuration_Status" FromRole="Configuration_User" ToRole="Studio_Event" />
         </EntityType>
         <EntityType Name="Confirguration_PaymentMode">
           <Key>
@@ -3444,49 +3516,6 @@
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBookModel.FK_OtherBookingDetail_Master_Venue" FromRole="OtherBookingDetail" ToRole="Master_Venue" />
           <NavigationProperty Name="OtherBooking" Relationship="MySportsBookModel.FK_OtherBookingDetail_OtherBooking" FromRole="OtherBookingDetail" ToRole="OtherBooking" />
         </EntityType>
-        <EntityType Name="Studio_Event">
-          <Key>
-            <PropertyRef Name="PK_EventId" />
-          </Key>
-          <Property Name="PK_EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Venue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Studio_Event_Configuration_Status" FromRole="Studio_Event" ToRole="Configuration_Status" />
-          <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_StudioEvent_Configuration_Status" FromRole="Studio_Event" ToRole="Configuration_User" />
-          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_StudioEvent" FromRole="Studio_Event" ToRole="Studio_ExpenseDetail" />
-          <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" FromRole="Studio_Event" ToRole="Studio_IncomeDetail" />
-        </EntityType>
-        <EntityType Name="Studio_ExpenseDetail">
-          <Key>
-            <PropertyRef Name="PK_ExpenseDetailId" />
-          </Key>
-          <Property Name="PK_ExpenseDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_EventId" Type="Int32" Nullable="false" />
-          <Property Name="FK_ExpenseTypeId" Type="Int32" Nullable="false" />
-          <Property Name="SpentBy" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SpentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" FromRole="Studio_ExpenseDetail" ToRole="Configuration_Status" />
-          <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_User" FromRole="Studio_ExpenseDetail" ToRole="Configuration_User" />
-          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_ExpenseDetail_StudioEvent" FromRole="Studio_ExpenseDetail" ToRole="Studio_Event" />
-          <NavigationProperty Name="Studio_ExpenseType" Relationship="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType" FromRole="Studio_ExpenseDetail" ToRole="Studio_ExpenseType" />
-        </EntityType>
         <EntityType Name="Studio_ExpenseType">
           <Key>
             <PropertyRef Name="PK_ExpenseTypeId" />
@@ -3496,22 +3525,6 @@
           <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Studio_ExpenseType_Configuration_Status" FromRole="Studio_ExpenseType" ToRole="Configuration_Status" />
           <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType" FromRole="Studio_ExpenseType" ToRole="Studio_ExpenseDetail" />
-        </EntityType>
-        <EntityType Name="Studio_IncomeDetail">
-          <Key>
-            <PropertyRef Name="PK_IncomeDetailId" />
-          </Key>
-          <Property Name="PK_IncomeDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="ReceivedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
-          <Property Name="FK_EventId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_IncomeDetail_Configuration_Status" FromRole="Studio_IncomeDetail" ToRole="Configuration_Status" />
-          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" FromRole="Studio_IncomeDetail" ToRole="Studio_Event" />
         </EntityType>
         <EntityType Name="Transaction_Attendance">
           <Key>
@@ -3751,30 +3764,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ExpenseDetail_Configuration_Status">
-          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Configuration_Status">
-              <PropertyRef Name="PK_StatusId" />
-            </Principal>
-            <Dependent Role="Studio_ExpenseDetail">
-              <PropertyRef Name="FK_StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_IncomeDetail_Configuration_Status">
-          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_IncomeDetail" Role="Studio_IncomeDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Configuration_Status">
-              <PropertyRef Name="PK_StatusId" />
-            </Principal>
-            <Dependent Role="Studio_IncomeDetail">
-              <PropertyRef Name="FK_StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Master_Batch_Configuration_Status">
           <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
           <End Type="MySportsBookModel.Master_Batch" Role="Master_Batch" Multiplicity="*" />
@@ -3895,18 +3884,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Studio_Event_Configuration_Status">
-          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Configuration_Status">
-              <PropertyRef Name="PK_StatusId" />
-            </Principal>
-            <Dependent Role="Studio_Event">
-              <PropertyRef Name="FK_StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Studio_ExpenseType_Configuration_Status">
           <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
           <End Type="MySportsBookModel.Studio_ExpenseType" Role="Studio_ExpenseType" Multiplicity="*" />
@@ -3976,18 +3953,6 @@
             </Principal>
             <Dependent Role="Transaction_Voucher">
               <PropertyRef Name="FK_StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExpenseDetail_Configuration_User">
-          <End Type="MySportsBookModel.Configuration_User" Role="Configuration_User" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Configuration_User">
-              <PropertyRef Name="PK_UserId" />
-            </Principal>
-            <Dependent Role="Studio_ExpenseDetail">
-              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4360,18 +4325,6 @@
             </Principal>
             <Dependent Role="OtherBookingDetail">
               <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudioEvent_Configuration_Status">
-          <End Type="MySportsBookModel.Configuration_User" Role="Configuration_User" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Configuration_User">
-              <PropertyRef Name="PK_UserId" />
-            </Principal>
-            <Dependent Role="Studio_Event">
-              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4939,42 +4892,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ExpenseDetail_StudioEvent">
-          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Studio_Event">
-              <PropertyRef Name="PK_EventId" />
-            </Principal>
-            <Dependent Role="Studio_ExpenseDetail">
-              <PropertyRef Name="FK_EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Studio_IncomeDetail_Studio_Event">
-          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_IncomeDetail" Role="Studio_IncomeDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Studio_Event">
-              <PropertyRef Name="PK_EventId" />
-            </Principal>
-            <Dependent Role="Studio_IncomeDetail">
-              <PropertyRef Name="FK_EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Studio_ExpenseDetail_Studio_ExpenseType">
-          <End Type="MySportsBookModel.Studio_ExpenseType" Role="Studio_ExpenseType" Multiplicity="1" />
-          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Studio_ExpenseType">
-              <PropertyRef Name="PK_ExpenseTypeId" />
-            </Principal>
-            <Dependent Role="Studio_ExpenseDetail">
-              <PropertyRef Name="FK_ExpenseTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Transaction_InvoiceDetail_Transaction_Invoice">
           <End Type="MySportsBookModel.Transaction_Invoice" Role="Transaction_Invoice" Multiplicity="1" />
           <End Type="MySportsBookModel.Transaction_InvoiceDetail" Role="Transaction_InvoiceDetail" Multiplicity="*" />
@@ -5017,6 +4934,211 @@
           <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="Configuration_StudioUser">
+          <Key>
+            <PropertyRef Name="PK_StudioUserId" />
+          </Key>
+          <Property Name="PK_StudioUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status" FromRole="Configuration_StudioUser" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_Studio_ExpenseDetail_Configuration_StudioUser" FromRole="Configuration_StudioUser" ToRole="Studio_ExpenseDetail" />
+          <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Configuration_StudioUser" FromRole="Configuration_StudioUser" ToRole="Studio_IncomeDetail" />
+        </EntityType>
+        <EntityType Name="Studio_ExpenseDetail">
+          <Key>
+            <PropertyRef Name="PK_ExpenseDetailId" />
+          </Key>
+          <Property Name="PK_ExpenseDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_EventId" Type="Int32" Nullable="false" />
+          <Property Name="FK_ExpenseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FK_SpentBy" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SpentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" FromRole="Studio_ExpenseDetail" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_StudioUser" Relationship="MySportsBookModel.FK_Studio_ExpenseDetail_Configuration_StudioUser" FromRole="Studio_ExpenseDetail" ToRole="Configuration_StudioUser" />
+          <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_User" FromRole="Studio_ExpenseDetail" ToRole="Configuration_User" />
+          <NavigationProperty Name="Studio_ExpenseType" Relationship="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType" FromRole="Studio_ExpenseDetail" ToRole="Studio_ExpenseType" />
+          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_ExpenseDetail_StudioEvent" FromRole="Studio_ExpenseDetail" ToRole="Studio_Event" />
+        </EntityType>
+        <EntityType Name="Studio_IncomeDetail">
+          <Key>
+            <PropertyRef Name="PK_IncomeDetailId" />
+          </Key>
+          <Property Name="PK_IncomeDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="FK_ReceivedBy" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="FK_EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_IncomeDetail_Configuration_Status" FromRole="Studio_IncomeDetail" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_StudioUser" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Configuration_StudioUser" FromRole="Studio_IncomeDetail" ToRole="Configuration_StudioUser" />
+          <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" FromRole="Studio_IncomeDetail" ToRole="Studio_Event" />
+        </EntityType>
+        <Association Name="FK_Configuration_StudioUser_Configuration_Status">
+          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBookModel.Configuration_StudioUser" Role="Configuration_StudioUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Configuration_StudioUser">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetail_Configuration_Status">
+          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomeDetail_Configuration_Status">
+          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_IncomeDetail" Role="Studio_IncomeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Studio_IncomeDetail">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio_ExpenseDetail_Configuration_StudioUser">
+          <End Type="MySportsBookModel.Configuration_StudioUser" Role="Configuration_StudioUser" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_StudioUser">
+              <PropertyRef Name="PK_StudioUserId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="FK_SpentBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio_IncomeDetail_Configuration_StudioUser">
+          <End Type="MySportsBookModel.Configuration_StudioUser" Role="Configuration_StudioUser" Multiplicity="0..1" />
+          <End Type="MySportsBookModel.Studio_IncomeDetail" Role="Studio_IncomeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_StudioUser">
+              <PropertyRef Name="PK_StudioUserId" />
+            </Principal>
+            <Dependent Role="Studio_IncomeDetail">
+              <PropertyRef Name="FK_ReceivedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetail_Configuration_User">
+          <End Type="MySportsBookModel.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio_ExpenseDetail_Studio_ExpenseType">
+          <End Type="MySportsBookModel.Studio_ExpenseType" Role="Studio_ExpenseType" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studio_ExpenseType">
+              <PropertyRef Name="PK_ExpenseTypeId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="FK_ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Studio_Event">
+          <Key>
+            <PropertyRef Name="PK_EventId" />
+          </Key>
+          <Property Name="PK_EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Venue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEventStatusChangedBy" Type="Int32" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBookModel.FK_Studio_Event_Configuration_Status" FromRole="Studio_Event" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_User" Relationship="MySportsBookModel.FK_StudioEvent_Configuration_Status" FromRole="Studio_Event" ToRole="Configuration_User" />
+          <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_StudioEvent" FromRole="Studio_Event" ToRole="Studio_ExpenseDetail" />
+          <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" FromRole="Studio_Event" ToRole="Studio_IncomeDetail" />
+        </EntityType>
+        <Association Name="FK_Studio_Event_Configuration_Status">
+          <End Type="MySportsBookModel.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Studio_Event">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudioEvent_Configuration_Status">
+          <End Type="MySportsBookModel.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Studio_Event">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetail_StudioEvent">
+          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_ExpenseDetail" Role="Studio_ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studio_Event">
+              <PropertyRef Name="PK_EventId" />
+            </Principal>
+            <Dependent Role="Studio_ExpenseDetail">
+              <PropertyRef Name="FK_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio_IncomeDetail_Studio_Event">
+          <End Type="MySportsBookModel.Studio_Event" Role="Studio_Event" Multiplicity="1" />
+          <End Type="MySportsBookModel.Studio_IncomeDetail" Role="Studio_IncomeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studio_Event">
+              <PropertyRef Name="PK_EventId" />
+            </Principal>
+            <Dependent Role="Studio_IncomeDetail">
+              <PropertyRef Name="FK_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5419,64 +5541,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Studio_Event">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_Event">
-              <MappingFragment StoreEntitySet="Studio_Event">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-                <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Studio_ExpenseDetail">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseDetail">
-              <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="SpentDate" ColumnName="SpentDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SpentBy" ColumnName="SpentBy" />
-                <ScalarProperty Name="FK_ExpenseTypeId" ColumnName="FK_ExpenseTypeId" />
-                <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
-                <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Studio_ExpenseType">
             <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseType">
               <MappingFragment StoreEntitySet="Studio_ExpenseType">
                 <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
                 <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
                 <ScalarProperty Name="PK_ExpenseTypeId" ColumnName="PK_ExpenseTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Studio_IncomeDetail">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_IncomeDetail">
-              <MappingFragment StoreEntitySet="Studio_IncomeDetail">
-                <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
-                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="PK_IncomeDetailId" ColumnName="PK_IncomeDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5611,6 +5681,68 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Configuration_StudioUser">
+            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_StudioUser">
+              <MappingFragment StoreEntitySet="Configuration_StudioUser">
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PK_StudioUserId" ColumnName="PK_StudioUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studio_ExpenseDetail">
+            <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseDetail">
+              <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SpentDate" ColumnName="SpentDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FK_SpentBy" ColumnName="FK_SpentBy" />
+                <ScalarProperty Name="FK_ExpenseTypeId" ColumnName="FK_ExpenseTypeId" />
+                <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
+                <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studio_IncomeDetail">
+            <EntityTypeMapping TypeName="MySportsBookModel.Studio_IncomeDetail">
+              <MappingFragment StoreEntitySet="Studio_IncomeDetail">
+                <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_ReceivedBy" ColumnName="FK_ReceivedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="PK_IncomeDetailId" ColumnName="PK_IncomeDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studio_Event">
+            <EntityTypeMapping TypeName="MySportsBookModel.Studio_Event">
+              <MappingFragment StoreEntitySet="Studio_Event">
+                <ScalarProperty Name="LastEventStatusChangedBy" ColumnName="LastEventStatusChangedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

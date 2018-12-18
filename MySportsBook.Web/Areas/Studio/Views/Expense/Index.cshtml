@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
 
@@ -25,44 +25,52 @@
                     <table class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
+
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Studio_Event.CustomerName)
+                                    @Html.DisplayName("Order Number")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Studio_Event.OrderNumber)
+                                    @Html.DisplayName("Customer Name")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.FK_ExpenseTypeId)
+                                    @Html.DisplayName("Type")
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Description)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.SpentDate)
+                                    @Html.DisplayName("Spent By")
                                 </th>
-                               
+                                <th>
+                                    @Html.DisplayName("Spent On")
+                                </th>
+
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Studio_ExpenseType.ExpenseType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SpentDate)
-                                    </td>
-                                </tr>
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Studio_ExpenseType.ExpenseType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Configuration_StudioUser.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SpentDate)
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
 
@@ -26,50 +26,64 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.CustomerName)
+                                    @Html.DisplayName("Order Number")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.OrderNumber)
+                                    @Html.DisplayName("Customer Name")
                                 </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.Mobile)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.EventDate)
+                                    @Html.DisplayName("Event Date")
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FK_StatusId)
-                                </th>
-                                <th>
+
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.Description)
-                                </th>
-                                <th>@Html.Label("Action")</th>
+                                </th>*@
+                                <th>@Html.DisplayName("Status")</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                var Statusbtnclass = "";
+                                if (item.FK_StatusId == 3)
+                                {
+                                    Statusbtnclass = "btn btn-success";
+                                }
+                                else
+                                {
+                                    Statusbtnclass = "btn btn-danger";
+                                }
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CustomerName)
-                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OrderNumber)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Mobile)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EventDate)
+                                    @item.EventDate.ToString("dd-MMM-yyyy")
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
-                                </td>
-                                <td>
+
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.Description)
-                                </td>
+                                </td>*@
                                 <td>
-                                    <button class="btn btn-block btn-outline-info" onclick="changeStatus(@item.PK_EventId,this)" type="button">Change Status</button>
+
+                                    <button class="@Statusbtnclass" onclick="changeStatus(@item.PK_EventId,this)" type="button">Change Status</button>
+                                    <button class="btn btn-primary" onclick="editData(@item.PK_EventId)" title="Edit" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-primary" onclick="viewEvents(this)" title="View" type="button">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                     @Html.HiddenFor(modelItem => item.PK_EventId)
                                 </td>
                             </tr>
@@ -81,3 +95,23 @@
         </div>
     </div>
 </main>
+@Html.Partial("~/Views/Shared/Script/_Save.cshtml")
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")
+<script>
+    function changeStatus(EventId, e) {
+        var Eventmodel = { "PK_EventId": EventId };
+        saveData(Eventmodel, EventId, SaveOrUpdate.statuschange);
+        var openClass = "btn btn-success";
+        var closeClass = "btn btn-danger";
+        if ($(e).hasClass(openClass)) {
+            $(e).removeClass(openClass).addClass(closeClass);
+        }
+        else {
+            $(e).removeClass(closeClass).addClass(openClass);
+        }
+    }
+
+    function viewEvents() {
+
+    }
+</script>

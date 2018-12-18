@@ -52,16 +52,17 @@ namespace MySportsBook.Model
         public virtual DbSet<Master_VenueScreen> Master_VenueScreen { get; set; }
         public virtual DbSet<OtherBooking> OtherBookings { get; set; }
         public virtual DbSet<OtherBookingDetail> OtherBookingDetails { get; set; }
-        public virtual DbSet<Studio_Event> Studio_Event { get; set; }
-        public virtual DbSet<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
         public virtual DbSet<Studio_ExpenseType> Studio_ExpenseType { get; set; }
-        public virtual DbSet<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
         public virtual DbSet<Transaction_Attendance> Transaction_Attendance { get; set; }
         public virtual DbSet<Transaction_Enquiry_Comments> Transaction_Enquiry_Comments { get; set; }
         public virtual DbSet<Transaction_Invoice> Transaction_Invoice { get; set; }
         public virtual DbSet<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
         public virtual DbSet<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         public virtual DbSet<Transaction_Voucher> Transaction_Voucher { get; set; }
+        public virtual DbSet<Configuration_StudioUser> Configuration_StudioUser { get; set; }
+        public virtual DbSet<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
+        public virtual DbSet<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
+        public virtual DbSet<Studio_Event> Studio_Event { get; set; }
     
         public virtual ObjectResult<rp_COLLECTIONDETAIL_Result> rp_COLLECTIONDETAIL(Nullable<int> vENUEID, Nullable<System.DateTime> mONTH, string tYPE)
         {

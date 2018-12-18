@@ -35,7 +35,7 @@
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-12" })
                                             @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
                                             @Html.ValidationMessage("Please provide a CustomerName!")
                                         </div>
@@ -50,60 +50,63 @@
 
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-12" })
                                             @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.EventDate, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            <div class="input-group">
-                                                @Html.EditorFor(model => model.EventDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Venue, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.Venue, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Event Details", htmlAttributes: new { @class = "control-label col-md-12" })
                                             @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @maxlength = "100" })
                                         </div>
                                     </div>
+                                </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.EventDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                <div class="input-group">
+                                                    @Html.EditorFor(model => model.EventDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Venue, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                @Html.EditorFor(model => model.Venue, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
-                            </div>
-                        </div>
                     </div>
                 </div>
             }

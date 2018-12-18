@@ -79,6 +79,9 @@
     <Compile Include="Configuration_Status.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Configuration_StudioUser.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration_User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

@@ -36,33 +36,35 @@
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_ExpenseTypeId, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @*@Html.EditorFor(model => model.FK_ExpenseType, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })*@
-                                            @Html.DropDownList("ExpensesType", null, htmlAttributes: new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_EventId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Order Number", htmlAttributes: new { @class = "control-label col-md-12" })
                                             @*@Html.EditorFor(model => model.FK_ExpenseType, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })*@
                                             @Html.DropDownList("Events", null, htmlAttributes: new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.SpentBy, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.SpentBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
+                                            @Html.Label("Type", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @*@Html.EditorFor(model => model.FK_ExpenseType, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })*@
+                                            @Html.DropDownList("ExpensesType", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Spent by", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @*@Html.EditorFor(model => model.SpentBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })*@
+                                            @Html.DropDownList("StudioUser", null, htmlAttributes: new { @class = "form-control" })
                                             @Html.ValidationMessage("Please provide a SpentBy!")
                                         </div>
                                     </div>
-                                    
+
 
 
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.SpentDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Spent On", htmlAttributes: new { @class = "control-label col-md-12" })
                                             <div class="input-group">
                                                 @Html.EditorFor(model => model.SpentDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
                                                 <div class="input-group-append">
@@ -89,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                                @Html.Partial("~/Views/Shared/Button/_SaveAndContinueButton.cshtml")
                             </div>
                         </div>
                     </div>
@@ -104,17 +106,27 @@
 
         return true;
     }
-    function save() {
-        var eventmodel = {
+    var eventmodel;
+    function loadmodel() {
+        eventmodel = {
             "FK_EventId": $('select[name="Events"]').val(),
             "FK_ExpenseTypeId": $('select[name="ExpensesType"]').val(),
-            "SpentBy": $('input[name="SpentBy"]').val(),
+            "FK_SpentBy": $('select[name="StudioUser"]').val(),
             "SpentDate": $('input[name="SpentDate"]').val(),
             "Amount": $('input[name="Amount"]').val(),
             "Description": $('textarea[name="Description"]').val()
         }
-        saveData(eventmodel, $('input[name="VenueName"]').val(), SaveOrUpdate.save);
     }
+    function save() {
+        loadmodel()
+        saveData(eventmodel, "", SaveOrUpdate.save);
+    }
+    function saveandcontinue() {
+        loadmodel();
+        saveData(eventmodel, "", SaveOrUpdate.saveandcontinue);
+    }
+
+
 </script>
 
 

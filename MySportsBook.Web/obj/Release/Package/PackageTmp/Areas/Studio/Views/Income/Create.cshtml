@@ -36,22 +36,15 @@
                             <div class="card-body">
                                 <div class="row">
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.ReceivedBy, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.ReceivedBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FK_EventId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Order Number", htmlAttributes: new { @class = "control-label col-md-12" })
                                             @Html.DropDownList("Events", null, htmlAttributes: new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.ReceivedDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Label("Received On", htmlAttributes: new { @class = "control-label col-md-12" })
                                             <div class="input-group">
                                                 @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50", data_required = "true" } })
                                                 <div class="input-group-append">
@@ -63,17 +56,22 @@
                                             @Html.ValidationMessage("Please provide a SpentBy!")
                                         </div>
                                     </div>
-
-
-
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
                                             @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Received by", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @*@Html.EditorFor(model => model.ReceivedBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })*@
+                                            @Html.DropDownList("StudioUser", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -84,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                                @Html.Partial("~/Views/Shared/Button/_SaveAndContinueButton.cshtml")
                             </div>
                         </div>
                     </div>
@@ -99,15 +97,25 @@
 
         return true;
     }
-    function save() {
-        var incomemodel = {
+    var incomemodel;
+    function loadmodel() {
+        incomemodel = {
             "FK_EventId": $('select[name="Events"]').val(),
-            "ReceivedBy": $('input[name="ReceivedBy"]').val(),
+            "FK_ReceivedBy": $('select[name="StudioUser"]').val(),
             "ReceivedDate": $('input[name="ReceivedDate"]').val(),
             "Amount": $('input[name="Amount"]').val(),
             "Amount": $('input[name="Amount"]').val(),
             "Description": $('textarea[name="Description"]').val()
         }
+    }
+
+    function saveandcontinue() {
+        loadmodel();
+        saveData(incomemodel, $('input[name="ReceivedBy"]').val(), SaveOrUpdate.saveandcontinue);
+    }
+
+    function save() {
+        loadmodel();
         saveData(incomemodel, $('input[name="ReceivedBy"]').val(), SaveOrUpdate.save);
     }
 </script>

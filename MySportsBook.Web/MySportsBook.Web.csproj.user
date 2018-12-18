@@ -21,7 +21,7 @@
     <ProjectView>ShowAllFiles</ProjectView>
     <WebStackScaffolding_DbContextTypeFullName>MySportsBook.Model.MySportsBookEntities</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
     <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
     <ActiveDebugTarget />
   </PropertyGroup>

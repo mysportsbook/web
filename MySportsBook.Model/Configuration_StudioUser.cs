@@ -12,34 +12,20 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Studio_Event
+    public partial class Configuration_StudioUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Studio_Event()
+        public Configuration_StudioUser()
         {
             this.Studio_ExpenseDetail = new HashSet<Studio_ExpenseDetail>();
             this.Studio_IncomeDetail = new HashSet<Studio_IncomeDetail>();
         }
     
-        public int PK_EventId { get; set; }
-        public string OrderNumber { get; set; }
-        public string CustomerName { get; set; }
-        public string Mobile { get; set; }
-        public string EmailId { get; set; }
-        public string Description { get; set; }
-        public System.DateTime EventDate { get; set; }
-        public string Venue { get; set; }
-        public string Remarks { get; set; }
-        public Nullable<decimal> Amount { get; set; }
+        public int PK_StudioUserId { get; set; }
+        public string Name { get; set; }
         public int FK_StatusId { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<int> LastEventStatusChangedBy { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
-        public virtual Configuration_User Configuration_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
