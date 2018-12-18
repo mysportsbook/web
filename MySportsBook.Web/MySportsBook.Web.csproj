@@ -157,15 +157,10 @@
     <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
     <Compile Include="Areas\Report\Controllers\BookingController.cs" />
     <Compile Include="Areas\Report\Controllers\CollectionController.cs" />
+    <Compile Include="Areas\Report\Controllers\CustomController.cs" />
     <Compile Include="Areas\Report\Controllers\EnquiryController.cs" />
     <Compile Include="Areas\Report\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
-    <Compile Include="Areas\Studio\Controllers\EventsController.cs" />
-    <Compile Include="Areas\Studio\Controllers\ExpenseController.cs" />
-    <Compile Include="Areas\Studio\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Studio\Controllers\IncomeController.cs" />
-    <Compile Include="Areas\Studio\Controllers\ReportsController.cs" />
-    <Compile Include="Areas\Studio\StudioAreaRegistration.cs" />
     <Compile Include="Areas\Transaction\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Transaction\Controllers\ReceiptController.cs" />
     <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
@@ -286,18 +281,7 @@
     <Content Include="Areas\Report\Views\Booking\NewBooking.cshtml" />
     <Content Include="Areas\Report\Views\Collection\Daily.cshtml" />
     <Content Include="Areas\Report\Views\Collection\Player.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Reports\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Web.config" />
+    <Content Include="Areas\Report\Views\Custom\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -331,7 +315,9 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -371,8 +357,6 @@
     <Folder Include="Areas\Master\Views\Shared\" />
     <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Report\Views\Report\" />
-    <Folder Include="Areas\Studio\Models\" />
-    <Folder Include="Areas\Studio\Views\Shared\" />
     <Folder Include="Areas\Transaction\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\DropDown\" />

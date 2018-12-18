@@ -12,16 +12,12 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class BatchCount
+    public partial class Configuration_StudioUser
     {
-        public int PK_BatchCount { get; set; }
-        public int FK_VenueId { get; set; }
-        public int FK_BatchId { get; set; }
-        public int FK_CourtId { get; set; }
-        public int Count { get; set; }
+        public int PK_StudioUserId { get; set; }
+        public string Name { get; set; }
+        public int FK_StatusId { get; set; }
     
-        public virtual Master_Batch Master_Batch { get; set; }
-        public virtual Master_Court Master_Court { get; set; }
-        public virtual Master_Venue Master_Venue { get; set; }
+        public virtual Configuration_Status Configuration_Status { get; set; }
     }
 }

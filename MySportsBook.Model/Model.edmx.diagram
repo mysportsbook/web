@@ -5,51 +5,43 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="00280e5ef489471abd043e9877f2a749" Name="Diagram1" ZoomLevel="67" DisplayType="false" ShowGrid="false" SnapToGrid="false">
-        <EntityTypeShape EntityType="MySportsBookModel.BatchCount" Width="1.5" PointX="19.500000999999997" PointY="42.7637694498698" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_BatchType" Width="1.5" PointX="8.250001" PointY="40.470739257812504" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Format" Width="1.5" PointX="6.0000004999999987" PointY="61.768773925781247" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_InvoicePeriod" Width="1.5" PointX="19.500001499999996" PointY="40.201238932291673" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_PlayerType" Width="1.5" PointX="3.0000004999999996" PointY="58.230067871093752" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Screen" Width="1.5" PointX="6.0000004999999987" PointY="64.499060384114571" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Status" Width="1.5" PointX="0.75" PointY="47.038061035156254" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_User" Width="1.5" PointX="3" PointY="45.037929199218759" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_BatchType" Width="1.5" PointX="3.0000004999999996" PointY="31.754759114583337" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Format" Width="1.5" PointX="6.0000004999999987" PointY="49.562457682291672" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_InvoicePeriod" Width="1.5" PointX="16.500001499999996" PointY="32.53333414713542" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_PlayerType" Width="1.5" PointX="9.0000004999999987" PointY="31.02375162760417" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Screen" Width="1.5" PointX="6.0000004999999987" PointY="52.292744140625011" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Status" Width="1.5" PointX="0.75" PointY="39.754332682291675" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_StudioUser" Width="1.5" PointX="3" PointY="47.561573893229173" />
+        <EntityTypeShape EntityType="MySportsBookModel.Configuration_User" Width="1.5" PointX="3" PointY="35.023914388020842" />
         <EntityTypeShape EntityType="MySportsBookModel.Confirguration_PaymentMode" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Batch" Width="1.5" PointX="10.500001" PointY="49.143662434895838" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_BatchTiming" Width="1.5" PointX="18.7500015" PointY="56.46086214192708" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_CoachingLevel" Width="1.5" PointX="5.2500005" PointY="44.364711425781252" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Court" Width="1.5" PointX="8.2500004999999987" PointY="48.980108561197923" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Enquiry" Width="1.5" PointX="13.500000499999999" PointY="40.557012858072916" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Player" Width="1.5" PointX="5.2500005" PointY="54.01860139973958" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Role" Width="1.5" PointX="13.500001" PointY="44.730067871093752" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_RoleScreen" Width="1.5" PointX="17.7500015" PointY="51.710902832031245" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Sport" Width="1.4999999999999982" PointX="15.500000999999998" PointY="49.441615722656252" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_UserRole" Width="1.5" PointX="18.7500015" PointY="46.730067871093745" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_UserVenue" Width="1.5" PointX="5.2500005" PointY="49.364711425781252" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Venue" Width="1.5" PointX="11.250000499999999" PointY="39.960943522135416" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_VenueScreen" Width="1.5" PointX="8.2500004999999987" PointY="54.883957845052088" />
-        <EntityTypeShape EntityType="MySportsBookModel.OtherBooking" Width="1.5" PointX="16.500000999999997" PointY="44.53776643880208" />
-        <EntityTypeShape EntityType="MySportsBookModel.OtherBookingDetail" Width="1.5" PointX="24.750001499999996" PointY="46.633917154947916" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_Event" Width="1.5" PointX="13.250000499999999" PointY="55.787807128906252" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_ExpenseDetail" Width="1.5" PointX="8.2500004999999987" PointY="43.903417480468754" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_ExpenseType" Width="1.5" PointX="3" PointY="42.307642740885427" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_IncomeDetail" Width="1.5" PointX="23.500000999999997" PointY="52.182139811197914" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Attendance" Width="1.5" PointX="20.500000999999997" PointY="51.528183919270845" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Enquiry_Comments" Width="1.5" PointX="15.750000499999999" PointY="41.037766438802088" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Invoice" Width="1.5" PointX="21.500000999999997" PointY="56.374375325520845" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_InvoiceDetail" Width="1.5" PointX="15.7500015" PointY="56.980108561197916" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_PlayerSport" Width="1.5" PointX="21.750001499999996" PointY="44.085923177083345" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Voucher" Width="1.5" PointX="13.250000499999999" PointY="49.980108561197923" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Batch" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Court" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Venue" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Batch" Width="1.5" PointX="5.2500005" PointY="37.523833007812506" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_BatchTiming" Width="1.5" PointX="13.500001" PointY="37.2545458984375" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_CoachingLevel" Width="1.5" PointX="13.500001" PointY="42.244963378906256" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Court" Width="1.5" PointX="8.2500004999999987" PointY="33.86994303385417" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Enquiry" Width="1.5" PointX="13.500000499999999" PointY="52.196298828125" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Player" Width="1.5" PointX="11.250000499999999" PointY="37.81228515625" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Role" Width="1.5" PointX="8.2500004999999987" PointY="39.062244466145842" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_RoleScreen" Width="1.5" PointX="19.500000999999997" PointY="48.052661946614585" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Sport" Width="1.5" PointX="16.500000999999997" PointY="41.860360514322927" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_UserRole" Width="1.5" PointX="16.500000999999997" PointY="47.14881266276042" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_UserVenue" Width="1.5" PointX="5.2500005" PointY="45.15839518229167" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_Venue" Width="1.5" PointX="11.250000499999999" PointY="44.85077799479167" />
+        <EntityTypeShape EntityType="MySportsBookModel.Master_VenueScreen" Width="1.5" PointX="8.2500004999999987" PointY="43.677641601562506" />
+        <EntityTypeShape EntityType="MySportsBookModel.OtherBooking" Width="1.5" PointX="19.500000999999997" PointY="34.956511230468756" />
+        <EntityTypeShape EntityType="MySportsBookModel.OtherBookingDetail" Width="1.5" PointX="21.750001499999996" PointY="42.018960367838552" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Attendance" Width="1.5" PointX="13.500001" PointY="46.687224121093763" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Enquiry_Comments" Width="1.5" PointX="15.750000499999999" PointY="52.677052408854173" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Invoice" Width="1.5" PointX="16.500000999999997" PointY="35.283456217447927" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_InvoiceDetail" Width="1.5" PointX="13.500001" PointY="31.773792317708335" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_PlayerSport" Width="1.5" PointX="18.750001499999996" PointY="40.418018391927092" />
+        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Voucher" Width="1.5" PointX="11.250000499999999" PointY="32.773792317708342" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_BatchType" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_Format" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_InvoicePeriod" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Configuration_PlayerType" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_Screen" />
+        <AssociationConnector Association="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Configuration_User_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_IncomeDetail_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_CoachingLevel_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Court_Configuration_Status" />
@@ -60,13 +52,10 @@
         <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_Event_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_ExpenseType_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_Master_BatchTiming_Configuration_User" />
@@ -98,7 +87,6 @@
         <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User1" />
-        <AssociationConnector Association="MySportsBookModel.FK_StudioEvent_Configuration_Status" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User1" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" />
@@ -141,9 +129,6 @@
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Venue" />
         <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_OtherBooking" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_StudioEvent" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType" />
         <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Transaction_Invoice" />
       </Diagram>
     </edmx:Diagrams>
