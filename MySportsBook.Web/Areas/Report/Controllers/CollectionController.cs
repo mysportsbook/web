@@ -19,9 +19,9 @@ namespace MySportsBook.Web.Areas.Report.Controllers
             return View(GetCollection(null, "DAILY"));
         }
         [HttpPost]
-        public ActionResult Daily(DateTime Date)
+        public ActionResult Daily(string Date)
         {
-            var _date = Convert.ToDateTime(Date.ToString("dd/MM/yyyy"));
+            var _date = DateTime.ParseExact((string.IsNullOrEmpty(Date) ? DateTime.Now.ToString("dd/MM/yyyy") : Date),"dd/MM/yyyy", null);
             return View(GetCollection(_date, "DAILY"));
         }
 
@@ -30,7 +30,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
             return View(GetCollection(null, "PLAYER"));
         }
         [HttpPost]
-        public ActionResult Player(DateTime Month)
+        public ActionResult Player(DateTime? Month)
         {
             return View(GetCollection(Month, "PLAYER"));
         }
@@ -38,7 +38,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         [NonAction]
         private dynamic GetCollection(DateTime? month, string Type)
         {
-           return  dbContext.rp_COLLECTIONDETAIL(currentUser.CurrentVenueId, month.HasValue ? month.Value : DateTime.Now, Type);
+            return dbContext.rp_COLLECTIONDETAIL(currentUser.CurrentVenueId, month.HasValue ? month.Value : DateTime.Now, Type);
         }
     }
 }

@@ -12,23 +12,20 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Configuration_StudioUser
+    public partial class Studio_IncomeDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Configuration_StudioUser()
-        {
-            this.Studio_ExpenseDetail = new HashSet<Studio_ExpenseDetail>();
-            this.Studio_IncomeDetail = new HashSet<Studio_IncomeDetail>();
-        }
-    
-        public int PK_StudioUserId { get; set; }
-        public string Name { get; set; }
+        public int PK_IncomeDetailId { get; set; }
+        public System.DateTime ReceivedDate { get; set; }
+        public string Description { get; set; }
+        public decimal Amount { get; set; }
+        public Nullable<int> FK_ReceivedBy { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public int FK_StatusId { get; set; }
+        public int FK_EventId { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
+        public virtual Configuration_StudioUser Configuration_StudioUser { get; set; }
+        public virtual Studio_Event Studio_Event { get; set; }
     }
 }
