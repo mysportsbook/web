@@ -45,8 +45,8 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     studioEvent.FK_StatusId = 3;
                     studioEvent.CreatedBy = currentUser.UserId;
                     studioEvent.CreatedDate = DateTime.Now.ToUniversalTime();
-                string OrderNumber = DateTime.Now.ToString("yyyyMMM").ToLower();
-                var LastOrderNumber = dbContext.Studio_Event.Where(x => x.OrderNumber.ToLower().Contains(OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
+                string OrderNumber = DateTime.Now.ToString("yyyyMMM").ToUpper();
+                var LastOrderNumber = dbContext.Studio_Event.Where(x => x.OrderNumber.ToUpper().Contains(OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
                 
                 if (LastOrderNumber == null)
                 {
@@ -110,7 +110,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     _Events.Mobile = studioEvent.Mobile;
                     _Events.EmailId = studioEvent.EmailId;
                     _Events.Description = studioEvent.Description;
-                    _Events.EventDate = studioEvent.EventDate;
+                    //_Events.EventDate = studioEvent.EventDate;
                     _Events.Venue = studioEvent.Venue;
                     _Events.Remarks = studioEvent.Remarks;
                     _Events.Amount = studioEvent.Amount;
