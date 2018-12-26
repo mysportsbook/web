@@ -1,0 +1,90 @@
+﻿@model DataTable
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+@using System.Data;
+@{ var data = Model; }
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Report", "Index")</li>
+        <li class="breadcrumb-item active">Custom</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Custom</strong>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row" style="margin-bottom:10px;">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("StoreProc")
+                                    <div class="input-group">
+                                        @Html.TextBox("StoreProc", "", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Parameters")
+                                    <div class="input-group">
+                                        @Html.TextBox("Parameters", "", new { @class = "form-control" })
+                                        <span class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        @if (Model != null && Model.Rows.Count > 0)
+                        {
+                            <table class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        @foreach (DataColumn column in Model.Columns)
+                                        {
+                                            <th>
+                                                @column.ColumnName
+                                            </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow item in Model.Rows)
+                                    {
+                                        <tr>
+                                            @foreach (DataColumn column in Model.Columns)
+                                            {
+                                                <td>
+                                                    @item[column.ColumnName].ToString()
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    $(function () {
+        $('.table').DataTable();
+    });
+</script>

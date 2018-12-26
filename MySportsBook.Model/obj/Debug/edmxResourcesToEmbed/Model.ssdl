@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MySportsBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="BatchCount">
-    <Key>
-      <PropertyRef Name="PK_BatchCount" />
-    </Key>
-    <Property Name="PK_BatchCount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FK_VenueId" Type="int" Nullable="false" />
-    <Property Name="FK_BatchId" Type="int" Nullable="false" />
-    <Property Name="FK_CourtId" Type="int" Nullable="false" />
-    <Property Name="Count" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Configuration_BatchType">
     <Key>
       <PropertyRef Name="PK_BatchTypeId" />
@@ -59,6 +49,14 @@
     <Property Name="PK_StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="StatusCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Configuration_StudioUser">
+    <Key>
+      <PropertyRef Name="PK_StudioUserId" />
+    </Key>
+    <Property Name="PK_StudioUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Configuration_User">
     <Key>
@@ -328,63 +326,6 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
-  <EntityType Name="Studio_Event">
-    <Key>
-      <PropertyRef Name="PK_EventId" />
-    </Key>
-    <Property Name="PK_EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OrderNumber" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="CustomerName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="EmailId" Type="nvarchar" MaxLength="250" />
-    <Property Name="Description" Type="nvarchar" MaxLength="250" />
-    <Property Name="EventDate" Type="date" Nullable="false" />
-    <Property Name="Venue" Type="nvarchar" MaxLength="250" />
-    <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
-    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" Nullable="false" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-    <Property Name="ModifiedBy" Type="int" />
-    <Property Name="ModifiedDate" Type="datetime" />
-  </EntityType>
-  <EntityType Name="Studio_ExpenseDetail">
-    <Key>
-      <PropertyRef Name="PK_ExpenseDetailId" />
-    </Key>
-    <Property Name="PK_ExpenseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FK_EventId" Type="int" Nullable="false" />
-    <Property Name="FK_ExpenseTypeId" Type="int" Nullable="false" />
-    <Property Name="SpentBy" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="SpentDate" Type="date" Nullable="false" />
-    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" Nullable="false" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Studio_ExpenseType">
-    <Key>
-      <PropertyRef Name="PK_ExpenseTypeId" />
-    </Key>
-    <Property Name="PK_ExpenseTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ExpenseType" Type="nvarchar" MaxLength="50" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Studio_IncomeDetail">
-    <Key>
-      <PropertyRef Name="PK_IncomeDetailId" />
-    </Key>
-    <Property Name="PK_IncomeDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ReceivedDate" Type="date" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="ReceivedBy" Type="nvarchar" MaxLength="50" />
-    <Property Name="CreatedBy" Type="int" Nullable="false" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-    <Property Name="FK_EventId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Transaction_Attendance">
     <Key>
       <PropertyRef Name="PK_AttendanceId" />
@@ -510,39 +451,15 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
-  <Association Name="FK_BatchCount_Master_Batch">
-    <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
+  <Association Name="FK_Configuration_StudioUser_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Master_Batch">
-        <PropertyRef Name="PK_BatchId" />
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
       </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_BatchId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BatchCount_Master_Court">
-    <End Role="Master_Court" Type="Self.Master_Court" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Master_Court">
-        <PropertyRef Name="PK_CourtId" />
-      </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_CourtId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BatchCount_Master_Venue">
-    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
-    <End Role="BatchCount" Type="Self.BatchCount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Master_Venue">
-        <PropertyRef Name="PK_VenueId" />
-      </Principal>
-      <Dependent Role="BatchCount">
-        <PropertyRef Name="FK_VenueId" />
+      <Dependent Role="Configuration_StudioUser">
+        <PropertyRef Name="FK_StatusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -567,54 +484,6 @@
       </Principal>
       <Dependent Role="Master_Enquiry">
         <PropertyRef Name="FK_VenueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ExpenseDetail_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ExpenseDetail_Configuration_User">
-    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_User">
-        <PropertyRef Name="PK_UserId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ExpenseDetail_StudioEvent">
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_Event">
-        <PropertyRef Name="PK_EventId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_EventId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_IncomeDetail_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_IncomeDetail">
-        <PropertyRef Name="FK_StatusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1398,66 +1267,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Studio_Event_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_Event">
-        <PropertyRef Name="FK_StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_ExpenseDetail_Studio_ExpenseType">
-    <End Role="Studio_ExpenseType" Type="Self.Studio_ExpenseType" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_ExpenseType">
-        <PropertyRef Name="PK_ExpenseTypeId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_ExpenseTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_ExpenseType_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_ExpenseType" Type="Self.Studio_ExpenseType" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseType">
-        <PropertyRef Name="FK_StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_IncomeDetail_Studio_Event">
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="1" />
-    <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_Event">
-        <PropertyRef Name="PK_EventId" />
-      </Principal>
-      <Dependent Role="Studio_IncomeDetail">
-        <PropertyRef Name="FK_EventId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_StudioEvent_Configuration_Status">
-    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_User">
-        <PropertyRef Name="PK_UserId" />
-      </Principal>
-      <Dependent Role="Studio_Event">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Transaction_Attendance_Master_Batch">
     <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
     <End Role="Transaction_Attendance" Type="Self.Transaction_Attendance" Multiplicity="*" />
@@ -1890,13 +1699,13 @@
     <Parameter Name="XML" Type="xml" Mode="In" />
   </Function>
   <EntityContainer Name="MySportsBookModelStoreContainer">
-    <EntitySet Name="BatchCount" EntityType="Self.BatchCount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_BatchType" EntityType="Self.Configuration_BatchType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Format" EntityType="Self.Configuration_Format" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_InvoicePeriod" EntityType="Self.Configuration_InvoicePeriod" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_PlayerType" EntityType="Self.Configuration_PlayerType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Screen" EntityType="Self.Configuration_Screen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Status" EntityType="Self.Configuration_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configuration_StudioUser" EntityType="Self.Configuration_StudioUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Batch" EntityType="Self.Master_Batch" Schema="dbo" store:Type="Tables" />
@@ -1914,10 +1723,6 @@
     <EntitySet Name="Master_VenueScreen" EntityType="Self.Master_VenueScreen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OtherBooking" EntityType="Self.OtherBooking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OtherBookingDetail" EntityType="Self.OtherBookingDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_Event" EntityType="Self.Studio_Event" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_ExpenseDetail" EntityType="Self.Studio_ExpenseDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_ExpenseType" EntityType="Self.Studio_ExpenseType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_IncomeDetail" EntityType="Self.Studio_IncomeDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Attendance" EntityType="Self.Transaction_Attendance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Enquiry_Comments" EntityType="Self.Transaction_Enquiry_Comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Invoice" EntityType="Self.Transaction_Invoice" Schema="dbo" store:Type="Tables" />
@@ -1925,17 +1730,9 @@
     <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Receipt" EntityType="Self.Transaction_Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Voucher" EntityType="Self.Transaction_Voucher" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_BatchCount_Master_Batch" Association="Self.FK_BatchCount_Master_Batch">
-      <End Role="Master_Batch" EntitySet="Master_Batch" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BatchCount_Master_Court" Association="Self.FK_BatchCount_Master_Court">
-      <End Role="Master_Court" EntitySet="Master_Court" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BatchCount_Master_Venue" Association="Self.FK_BatchCount_Master_Venue">
-      <End Role="Master_Venue" EntitySet="Master_Venue" />
-      <End Role="BatchCount" EntitySet="BatchCount" />
+    <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
     </AssociationSet>
     <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -1944,22 +1741,6 @@
     <AssociationSet Name="FK_Enquiry_Master_Venue" Association="Self.FK_Enquiry_Master_Venue">
       <End Role="Master_Venue" EntitySet="Master_Venue" />
       <End Role="Master_Enquiry" EntitySet="Master_Enquiry" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ExpenseDetail_Configuration_Status" Association="Self.FK_ExpenseDetail_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ExpenseDetail_Configuration_User" Association="Self.FK_ExpenseDetail_Configuration_User">
-      <End Role="Configuration_User" EntitySet="Configuration_User" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ExpenseDetail_StudioEvent" Association="Self.FK_ExpenseDetail_StudioEvent">
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_IncomeDetail_Configuration_Status" Association="Self.FK_IncomeDetail_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_Master_Batch_Configuration_BatchType" Association="Self.FK_Master_Batch_Configuration_BatchType">
       <End Role="Configuration_BatchType" EntitySet="Configuration_BatchType" />
@@ -2220,26 +2001,6 @@
     <AssociationSet Name="FK_OtherBookingDetail_OtherBooking" Association="Self.FK_OtherBookingDetail_OtherBooking">
       <End Role="OtherBooking" EntitySet="OtherBooking" />
       <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_Event_Configuration_Status" Association="Self.FK_Studio_Event_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_ExpenseDetail_Studio_ExpenseType" Association="Self.FK_Studio_ExpenseDetail_Studio_ExpenseType">
-      <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_ExpenseType_Configuration_Status" Association="Self.FK_Studio_ExpenseType_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_IncomeDetail_Studio_Event" Association="Self.FK_Studio_IncomeDetail_Studio_Event">
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-      <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_StudioEvent_Configuration_Status" Association="Self.FK_StudioEvent_Configuration_Status">
-      <End Role="Configuration_User" EntitySet="Configuration_User" />
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Attendance_Master_Batch" Association="Self.FK_Transaction_Attendance_Master_Batch">
       <End Role="Master_Batch" EntitySet="Master_Batch" />
