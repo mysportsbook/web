@@ -12,20 +12,23 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Studio_IncomeDetail
+    public partial class ExpenseDetail
     {
-        public int PK_IncomeDetailId { get; set; }
-        public System.DateTime ReceivedDate { get; set; }
+        public int PK_ExpenseDetailId { get; set; }
+        public int FK_EventId { get; set; }
+        public int FK_ExpenseType { get; set; }
+        public string SpentBy { get; set; }
         public string Description { get; set; }
-        public decimal Amount { get; set; }
-        public Nullable<int> FK_ReceivedBy { get; set; }
+        public System.DateTime SpentDate { get; set; }
+        public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public int FK_StatusId { get; set; }
-        public int FK_EventId { get; set; }
+        public decimal Amount { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
-        public virtual Configuration_StudioUser Configuration_StudioUser { get; set; }
-        public virtual Studio_Event Studio_Event { get; set; }
+        public virtual Configuration_Status Configuration_Status1 { get; set; }
+        public virtual Configuration_User Configuration_User { get; set; }
+        public virtual Expense_Type Expense_Type { get; set; }
+        public virtual StudioEvent StudioEvent { get; set; }
     }
 }

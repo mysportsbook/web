@@ -57,6 +57,23 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
             });
             ViewBag.Events = new SelectList(ddlList, "Value", "Text");
 
+
+            ddlList = new List<SelectListItem>();
+            ddlList.Add(new SelectListItem
+            {
+                Text = "--Select--",
+                Value = ""
+            });
+            dbContext.Configuration_StudioUser.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
+            {
+                ddlList.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.PK_StudioUserId.ToString()
+                });
+            });
+            ViewBag.StudioUser = new SelectList(ddlList, "Value", "Text");
+
             return View();
         }
 
@@ -117,7 +134,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     }
                     _Expanses.FK_EventId = expenseDetail.FK_EventId;
                     _Expanses.FK_ExpenseTypeId = expenseDetail.FK_ExpenseTypeId;
-                    _Expanses.SpentBy = expenseDetail.SpentBy;
+                    _Expanses.FK_SpentBy = expenseDetail.FK_SpentBy;
                     _Expanses.Description = expenseDetail.Description;
                     _Expanses.SpentDate = expenseDetail.SpentDate;
                     dbContext.Entry(_Expanses).State = EntityState.Modified;

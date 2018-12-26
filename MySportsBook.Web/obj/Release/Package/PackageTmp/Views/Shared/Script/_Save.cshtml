@@ -3,7 +3,8 @@
     //Enum
     var SaveOrUpdate = {
         save: 'save',
-        update: 'update'
+        update: 'update',
+        saveandcontinue:'Save'
     };
     //Common ajax method to save or updated
     function saveData(objModel, name, saveorupdate) {
@@ -27,7 +28,13 @@
                         confirmButtonText: "Ok!",
                         closeOnConfirm: false
                     }).then(function () {
-                        window.location.href = "@Url.Action("", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })";
+                        debugger;
+
+                        if (saveorupdate == SaveOrUpdate.saveandcontinue) {
+                            $('button[type=reset]').click();
+                        } else {
+                            window.location.href = "@Url.Action("", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })";
+                        }
                     });
                 }
                 else {
@@ -45,4 +52,10 @@
         });
     }
 
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            alert("button");
+        });
+    });
 </script>

@@ -1,15 +1,16 @@
-﻿@model IEnumerable<MySportsBook.Model.Studio_IncomeDetail>
+﻿@model IEnumerable<MySportsBook.Model.Studio_ExpenseDetail>
 
 @{
     ViewBag.Title = "Index";
-    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
 }
+
 
 <main class="main">
     <!-- Breadcrumb-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">@Html.ActionLink("Incomes", "")</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Expense", "")</li>
         <li class="breadcrumb-item active">Index</li>
     </ol>
     <div class="container-fluid">
@@ -17,7 +18,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i>
-                    <strong>Income</strong>
+                    <strong>Expense</strong>
                     <i class="fa fa-plus float-right">  @Html.ActionLink("Create New", "Create")</i>
                 </div>
                 <div class="card-body">
@@ -26,23 +27,22 @@
                             <tr>
 
                                 <th>
-                                    @Html.DisplayName("Order Number")
+                                    @Html.DisplayNameFor(model => model.Studio_Event.OrderNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Studio_Event.CustomerName)
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Type")
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Description)
                                 </th>
                                 <th>
-                                    @Html.DisplayName("Customer Name")
+                                    @Html.DisplayName("Spent By")
                                 </th>
                                 <th>
-                                    @Html.DisplayName("Received By")
-                                </th>
-
-                                <th>
-                                    @Html.DisplayName("Received On")
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Amount)
+                                    @Html.DisplayName("Spent On")
                                 </th>
 
                             </tr>
@@ -56,20 +56,19 @@
                                     @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
+                                    @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
+                                    @Html.DisplayFor(modelItem => item.Studio_ExpenseType.ExpenseType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Configuration_StudioUser.Name)
                                 </td>
-
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ReceivedDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
+                                    @Html.DisplayFor(modelItem => item.SpentDate)
                                 </td>
                             </tr>
                             }
@@ -81,8 +80,6 @@
     </div>
 </main>
 
-<script type="text/javascript">
-    $(function () {
-        $('.table').DataTable();
-    });
-</script>
+
+
+

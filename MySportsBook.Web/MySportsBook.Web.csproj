@@ -348,6 +348,7 @@
     <Content Include="Views\Shared\Script\_Save.cshtml" />
     <Content Include="Views\Shared\Script\_SweetAlert.cshtml" />
     <Content Include="Views\Shared\Script\_DateTimePicker.cshtml" />
+    <Content Include="Views\Shared\Button\_SaveAndContinueButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,20 +12,20 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Studio_IncomeDetail
+    public partial class Expense_Type
     {
-        public int PK_IncomeDetailId { get; set; }
-        public System.DateTime ReceivedDate { get; set; }
-        public string Description { get; set; }
-        public decimal Amount { get; set; }
-        public Nullable<int> FK_ReceivedBy { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Expense_Type()
+        {
+            this.ExpenseDetails = new HashSet<ExpenseDetail>();
+        }
+    
+        public int PK_ExpenseTypeId { get; set; }
+        public string ExpenseType { get; set; }
         public int FK_StatusId { get; set; }
-        public int FK_EventId { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
-        public virtual Configuration_StudioUser Configuration_StudioUser { get; set; }
-        public virtual Studio_Event Studio_Event { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExpenseDetail> ExpenseDetails { get; set; }
     }
 }

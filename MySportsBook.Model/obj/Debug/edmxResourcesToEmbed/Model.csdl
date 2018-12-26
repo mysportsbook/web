@@ -592,6 +592,10 @@
     <NavigationProperty Name="Transaction_PlayerSport" Relationship="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_PlayerSport" />
     <NavigationProperty Name="Transaction_Receipt" Relationship="MySportsBookModel.FK_Transaction_Receipt_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Receipt" />
     <NavigationProperty Name="Transaction_Voucher" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Voucher" />
+    <NavigationProperty Name="Configuration_StudioUser" Relationship="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status" FromRole="Configuration_Status" ToRole="Configuration_StudioUser" />
+    <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_ExpenseDetail" />
+    <NavigationProperty Name="Studio_IncomeDetail" Relationship="MySportsBookModel.FK_IncomeDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_IncomeDetail" />
+    <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_Studio_Event_Configuration_Status" FromRole="Configuration_Status" ToRole="Studio_Event" />
   </EntityType>
   <EntityType Name="Configuration_StudioUser">
     <Key>
@@ -662,6 +666,8 @@
     <NavigationProperty Name="Transaction_Receipt2" Relationship="MySportsBookModel.FK_Transaction_Receipt_Configuration_User2" FromRole="Configuration_User" ToRole="Transaction_Receipt" />
     <NavigationProperty Name="Transaction_Voucher" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Voucher" />
     <NavigationProperty Name="Transaction_Voucher1" Relationship="MySportsBookModel.FK_Transaction_Voucher_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Voucher" />
+    <NavigationProperty Name="Studio_ExpenseDetail" Relationship="MySportsBookModel.FK_ExpenseDetail_Configuration_User" FromRole="Configuration_User" ToRole="Studio_ExpenseDetail" />
+    <NavigationProperty Name="Studio_Event" Relationship="MySportsBookModel.FK_StudioEvent_Configuration_Status" FromRole="Configuration_User" ToRole="Studio_Event" />
   </EntityType>
   <EntityType Name="Confirguration_PaymentMode">
     <Key>

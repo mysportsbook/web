@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
 
@@ -26,53 +26,67 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.CustomerName)
+                                    @Html.DisplayName("Order Number")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.OrderNumber)
+                                    @Html.DisplayName("Customer Name")
                                 </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.Mobile)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.EventDate)
+                                    @Html.DisplayName("Event Date")
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FK_StatusId)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Description)
-                                </th>
-                                <th>@Html.Label("Action")</th>
+
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>*@
+                                <th>@Html.DisplayName("Status")</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CustomerName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OrderNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Mobile)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EventDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    <button class="btn btn-block btn-outline-info" onclick="changeStatus(@item.PK_EventId,this)" type="button">Change Status</button>
-                                    @Html.HiddenFor(modelItem => item.PK_EventId)
-                                </td>
-                            </tr>
+                                var Statusbtnclass = "";
+                                if (item.FK_StatusId == 3)
+                                {
+                                    Statusbtnclass = "btn btn-success";
+                                }
+                                else
+                                {
+                                    Statusbtnclass = "btn btn-danger";
+                                }
+                                <tr data-eventid="@item.PK_EventId" data-orderNumber="@item.OrderNumber" data-customerName="@item.CustomerName" data-mobile="@item.Mobile" data-eventDate="@item.EventDate.ToString("dd MMM yyyy")" data-description="@item.Description" data-email="@item.EmailId" data-venue="@item.Venue" data-remark="@item.Remarks" data-amount="@item.Amount">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CustomerName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                    </td>
+                                    <td>
+                                        @item.EventDate.ToString("dd-MMM-yyyy")
+                                    </td>
+
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>*@
+                                    <td>
+
+                                        <button class="@Statusbtnclass" onclick="changeStatus(@item.PK_EventId,this)" type="button">Change Status</button>
+                                        <button class="btn btn-primary" onclick="editData(@item.PK_EventId)" title="Edit" type="button">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-primary" onclick="viewEvents(this)" title="View" type="button">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        @Html.HiddenFor(modelItem => item.PK_EventId)
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -81,3 +95,121 @@
         </div>
     </div>
 </main>
+<!-- Model -->
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="emodel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="gridSystemModalLabel">Order Information</h4>
+                <button type="button" class="close" onclick="closemodel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12" id="detailsDiv">
+
+                </div>
+                <div style="" class="modal-footer" id="modelfooter">
+                    
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+<!-- /.modal -->
+
+<script>
+    function viewEvents(e) {
+        var orderNumber = $(e).closest('tr').attr("data-orderNumber");
+        var customerName = $(e).closest('tr').attr("data-customerName");
+        var mobile = $(e).closest('tr').attr("data-mobile");
+        var eventDate = $(e).closest('tr').attr("data-eventDate");
+        var description = $(e).closest('tr').attr("data-description");
+        var email = $(e).closest('tr').attr("data-email");
+        var venue = $(e).closest('tr').attr("data-venue");
+        var remark = $(e).closest('tr').attr("data-remark");
+        var amount = $(e).closest('tr').attr("data-amount");
+        var eventId = $(e).closest('tr').attr("data-eventid");
+
+        var html = '<div class="row">' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"> <b>Order Number</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + orderNumber + '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Customer Name</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + customerName + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Email</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + email + '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Mobile</b> </div>' +
+            '<div class="col-md-6 col-sm-12">' + mobile + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Event Date</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + eventDate + '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Venue</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + venue + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Event Details</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + description + '</div>' +
+            '</div>' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Remarks</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + remark + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-6 col-sm-6">' +
+            '<div class="col-md-6 col-sm-12"><b>Amount</b></div>' +
+            '<div class="col-md-6 col-sm-12">' + amount + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="clearfix"></div>';
+        var modelbutton = '<button type="button" class="btn btn-primary" style="" onclick="closemodel()">Close</button> '+
+            '<button type = "button" class="btn btn-primary" style = "" onclick = "editData(' + eventId+')" > Edit</button>';
+        $('#modelfooter').html(modelbutton);
+        $('#detailsDiv').html(html);
+        $('#emodel').modal('show');
+    }
+
+    function closemodel() {
+        $('#emodel').modal('hide');
+    }
+</script>
+
+
+@Html.Partial("~/Views/Shared/Script/_Save.cshtml")
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")
+<script>
+    function changeStatus(EventId, e) {
+        var Eventmodel = { "PK_EventId": EventId };
+        saveData(Eventmodel, EventId, SaveOrUpdate.statuschange);
+        var openClass = "btn btn-success";
+        var closeClass = "btn btn-danger";
+        if ($(e).hasClass(openClass)) {
+            $(e).removeClass(openClass).addClass(closeClass);
+        }
+        else {
+            $(e).removeClass(closeClass).addClass(openClass);
+        }
+    }
+
+
+</script>

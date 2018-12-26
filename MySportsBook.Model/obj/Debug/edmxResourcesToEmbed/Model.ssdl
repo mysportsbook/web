@@ -463,6 +463,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Configuration_StudioUser_Configuration_Status">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Configuration_StudioUser">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Configuration_User_Configuration_Status">
     <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
     <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="*" />
@@ -1730,6 +1742,10 @@
     <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Receipt" EntityType="Self.Transaction_Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Voucher" EntityType="Self.Transaction_Voucher" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+    </AssociationSet>
     <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
       <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />

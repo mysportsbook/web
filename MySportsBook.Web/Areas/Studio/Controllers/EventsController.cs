@@ -45,15 +45,17 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     studioEvent.FK_StatusId = 3;
                     studioEvent.CreatedBy = currentUser.UserId;
                     studioEvent.CreatedDate = DateTime.Now.ToUniversalTime();
-                string OrderNumber = DateTime.Now.ToString("MMM");
-                var LastOrderNumber = dbContext.Studio_Event.Where(x => OrderNumber.Contains(x.OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).FirstOrDefault();
+                string OrderNumber = DateTime.Now.ToString("yyyyMMM").ToUpper();
+                var LastOrderNumber = dbContext.Studio_Event.Where(x => x.OrderNumber.ToUpper().Contains(OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
+                
                 if (LastOrderNumber == null)
                 {
-                    studioEvent.OrderNumber = OrderNumber + "000001";
+                    int LastId = dbContext.Studio_Event.OrderByDescending(x => x.PK_EventId).Select(x => x.PK_EventId).Take(1).FirstOrDefault();
+                    studioEvent.OrderNumber = OrderNumber+ String.Format("{0:000}", Increasecount(LastId==null?"0":LastId.ToString())) + "001";
                 }
                 else
                 {
-                    studioEvent.OrderNumber = String.Format("{0:000000}", LastOrderNumber);
+                    studioEvent.OrderNumber = OrderNumber+ String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(0, 3))) + "" + String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(3)));
                 }
                 dbContext.Studio_Event.Add(studioEvent);
                     dbContext.SaveChangesAsync().Wait();
@@ -64,6 +66,12 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
 
                     return Json(false, JsonRequestBehavior.AllowGet);
                 }
+           
+        }
+
+        private int Increasecount(string numbers)
+        {
+            return (Convert.ToInt32(numbers) + 1);
            
         }
 
@@ -87,8 +95,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PK_EventId,OrderNumber,CustomerName,Mobile,EmailId,Description,EventDate,Venue,Remarks,Amount")] Studio_Event studioEvent)
+        public async Task<ActionResult> Edit(Studio_Event studioEvent)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +110,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     _Events.Mobile = studioEvent.Mobile;
                     _Events.EmailId = studioEvent.EmailId;
                     _Events.Description = studioEvent.Description;
-                    _Events.EventDate = studioEvent.EventDate;
+                    //_Events.EventDate = studioEvent.EventDate;
                     _Events.Venue = studioEvent.Venue;
                     _Events.Remarks = studioEvent.Remarks;
                     _Events.Amount = studioEvent.Amount;
@@ -120,6 +127,28 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 }
             }
             return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Index(Studio_Event events)
+        {
+            try
+            {
+                var _Events = dbContext.Studio_Event.Find(events.PK_EventId);
+                if(_Events==null)
+                {
+                    return HttpNotFound();
+                }
+
+                _Events.FK_StatusId = _Events.FK_StatusId == 3 ? 4 : 3;
+                _Events.LastEventStatusChangedBy = currentUser.UserId;
+                dbContext.Entry(_Events).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }

@@ -22,7 +22,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         public ActionResult Index()
         {
             var _Events = dbContext.Studio_Event.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x.PK_EventId).ToListAsync().Result;
-            var _Expenses = dbContext.Studio_IncomeDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
+            var _Expenses = dbContext.Studio_ExpenseDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
             var _Income = dbContext.Studio_IncomeDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
 
             Studio_Home_Index _details = new Studio_Home_Index()

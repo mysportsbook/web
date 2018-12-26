@@ -59,6 +59,8 @@ namespace MySportsBook.Model
             this.Transaction_Receipt2 = new HashSet<Transaction_Receipt>();
             this.Transaction_Voucher = new HashSet<Transaction_Voucher>();
             this.Transaction_Voucher1 = new HashSet<Transaction_Voucher>();
+            this.Studio_ExpenseDetail = new HashSet<Studio_ExpenseDetail>();
+            this.Studio_Event = new HashSet<Studio_Event>();
         }
     
         public int PK_UserId { get; set; }
@@ -160,5 +162,9 @@ namespace MySportsBook.Model
         public virtual ICollection<Transaction_Voucher> Transaction_Voucher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Voucher> Transaction_Voucher1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studio_Event> Studio_Event { get; set; }
     }
 }

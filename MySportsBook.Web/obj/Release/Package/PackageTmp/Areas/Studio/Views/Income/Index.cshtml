@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
 }
 
 <main class="main">
@@ -26,18 +26,17 @@
                             <tr>
 
                                 <th>
-                                    @Html.DisplayName("Order Number")
+                                    @Html.DisplayNameFor(model => model.Studio_Event.OrderNumber)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Description)
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Customer Name")
+                                    @Html.DisplayNameFor(model => model.Studio_Event.CustomerName)
                                 </th>
                                 <th>
                                     @Html.DisplayName("Received By")
                                 </th>
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
                                 <th>
                                     @Html.DisplayName("Received On")
                                 </th>
@@ -51,20 +50,18 @@
                             @foreach (var item in Model)
                             {
                             <tr>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Configuration_StudioUser.Name)
                                 </td>
-
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ReceivedDate)
                                 </td>
@@ -81,8 +78,4 @@
     </div>
 </main>
 
-<script type="text/javascript">
-    $(function () {
-        $('.table').DataTable();
-    });
-</script>
+
