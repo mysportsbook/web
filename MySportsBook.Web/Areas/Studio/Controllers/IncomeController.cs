@@ -72,7 +72,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
             {
                 incomeDetail.FK_StatusId = 1;
                 incomeDetail.CreatedBy = currentUser.UserId;
-                incomeDetail.CreatedDate = DateTime.Now.ToUniversalTime();
+                incomeDetail.CreatedDate = DateTime.Now.ToLocalTime();
 
                 dbContext.Studio_IncomeDetail.Add(incomeDetail);
                 dbContext.SaveChangesAsync().Wait();

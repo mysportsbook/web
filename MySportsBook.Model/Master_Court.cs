@@ -17,6 +17,7 @@ namespace MySportsBook.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Master_Court()
         {
+            this.BatchCounts = new HashSet<BatchCount>();
             this.Master_Batch = new HashSet<Master_Batch>();
             this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
         }
@@ -32,6 +33,8 @@ namespace MySportsBook.Model
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BatchCount> BatchCounts { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -135,7 +135,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
                 Amount = amount,
                 Message = string.Join(",", message).ToString(),
                 CreatedBy = currentUser.UserId,
-                CreatedDate = DateTime.Now.ToUniversalTime()
+                CreatedDate = DateTime.Now.ToLocalTime()
 
             };
             if (IsCancel && booking != null)
@@ -152,7 +152,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
                     {
                         detail.details.Status = "Cancelled";
                         detail.details.ModifiedBy = currentUser.UserId;
-                        detail.details.ModifiedDate = DateTime.Now.ToUniversalTime();
+                        detail.details.ModifiedDate = DateTime.Now.ToLocalTime();
                         SaveDetails(detail.details);
                     }
                     else
@@ -166,7 +166,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
                             Status = IsCancel ? "Cancelled" : "Booked",
                             FK_BookingId = booking.PK_BookingId,
                             CreatedBy = currentUser.UserId,
-                            CreatedDate = DateTime.Now.ToUniversalTime()
+                            CreatedDate = DateTime.Now.ToLocalTime()
                         });
                     }
                 });
@@ -214,7 +214,7 @@ namespace MySportsBook.Web.Areas.Report.Controllers
                     Status = IsCancel ? "Cancelled" : "Booked",
                     FK_BookingId = otherBooking.PK_BookingId,
                     CreatedBy = currentUser.UserId,
-                    CreatedDate = DateTime.Now.ToUniversalTime()
+                    CreatedDate = DateTime.Now.ToLocalTime()
                 });
 
             });

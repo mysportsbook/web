@@ -14,7 +14,10 @@ namespace MySportsBook.Model
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data;
+    using System.Data.Entity.Core.EntityClient;
+    using System.Data.SqlClient;
+
     public partial class MySportsBookEntities : DbContext
     {
         public MySportsBookEntities()
@@ -27,7 +30,6 @@ namespace MySportsBook.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Transaction_Receipt> Transaction_Receipt { get; set; }
         public virtual DbSet<BatchCount> BatchCounts { get; set; }
         public virtual DbSet<Configuration_BatchType> Configuration_BatchType { get; set; }
         public virtual DbSet<Configuration_Format> Configuration_Format { get; set; }
@@ -35,6 +37,7 @@ namespace MySportsBook.Model
         public virtual DbSet<Configuration_PlayerType> Configuration_PlayerType { get; set; }
         public virtual DbSet<Configuration_Screen> Configuration_Screen { get; set; }
         public virtual DbSet<Configuration_Status> Configuration_Status { get; set; }
+        public virtual DbSet<Configuration_StudioUser> Configuration_StudioUser { get; set; }
         public virtual DbSet<Configuration_User> Configuration_User { get; set; }
         public virtual DbSet<Confirguration_PaymentMode> Confirguration_PaymentMode { get; set; }
         public virtual DbSet<Master_Batch> Master_Batch { get; set; }
@@ -52,17 +55,44 @@ namespace MySportsBook.Model
         public virtual DbSet<Master_VenueScreen> Master_VenueScreen { get; set; }
         public virtual DbSet<OtherBooking> OtherBookings { get; set; }
         public virtual DbSet<OtherBookingDetail> OtherBookingDetails { get; set; }
+        public virtual DbSet<Studio_Event> Studio_Event { get; set; }
+        public virtual DbSet<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
         public virtual DbSet<Studio_ExpenseType> Studio_ExpenseType { get; set; }
+        public virtual DbSet<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
         public virtual DbSet<Transaction_Attendance> Transaction_Attendance { get; set; }
         public virtual DbSet<Transaction_Enquiry_Comments> Transaction_Enquiry_Comments { get; set; }
         public virtual DbSet<Transaction_Invoice> Transaction_Invoice { get; set; }
         public virtual DbSet<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
         public virtual DbSet<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
+        public virtual DbSet<Transaction_Receipt> Transaction_Receipt { get; set; }
         public virtual DbSet<Transaction_Voucher> Transaction_Voucher { get; set; }
-        public virtual DbSet<Configuration_StudioUser> Configuration_StudioUser { get; set; }
-        public virtual DbSet<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
-        public virtual DbSet<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
-        public virtual DbSet<Studio_Event> Studio_Event { get; set; }
+    
+        [DbFunction("Entities", "Split")]
+        public virtual IQueryable<Split_Result> Split(string inputString, string delimiter)
+        {
+            var inputStringParameter = inputString != null ?
+                new ObjectParameter("InputString", inputString) :
+                new ObjectParameter("InputString", typeof(string));
+    
+            var delimiterParameter = delimiter != null ?
+                new ObjectParameter("Delimiter", delimiter) :
+                new ObjectParameter("Delimiter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[Entities].[Split](@InputString, @Delimiter)", inputStringParameter, delimiterParameter);
+        }
+    
+        public virtual ObjectResult<string> GenerateRunningNumber(Nullable<int> venueId, Nullable<int> screenId)
+        {
+            var venueIdParameter = venueId.HasValue ?
+                new ObjectParameter("VenueId", venueId) :
+                new ObjectParameter("VenueId", typeof(int));
+    
+            var screenIdParameter = screenId.HasValue ?
+                new ObjectParameter("ScreenId", screenId) :
+                new ObjectParameter("ScreenId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateRunningNumber", venueIdParameter, screenIdParameter);
+        }
     
         public virtual ObjectResult<rp_COLLECTIONDETAIL_Result> rp_COLLECTIONDETAIL(Nullable<int> vENUEID, Nullable<System.DateTime> mONTH, string tYPE)
         {
@@ -81,31 +111,17 @@ namespace MySportsBook.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COLLECTIONDETAIL_Result>("rp_COLLECTIONDETAIL", vENUEIDParameter, mONTHParameter, tYPEParameter);
         }
     
-        public virtual ObjectResult<string> GenerateRunningNumber(Nullable<int> venueId, Nullable<int> screenId)
+        public virtual ObjectResult<rp_COMMONPROCEDURE_Result> rp_COMMONPROCEDURE(string sTOREPROC, string pARAMETERS)
         {
-            var venueIdParameter = venueId.HasValue ?
-                new ObjectParameter("VenueId", venueId) :
-                new ObjectParameter("VenueId", typeof(int));
+            var sTOREPROCParameter = sTOREPROC != null ?
+                new ObjectParameter("STOREPROC", sTOREPROC) :
+                new ObjectParameter("STOREPROC", typeof(string));
     
-            var screenIdParameter = screenId.HasValue ?
-                new ObjectParameter("ScreenId", screenId) :
-                new ObjectParameter("ScreenId", typeof(int));
+            var pARAMETERSParameter = pARAMETERS != null ?
+                new ObjectParameter("PARAMETERS", pARAMETERS) :
+                new ObjectParameter("PARAMETERS", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateRunningNumber", venueIdParameter, screenIdParameter);
-        }
-    
-        [DbFunction("MySportsBookEntities", "Split")]
-        public virtual IQueryable<string> Split(string inputString, string delimiter)
-        {
-            var inputStringParameter = inputString != null ?
-                new ObjectParameter("InputString", inputString) :
-                new ObjectParameter("InputString", typeof(string));
-    
-            var delimiterParameter = delimiter != null ?
-                new ObjectParameter("Delimiter", delimiter) :
-                new ObjectParameter("Delimiter", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[MySportsBookEntities].[Split](@InputString, @Delimiter)", inputStringParameter, delimiterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COMMONPROCEDURE_Result>("rp_COMMONPROCEDURE", sTOREPROCParameter, pARAMETERSParameter);
         }
     
         public virtual ObjectResult<Transaction_SaveInvoice_Result> Transaction_SaveInvoice(string xML)
@@ -116,5 +132,25 @@ namespace MySportsBook.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transaction_SaveInvoice_Result>("Transaction_SaveInvoice", xMLParameter);
         }
+
+        public DataTable GetResultReport(string StoreProc, string pARAMETERS)
+        {
+            DataSet retVal = new DataSet();
+            EntityConnection entityConn = (EntityConnection)((IObjectContextAdapter)this).ObjectContext.Connection;
+            SqlConnection sqlConn = (SqlConnection)entityConn.StoreConnection;
+            SqlCommand cmdReport = new SqlCommand("rp_COMMONPROCEDURE", sqlConn);
+            SqlDataAdapter daReport = new SqlDataAdapter(cmdReport);
+            using (cmdReport)
+            {
+                SqlParameter questionIdPrm = new SqlParameter("PARAMETERS", pARAMETERS);
+                SqlParameter storeprocPrm = new SqlParameter("STOREPROC", StoreProc);
+                cmdReport.CommandType = CommandType.StoredProcedure;
+                cmdReport.Parameters.Add(storeprocPrm);
+                cmdReport.Parameters.Add(questionIdPrm);
+                daReport.Fill(retVal);
+            }
+            return retVal.Tables[0];
+        }
+
     }
 }

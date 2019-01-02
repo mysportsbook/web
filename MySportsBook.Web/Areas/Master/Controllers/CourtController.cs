@@ -54,7 +54,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     master_Court.FK_VenueId = currentUser.CurrentVenueId;
                     master_Court.FK_StatusId = 1;
                     master_Court.CreatedBy = currentUser.UserId;
-                    master_Court.CreatedDate = DateTime.Now.ToUniversalTime();
+                    master_Court.CreatedDate = DateTime.Now.ToLocalTime();
                     dbContext.Master_Court.Add(master_Court);
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
@@ -119,7 +119,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     _court.FK_SportId = master_Court.FK_SportId;
                     _court.FK_StatusId = 1;
                     _court.ModifiedBy = currentUser.UserId;
-                    _court.ModifiedDate = DateTime.Now.ToUniversalTime();
+                    _court.ModifiedDate = DateTime.Now.ToLocalTime();
                     dbContext.Entry(_court).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
@@ -154,7 +154,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 }
                 _court.FK_StatusId = 2;
                 _court.ModifiedBy = currentUser.UserId;
-                _court.ModifiedDate = DateTime.Now.ToUniversalTime();
+                _court.ModifiedDate = DateTime.Now.ToLocalTime();
                 dbContext.Entry(_court).State = EntityState.Modified;
                 await dbContext.SaveChangesAsync();
                 return Json(true, JsonRequestBehavior.AllowGet);

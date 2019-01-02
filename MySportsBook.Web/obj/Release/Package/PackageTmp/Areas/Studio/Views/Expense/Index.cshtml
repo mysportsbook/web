@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Layout/_AdminLayout.cshtml";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
 
@@ -27,10 +27,10 @@
                             <tr>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Studio_Event.OrderNumber)
+                                    @Html.DisplayName("Order Number")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Studio_Event.CustomerName)
+                                    @Html.DisplayName("Customer Name")
                                 </th>
                                 <th>
                                     @Html.DisplayName("Type")
@@ -79,7 +79,11 @@
         </div>
     </div>
 </main>
-
+<script type="text/javascript">
+    $(function () {
+        $('.table').DataTable();
+    });
+</script>
 
 
 

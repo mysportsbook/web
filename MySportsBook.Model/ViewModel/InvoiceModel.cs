@@ -6,7 +6,7 @@ namespace MySportsBook.Model.ViewModel
     {
         public int PaymentId { get; set; }
         public int InvoiceId { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public DateTime? InvoiceDate { get; set; }
         public int PlayerId { get; set; }
         public int VenueId { get; set; }
         public double TotalFee { get; set; }
@@ -26,6 +26,7 @@ namespace MySportsBook.Model.ViewModel
         public int InvoiceDetailssId { get; set; }
         public int InvoicePeriodId { get; set; }
         public int BatchId { get; set; }
+        public string BatchName { get; set; }
         public string SportName { get; set; }
         public string InvoicePeriod { get; set; }
         public double Fee { get; set; }

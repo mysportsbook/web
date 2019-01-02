@@ -28,7 +28,7 @@ namespace MySportsBook.Model
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_StudioUser Configuration_StudioUser { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
-        public virtual Studio_ExpenseType Studio_ExpenseType { get; set; }
         public virtual Studio_Event Studio_Event { get; set; }
+        public virtual Studio_ExpenseType Studio_ExpenseType { get; set; }
     }
 }

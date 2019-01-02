@@ -84,7 +84,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     playermodel.Player.FK_StatusId = 1;
                     playermodel.Player.FK_VenueId = currentUser.CurrentVenueId;
                     playermodel.Player.CreatedBy = currentUser.UserId;
-                    playermodel.Player.CreatedDate = DateTime.Now.ToUniversalTime();
+                    playermodel.Player.CreatedDate = DateTime.Now.ToLocalTime();
                     dbContext.Master_Player.Add(playermodel.Player);
                     dbContext.SaveChanges();
                     playermodel.PlayerSports.ForEach(ps =>
@@ -93,9 +93,9 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                         ps.FK_PlayerId = playermodel.Player.PK_PlayerId;
                         ps.FK_CourtId = dbContext.Master_Batch.Where(b => b.PK_BatchId == ps.FK_BatchId).FirstOrDefault().FK_CourtId;
                         ps.FK_StatusId = 1;
-                        ps.LastGeneratedMonth = DateTime.Now.ToUniversalTime().AddMonths(-1).ToString("MMMyyyy");
+                        ps.LastGeneratedMonth = DateTime.Now.ToLocalTime().AddMonths(-1).ToString("MMMyyyy");
                         ps.CreatedBy = currentUser.UserId;
-                        ps.CreatedDate = DateTime.Now.ToUniversalTime();
+                        ps.CreatedDate = DateTime.Now.ToLocalTime();
                     });
                     dbContext.Transaction_PlayerSport.AddRange(playermodel.PlayerSports);
                     dbContext.SaveChanges();
@@ -202,7 +202,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                         master_Player.LoginRequired = playermodel.Player.LoginRequired;
                         master_Player.FK_StatusId = 1;
                         master_Player.ModifiedBy = currentUser.UserId;
-                        master_Player.ModifiedDate = DateTime.Now.ToUniversalTime();
+                        master_Player.ModifiedDate = DateTime.Now.ToLocalTime();
                         dbContext.Entry(master_Player).State = EntityState.Modified;
                         var _playersport = dbContext.Transaction_PlayerSport.Where(x => x.FK_PlayerId == master_Player.PK_PlayerId && x.FK_StatusId == 1);
                         if (playermodel.PlayerSports.Count() > 0 && _playersport.Count() > 0)
@@ -215,7 +215,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                 {
                                     ps.FK_StatusId = 2;
                                     ps.ModifiedBy = currentUser.UserId;
-                                    ps.ModifiedDate = DateTime.Now.ToUniversalTime();
+                                    ps.ModifiedDate = DateTime.Now.ToLocalTime();
                                     dbContext.Entry(ps).State = EntityState.Modified;
                                 });
                             }
@@ -231,7 +231,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                         ps.Fee = _plysport.Fee;
                                         ps.FK_InvoicePeriodId = _plysport.FK_InvoicePeriodId;
                                         ps.ModifiedBy = currentUser.UserId;
-                                        ps.ModifiedDate = DateTime.Now.ToUniversalTime();
+                                        ps.ModifiedDate = DateTime.Now.ToLocalTime();
                                         dbContext.Entry(ps).State = EntityState.Modified;
                                     }
                                 });
@@ -245,10 +245,10 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                     ps.FK_VenueId = currentUser.CurrentVenueId;
                                     ps.FK_PlayerId = playermodel.Player.PK_PlayerId;
                                     ps.FK_CourtId = dbContext.Master_Batch.Where(b => b.PK_BatchId == ps.FK_BatchId).FirstOrDefault().FK_CourtId;
-                                    ps.LastGeneratedMonth = DateTime.Now.ToUniversalTime().AddMonths(-1).ToString("MMMyyyy");
+                                    ps.LastGeneratedMonth = DateTime.Now.ToLocalTime().AddMonths(-1).ToString("MMMyyyy");
                                     ps.FK_StatusId = 1;
                                     ps.CreatedBy = currentUser.UserId;
-                                    ps.CreatedDate = DateTime.Now.ToUniversalTime();
+                                    ps.CreatedDate = DateTime.Now.ToLocalTime();
                                 });
                                 dbContext.Transaction_PlayerSport.AddRange(_insertplayersport);
                             }
@@ -269,9 +269,9 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                     ps.FK_PlayerId = playermodel.Player.PK_PlayerId;
                                     ps.FK_CourtId = dbContext.Master_Batch.Where(b => b.PK_BatchId == ps.FK_BatchId).FirstOrDefault().FK_CourtId;
                                     ps.FK_StatusId = 1;
-                                    ps.LastGeneratedMonth = DateTime.Now.ToUniversalTime().AddMonths(-1).ToString("MMMyyyy");
+                                    ps.LastGeneratedMonth = DateTime.Now.ToLocalTime().AddMonths(-1).ToString("MMMyyyy");
                                     ps.CreatedBy = currentUser.UserId;
-                                    ps.CreatedDate = DateTime.Now.ToUniversalTime();
+                                    ps.CreatedDate = DateTime.Now.ToLocalTime();
                                 });
                                 dbContext.Transaction_PlayerSport.AddRange(playermodel.PlayerSports);
                             }
@@ -310,7 +310,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             Master_Player master_Player = _player.FirstOrDefault();
             master_Player.FK_StatusId = 2;
             master_Player.ModifiedBy = currentUser.UserId;
-            master_Player.ModifiedDate = DateTime.Now.ToUniversalTime();
+            master_Player.ModifiedDate = DateTime.Now.ToLocalTime();
             dbContext.Entry(master_Player).State = EntityState.Modified;
             //dbContext.Master_Player.Remove(master_Player);
             await dbContext.SaveChangesAsync();

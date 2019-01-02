@@ -93,7 +93,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 _Batch.FK_StatusId = 1;
                 _Batch.FK_VenueId = currentUser.CurrentVenueId;
                 _Batch.CreatedBy = currentUser.UserId;
-                _Batch.CreatedDate = DateTime.Now.ToUniversalTime();
+                _Batch.CreatedDate = DateTime.Now.ToLocalTime();
                 dbContext.Master_Batch.Add(_Batch);
                 dbContext.SaveChanges();
                 if (master_Batch.BatchTimings.Count > 0)
@@ -107,7 +107,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                             StartTime = t.StartTime,
                             EndTime = t.EndTime,
                             CreatedBy = currentUser.UserId,
-                            CreatedDate = DateTime.Now.ToUniversalTime()
+                            CreatedDate = DateTime.Now.ToLocalTime()
                         });
                     });
                 }
@@ -251,7 +251,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     _batch.IsAttendanceRequired = master_Batch.AttendanceRequired;
                     _batch.FK_StatusId = 1;
                     _batch.ModifiedBy = currentUser.UserId;
-                    _batch.ModifiedDate = DateTime.Now.ToUniversalTime();
+                    _batch.ModifiedDate = DateTime.Now.ToLocalTime();
                     dbContext.Entry(_batch).State = EntityState.Modified;
                     dbContext.SaveChanges();
 
@@ -270,7 +270,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                             t.StartTime = master_Batch.BatchTimings.Find(b => b.WeekDay == t.WeekDay).StartTime;
                             t.EndTime = master_Batch.BatchTimings.Find(b => b.WeekDay == t.WeekDay).EndTime;
                             t.ModifiedBy = currentUser.UserId;
-                            t.ModifiedDate = DateTime.Now.ToUniversalTime();
+                            t.ModifiedDate = DateTime.Now.ToLocalTime();
                             dbContext.Entry(t).State = EntityState.Modified;
                         });
                     }
@@ -285,7 +285,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                 StartTime = t.StartTime,
                                 EndTime = t.EndTime,
                                 CreatedBy = currentUser.UserId,
-                                CreatedDate = DateTime.Now.ToUniversalTime()
+                                CreatedDate = DateTime.Now.ToLocalTime()
                             });
 
                         });
@@ -322,7 +322,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 }
                 _batch.FK_StatusId = 2;
                 _batch.ModifiedBy = currentUser.UserId;
-                _batch.ModifiedDate = DateTime.Now.ToUniversalTime();
+                _batch.ModifiedDate = DateTime.Now.ToLocalTime();
                 dbContext.Entry(_batch).State = EntityState.Modified;
                 await dbContext.SaveChangesAsync();
                 return Json(true, JsonRequestBehavior.AllowGet);

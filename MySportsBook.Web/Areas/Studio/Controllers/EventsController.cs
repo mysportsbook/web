@@ -44,7 +44,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
 
                     studioEvent.FK_StatusId = 3;
                     studioEvent.CreatedBy = currentUser.UserId;
-                    studioEvent.CreatedDate = DateTime.Now.ToUniversalTime();
+                    studioEvent.CreatedDate = DateTime.Now.ToLocalTime();
                 string OrderNumber = DateTime.Now.ToString("yyyyMMM").ToUpper();
                 var LastOrderNumber = dbContext.Studio_Event.Where(x => x.OrderNumber.ToUpper().Contains(OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
                 
@@ -115,7 +115,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     _Events.Remarks = studioEvent.Remarks;
                     _Events.Amount = studioEvent.Amount;
                     _Events.ModifiedBy = currentUser.UserId;
-                    _Events.ModifiedDate = DateTime.Now.ToUniversalTime();
+                    _Events.ModifiedDate = DateTime.Now.ToLocalTime();
                     dbContext.Entry(_Events).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);

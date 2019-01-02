@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MySportsBook.Model;
+﻿using MySportsBook.Model;
 using MySportsBook.Web.Controllers;
 using MySportsBook.Web.Filters;
+using System;
+using System.Data.Entity;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MySportsBook.Web.Areas.Configuration.Controllers
 {
@@ -60,7 +56,7 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
                 configuration_User.PasswordHash = pass.Hash;
                 configuration_User.FK_StatusId = 1;
                 configuration_User.CreatedBy = currentUser.UserId;
-                configuration_User.CreatedDate = DateTime.Now.ToUniversalTime();
+                configuration_User.CreatedDate = DateTime.Now.ToLocalTime();
                 db.Configuration_User.Add(configuration_User);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -81,6 +77,8 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
             {
                 return HttpNotFound();
             }
+            configuration_User.PasswordSalt = string.Empty;
+            configuration_User.PasswordHash = string.Empty;
             ViewBag.FK_StatusId = new SelectList(db.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
             return View(configuration_User);
         }
@@ -90,13 +88,26 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PK_UserId,UserName,FirstName,LastName,Email,Mobile,PasswordHash,PasswordSalt,FK_StatusId,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Configuration_User configuration_User)
+        public async Task<ActionResult> Edit([Bind(Include = "PK_UserId,UserName,FirstName,LastName,Email,Mobile,PasswordHash")] Configuration_User configuration_User)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuration_User).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var _user = db.Configuration_User.Find(configuration_User.PK_UserId);
+                if (_user != null)
+                {
+                    if (configuration_User.PasswordHash != string.Empty)
+                    {
+                        var pass = new Cryptography(configuration_User.PasswordHash);
+                        _user.PasswordHash = pass.Hash;
+                        _user.PasswordSalt = pass.Salt;
+                        _user.ModifiedBy = currentUser.UserId;
+                        _user.ModifiedDate = DateTime.Now.ToLocalTime();
+                    }
+                    db.Entry(_user).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
             }
             ViewBag.FK_StatusId = new SelectList(db.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
             return View(configuration_User);

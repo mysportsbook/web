@@ -88,7 +88,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
 
                     expenseDetail.FK_StatusId = 1;
                     expenseDetail.CreatedBy = currentUser.UserId;
-                    expenseDetail.CreatedDate = DateTime.Now.ToUniversalTime();
+                    expenseDetail.CreatedDate = DateTime.Now.ToLocalTime();
 
                     dbContext.Studio_ExpenseDetail.Add(expenseDetail);
                     dbContext.SaveChangesAsync().Wait();

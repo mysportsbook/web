@@ -47,7 +47,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                     master_Sport.FK_StatusId = 1;
                     master_Sport.FK_VenueId = currentUser.CurrentVenueId;
                     master_Sport.CreatedBy = currentUser.UserId;
-                    master_Sport.CreatedDate = DateTime.Now.ToUniversalTime();
+                    master_Sport.CreatedDate = DateTime.Now.ToLocalTime();
                     dbContext.Master_Sport.Add(master_Sport);
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
@@ -101,7 +101,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 _sport.Fee = master_Sport.Fee;
                 _sport.FK_StatusId = 1;
                 _sport.ModifiedBy = currentUser.UserId;
-                _sport.ModifiedDate = DateTime.Now.ToUniversalTime();
+                _sport.ModifiedDate = DateTime.Now.ToLocalTime();
                 try
                 {
                     dbContext.Entry(_sport).State = EntityState.Modified;
@@ -131,7 +131,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             }
             _sport.FK_StatusId = 2;
             _sport.ModifiedBy = currentUser.UserId;
-            _sport.ModifiedDate = DateTime.Now.ToUniversalTime();
+            _sport.ModifiedDate = DateTime.Now.ToLocalTime();
             try
             {
                 dbContext.Entry(_sport).State = EntityState.Modified;

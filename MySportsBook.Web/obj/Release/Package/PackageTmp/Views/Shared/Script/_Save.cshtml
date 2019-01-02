@@ -4,7 +4,8 @@
     var SaveOrUpdate = {
         save: 'save',
         update: 'update',
-        saveandcontinue:'Save'
+        saveandcontinue: 'Save',
+        statuschange:'Status Changes'
     };
     //Common ajax method to save or updated
     function saveData(objModel, name, saveorupdate) {
@@ -28,11 +29,12 @@
                         confirmButtonText: "Ok!",
                         closeOnConfirm: false
                     }).then(function () {
-                        debugger;
-
                         if (saveorupdate == SaveOrUpdate.saveandcontinue) {
                             $('button[type=reset]').click();
-                        } else {
+                        }
+                        else if (saveorupdate =saveorupdate.statuschange)
+                        {
+                        }else {
                             window.location.href = "@Url.Action("", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })";
                         }
                     });
