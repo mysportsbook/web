@@ -300,6 +300,8 @@
     <Content Include="Areas\Studio\Views\Income\Index.cshtml" />
     <Content Include="Areas\Studio\Views\Reports\Index.cshtml" />
     <Content Include="Areas\Studio\Views\Web.config" />
+    <Content Include="Areas\Transaction\Views\Shared\_PaymentHistory.cshtml" />
+    <Content Include="Areas\Report\Views\Collection\Split.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -75,6 +75,7 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
+                                        <button class="btn btn-block btn-outline-info" onclick="payHistory(@item.PK_PlayerId,this)" type="button">Payment History</button>
                                         @Html.HiddenFor(modelItem => item.PK_PlayerId)
                                     </td>
                                 </tr>
@@ -88,7 +89,7 @@
 </main>
 <!-- Modal -->
 <div class="modal fade" id="invocemodel" tabindex="-1" role="dialog" aria-labelledby="invocemodel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
@@ -97,11 +98,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Pay</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -118,8 +114,11 @@
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
-                $('.invdetail').remove();
-                $(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
+                $('.modal-title').html("Invoice");
+                $('.modal-body').html(response);
+                $('#invocemodel').modal('show');
+                //$('.invdetail').remove();
+                //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -129,5 +128,26 @@
             }
         });
     }
-
+    function payHistory(id, btn) {
+        $.ajax({
+            type: "GET",
+            url: "/Transaction/Invoice/GetPaymentHistory/" + id,
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                $('.modal-title').html("Payment(s)");
+                $('.modal-body').html(response);
+                $('#invocemodel').modal('show');
+                //$('.invdetail').remove();
+                //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+    
 </script>

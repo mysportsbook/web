@@ -29,6 +29,18 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         {
             return View(GetCollection(null, "PLAYER"));
         }
+
+        public ActionResult Split()
+        {
+            return View(GetCollection(null, "SPLIT"));
+        }
+
+        [HttpPost]
+        public ActionResult Split(DateTime? Month)
+        {
+            return View(GetCollection(Month, "SPLIT"));
+        }
+
         [HttpPost]
         public ActionResult Player(DateTime? Month)
         {

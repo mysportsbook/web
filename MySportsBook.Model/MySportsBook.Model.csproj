@@ -200,6 +200,7 @@
     <Compile Include="ViewModel\EnquiryModel.cs" />
     <Compile Include="ViewModel\InvoiceModel.cs" />
     <Compile Include="ViewModel\PlayerModel.cs" />
+    <Compile Include="ViewModel\ReceiptModel.cs" />
     <Compile Include="ViewModel\StudioReportFilters.cs" />
     <Compile Include="ViewModel\Studio_Home_Index.cs" />
     <Compile Include="ViewModel\Studio_Report_Filters.cs" />

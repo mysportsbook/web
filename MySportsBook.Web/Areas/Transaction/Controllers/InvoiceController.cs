@@ -32,6 +32,13 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             return PartialView("_Payment", (invoiceModel.InvoiceDetails != null && invoiceModel.InvoiceDetails.ToList().Count > 0) ? invoiceModel : new InvoiceModel() { NoDues = true });
         }
 
+        [HttpGet]
+        public ActionResult GetPaymentHistory(int id)
+        {
+            List<ReceiptModel> receiptModels = GetPaymentHistoryList(id);
+            return PartialView("_PaymentHistory", receiptModels);
+        }
+
         [HttpPost]
         public ActionResult Payment(InvoiceModel invoiceModel)
         {
@@ -54,8 +61,6 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         [NonAction]
         public ActionResult Save(InvoiceModel invoice)
         {
-            var _playerinvoice = dbContext.Transaction_Invoice.Where(inv => inv.FK_StatusId.Equals(3) && inv.FK_VenueId == invoice.VenueId && inv.FK_PlayerId == invoice.PlayerId)
-                   .Join(dbContext.Transaction_InvoiceDetail.Where(detail => detail.FK_StatusId.Equals(3)), inv => inv.PK_InvoiceId, detail => detail.FK_InvoiceId, (inv, detail) => new { inv, detail }).ToList();
             if (dbContext.Master_Venue.Find(currentUser.CurrentVenueId).GuestPlayerId == invoice.PlayerId && invoice.TotalFee + invoice.TotalOtherAmount - invoice.TotalDiscount != invoice.TotalPaidAmount)
             {
                 return Json("Paid amount Should not Exceed the total amount!", JsonRequestBehavior.AllowGet);
@@ -65,7 +70,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 //Calculate the Total Fee
                 invoice.TotalFee = invoice.InvoiceDetails.Sum(x => x.Fee);
                 // Calculate the Total Extra Amount Paid 
-                invoice.ExtraPaidAmount = invoice.TotalFee + invoice.TotalOtherAmount - invoice.TotalDiscount <= invoice.TotalPaidAmount ? 0 : invoice.TotalPaidAmount - invoice.TotalFee + invoice.TotalOtherAmount - invoice.TotalDiscount;
+                invoice.ExtraPaidAmount = (invoice.TotalFee + invoice.TotalOtherAmount - invoice.TotalDiscount) >= invoice.TotalPaidAmount ? 0 : invoice.TotalPaidAmount - invoice.TotalFee + invoice.TotalOtherAmount - invoice.TotalDiscount;
                 //Get all the Month to be closed
                 var ClosedInv = GetMonthToBeClosed(invoice);
                 //Split the Amount in the Invoice Detail
@@ -97,7 +102,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     TotalFee = (decimal)invoice.TotalFee,
                     TotalDiscount = (decimal)invoice.TotalDiscount,
                     OtherAmount = (decimal)invoice.TotalOtherAmount,
-                    PaidAmount = (decimal)invoice.InvoiceDetails.Sum(x => x.PaidAmount),
+                    PaidAmount = (decimal)invoice.InvoiceDetails.Sum(x => x.PaidAmount) + (decimal)invoice.TotalOtherAmount - (decimal)invoice.TotalDiscount,
                     Comments = invoice.Comments,
                     CreatedBy = currentUser.UserId,
                     CreatedDate = DateTime.Now.ToLocalTime()
@@ -443,15 +448,9 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         [NonAction]
         private void SplitTheAmountInDetail(ref InvoiceModel invoice, double totalAmount, double discount, double otherAmount)
         {
-            double _totalPaidAmount = totalAmount;
-            int count = 0;
+            double _totalPaidAmount = totalAmount - invoice.TotalOtherAmount + invoice.TotalDiscount;
             invoice.InvoiceDetails.OrderByDescending(x => x.Fee).ToList().ForEach(x =>
             {
-                if (count == 0)
-                {
-                    x.Fee += otherAmount - discount;
-                    count += 1;
-                }
                 if (_totalPaidAmount > 0 && _totalPaidAmount >= x.Fee)
                 {
                     x.PaidAmount = x.Fee;
@@ -464,10 +463,6 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 }
 
             });
-            if (_totalPaidAmount > 0)
-            {
-                invoice.ExtraPaidAmount = _totalPaidAmount;
-            }
         }
 
         [NonAction]
@@ -515,6 +510,37 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 }
             }
         }
+
+        [NonAction]
+        List<ReceiptModel> GetPaymentHistoryList(int PlayerId)
+        {
+            var master_Receipt = dbContext.Transaction_Receipt
+                                    .Join(dbContext.Transaction_Invoice, rec => rec.FK_InvoiceId, inv => inv.PK_InvoiceId, (receipt, invoice) => new { receipt, invoice })
+                                    .Join(dbContext.Transaction_InvoiceDetail, recinv => recinv.invoice.PK_InvoiceId, detail => detail.FK_InvoiceId, (receiptinvoice, details) => new { receiptinvoice, details })
+                                    .Join(dbContext.Master_Batch, recinv => recinv.details.FK_BatchId, batch => batch.PK_BatchId, (receiptinvoice, batch) => new { receiptinvoice, batch })
+                                    .Join(dbContext.Master_Court, recinvbat => recinvbat.batch.FK_CourtId, cou => cou.PK_CourtId, (receiptinvoicebat, court) => new { receiptinvoicebat, court })
+                                    .Join(dbContext.Master_Sport, recinvbatcou => recinvbatcou.court.FK_SportId, sport => sport.PK_SportId, (receiptinvoicebatcou, sport) => new { receiptinvoicebatcou, sport })
+                                    .Where(p => p.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.invoice.FK_PlayerId == PlayerId)
+                                    .GroupBy(x => new { x.sport.SportName, x.receiptinvoicebatcou.receiptinvoicebat.batch.BatchName, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.AmountPaid, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptDate, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptNumber }).ToList()
+                                    .Select(s => new ReceiptModel
+                                    {
+                                        ReceiptNumber = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptNumber,
+                                        ReceiptDate = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptDate,
+                                        AmountPaid = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.AmountPaid,
+                                        Sport = String.Join(",", s.Select(c => c.sport.SportName).Distinct()),
+                                        Month = String.Join(",", s.Select(b => b.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.details.InvoicePeriod).Distinct())
+                                    });
+            //.ToList().Select(x => new ReceiptModel
+            //{
+            //    ReceiptNumber = x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptNumber,
+            //    ReceiptDate = x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptDate,
+            //    AmountPaid = x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.AmountPaid,
+            //    Sport = String.Join(",", x.sport.SportName),
+            //    Month = String.Join(",", x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.details.InvoicePeriod)
+            //});
+            return master_Receipt.OrderByDescending(x=>x.ReceiptDate).ToList();
+        }
+
         #endregion [ NonAction Methods ]
     }
 }
