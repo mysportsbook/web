@@ -18,9 +18,27 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
     {
         // GET: Transaction/Invoice
         public async Task<ActionResult> Index()
+        // public ActionResult Index()
         {
-            var master_Player = dbContext.Master_Player.Include(m => m.Configuration_PlayerType).Include(m => m.Configuration_Status).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1);
-            return View(await master_Player.Where(x => x.FK_StatusId == 1).ToListAsync());
+            var master_Player = dbContext.Master_Player
+                .Include(m => m.Transaction_PlayerSport).Include(m => m.Master_Batch)
+              .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1);
+
+            //////var a = dbContext.Master_Batch.Where(x => x.PK_BatchId == playerSport.FK_BatchId);
+            //////      var master_Player =
+            ////// from player in dbContext.Master_Player
+            ////// join playerSport in dbContext.Transaction_PlayerSport on player.PK_PlayerId equals playerSport.FK_PlayerId
+            //////// join batch in dbContext.Master_Batch on playerSport.FK_BatchId equals batch.PK_BatchId
+            ////// where player.FK_VenueId == currentUser.CurrentVenueId && player.FK_PlayerTypeId == 1 && player.FK_StatusId == 1
+            ////// select new
+            ////// {
+            //////     player.FirstName
+            //////    ,player.LastName
+            //////    ,player.Mobile
+            //////    ,(string.Join(",", dbContext.Master_Batch.Where(x => x.PK_BatchId == playerSport.FK_BatchId).Select(t => t.BatchCode))
+            //////     //, batch.BatchCode
+            ////// };
+            return View(await master_Player.ToListAsync());
         }
 
         [HttpGet]
@@ -255,7 +273,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         [NonAction]
         public void SaveDetail(int invoiceid, int playerid, string comments, int statusid, InvoiceDetailModel detail)
         {
-            int _statusid = detail.Fee == detail.PaidAmount ? 4 : 3;
+            int _statusid = statusid != 4 ? (detail.Fee == detail.PaidAmount ? 4 : 3) : 4;
             dbContext.Transaction_InvoiceDetail.Add(new Transaction_InvoiceDetail()
             {
                 FK_BatchId = detail.BatchId,
@@ -382,7 +400,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
 
                     });
                 }
-                var _openInvoice = dbContext.Transaction_InvoiceDetail.Where(x => dbContext.Transaction_Invoice.Any(i => i.FK_PlayerId == playerId && i.FK_StatusId == 3 && i.PK_InvoiceId == x.FK_InvoiceId));
+                var _openInvoice = dbContext.Transaction_InvoiceDetail.Where(x => x.FK_StatusId == 3 && dbContext.Transaction_Invoice.Any(i => i.FK_PlayerId == playerId && i.FK_StatusId == 3 && i.PK_InvoiceId == x.FK_InvoiceId));
                 if (_openInvoice != null)
                 {
                     invoiceModel.InvoiceDetails.ForEach(x =>
@@ -538,7 +556,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             //    Sport = String.Join(",", x.sport.SportName),
             //    Month = String.Join(",", x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.details.InvoicePeriod)
             //});
-            return master_Receipt.OrderByDescending(x=>x.ReceiptDate).ToList();
+            return master_Receipt.OrderByDescending(x => x.ReceiptDate).ToList();
         }
 
         #endregion [ NonAction Methods ]

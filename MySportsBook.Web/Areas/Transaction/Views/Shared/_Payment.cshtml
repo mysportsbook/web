@@ -188,15 +188,15 @@
         showDropdowns: true,
         minYear: 2000,
         locale: {
-            format: 'DD/MM/YYYY'
+            format: 'DD MMM YYYY'
         }
     });
     $('.inv-list-all').click(function () {
         $('.inv-list').prop("checked", $(this).is(":checked"));
-        calculate();
+        calculateonCheckbox();
     });
     $('.inv-list').click(function () {
-        calculate();
+        calculateonCheckbox();
     });
     $('#txtDiscount,#txtPaid,#txtLateFee').on('blur', function () {
         calculate();
@@ -217,6 +217,25 @@
         $('#txtDiscount').val(parseFloat($('#txtDiscount').val() == "" ? 0 : $('#txtDiscount').val()).toFixed(2));
         $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2));
         $('#txtPaid').val(parseFloat($('#txtPaid').val() == "" ? 0 : $('#txtPaid').val()).toFixed(2));
+        $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
+        $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
+    }
+    function calculateonCheckbox() {
+        var total = 0;
+        var checkall = true;
+        $('.inv-list').each(function () {
+            if ($(this).is(":checked")) {
+                total += parseFloat($(this).parent().parent().find('label').text());
+            }
+            else if (checkall) { checkall = false; }
+            $('.inv-list-all').prop("checked", checkall);
+        });
+        $('#txtTotalFee').val(total.toFixed(2));
+        $('#txtLateFee').val(parseFloat($('#txtLateFee').val() == "" ? 0 : $('#txtLateFee').val()).toFixed(2));
+        $('#txtTotalFee').val(parseFloat($('#txtTotalFee').val() == "" ? 0 : $('#txtTotalFee').val()).toFixed(2));
+        $('#txtDiscount').val(parseFloat($('#txtDiscount').val() == "" ? 0 : $('#txtDiscount').val()).toFixed(2));
+        $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2));
+        $('#txtPaid').val(parseFloat($('#txtTotal').val()).toFixed(2));
         $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
         $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
     }
@@ -281,8 +300,8 @@
                 ReceivedBy: $('select[name="ReceivedBy"]').val(),
                 InvoiceDetails: invoicedetails
             }
-            debugger
-            if (validatePaidAmount(invoiceobj) == success) {
+            var _message = validatePaidAmount(invoiceobj);
+            if (_message == success) {
                 if (checkForClosingPrevInv(invoiceobj)) {
                     swal({
                         type: 'info',
@@ -297,7 +316,7 @@
                 }
             }
             else {
-                swal("Failed!", validAmt, "error", {
+                swal("Failed!", _message, "error", {
                     icon: "error"
                 });
                 loader();
@@ -332,7 +351,7 @@
                         confirmButtonText: "Ok!",
                         closeOnConfirm: false
                     }).then(function () {
-                        location.reload();
+                        $('#invocemodel').modal('hide');
                     });
                 }
                 else {
@@ -351,10 +370,13 @@
     }
     function validatePaidAmount(_invoice) {
         if (_invoice.InvoiceDetails.length > 1) {
+            if (parseFloat($('#txtDiscount').val()) > 0) {
+                return "Not Allowed to select multiple months with discount!";
+            }
             var sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
             var objDetails = _.last(sortedDetails);
             if ((_invoice.TotalFee - objDetails.Fee) > _invoice.TotalPaidAmount) {
-                return "Paid Amount is insufficient!"
+                return "Paid Amount is insufficient!";
             }
         }
         return success;

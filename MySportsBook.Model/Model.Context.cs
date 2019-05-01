@@ -23,8 +23,11 @@ namespace MySportsBook.Model
         public MySportsBookEntities()
             : base("name=MySportsBookEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -48,6 +51,7 @@ namespace MySportsBook.Model
         public virtual DbSet<Master_Player> Master_Player { get; set; }
         public virtual DbSet<Master_Role> Master_Role { get; set; }
         public virtual DbSet<Master_RoleScreen> Master_RoleScreen { get; set; }
+        public virtual DbSet<Master_ScreenNumberFormat> Master_ScreenNumberFormat { get; set; }
         public virtual DbSet<Master_Sport> Master_Sport { get; set; }
         public virtual DbSet<Master_UserRole> Master_UserRole { get; set; }
         public virtual DbSet<Master_UserVenue> Master_UserVenue { get; set; }
@@ -133,7 +137,7 @@ namespace MySportsBook.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transaction_SaveInvoice_Result>("Transaction_SaveInvoice", xMLParameter);
         }
 
-        public DataTable GetResultReport(string StoreProc, string pARAMETERS)
+        public DataTable GetResultReport(int venueID, string storeProc, string parameters)
         {
             DataSet retVal = new DataSet();
             EntityConnection entityConn = (EntityConnection)((IObjectContextAdapter)this).ObjectContext.Connection;
@@ -142,15 +146,16 @@ namespace MySportsBook.Model
             SqlDataAdapter daReport = new SqlDataAdapter(cmdReport);
             using (cmdReport)
             {
-                SqlParameter questionIdPrm = new SqlParameter("PARAMETERS", pARAMETERS);
-                SqlParameter storeprocPrm = new SqlParameter("STOREPROC", StoreProc);
+                SqlParameter questionIdPrm = new SqlParameter("PARAMETERS", parameters);
+                SqlParameter storeprocPrm = new SqlParameter("STOREPROC", storeProc);
+                SqlParameter venueIDPrm = new SqlParameter("venueID", venueID);
                 cmdReport.CommandType = CommandType.StoredProcedure;
                 cmdReport.Parameters.Add(storeprocPrm);
                 cmdReport.Parameters.Add(questionIdPrm);
+                cmdReport.Parameters.Add(venueIDPrm);
                 daReport.Fill(retVal);
             }
             return retVal.Tables[0];
         }
-
     }
 }

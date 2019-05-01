@@ -30,6 +30,11 @@ namespace MySportsBook.Web.Areas.Report.Controllers
             return View(GetCollection(null, "PLAYER"));
         }
 
+        public ActionResult Monthly()
+        {
+            return View(GetCollection(null, "MONTHLY"));
+        }
+
         public ActionResult Split()
         {
             return View(GetCollection(null, "SPLIT"));
@@ -43,6 +48,12 @@ namespace MySportsBook.Web.Areas.Report.Controllers
 
         [HttpPost]
         public ActionResult Player(DateTime? Month)
+        {
+            return View(GetCollection(Month, "PLAYER"));
+        }
+
+        [HttpPost]
+        public ActionResult Monthly(DateTime? Month)
         {
             return View(GetCollection(Month, "PLAYER"));
         }

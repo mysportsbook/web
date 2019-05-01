@@ -112,6 +112,9 @@
     <Compile Include="Master_RoleScreen.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Master_ScreenNumberFormat.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Master_Sport.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -197,6 +200,7 @@
     <Compile Include="ViewModel\BatchModel.cs" />
     <Compile Include="ViewModel\BookingModel.cs" />
     <Compile Include="ViewModel\CurrentUser.cs" />
+    <Compile Include="ViewModel\Dashboard.cs" />
     <Compile Include="ViewModel\EnquiryModel.cs" />
     <Compile Include="ViewModel\InvoiceModel.cs" />
     <Compile Include="ViewModel\PlayerModel.cs" />

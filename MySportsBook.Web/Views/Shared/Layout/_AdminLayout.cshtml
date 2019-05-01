@@ -59,7 +59,7 @@
                     <div class="dropdown-header text-center">
                         <strong>Account</strong>
                     </div>
-                    <a class="dropdown-item" href="#">
+                    @*<a class="dropdown-item" href="#">
                         <i class="fa fa-user"></i> Profile
                     </a>
                     <a class="dropdown-item" href="#">
@@ -76,7 +76,7 @@
                     <div class="divider"></div>
                     <a class="dropdown-item" href="#">
                         <i class="fa fa-shield"></i> Lock Account
-                    </a>
+                    </a>*@
                     <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
                         <i class="fa fa-lock"></i> Logout
                     </a>
@@ -160,7 +160,10 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Player Collection
                         </a>
                     </li>
-                     <li class="nav-title">Studio</li>
+                    
+                    @if (ViewBag.Venue == "The Court")
+                    {
+                    <li class="nav-title">Studio</li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Events
@@ -176,6 +179,7 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Income
                         </a>
                     </li>
+                    }
                 </ul>
             </nav>
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -183,8 +187,8 @@
         @RenderBody()
     </div>
     <footer class="app-footer">
-        <div>
-            <a>MySportsBook.com</a>
+        <div style="text-align:center">
+            <a>MySportsBook.in</a>
             <span>&copy;2018</span>
         </div>
     </footer>

@@ -15,16 +15,20 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string StoreProc,string parameters)
+        public ActionResult Index(string ReportType, string Month)
         {
-            return View(CalltheCustomStoreProc(StoreProc, parameters));
+            return View(CalltheCustomStoreProc(currentUser.CurrentVenueId, ReportType, Month));
         }
 
         [NonAction]
-        private DataTable CalltheCustomStoreProc(string StoreProc, string parameters)
+        private DataTable CalltheCustomStoreProc(int venueID, string storeProc, string parameters)
         {
-            return dbContext.GetResultReport(StoreProc,parameters);
-           
+            if (currentUser.UserId < 4)
+            {
+                return dbContext.GetResultReport(venueID, storeProc, parameters);
+            }
+            return new DataTable();
+
         }
     }
 }

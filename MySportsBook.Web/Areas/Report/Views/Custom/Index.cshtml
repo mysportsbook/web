@@ -29,17 +29,22 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    @Html.Label("StoreProc")
+                                    @Html.Label("Report Type", htmlAttributes: new { @class = "control-label" })
                                     <div class="input-group">
-                                        @Html.TextBox("StoreProc", "", new { @class = "form-control" })
+                                        <select name="ReportType" class="form-control">
+                                            <option value="MonthlyCollection">Monthly Collection</option>
+                                            <option value="PendingPayments">PendingPayments</option>
+                                            <option value="ExcessPayments">Excess Payments</option>
+                                            <option value="Defaulter">Defaulter</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    @Html.Label("Parameters")
+                                    @Html.Label("Month")
                                     <div class="input-group">
-                                        @Html.TextBox("Parameters", "", new { @class = "form-control" })
+                                        @Html.TextBox("Month", "", new { @class = "form-control month" })
                                         <span class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
                                         </span>
@@ -51,8 +56,8 @@
                     <div class="row">
                         @if (Model != null && Model.Rows.Count > 0)
                         {
-                            <table class="table table-striped table-bordered" style="width:100%">
-                                <thead>
+                            <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                                <thead class="thead-light">
                                     <tr>
                                         @foreach (DataColumn column in Model.Columns)
                                         {
@@ -78,13 +83,48 @@
                             </table>
                         }
                     </div>
+                    @if (Model != null && Model.Rows.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCash", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cash").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCash", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Transfer").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCash", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cheque").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Collection</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCash", data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
 <script type="text/javascript">
     $(function () {
-        $('.table').DataTable();
+        //$('.table').DataTable();
+        $('.table').dataTable({
+            "searching": true
+        });
     });
 </script>

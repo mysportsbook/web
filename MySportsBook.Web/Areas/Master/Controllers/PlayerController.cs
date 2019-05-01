@@ -17,19 +17,28 @@ namespace MySportsBook.Web.Areas.Master.Controllers
     public class PlayerController : BaseController
     {
         // GET: Master/Player
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
+
         {
-            List<PlayerModel> _playermodel = new List<PlayerModel>();
-            var master_Player = dbContext.Master_Player.Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1).OrderByDescending(x => x.CreatedDate).Include(m => m.Configuration_PlayerType).Include(m => m.Configuration_Status);
-            master_Player.ToList().ForEach(p =>
-            {
-                _playermodel.Add(new PlayerModel
-                {
-                    Player = p,
-                    PlayerSports = dbContext.Transaction_PlayerSport.Include(i => i.Master_Sport).Include(i => i.Master_Batch).Where(s => s.FK_StatusId == 1 && s.FK_VenueId == currentUser.CurrentVenueId && s.FK_PlayerId == p.PK_PlayerId).ToList()
-                });
-            });
-            return View(_playermodel);
+            //  List<PlayerModel> _playermodel = new List<PlayerModel>();
+            //// var master_Player = dbContext.Master_Player.Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1).OrderByDescending(x => x.CreatedDate).Include(m => m.Configuration_PlayerType).Include(m => m.Configuration_Status);
+            // master_Player.ToList().ForEach(p =>
+            // {
+            //     _playermodel.Add(new PlayerModel
+            //     {
+            //         Player = p,
+            //         PlayerSports = dbContext.Transaction_PlayerSport.Include(i => i.Master_Sport).Include(i => i.Master_Batch).Where(s => s.FK_StatusId == 1 && s.FK_VenueId == currentUser.CurrentVenueId && s.FK_PlayerId == p.PK_PlayerId).ToList()
+            //     });
+            // });
+            //
+            //return View(master_Player);
+
+            var master_Player = dbContext.Master_Player
+               .Include(m => m.Transaction_PlayerSport).Include(m => m.Master_Batch)
+             .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1)
+             .OrderByDescending(x => x.CreatedDate);
+
+            return View(await master_Player.ToListAsync());
         }
 
         // GET: Master/Player/Create

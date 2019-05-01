@@ -28,6 +28,7 @@ namespace MySportsBook.Model
             this.Master_Role = new HashSet<Master_Role>();
             this.Master_RoleScreen = new HashSet<Master_RoleScreen>();
             this.Master_VenueScreen = new HashSet<Master_VenueScreen>();
+            this.Master_ScreenNumberFormat = new HashSet<Master_ScreenNumberFormat>();
             this.Master_Sport = new HashSet<Master_Sport>();
             this.Master_UserVenue = new HashSet<Master_UserVenue>();
             this.Master_Venue = new HashSet<Master_Venue>();
@@ -66,6 +67,8 @@ namespace MySportsBook.Model
         public virtual ICollection<Master_RoleScreen> Master_RoleScreen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_VenueScreen> Master_VenueScreen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Master_ScreenNumberFormat> Master_ScreenNumberFormat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Sport> Master_Sport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -55,38 +55,38 @@
                     <img class="img-avatar" src="/img/avatars/6.jpg"><span>@ViewBag.Name</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header text-center">
-                        <strong>Account</strong>
-                    </div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-user"></i> Profile
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-wrench"></i> Settings
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-usd"></i> Payments
-                        <span class="badge badge-secondary">42</span>
-                    </a>
-                    <div class="divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-shield"></i> Lock Account
-                    </a>
+                    @*<div class="dropdown-header text-center">
+                            <strong>Account</strong>
+                        </div>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-user"></i> Profile
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-wrench"></i> Settings
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-usd"></i> Payments
+                            <span class="badge badge-secondary">42</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-shield"></i> Lock Account
+                        </a>*@
                     <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
                         <i class="fa fa-lock"></i> Logout
                     </a>
                 </div>
             </li>
             @*<li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-map-marker fa-2x hvr-wobble-vertical" data-toggle="tooltip" title="Change Venue" aria-hidden="true"></i><span class="sr-only"><strong>@ViewBag.Venue</strong></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="@Url.Action("SelectVenue", "Account" , new { Area = "" })">
-                        <i class="fa fa-plane"></i> Change Venue
+                    <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-map-marker fa-2x hvr-wobble-vertical" data-toggle="tooltip" title="Change Venue" aria-hidden="true"></i><span class="sr-only"><strong>@ViewBag.Venue</strong></span>
                     </a>
-                </div>
-            </li>*@
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="@Url.Action("SelectVenue", "Account" , new { Area = "" })">
+                            <i class="fa fa-plane"></i> Change Venue
+                        </a>
+                    </div>
+                </li>*@
         </ul>
 
     </header>
@@ -94,33 +94,6 @@
         <div class="sidebar">
             <nav class="sidebar-nav">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Account/Home">
-                            <i class="nav-icon icon-speedometer"></i> Dashboard
-                            <span class="badge badge-primary">NEW</span>
-                        </a>
-                    </li>
-                    <li class="nav-title">Master</li>
-                    <li class="nav-item">
-                        <a class="nav-link hvr-icon-spin" href="@Url.Action("", "Sport", new { Area = "Master" })">
-                            <i class="nav-icon fa fa-futbol-o hvr-icon"></i> Sport
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Court", new { Area = "Master" })">
-                            <i class="nav-icon fa fa-object-ungroup"></i> Court
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Batch", new { Area = "Master" })">
-                            <i class="nav-icon fa fa-users"></i> Batch
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Player", new { Area = "Master" })">
-                            <i class="nav-icon fa fa-id-badge"></i> Player
-                        </a>
-                    </li>
                     <li class="nav-title">Transaction</li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Transaction" })">
@@ -128,21 +101,18 @@
                         </a>
                     </li>
                     <li class="nav-title">Report</li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Invoice
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Booking", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Booking
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Enquiry", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Enquiry
-                        </a>
-                    </li>
+                    @*<li class="nav-item">
+            <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Report" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Invoice
+            </a>
+        </li>
+        <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("", "Booking", new { Area = "Report" })">
+                    <i class="nav-icon fa fa-file-text-o"></i> Booking
+                </a>
+            </li>
+                    *@
+
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Daily", "Collection", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Daily Collection
@@ -153,31 +123,67 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Player Collection
                         </a>
                     </li>
-                    <li class="nav-title">Studio</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Events
+                        <a class="nav-link" href="@Url.Action("", "Custom", new { Area = "Report" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Collection
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Expense", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Expenses
+                        <a class="nav-link" href="@Url.Action("", "Enquiry", new { Area = "Report" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Enquiry
+                        </a>
+                    </li>
+
+                    <li class="nav-title">Master</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Player", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-id-badge"></i> Player
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Income", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Income
+                        <a class="nav-link" href="@Url.Action("", "Batch", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-users"></i> Batch
                         </a>
                     </li>
-                </ul>
+                    <li class="nav-item">
+                        <a class="nav-link hvr-icon-spin" href="@Url.Action("", "Sport", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-futbol-o hvr-icon"></i> Sport
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Court", new { Area = "Master" })">
+                            <i class="nav-icon fa fa-object-ungroup"></i> Court
+                        </a>
+                    </li>
+
+                    @if (ViewBag.Venue == "The Court")
+                    {
+                        <li class="nav-title">Studio</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
+                                <i class="nav-icon fa fa-file-text-o"></i> Events
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("", "Expense", new { Area = "Studio" })">
+                                <i class="nav-icon fa fa-file-text-o"></i> Expenses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("", "Income", new { Area = "Studio" })">
+                                <i class="nav-icon fa fa-file-text-o"></i> Income
+                            </a>
+                        </li>
+                    }
+                    </ul>
             </nav>
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
         @RenderBody()
     </div>
     <footer class="app-footer">
-        <div>
-            <a>MySportsBook.com</a>
+        <div style="text-align:center">
+            <a>MySportsBook.in</a>
             <span>&copy;2018</span>
         </div>
     </footer>

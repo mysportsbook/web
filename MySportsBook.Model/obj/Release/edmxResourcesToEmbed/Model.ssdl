@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MySportsBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MySportsBook.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="BatchCount">
     <Key>
       <PropertyRef Name="PK_BatchCount" />
@@ -224,6 +224,22 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="Master_ScreenNumberFormat">
+    <Key>
+      <PropertyRef Name="PK_ScreenNumberFormatId" />
+    </Key>
+    <Property Name="PK_ScreenNumberFormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="FK_ScreenId" Type="int" Nullable="false" />
+    <Property Name="FK_FormatId" Type="int" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CurrentNo" Type="int" Nullable="false" />
+    <Property Name="Prefix" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Master_Sport">
     <Key>
       <PropertyRef Name="PK_SportId" />
@@ -239,6 +255,7 @@
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="SplitPercentage" Type="int" />
   </EntityType>
   <EntityType Name="Master_UserRole">
     <Key>
@@ -1048,6 +1065,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format1">
+    <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Format">
+        <PropertyRef Name="PK_NumberFormatId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_FormatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen">
     <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
     <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1060,6 +1089,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen1">
+    <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Screen">
+        <PropertyRef Name="PK_ScreenId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="FK_ScreenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status">
     <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
     <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1068,6 +1109,18 @@
         <PropertyRef Name="PK_StatusId" />
       </Principal>
       <Dependent Role="Master_VenueScreen">
+        <PropertyRef Name="FK_StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status1">
+    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_Status">
+        <PropertyRef Name="PK_StatusId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
         <PropertyRef Name="FK_StatusId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1096,6 +1149,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_User2">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Configuration_User3">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Master_ScreenNumberFormat_Master_Venue">
     <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
     <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1104,6 +1181,18 @@
         <PropertyRef Name="PK_VenueId" />
       </Principal>
       <Dependent Role="Master_VenueScreen">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_ScreenNumberFormat_Master_Venue1">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_ScreenNumberFormat">
         <PropertyRef Name="FK_VenueId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1970,6 +2059,7 @@
     <EntitySet Name="Master_Player" EntityType="Self.Master_Player" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Role" EntityType="Self.Master_Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_ScreenNumberFormat" EntityType="Self.Master_ScreenNumberFormat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Sport" EntityType="Self.Master_Sport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_UserRole" EntityType="Self.Master_UserRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_UserVenue" EntityType="Self.Master_UserVenue" Schema="dbo" store:Type="Tables" />
@@ -2164,13 +2254,25 @@
       <End Role="Configuration_Format" EntitySet="Configuration_Format" />
       <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
     </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Format1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Format1">
+      <End Role="Configuration_Format" EntitySet="Configuration_Format" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
     <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen">
       <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
       <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
     </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen1">
+      <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
     <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
       <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status1">
+      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
     </AssociationSet>
     <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User">
       <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -2180,9 +2282,21 @@
       <End Role="Configuration_User" EntitySet="Configuration_User" />
       <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
     </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User2" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User2">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User3" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User3">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+    </AssociationSet>
     <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue">
       <End Role="Master_Venue" EntitySet="Master_Venue" />
       <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue1" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue1">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
     </AssociationSet>
     <AssociationSet Name="FK_Master_Sport_Configuration_Status" Association="Self.FK_Master_Sport_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />

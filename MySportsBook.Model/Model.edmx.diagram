@@ -4,160 +4,167 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="afd09298a0d94e2d91c5ec063c51ecb5" Name="Diagram1">
-        <EntityTypeShape EntityType="MySportsBookModel.BatchCount" Width="1.5" PointX="15.75" PointY="49.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_BatchType" Width="1.5" PointX="6" PointY="42.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Format" Width="1.5" PointX="19.5" PointY="59.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_InvoicePeriod" Width="1.5" PointX="16.5" PointY="37.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_PlayerType" Width="1.5" PointX="9" PointY="40.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Screen" Width="1.5" PointX="19.5" PointY="62.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_Status" Width="1.5" PointX="0.75" PointY="49.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_StudioUser" Width="1.5" PointX="3" PointY="43" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Configuration_User" Width="1.5" PointX="3" PointY="45.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Confirguration_PaymentMode" Width="1.5" PointX="21.75" PointY="35.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Batch" Width="1.5" PointX="8.25" PointY="48.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_BatchTiming" Width="1.5" PointX="13.5" PointY="55.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_CoachingLevel" Width="1.5" PointX="5.25" PointY="55.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Court" Width="1.5" PointX="11.25" PointY="49.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Enquiry" Width="1.5" PointX="15.75" PointY="40.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Player" Width="1.5" PointX="11.25" PointY="41.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Role" Width="1.5" PointX="18.75" PointY="55" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_RoleScreen" Width="1.5" PointX="24" PointY="51.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Sport" Width="1.5" PointX="21.75" PointY="49.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_UserRole" Width="1.5" PointX="27" PointY="50.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_UserVenue" Width="1.5" PointX="21.75" PointY="45.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_Venue" Width="1.5" PointX="13.5" PointY="45.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Master_VenueScreen" Width="1.5" PointX="21.75" PointY="55.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.OtherBooking" Width="1.5" PointX="15.75" PointY="58.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.OtherBookingDetail" Width="1.5" PointX="24" PointY="57.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_Event" Width="1.5" PointX="11.25" PointY="55.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_ExpenseDetail" Width="1.5" PointX="5.25" PointY="50" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_ExpenseType" Width="1.5" PointX="3" PointY="58.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Studio_IncomeDetail" Width="1.5" PointX="5.25" PointY="45.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Attendance" Width="1.5" PointX="15.75" PointY="45.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Enquiry_Comments" Width="1.5" PointX="18" PointY="40.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Invoice" Width="1.5" PointX="20.75" PointY="38.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_InvoiceDetail" Width="1.5" PointX="16.5" PointY="52.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_PlayerSport" Width="1.5" PointX="18.75" PointY="47.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Receipt" Width="1.5" PointX="24" PointY="45.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MySportsBookModel.Transaction_Voucher" Width="1.5" PointX="8.25" PointY="42.875" IsExpanded="true" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Court" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_BatchCount_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_BatchType" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_Format" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_InvoicePeriod" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Configuration_PlayerType" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_Screen" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Configuration_StudioUser_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Configuration_User_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_IncomeDetail_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_CoachingLevel_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Court_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Role_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_Event_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_ExpenseType_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_ExpenseDetail_Configuration_StudioUser" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_IncomeDetail_Configuration_StudioUser" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_BatchTiming_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_BatchTiming_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_CoachingLevel_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_CoachingLevel_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Court_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Role_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Role_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserRole_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserRole_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserRole_Configuration_User2" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Configuration_User2" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_User2" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Configuration_User3" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_StudioEvent_Configuration_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Configuration_User2" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Voucher_Configuration_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Confirguration_PaymentMode" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Master_Court" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Master_Player" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Batch_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_BatchTiming_Master_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Master_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_CoachingLevel_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_CoachingLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Court_Master_Sport" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Court_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Court" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Enquiry_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Enquiry_Comments_Master_Enquiry" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Player_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Venue_Master_Player" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Player" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Player" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Player" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Role_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Master_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserRole_Master_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Master_ScreenNumberFormat" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_RoleScreen_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_Sport_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Sport" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserRole_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_UserVenue_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Master_ScreenNumberFormat_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBooking_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Attendance_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Invoice_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_PlayerSport_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Master_Venue" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_OtherBookingDetail_OtherBooking" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_ExpenseDetail_StudioEvent" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_IncomeDetail_Studio_Event" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Studio_ExpenseDetail_Studio_ExpenseType" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_InvoiceDetail_Transaction_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="MySportsBookModel.FK_Transaction_Receipt_Transaction_Invoice" ManuallyRouted="false" />
+      <Diagram DiagramId="4005872685f2412d9e3939c5f805bf75" Name="Diagram1">
+        <EntityTypeShape EntityType="MySportsBook.Model.BatchCount" Width="1.5" PointX="15.75" PointY="52.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_BatchType" Width="1.5" PointX="6" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_Format" Width="1.5" PointX="19.5" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_InvoicePeriod" Width="1.5" PointX="16.5" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_PlayerType" Width="1.5" PointX="9" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_Screen" Width="1.5" PointX="19.5" PointY="47.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_Status" Width="1.5" PointX="0.75" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_StudioUser" Width="1.5" PointX="3" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Configuration_User" Width="1.5" PointX="3" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Confirguration_PaymentMode" Width="1.5" PointX="24.75" PointY="46.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Batch" Width="1.5" PointX="8.25" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_BatchTiming" Width="1.5" PointX="13.5" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_CoachingLevel" Width="1.5" PointX="5.25" PointY="58.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Court" Width="1.5" PointX="11.25" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Enquiry" Width="1.5" PointX="15.75" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Player" Width="1.5" PointX="11.25" PointY="44.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Role" Width="1.5" PointX="18.75" PointY="57" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_RoleScreen" Width="1.5" PointX="24" PointY="57.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_ScreenNumberFormat" Width="1.5" PointX="21.75" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Sport" Width="1.5" PointX="21.75" PointY="46.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_UserRole" Width="1.5" PointX="27" PointY="59" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_UserVenue" Width="1.5" PointX="21.75" PointY="58" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_Venue" Width="1.5" PointX="13.5" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Master_VenueScreen" Width="1.5" PointX="15.75" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.OtherBooking" Width="1.5" PointX="18.75" PointY="61.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.OtherBookingDetail" Width="1.5" PointX="24" PointY="62.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Studio_Event" Width="1.5" PointX="11.25" PointY="58.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Studio_ExpenseDetail" Width="1.5" PointX="5.25" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Studio_ExpenseType" Width="1.5" PointX="3" PointY="61.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Studio_IncomeDetail" Width="1.5" PointX="5.25" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_Attendance" Width="1.5" PointX="15.75" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_Enquiry_Comments" Width="1.5" PointX="18" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_Invoice" Width="1.5" PointX="24.75" PointY="50.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_InvoiceDetail" Width="1.5" PointX="16.5" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_PlayerSport" Width="1.5" PointX="18.75" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_Receipt" Width="1.5" PointX="27" PointY="51.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySportsBook.Model.Transaction_Voucher" Width="1.5" PointX="8.25" PointY="45.75" IsExpanded="true" />
+        <AssociationConnector Association="MySportsBook.Model.FK_BatchCount_Master_Batch" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_BatchCount_Master_Court" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_BatchCount_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Configuration_BatchType" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Format" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Format1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Configuration_InvoicePeriod" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Player_Configuration_PlayerType" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Screen" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Screen1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Configuration_StudioUser_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Configuration_User_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_ExpenseDetail_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_IncomeDetail_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_CoachingLevel_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Court_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Player_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Role_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Status1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Sport_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserVenue_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_Event_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_ExpenseType_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Invoice_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_InvoiceDetail_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Voucher_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_ExpenseDetail_Configuration_StudioUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_IncomeDetail_Configuration_StudioUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_ExpenseDetail_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_BatchTiming_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_BatchTiming_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_CoachingLevel_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_CoachingLevel_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Court_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Player_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Player_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Role_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Role_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_User3" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Sport_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Sport_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserRole_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserRole_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserRole_Configuration_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserVenue_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserVenue_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserVenue_Configuration_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Configuration_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Configuration_User3" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBooking_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBooking_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBookingDetail_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBookingDetail_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_StudioEvent_Configuration_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Invoice_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Invoice_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_InvoiceDetail_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_InvoiceDetail_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Configuration_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Voucher_Configuration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Voucher_Configuration_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Confirguration_PaymentMode" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Master_Court" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Master_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Batch_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_BatchTiming_Master_Batch" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Attendance_Master_Batch" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_InvoiceDetail_Master_Batch" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Batch" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_CoachingLevel_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_CoachingLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Court_Master_Sport" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Court_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Court" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Enquiry_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Enquiry_Comments_Master_Enquiry" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Player_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Venue_Master_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Attendance_Master_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Invoice_Master_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Role_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Master_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserRole_Master_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Master_ScreenNumberFormat" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_RoleScreen_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Master_Venue1" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_Sport_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Sport" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserRole_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_UserVenue_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBooking_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBookingDetail_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Attendance_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Invoice_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Master_Venue" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_OtherBookingDetail_OtherBooking" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_ExpenseDetail_StudioEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_IncomeDetail_Studio_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Studio_ExpenseDetail_Studio_ExpenseType" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_InvoiceDetail_Transaction_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="MySportsBook.Model.FK_Transaction_Receipt_Transaction_Invoice" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

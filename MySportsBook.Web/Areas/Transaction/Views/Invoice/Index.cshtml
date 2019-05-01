@@ -20,32 +20,15 @@
                     <strong>Payment</strong>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-bordered" style="width:100%">
-                        <thead>
+                    <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                        <thead class="thead-light">
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.LastName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Email)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Mobile)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Configuration_PlayerType.PlayerType)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Configuration_Status.Status)
-                                </th>
-                                <th>@Html.Label("Action")</th>
+                                <th>@Html.Label("First Name")</th>
+                                <th>@Html.Label("Last Name")</th>
+                                <th>@Html.Label("Mobile")</th>
+                                <th>@Html.Label("Batchs")</th>
+                                <th>@Html.Label("View Dues")</th>
+                                <th>@Html.Label("Payment History")</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,25 +42,24 @@
                                         @Html.DisplayFor(modelItem => item.LastName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.Mobile)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Configuration_PlayerType.PlayerType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
+                                        @{
+                                            string _batches = item.Transaction_PlayerSport.Count > 0 ? string.Join(", ", item.Transaction_PlayerSport.Where(x => x.FK_StatusId == 1).Select(i => i.Master_Batch != null ? i.Master_Batch.BatchName : "")) : string.Empty;
+                                        }
+                                        @Html.DisplayFor(modelItem => _batches)
                                     </td>
                                     <td>
                                         <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
+                                    </td>
+                                    <td>
                                         <button class="btn btn-block btn-outline-info" onclick="payHistory(@item.PK_PlayerId,this)" type="button">Payment History</button>
                                         @Html.HiddenFor(modelItem => item.PK_PlayerId)
                                     </td>
+                                    @*<td>
+                                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -108,12 +90,14 @@
         $('.table').DataTable();
     });
     function payInvoice(id, btn) {
+        loader();
         $.ajax({
             type: "GET",
             url: "/Transaction/Invoice/GetInvoiceList/" + id,
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
+                loader();
                 $('.modal-title').html("Invoice");
                 $('.modal-body').html(response);
                 $('#invocemodel').modal('show');
@@ -121,20 +105,24 @@
                 //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
             },
             failure: function (response) {
+                loader();
                 alert(response.responseText);
             },
             error: function (response) {
+                loader();
                 alert(response.responseText);
             }
         });
     }
     function payHistory(id, btn) {
+        loader();
         $.ajax({
             type: "GET",
             url: "/Transaction/Invoice/GetPaymentHistory/" + id,
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
+                loader();
                 $('.modal-title').html("Payment(s)");
                 $('.modal-body').html(response);
                 $('#invocemodel').modal('show');
@@ -142,12 +130,14 @@
                 //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
             },
             failure: function (response) {
+                loader();
                 alert(response.responseText);
             },
             error: function (response) {
+                loader();
                 alert(response.responseText);
             }
         });
     }
-    
+
 </script>

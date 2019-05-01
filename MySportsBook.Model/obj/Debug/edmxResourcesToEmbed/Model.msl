@@ -2,7 +2,7 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MySportsBookModelStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="BatchCounts">
-      <EntityTypeMapping TypeName="MySportsBookModel.BatchCount">
+      <EntityTypeMapping TypeName="MySportsBook.Model.BatchCount">
         <MappingFragment StoreEntitySet="BatchCount">
           <ScalarProperty Name="PK_BatchCount" ColumnName="PK_BatchCount" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_BatchType">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_BatchType">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_BatchType">
         <MappingFragment StoreEntitySet="Configuration_BatchType">
           <ScalarProperty Name="PK_BatchTypeId" ColumnName="PK_BatchTypeId" />
           <ScalarProperty Name="BatchType" ColumnName="BatchType" />
@@ -22,7 +22,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_Format">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Format">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Format">
         <MappingFragment StoreEntitySet="Configuration_Format">
           <ScalarProperty Name="PK_NumberFormatId" ColumnName="PK_NumberFormatId" />
           <ScalarProperty Name="NumberFormat" ColumnName="NumberFormat" />
@@ -32,7 +32,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_InvoicePeriod">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_InvoicePeriod">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_InvoicePeriod">
         <MappingFragment StoreEntitySet="Configuration_InvoicePeriod">
           <ScalarProperty Name="PK_InvoicePeriodId" ColumnName="PK_InvoicePeriodId" />
           <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
@@ -41,7 +41,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_PlayerType">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_PlayerType">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_PlayerType">
         <MappingFragment StoreEntitySet="Configuration_PlayerType">
           <ScalarProperty Name="PK_PlayerTypeId" ColumnName="PK_PlayerTypeId" />
           <ScalarProperty Name="PlayerType" ColumnName="PlayerType" />
@@ -50,7 +50,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_Screen">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Screen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Screen">
         <MappingFragment StoreEntitySet="Configuration_Screen">
           <ScalarProperty Name="PK_ScreenId" ColumnName="PK_ScreenId" />
           <ScalarProperty Name="Screen" ColumnName="Screen" />
@@ -60,7 +60,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_Status">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Status">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Status">
         <MappingFragment StoreEntitySet="Configuration_Status">
           <ScalarProperty Name="PK_StatusId" ColumnName="PK_StatusId" />
           <ScalarProperty Name="Status" ColumnName="Status" />
@@ -69,7 +69,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_StudioUser">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_StudioUser">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_StudioUser">
         <MappingFragment StoreEntitySet="Configuration_StudioUser">
           <ScalarProperty Name="PK_StudioUserId" ColumnName="PK_StudioUserId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -78,7 +78,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Configuration_User">
-      <EntityTypeMapping TypeName="MySportsBookModel.Configuration_User">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_User">
         <MappingFragment StoreEntitySet="Configuration_User">
           <ScalarProperty Name="PK_UserId" ColumnName="PK_UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -97,7 +97,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Confirguration_PaymentMode">
-      <EntityTypeMapping TypeName="MySportsBookModel.Confirguration_PaymentMode">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Confirguration_PaymentMode">
         <MappingFragment StoreEntitySet="Confirguration_PaymentMode">
           <ScalarProperty Name="PK_PaymentModeId" ColumnName="PK_PaymentModeId" />
           <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
@@ -106,7 +106,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Batch">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Batch">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Batch">
         <MappingFragment StoreEntitySet="Master_Batch">
           <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -131,7 +131,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_BatchTiming">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_BatchTiming">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_BatchTiming">
         <MappingFragment StoreEntitySet="Master_BatchTiming">
           <ScalarProperty Name="PK_BatchTimingId" ColumnName="PK_BatchTimingId" />
           <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
@@ -146,7 +146,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_CoachingLevel">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_CoachingLevel">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_CoachingLevel">
         <MappingFragment StoreEntitySet="Master_CoachingLevel">
           <ScalarProperty Name="PK_CoachingLevelId" ColumnName="PK_CoachingLevelId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -160,7 +160,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Court">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Court">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Court">
         <MappingFragment StoreEntitySet="Master_Court">
           <ScalarProperty Name="PK_CourtId" ColumnName="PK_CourtId" />
           <ScalarProperty Name="CourtName" ColumnName="CourtName" />
@@ -176,7 +176,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Enquiry">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Enquiry">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Enquiry">
         <MappingFragment StoreEntitySet="Master_Enquiry">
           <ScalarProperty Name="PK_EnquiryId" ColumnName="PK_EnquiryId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -191,7 +191,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Player">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Player">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Player">
         <MappingFragment StoreEntitySet="Master_Player">
           <ScalarProperty Name="PK_PlayerId" ColumnName="PK_PlayerId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -215,7 +215,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Role">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Role">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Role">
         <MappingFragment StoreEntitySet="Master_Role">
           <ScalarProperty Name="PK_RoleId" ColumnName="PK_RoleId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -229,7 +229,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_RoleScreen">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_RoleScreen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_RoleScreen">
         <MappingFragment StoreEntitySet="Master_RoleScreen">
           <ScalarProperty Name="PK_RoleScreenId" ColumnName="PK_RoleScreenId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -243,8 +243,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Master_ScreenNumberFormat">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_ScreenNumberFormat">
+        <MappingFragment StoreEntitySet="Master_ScreenNumberFormat">
+          <ScalarProperty Name="PK_ScreenNumberFormatId" ColumnName="PK_ScreenNumberFormatId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
+          <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Master_Sport">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Sport">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Sport">
         <MappingFragment StoreEntitySet="Master_Sport">
           <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
           <ScalarProperty Name="SportName" ColumnName="SportName" />
@@ -257,11 +274,12 @@
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_UserRole">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_UserRole">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserRole">
         <MappingFragment StoreEntitySet="Master_UserRole">
           <ScalarProperty Name="PK_UserRoleId" ColumnName="PK_UserRoleId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -276,7 +294,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_UserVenue">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_UserVenue">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserVenue">
         <MappingFragment StoreEntitySet="Master_UserVenue">
           <ScalarProperty Name="PK_UserVenueId" ColumnName="PK_UserVenueId" />
           <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
@@ -290,7 +308,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_Venue">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_Venue">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Venue">
         <MappingFragment StoreEntitySet="Master_Venue">
           <ScalarProperty Name="PK_VenueId" ColumnName="PK_VenueId" />
           <ScalarProperty Name="VenueName" ColumnName="VenueName" />
@@ -312,7 +330,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Master_VenueScreen">
-      <EntityTypeMapping TypeName="MySportsBookModel.Master_VenueScreen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_VenueScreen">
         <MappingFragment StoreEntitySet="Master_VenueScreen">
           <ScalarProperty Name="PK_VenueScreenId" ColumnName="PK_VenueScreenId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -329,7 +347,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OtherBookings">
-      <EntityTypeMapping TypeName="MySportsBookModel.OtherBooking">
+      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBooking">
         <MappingFragment StoreEntitySet="OtherBooking">
           <ScalarProperty Name="PK_BookingId" ColumnName="PK_BookingId" />
           <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
@@ -347,7 +365,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OtherBookingDetails">
-      <EntityTypeMapping TypeName="MySportsBookModel.OtherBookingDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBookingDetail">
         <MappingFragment StoreEntitySet="OtherBookingDetail">
           <ScalarProperty Name="PK_BookingDetailId" ColumnName="PK_BookingDetailId" />
           <ScalarProperty Name="FK_BookingId" ColumnName="FK_BookingId" />
@@ -364,7 +382,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Studio_Event">
-      <EntityTypeMapping TypeName="MySportsBookModel.Studio_Event">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_Event">
         <MappingFragment StoreEntitySet="Studio_Event">
           <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
           <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
@@ -386,7 +404,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Studio_ExpenseDetail">
-      <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseDetail">
         <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
           <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
           <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
@@ -402,7 +420,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Studio_ExpenseType">
-      <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseType">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseType">
         <MappingFragment StoreEntitySet="Studio_ExpenseType">
           <ScalarProperty Name="PK_ExpenseTypeId" ColumnName="PK_ExpenseTypeId" />
           <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
@@ -411,7 +429,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Studio_IncomeDetail">
-      <EntityTypeMapping TypeName="MySportsBookModel.Studio_IncomeDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_IncomeDetail">
         <MappingFragment StoreEntitySet="Studio_IncomeDetail">
           <ScalarProperty Name="PK_IncomeDetailId" ColumnName="PK_IncomeDetailId" />
           <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
@@ -426,7 +444,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_Attendance">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Attendance">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Attendance">
         <MappingFragment StoreEntitySet="Transaction_Attendance">
           <ScalarProperty Name="PK_AttendanceId" ColumnName="PK_AttendanceId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
@@ -440,7 +458,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_Enquiry_Comments">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Enquiry_Comments">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Enquiry_Comments">
         <MappingFragment StoreEntitySet="Transaction_Enquiry_Comments">
           <ScalarProperty Name="PK_EnquiryCommentsId" ColumnName="PK_EnquiryCommentsId" />
           <ScalarProperty Name="FK_EnquiryId" ColumnName="FK_EnquiryId" />
@@ -451,7 +469,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_Invoice">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Invoice">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Invoice">
         <MappingFragment StoreEntitySet="Transaction_Invoice">
           <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
           <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -473,7 +491,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_InvoiceDetail">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_InvoiceDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_InvoiceDetail">
         <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
           <ScalarProperty Name="PK_InvoiceDetailId" ColumnName="PK_InvoiceDetailId" />
           <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
@@ -491,7 +509,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_PlayerSport">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_PlayerSport">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_PlayerSport">
         <MappingFragment StoreEntitySet="Transaction_PlayerSport">
           <ScalarProperty Name="PK_PlayerSportId" ColumnName="PK_PlayerSportId" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -513,7 +531,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_Receipt">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Receipt">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Receipt">
         <MappingFragment StoreEntitySet="Transaction_Receipt">
           <ScalarProperty Name="PK_ReceiptId" ColumnName="PK_ReceiptId" />
           <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
@@ -538,7 +556,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Transaction_Voucher">
-      <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Voucher">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Voucher">
         <MappingFragment StoreEntitySet="Transaction_Voucher">
           <ScalarProperty Name="PK_VoucherId" ColumnName="PK_VoucherId" />
           <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
@@ -557,17 +575,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionName="MySportsBookModel.Store.Split" FunctionImportName="Split">
+    <FunctionImportMapping FunctionName="MySportsBook.Model.Store.Split" FunctionImportName="Split">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MySportsBookModel.Split_Result">
+        <ComplexTypeMapping TypeName="MySportsBook.Model.Split_Result">
           <ScalarProperty Name="Item" ColumnName="Item" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GenerateRunningNumber" FunctionName="MySportsBookModel.Store.GenerateRunningNumber" />
-    <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBookModel.Store.rp_COLLECTIONDETAIL">
+    <FunctionImportMapping FunctionImportName="GenerateRunningNumber" FunctionName="MySportsBook.Model.Store.GenerateRunningNumber" />
+    <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MySportsBookModel.rp_COLLECTIONDETAIL_Result">
+        <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
           <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
@@ -584,9 +602,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBookModel.Store.rp_COMMONPROCEDURE">
+    <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBook.Model.Store.rp_COMMONPROCEDURE">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MySportsBookModel.rp_COMMONPROCEDURE_Result">
+        <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COMMONPROCEDURE_Result">
           <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
           <ScalarProperty Name="SportName" ColumnName="SportName" />
           <ScalarProperty Name="SportCode" ColumnName="SportCode" />
@@ -598,12 +616,13 @@
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Transaction_SaveInvoice" FunctionName="MySportsBookModel.Store.Transaction_SaveInvoice">
+    <FunctionImportMapping FunctionImportName="Transaction_SaveInvoice" FunctionName="MySportsBook.Model.Store.Transaction_SaveInvoice">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MySportsBookModel.Transaction_SaveInvoice_Result">
+        <ComplexTypeMapping TypeName="MySportsBook.Model.Transaction_SaveInvoice_Result">
           <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
           <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
           <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />

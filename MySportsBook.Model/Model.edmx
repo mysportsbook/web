@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MySportsBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MySportsBook.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BatchCount">
           <Key>
             <PropertyRef Name="PK_BatchCount" />
@@ -229,6 +229,22 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Master_ScreenNumberFormat">
+          <Key>
+            <PropertyRef Name="PK_ScreenNumberFormatId" />
+          </Key>
+          <Property Name="PK_ScreenNumberFormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_VenueId" Type="int" Nullable="false" />
+          <Property Name="FK_ScreenId" Type="int" Nullable="false" />
+          <Property Name="FK_FormatId" Type="int" Nullable="false" />
+          <Property Name="FK_StatusId" Type="int" Nullable="false" />
+          <Property Name="CurrentNo" Type="int" Nullable="false" />
+          <Property Name="Prefix" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Master_Sport">
           <Key>
             <PropertyRef Name="PK_SportId" />
@@ -244,6 +260,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="SplitPercentage" Type="int" />
         </EntityType>
         <EntityType Name="Master_UserRole">
           <Key>
@@ -1053,6 +1070,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format1">
+          <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Format">
+              <PropertyRef Name="PK_NumberFormatId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="FK_FormatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen">
           <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
           <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1065,6 +1094,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen1">
+          <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Screen">
+              <PropertyRef Name="PK_ScreenId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="FK_ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status">
           <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
           <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1073,6 +1114,18 @@
               <PropertyRef Name="PK_StatusId" />
             </Principal>
             <Dependent Role="Master_VenueScreen">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status1">
+          <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
               <PropertyRef Name="FK_StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1101,6 +1154,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_User2">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_User3">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_ScreenNumberFormat_Master_Venue">
           <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
           <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
@@ -1109,6 +1186,18 @@
               <PropertyRef Name="PK_VenueId" />
             </Principal>
             <Dependent Role="Master_VenueScreen">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Master_Venue1">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
               <PropertyRef Name="FK_VenueId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1975,6 +2064,7 @@
           <EntitySet Name="Master_Player" EntityType="Self.Master_Player" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Role" EntityType="Self.Master_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_ScreenNumberFormat" EntityType="Self.Master_ScreenNumberFormat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Sport" EntityType="Self.Master_Sport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_UserRole" EntityType="Self.Master_UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_UserVenue" EntityType="Self.Master_UserVenue" Schema="dbo" store:Type="Tables" />
@@ -2169,13 +2259,25 @@
             <End Role="Configuration_Format" EntitySet="Configuration_Format" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Format1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Format1">
+            <End Role="Configuration_Format" EntitySet="Configuration_Format" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen">
             <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen1">
+            <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status1">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -2185,9 +2287,21 @@
             <End Role="Configuration_User" EntitySet="Configuration_User" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User2" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User3" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User3">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue1" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue1">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_Sport_Configuration_Status" Association="Self.FK_Master_Sport_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -2466,7 +2580,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MySportsBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MySportsBook.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <ComplexType Name="Split_Result">
           <Property Name="Item" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
         </ComplexType>
@@ -2501,6 +2615,7 @@
           <Property Name="Divider" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="NumberLength" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Master_VenueScreen" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Format" FromRole="Configuration_Format" ToRole="Master_VenueScreen" />
+          <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Format1" FromRole="Configuration_Format" ToRole="Master_ScreenNumberFormat" />
         </EntityType>
         <EntityType Name="Configuration_InvoicePeriod">
           <Key>
@@ -2529,6 +2644,7 @@
           <Property Name="ScreenCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Master_VenueScreen" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Screen" FromRole="Configuration_Screen" ToRole="Master_VenueScreen" />
+          <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Screen1" FromRole="Configuration_Screen" ToRole="Master_ScreenNumberFormat" />
         </EntityType>
         <EntityType Name="Configuration_Status">
           <Key>
@@ -2548,6 +2664,7 @@
           <NavigationProperty Name="Master_Role" Relationship="Self.FK_Master_Role_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Role" />
           <NavigationProperty Name="Master_RoleScreen" Relationship="Self.FK_Master_RoleScreen_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_RoleScreen" />
           <NavigationProperty Name="Master_VenueScreen" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_VenueScreen" />
+          <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Status1" FromRole="Configuration_Status" ToRole="Master_ScreenNumberFormat" />
           <NavigationProperty Name="Master_Sport" Relationship="Self.FK_Master_Sport_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_UserVenue" Relationship="Self.FK_Master_UserVenue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_UserVenue" />
           <NavigationProperty Name="Master_Venue" Relationship="Self.FK_Master_Venue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Venue" />
@@ -2604,6 +2721,8 @@
           <NavigationProperty Name="Master_RoleScreen1" Relationship="Self.FK_Master_RoleScreen_Configuration_User1" FromRole="Configuration_User" ToRole="Master_RoleScreen" />
           <NavigationProperty Name="Master_VenueScreen" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User" FromRole="Configuration_User" ToRole="Master_VenueScreen" />
           <NavigationProperty Name="Master_VenueScreen1" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User1" FromRole="Configuration_User" ToRole="Master_VenueScreen" />
+          <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User2" FromRole="Configuration_User" ToRole="Master_ScreenNumberFormat" />
+          <NavigationProperty Name="Master_ScreenNumberFormat1" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User3" FromRole="Configuration_User" ToRole="Master_ScreenNumberFormat" />
           <NavigationProperty Name="Master_Sport" Relationship="Self.FK_Master_Sport_Configuration_User" FromRole="Configuration_User" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_Sport1" Relationship="Self.FK_Master_Sport_Configuration_User1" FromRole="Configuration_User" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_UserRole" Relationship="Self.FK_Master_UserRole_Configuration_User" FromRole="Configuration_User" ToRole="Master_UserRole" />
@@ -2823,6 +2942,28 @@
           <NavigationProperty Name="Master_VenueScreen" Relationship="Self.FK_Master_RoleScreen_Master_ScreenNumberFormat" FromRole="Master_RoleScreen" ToRole="Master_VenueScreen" />
           <NavigationProperty Name="Master_Venue" Relationship="Self.FK_Master_RoleScreen_Master_Venue" FromRole="Master_RoleScreen" ToRole="Master_Venue" />
         </EntityType>
+        <EntityType Name="Master_ScreenNumberFormat">
+          <Key>
+            <PropertyRef Name="PK_ScreenNumberFormatId" />
+          </Key>
+          <Property Name="PK_ScreenNumberFormatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
+          <Property Name="FK_ScreenId" Type="Int32" Nullable="false" />
+          <Property Name="FK_FormatId" Type="Int32" Nullable="false" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CurrentNo" Type="Int32" Nullable="false" />
+          <Property Name="Prefix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Configuration_Format" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Format1" FromRole="Master_ScreenNumberFormat" ToRole="Configuration_Format" />
+          <NavigationProperty Name="Configuration_Screen" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Screen1" FromRole="Master_ScreenNumberFormat" ToRole="Configuration_Screen" />
+          <NavigationProperty Name="Configuration_Status" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_Status1" FromRole="Master_ScreenNumberFormat" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_User" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User2" FromRole="Master_ScreenNumberFormat" ToRole="Configuration_User" />
+          <NavigationProperty Name="Configuration_User1" Relationship="Self.FK_Master_ScreenNumberFormat_Configuration_User3" FromRole="Master_ScreenNumberFormat" ToRole="Configuration_User" />
+          <NavigationProperty Name="Master_Venue" Relationship="Self.FK_Master_ScreenNumberFormat_Master_Venue1" FromRole="Master_ScreenNumberFormat" ToRole="Master_Venue" />
+        </EntityType>
         <EntityType Name="Master_Sport">
           <Key>
             <PropertyRef Name="PK_SportId" />
@@ -2838,6 +2979,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="SplitPercentage" Type="Int32" />
           <NavigationProperty Name="Configuration_Status" Relationship="Self.FK_Master_Sport_Configuration_Status" FromRole="Master_Sport" ToRole="Configuration_Status" />
           <NavigationProperty Name="Configuration_User" Relationship="Self.FK_Master_Sport_Configuration_User" FromRole="Master_Sport" ToRole="Configuration_User" />
           <NavigationProperty Name="Configuration_User1" Relationship="Self.FK_Master_Sport_Configuration_User1" FromRole="Master_Sport" ToRole="Configuration_User" />
@@ -2916,6 +3058,7 @@
           <NavigationProperty Name="Master_Player1" Relationship="Self.FK_Master_Venue_Master_Player" FromRole="Master_Venue" ToRole="Master_Player" />
           <NavigationProperty Name="Master_Role" Relationship="Self.FK_Master_Role_Master_Venue" FromRole="Master_Venue" ToRole="Master_Role" />
           <NavigationProperty Name="Master_RoleScreen" Relationship="Self.FK_Master_RoleScreen_Master_Venue" FromRole="Master_Venue" ToRole="Master_RoleScreen" />
+          <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="Self.FK_Master_ScreenNumberFormat_Master_Venue1" FromRole="Master_Venue" ToRole="Master_ScreenNumberFormat" />
           <NavigationProperty Name="Master_Sport" Relationship="Self.FK_Master_Sport_Master_Venue" FromRole="Master_Venue" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_UserRole" Relationship="Self.FK_Master_UserRole_Master_Venue" FromRole="Master_Venue" ToRole="Master_UserRole" />
           <NavigationProperty Name="Master_UserVenue" Relationship="Self.FK_Master_UserVenue_Master_Venue" FromRole="Master_Venue" ToRole="Master_UserVenue" />
@@ -3284,6 +3427,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format1">
+          <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Format">
+              <PropertyRef Name="PK_NumberFormatId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="FK_FormatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_PlayerSport_Configuration_InvoicePeriod">
           <End Role="Configuration_InvoicePeriod" Type="Self.Configuration_InvoicePeriod" Multiplicity="1" />
           <End Role="Transaction_PlayerSport" Type="Self.Transaction_PlayerSport" Multiplicity="*" />
@@ -3316,6 +3471,18 @@
               <PropertyRef Name="PK_ScreenId" />
             </Principal>
             <Dependent Role="Master_VenueScreen">
+              <PropertyRef Name="FK_ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Screen1">
+          <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Screen">
+              <PropertyRef Name="PK_ScreenId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
               <PropertyRef Name="FK_ScreenId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3448,6 +3615,18 @@
               <PropertyRef Name="PK_StatusId" />
             </Principal>
             <Dependent Role="Master_VenueScreen">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_Status1">
+          <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
               <PropertyRef Name="FK_StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3784,6 +3963,30 @@
               <PropertyRef Name="PK_UserId" />
             </Principal>
             <Dependent Role="Master_VenueScreen">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_User2">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Configuration_User3">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
               <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -4424,6 +4627,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_ScreenNumberFormat_Master_Venue1">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Master_ScreenNumberFormat" Type="Self.Master_ScreenNumberFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_ScreenNumberFormat">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_Sport_Master_Venue">
           <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
           <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
@@ -4647,6 +4862,7 @@
           <EntitySet Name="Master_Player" EntityType="Self.Master_Player" />
           <EntitySet Name="Master_Role" EntityType="Self.Master_Role" />
           <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" />
+          <EntitySet Name="Master_ScreenNumberFormat" EntityType="Self.Master_ScreenNumberFormat" />
           <EntitySet Name="Master_Sport" EntityType="Self.Master_Sport" />
           <EntitySet Name="Master_UserRole" EntityType="Self.Master_UserRole" />
           <EntitySet Name="Master_UserVenue" EntityType="Self.Master_UserVenue" />
@@ -4685,6 +4901,10 @@
             <End Role="Configuration_Format" EntitySet="Configuration_Format" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Format1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Format1">
+            <End Role="Configuration_Format" EntitySet="Configuration_Format" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_PlayerSport_Configuration_InvoicePeriod" Association="Self.FK_Transaction_PlayerSport_Configuration_InvoicePeriod">
             <End Role="Configuration_InvoicePeriod" EntitySet="Configuration_InvoicePeriod" />
             <End Role="Transaction_PlayerSport" EntitySet="Transaction_PlayerSport" />
@@ -4696,6 +4916,10 @@
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen">
             <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Screen1">
+            <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -4740,6 +4964,10 @@
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Status1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_Status1">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_Sport_Configuration_Status" Association="Self.FK_Master_Sport_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -4852,6 +5080,14 @@
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User1" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User1">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
             <End Role="Master_VenueScreen" EntitySet="Master_VenueScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User2" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_User3" Association="Self.FK_Master_ScreenNumberFormat_Configuration_User3">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_Sport_Configuration_User" Association="Self.FK_Master_Sport_Configuration_User">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -5065,6 +5301,10 @@
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Master_RoleScreen" EntitySet="Master_RoleScreen" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_ScreenNumberFormat_Master_Venue1" Association="Self.FK_Master_ScreenNumberFormat_Master_Venue1">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Master_Sport_Master_Venue" Association="Self.FK_Master_Sport_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Master_Sport" EntitySet="Master_Sport" />
@@ -5133,7 +5373,7 @@
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
             <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
           </AssociationSet>
-          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(MySportsBookModel.Split_Result)">
+          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(MySportsBook.Model.Split_Result)">
             <Parameter Name="InputString" Mode="In" Type="String" />
             <Parameter Name="Delimiter" Mode="In" Type="String" />
           </FunctionImport>
@@ -5141,16 +5381,16 @@
             <Parameter Name="VenueId" Mode="In" Type="Int32" />
             <Parameter Name="ScreenId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBookModel.rp_COLLECTIONDETAIL_Result)">
+          <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBook.Model.rp_COLLECTIONDETAIL_Result)">
             <Parameter Name="VENUEID" Mode="In" Type="Int32" />
             <Parameter Name="MONTH" Mode="In" Type="DateTime" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="rp_COMMONPROCEDURE" ReturnType="Collection(MySportsBookModel.rp_COMMONPROCEDURE_Result)">
+          <FunctionImport Name="rp_COMMONPROCEDURE" ReturnType="Collection(MySportsBook.Model.rp_COMMONPROCEDURE_Result)">
             <Parameter Name="STOREPROC" Mode="In" Type="String" />
             <Parameter Name="PARAMETERS" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Transaction_SaveInvoice" ReturnType="Collection(MySportsBookModel.Transaction_SaveInvoice_Result)">
+          <FunctionImport Name="Transaction_SaveInvoice" ReturnType="Collection(MySportsBook.Model.Transaction_SaveInvoice_Result)">
             <Parameter Name="XML" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -5181,6 +5421,7 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="SplitPercentage" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Transaction_SaveInvoice_Result">
           <Property Type="Int32" Name="PK_InvoiceId" Nullable="false" />
@@ -5207,7 +5448,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MySportsBookModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="BatchCounts">
-            <EntityTypeMapping TypeName="MySportsBookModel.BatchCount">
+            <EntityTypeMapping TypeName="MySportsBook.Model.BatchCount">
               <MappingFragment StoreEntitySet="BatchCount">
                 <ScalarProperty Name="PK_BatchCount" ColumnName="PK_BatchCount" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5218,7 +5459,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_BatchType">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_BatchType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_BatchType">
               <MappingFragment StoreEntitySet="Configuration_BatchType">
                 <ScalarProperty Name="PK_BatchTypeId" ColumnName="PK_BatchTypeId" />
                 <ScalarProperty Name="BatchType" ColumnName="BatchType" />
@@ -5227,7 +5468,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_Format">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Format">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Format">
               <MappingFragment StoreEntitySet="Configuration_Format">
                 <ScalarProperty Name="PK_NumberFormatId" ColumnName="PK_NumberFormatId" />
                 <ScalarProperty Name="NumberFormat" ColumnName="NumberFormat" />
@@ -5237,7 +5478,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_InvoicePeriod">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_InvoicePeriod">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_InvoicePeriod">
               <MappingFragment StoreEntitySet="Configuration_InvoicePeriod">
                 <ScalarProperty Name="PK_InvoicePeriodId" ColumnName="PK_InvoicePeriodId" />
                 <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
@@ -5246,7 +5487,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_PlayerType">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_PlayerType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_PlayerType">
               <MappingFragment StoreEntitySet="Configuration_PlayerType">
                 <ScalarProperty Name="PK_PlayerTypeId" ColumnName="PK_PlayerTypeId" />
                 <ScalarProperty Name="PlayerType" ColumnName="PlayerType" />
@@ -5255,7 +5496,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_Screen">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Screen">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Screen">
               <MappingFragment StoreEntitySet="Configuration_Screen">
                 <ScalarProperty Name="PK_ScreenId" ColumnName="PK_ScreenId" />
                 <ScalarProperty Name="Screen" ColumnName="Screen" />
@@ -5265,7 +5506,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_Status">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_Status">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Status">
               <MappingFragment StoreEntitySet="Configuration_Status">
                 <ScalarProperty Name="PK_StatusId" ColumnName="PK_StatusId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -5274,7 +5515,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_StudioUser">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_StudioUser">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_StudioUser">
               <MappingFragment StoreEntitySet="Configuration_StudioUser">
                 <ScalarProperty Name="PK_StudioUserId" ColumnName="PK_StudioUserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -5283,7 +5524,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuration_User">
-            <EntityTypeMapping TypeName="MySportsBookModel.Configuration_User">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_User">
               <MappingFragment StoreEntitySet="Configuration_User">
                 <ScalarProperty Name="PK_UserId" ColumnName="PK_UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -5302,7 +5543,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Confirguration_PaymentMode">
-            <EntityTypeMapping TypeName="MySportsBookModel.Confirguration_PaymentMode">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Confirguration_PaymentMode">
               <MappingFragment StoreEntitySet="Confirguration_PaymentMode">
                 <ScalarProperty Name="PK_PaymentModeId" ColumnName="PK_PaymentModeId" />
                 <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
@@ -5311,7 +5552,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Batch">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Batch">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Batch">
               <MappingFragment StoreEntitySet="Master_Batch">
                 <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5336,7 +5577,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_BatchTiming">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_BatchTiming">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_BatchTiming">
               <MappingFragment StoreEntitySet="Master_BatchTiming">
                 <ScalarProperty Name="PK_BatchTimingId" ColumnName="PK_BatchTimingId" />
                 <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
@@ -5351,7 +5592,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_CoachingLevel">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_CoachingLevel">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_CoachingLevel">
               <MappingFragment StoreEntitySet="Master_CoachingLevel">
                 <ScalarProperty Name="PK_CoachingLevelId" ColumnName="PK_CoachingLevelId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5365,7 +5606,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Court">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Court">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Court">
               <MappingFragment StoreEntitySet="Master_Court">
                 <ScalarProperty Name="PK_CourtId" ColumnName="PK_CourtId" />
                 <ScalarProperty Name="CourtName" ColumnName="CourtName" />
@@ -5381,7 +5622,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Enquiry">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Enquiry">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Enquiry">
               <MappingFragment StoreEntitySet="Master_Enquiry">
                 <ScalarProperty Name="PK_EnquiryId" ColumnName="PK_EnquiryId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5396,7 +5637,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Player">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Player">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Player">
               <MappingFragment StoreEntitySet="Master_Player">
                 <ScalarProperty Name="PK_PlayerId" ColumnName="PK_PlayerId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5420,7 +5661,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Role">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Role">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Role">
               <MappingFragment StoreEntitySet="Master_Role">
                 <ScalarProperty Name="PK_RoleId" ColumnName="PK_RoleId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5434,7 +5675,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_RoleScreen">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_RoleScreen">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_RoleScreen">
               <MappingFragment StoreEntitySet="Master_RoleScreen">
                 <ScalarProperty Name="PK_RoleScreenId" ColumnName="PK_RoleScreenId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5448,8 +5689,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Master_ScreenNumberFormat">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_ScreenNumberFormat">
+              <MappingFragment StoreEntitySet="Master_ScreenNumberFormat">
+                <ScalarProperty Name="PK_ScreenNumberFormatId" ColumnName="PK_ScreenNumberFormatId" />
+                <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+                <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
+                <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Master_Sport">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Sport">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Sport">
               <MappingFragment StoreEntitySet="Master_Sport">
                 <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
                 <ScalarProperty Name="SportName" ColumnName="SportName" />
@@ -5462,11 +5720,12 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_UserRole">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_UserRole">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserRole">
               <MappingFragment StoreEntitySet="Master_UserRole">
                 <ScalarProperty Name="PK_UserRoleId" ColumnName="PK_UserRoleId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5481,7 +5740,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_UserVenue">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_UserVenue">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserVenue">
               <MappingFragment StoreEntitySet="Master_UserVenue">
                 <ScalarProperty Name="PK_UserVenueId" ColumnName="PK_UserVenueId" />
                 <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
@@ -5495,7 +5754,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_Venue">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_Venue">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_Venue">
               <MappingFragment StoreEntitySet="Master_Venue">
                 <ScalarProperty Name="PK_VenueId" ColumnName="PK_VenueId" />
                 <ScalarProperty Name="VenueName" ColumnName="VenueName" />
@@ -5517,7 +5776,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Master_VenueScreen">
-            <EntityTypeMapping TypeName="MySportsBookModel.Master_VenueScreen">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_VenueScreen">
               <MappingFragment StoreEntitySet="Master_VenueScreen">
                 <ScalarProperty Name="PK_VenueScreenId" ColumnName="PK_VenueScreenId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5534,7 +5793,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OtherBookings">
-            <EntityTypeMapping TypeName="MySportsBookModel.OtherBooking">
+            <EntityTypeMapping TypeName="MySportsBook.Model.OtherBooking">
               <MappingFragment StoreEntitySet="OtherBooking">
                 <ScalarProperty Name="PK_BookingId" ColumnName="PK_BookingId" />
                 <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
@@ -5552,7 +5811,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OtherBookingDetails">
-            <EntityTypeMapping TypeName="MySportsBookModel.OtherBookingDetail">
+            <EntityTypeMapping TypeName="MySportsBook.Model.OtherBookingDetail">
               <MappingFragment StoreEntitySet="OtherBookingDetail">
                 <ScalarProperty Name="PK_BookingDetailId" ColumnName="PK_BookingDetailId" />
                 <ScalarProperty Name="FK_BookingId" ColumnName="FK_BookingId" />
@@ -5569,7 +5828,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Studio_Event">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_Event">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Studio_Event">
               <MappingFragment StoreEntitySet="Studio_Event">
                 <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
@@ -5591,7 +5850,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Studio_ExpenseDetail">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseDetail">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseDetail">
               <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
                 <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
                 <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
@@ -5607,7 +5866,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Studio_ExpenseType">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_ExpenseType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseType">
               <MappingFragment StoreEntitySet="Studio_ExpenseType">
                 <ScalarProperty Name="PK_ExpenseTypeId" ColumnName="PK_ExpenseTypeId" />
                 <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
@@ -5616,7 +5875,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Studio_IncomeDetail">
-            <EntityTypeMapping TypeName="MySportsBookModel.Studio_IncomeDetail">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Studio_IncomeDetail">
               <MappingFragment StoreEntitySet="Studio_IncomeDetail">
                 <ScalarProperty Name="PK_IncomeDetailId" ColumnName="PK_IncomeDetailId" />
                 <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
@@ -5631,7 +5890,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_Attendance">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Attendance">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Attendance">
               <MappingFragment StoreEntitySet="Transaction_Attendance">
                 <ScalarProperty Name="PK_AttendanceId" ColumnName="PK_AttendanceId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -5645,7 +5904,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_Enquiry_Comments">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Enquiry_Comments">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Enquiry_Comments">
               <MappingFragment StoreEntitySet="Transaction_Enquiry_Comments">
                 <ScalarProperty Name="PK_EnquiryCommentsId" ColumnName="PK_EnquiryCommentsId" />
                 <ScalarProperty Name="FK_EnquiryId" ColumnName="FK_EnquiryId" />
@@ -5656,7 +5915,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_Invoice">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Invoice">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Invoice">
               <MappingFragment StoreEntitySet="Transaction_Invoice">
                 <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -5678,7 +5937,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_InvoiceDetail">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_InvoiceDetail">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_InvoiceDetail">
               <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
                 <ScalarProperty Name="PK_InvoiceDetailId" ColumnName="PK_InvoiceDetailId" />
                 <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
@@ -5696,7 +5955,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_PlayerSport">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_PlayerSport">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_PlayerSport">
               <MappingFragment StoreEntitySet="Transaction_PlayerSport">
                 <ScalarProperty Name="PK_PlayerSportId" ColumnName="PK_PlayerSportId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
@@ -5718,7 +5977,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_Receipt">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Receipt">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Receipt">
               <MappingFragment StoreEntitySet="Transaction_Receipt">
                 <ScalarProperty Name="PK_ReceiptId" ColumnName="PK_ReceiptId" />
                 <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
@@ -5743,7 +6002,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transaction_Voucher">
-            <EntityTypeMapping TypeName="MySportsBookModel.Transaction_Voucher">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Voucher">
               <MappingFragment StoreEntitySet="Transaction_Voucher">
                 <ScalarProperty Name="PK_VoucherId" ColumnName="PK_VoucherId" />
                 <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
@@ -5762,17 +6021,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionName="MySportsBookModel.Store.Split" FunctionImportName="Split">
+          <FunctionImportMapping FunctionName="MySportsBook.Model.Store.Split" FunctionImportName="Split">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBookModel.Split_Result">
+              <ComplexTypeMapping TypeName="MySportsBook.Model.Split_Result">
                 <ScalarProperty Name="Item" ColumnName="Item" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GenerateRunningNumber" FunctionName="MySportsBookModel.Store.GenerateRunningNumber" />
-          <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBookModel.Store.rp_COLLECTIONDETAIL">
+          <FunctionImportMapping FunctionImportName="GenerateRunningNumber" FunctionName="MySportsBook.Model.Store.GenerateRunningNumber" />
+          <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBookModel.rp_COLLECTIONDETAIL_Result">
+              <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
                 <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
@@ -5789,9 +6048,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBookModel.Store.rp_COMMONPROCEDURE">
+          <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBook.Model.Store.rp_COMMONPROCEDURE">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBookModel.rp_COMMONPROCEDURE_Result">
+              <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COMMONPROCEDURE_Result">
                 <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
                 <ScalarProperty Name="SportName" ColumnName="SportName" />
                 <ScalarProperty Name="SportCode" ColumnName="SportCode" />
@@ -5803,12 +6062,13 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Transaction_SaveInvoice" FunctionName="MySportsBookModel.Store.Transaction_SaveInvoice">
+          <FunctionImportMapping FunctionImportName="Transaction_SaveInvoice" FunctionName="MySportsBook.Model.Store.Transaction_SaveInvoice">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBookModel.Transaction_SaveInvoice_Result">
+              <ComplexTypeMapping TypeName="MySportsBook.Model.Transaction_SaveInvoice_Result">
                 <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />

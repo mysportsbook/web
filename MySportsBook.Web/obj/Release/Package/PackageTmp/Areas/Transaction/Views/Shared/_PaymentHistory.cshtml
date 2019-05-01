@@ -1,0 +1,33 @@
+﻿@model List<MySportsBook.Model.ViewModel.ReceiptModel>
+<div class="row">
+    @if (Model.Count == 0)
+    {
+        <div class="col-sm-12">
+            <span><strong>No Payment done.</strong></span>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ReceiptNumber</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Sport</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            @foreach (MySportsBook.Model.ViewModel.ReceiptModel detail in Model)
+            {
+                <tr>
+                    <td>@detail.ReceiptNumber</td>
+                    <td>@detail.ReceiptDate.ToString("dd/MM/yyyy")</td>
+                    <td>@detail.Sport</td>
+                    <td>@detail.Month</td>
+                    <td>@detail.AmountPaid.ToString("0.00")</td>
+                </tr>
+            }
+        </table>
+    }
+</div>

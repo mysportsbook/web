@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MySportsBook.Model.rp_COLLECTIONDETAIL_Result>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Monthly";
     if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
 
@@ -12,7 +12,7 @@
     <!-- Breadcrumb-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">@Html.ActionLink("Collection", "Daily")</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Collection", "Monthly")</li>
         <li class="breadcrumb-item active">Daily</li>
     </ol>
     <div class="container-fluid">
@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i>
-                    <strong>Daily Collection</strong>
+                    <strong>Monthly Collection</strong>
                 </div>
                 <div class="card-body">
                     @using (Html.BeginForm())
@@ -30,9 +30,9 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    @Html.Label("Date")
+                                    @Html.Label("Month")
                                     <div class="input-group">
-                                        @Html.TextBox("Date", "", new { @class = "form-control date" })
+                                        @Html.TextBox("Month", "", new { @class = "form-control month" })
                                         <span class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
                                         </span>
@@ -42,8 +42,8 @@
                         </div>
                     }
                     <div class="row">
-                        <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
-                            <thead class="thead-light">
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
                                 <tr>
                                     <th>
                                         @Html.DisplayName("Name")

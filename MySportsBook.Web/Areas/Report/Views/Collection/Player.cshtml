@@ -23,7 +23,7 @@
                     <strong>Player Collection</strong>
                 </div>
                 <div class="card-body">
-                   
+
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
@@ -43,8 +43,9 @@
                         </div>
                     }
                     <div class="row">
-                        <table class="table table-striped table-bordered" style="width:100%">
-                            <thead>
+
+                        <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>
                                         @Html.DisplayName("Name")
@@ -98,6 +99,26 @@
                                 }
                             </tbody>
                         </table>
+                    </div>
+                    <div class="row">
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtCash", data.FindAll(x => x.PaymentMode == "Cash").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtTransfer", data.FindAll(x => x.PaymentMode == "Transfer").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("txtCheque", data.FindAll(x => x.PaymentMode == "Cheque").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

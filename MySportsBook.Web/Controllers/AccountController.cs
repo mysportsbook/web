@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MySportsBook.Model;
+using MySportsBook.Model.ViewModel;
+using MySportsBook.Web.Filters;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MySportsBook.Model;
-using MySportsBook.Web.Controllers;
-using MySportsBook.Model.ViewModel;
-using MySportsBook.Web.Filters;
 
 namespace MySportsBook.Web.Controllers
 {
@@ -36,21 +31,41 @@ namespace MySportsBook.Web.Controllers
         // GET: Account
         public ActionResult Home()
         {
-            return View();
+            DataTable dt = new DataTable();
+            //Dashboard dashboard = new Dashboard()
+            //{
+            //    PlayerCount = dbContext.Master_Player.Where(v => v.FK_VenueId == currentUser.CurrentVenueId && v.FK_StatusId == 1).Count(),
+            //    CurrentMonthValue= dbContext.GetResultReport(currentUser.CurrentVenueId, "Dashboard", DateTime.Now.ToString("MMMyyyy")),
+            //LastMonthValue = dbContext.Master_Player.Where(v => v.FK_VenueId == currentUser.CurrentVenueId && v.FK_StatusId == 1).Count()
+            //};
+
+            dt = dbContext.GetResultReport(currentUser.CurrentVenueId, "Dashboard", DateTime.Now.ToString("MMMyyyy"));
+
+            Dashboard dashboard = new Dashboard()
+            {
+                PlayerCount = dt.Rows[0]["TotalPlayers"].ToString(),
+                CurrentMonthValue = currentUser.UserId < 4 ? dt.Rows[0]["CurrentMonthCollection"].ToString() : "0",
+                LastMonthValue = currentUser.UserId < 4 ? dt.Rows[0]["LastMonthCollection"].ToString() : "0"
+            };
+
+            return View(dashboard);
         }
 
         [UserAuthentication]
         // GET: Account
         public ActionResult SelectVenue()
         {
-            if (dbContext.Master_UserVenue.Where(v => v.FK_UserId == currentUser.UserId && v.FK_StatusId == 1).Count() > 1) {
+            if (dbContext.Master_UserVenue.Where(v => v.FK_UserId == currentUser.UserId && v.FK_StatusId == 1).Count() > 1)
+            {
                 if (!string.IsNullOrEmpty(currentUser.CurrentVenueName))
                 {
                     ViewBag.VenueName = currentUser.CurrentVenueName;
+                    ViewBag.VenueId = currentUser.CurrentVenueId;
                 }
                 else
                 {
                     ViewBag.VenueName = "";
+                    ViewBag.VenueId = 0;
                 }
                 return View();
             }
@@ -62,6 +77,8 @@ namespace MySportsBook.Web.Controllers
                     currentUser.CurrentVenueId = Convert.ToInt32(_userVenue.FirstOrDefault().FK_VenueId);
                     var _venue = dbContext.Master_Venue.Where(x => x.FK_StatusId == 1).ToList().Find(v => v.PK_VenueId == Convert.ToInt32(currentUser.CurrentVenueId));
                     currentUser.CurrentVenueName = _venue != null ? _venue.VenueName : string.Empty;
+                    ViewBag.VenueName = _venue.VenueName;
+                    ViewBag.VenueId = _venue.PK_VenueId;
                     System.Web.HttpContext.Current.Session["CURRENTUSER"] = currentUser;
                     return RedirectToAction("Home");
                 }

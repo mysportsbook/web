@@ -12,23 +12,25 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ExpenseDetail
+    public partial class Master_ScreenNumberFormat
     {
-        public int PK_ExpenseDetailId { get; set; }
-        public int FK_EventId { get; set; }
-        public int FK_ExpenseType { get; set; }
-        public string SpentBy { get; set; }
-        public string Description { get; set; }
-        public System.DateTime SpentDate { get; set; }
+        public int PK_ScreenNumberFormatId { get; set; }
+        public int FK_VenueId { get; set; }
+        public int FK_ScreenId { get; set; }
+        public int FK_FormatId { get; set; }
         public int FK_StatusId { get; set; }
+        public int CurrentNo { get; set; }
+        public string Prefix { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public decimal Amount { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
+        public virtual Configuration_Format Configuration_Format { get; set; }
+        public virtual Configuration_Screen Configuration_Screen { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
-        public virtual Configuration_Status Configuration_Status1 { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
-        public virtual Expense_Type Expense_Type { get; set; }
-        public virtual StudioEvent StudioEvent { get; set; }
+        public virtual Configuration_User Configuration_User1 { get; set; }
+        public virtual Master_Venue Master_Venue { get; set; }
     }
 }
