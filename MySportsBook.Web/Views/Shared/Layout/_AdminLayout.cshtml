@@ -29,6 +29,16 @@
     <script src="/Scripts/dataTables.bootstrap4.min.js"></script>
     <script src="/Scripts/sweetalert.min.js"></script>
     <script src="/Scripts/underscore.js"></script>
+
+    <script src="~/Scripts/Export/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/Export/buttons.flash.min.js"></script>
+    <script src="~/Scripts/Export/jszip.min.js"></script>
+    <script src="~/Scripts/Export/pdfmake.min.js"></script>
+    <script src="~/Scripts/Export/vfs_fonts.js"></script>
+    <script src="~/Scripts/Export/buttons.html5.min.js"></script>
+    <script src="~/Scripts/Export/buttons.print.min.js"></script>
+    <link href="~/Scripts/Export/buttons.dataTables.min.css" rel="stylesheet" />
+
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <header class="app-header navbar">
@@ -134,6 +144,11 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Invoice
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Player", "Receipt", new { Area = "Transaction" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Receipt
+                        </a>
+                    </li>
                     <li class="nav-title">Report</li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Report" })">
@@ -155,14 +170,21 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Daily Collection
                         </a>
                     </li>
+                    @*<li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Player Collection
+            </a>
+        </li>*@
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Player Collection
+                        <a class="nav-link" href="@Url.Action("Custom", "Defaulters", new { Area = "Report" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Defaulters
                         </a>
                     </li>
-                    
-                    @if (ViewBag.Venue == "The Court")
-                    {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "Custom", new { Area = "Report" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Collection
+                        </a>
+                    </li>
                     <li class="nav-title">Studio</li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
@@ -179,7 +201,6 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Income
                         </a>
                     </li>
-                    }
                 </ul>
             </nav>
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>

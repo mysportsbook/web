@@ -46,3 +46,12 @@ E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Mo
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csprojAssemblyReference.cache
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\MySportsBook.Model.dll.config
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\MySportsBook.Model.dll
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\MySportsBook.Model.pdb
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.dll
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.dll
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.xml
+D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.xml
+D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
+D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb

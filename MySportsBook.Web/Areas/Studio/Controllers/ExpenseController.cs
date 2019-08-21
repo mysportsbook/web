@@ -32,14 +32,14 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Studio_ExpenseType.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
-            {
-                ddlList.Add(new SelectListItem
-                {
-                    Text = x.ExpenseType,
-                    Value = x.PK_ExpenseTypeId.ToString()
-                });
-            });
+            //dbContext.Studio_Event.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
+            //{
+            //    ddlList.Add(new SelectListItem
+            //    {
+            //        Text = x.ExpenseType,
+            //        Value = x.PK_ExpenseTypeId.ToString()
+            //    });
+            //});
             ViewBag.ExpensesType = ddlList;
             ddlList = new List<SelectListItem>();
             ddlList.Add(new SelectListItem
@@ -47,7 +47,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Studio_Event.Where(x => x.FK_StatusId == 3).ToList().ForEach(x =>
+            dbContext.StudioEvents.Where(x => x.FK_StatusId == 3).ToList().ForEach(x =>
             {
                 ddlList.Add(new SelectListItem
                 {
@@ -64,12 +64,12 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Configuration_StudioUser.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
+            dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0).ToList().ForEach(x =>
             {
                 ddlList.Add(new SelectListItem
                 {
-                    Text = x.Name,
-                    Value = x.PK_StudioUserId.ToString()
+                    Text = x.FirstName,
+                    Value = x.PK_UserId.ToString()
                 });
             });
             ViewBag.StudioUser = new SelectList(ddlList, "Value", "Text");
@@ -121,7 +121,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PK_ExpenseDetailId,FK_EventId,FK_ExpenseType,SpentBy,Description,SpentDate")] Studio_ExpenseDetail expenseDetail)
+        public async Task<ActionResult> Edit([Bind(Include = "PK_ExpenseDetailId,SpentBy,Description,SpentDate")] Studio_ExpenseDetail expenseDetail)
         {
             if (ModelState.IsValid)
             {
@@ -132,9 +132,9 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     {
                         return HttpNotFound();
                     }
-                    _Expanses.FK_EventId = expenseDetail.FK_EventId;
-                    _Expanses.FK_ExpenseTypeId = expenseDetail.FK_ExpenseTypeId;
-                    _Expanses.FK_SpentBy = expenseDetail.FK_SpentBy;
+                    //_Expanses.FK_EventId = expenseDetail.FK_EventId;
+                    //_Expanses.FK_ExpenseTypeId = expenseDetail.FK_ExpenseTypeId;
+                    _Expanses.SpentBy = expenseDetail.SpentBy;
                     _Expanses.Description = expenseDetail.Description;
                     _Expanses.SpentDate = expenseDetail.SpentDate;
                     dbContext.Entry(_Expanses).State = EntityState.Modified;

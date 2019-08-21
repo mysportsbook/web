@@ -20,9 +20,13 @@ namespace MySportsBook.Model.ViewModel
         public int ReceivedBy { get; set; }
         public bool NoDues { get; set; }
         public List<InvoiceDetailModel> InvoiceDetails { get; set; }
+        public bool IsGuestPlayer { get; set; }
+        /*Receipt*/
+        public string ReceiptNumber { get; set; }
     }
     public class InvoiceDetailModel
     {
+        public int InvoiceId { get; set; }
         public int InvoiceDetailssId { get; set; }
         public int InvoicePeriodId { get; set; }
         public int BatchId { get; set; }
@@ -32,6 +36,16 @@ namespace MySportsBook.Model.ViewModel
         public double Fee { get; set; }
         public int PayOrder { get; set; }
         public double PaidAmount { get; set; }
+        public int StatusId { get; set; }
+        public int PlayerId { get; set; }
+        public string Comments { get; set; }
+        public DateTime InvoicePeriodDate
+        {
+            get
+            {
+               return InvoicePeriod.Split('-').Length > 1 ? DateTime.ParseExact(InvoicePeriod.Split('-')[1], "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture): DateTime.ParseExact(InvoicePeriod, "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
     }
 
 
@@ -51,7 +65,7 @@ namespace MySportsBook.Model.ViewModel
         public DateTime EndDate { get; set; }
         public bool Collected { get; set; }
         public bool Pending { get; set; }
-        
+
     }
 
 }

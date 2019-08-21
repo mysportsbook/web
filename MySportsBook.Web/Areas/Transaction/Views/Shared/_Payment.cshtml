@@ -21,20 +21,20 @@
                 </thead>
                 @foreach (MySportsBook.Model.ViewModel.InvoiceDetailModel detail in Model.InvoiceDetails)
                 {
-                <tr>
-                    <td>@detail.BatchName</td>
-                    <td>@detail.SportName</td>
-                    <td>@detail.InvoicePeriod</td>
-                    <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
-                    <td>
-                        <input type="checkbox" class="inv-list" />
-                        <input id="hidbatch" type="hidden" class="inv-batch-id" name="hidbatch" value="@detail.BatchId" />
-                        <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
-                        <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
-                        <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
-                        <input id="hidinvserno" type="hidden" class="inv-fee" name="hidinvserno" value="@detail.PayOrder" />
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@detail.BatchName</td>
+                        <td>@detail.SportName</td>
+                        <td>@detail.InvoicePeriod</td>
+                        <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
+                        <td>
+                            <input type="checkbox" class="inv-list" />
+                            <input id="hidbatch" type="hidden" class="inv-batch-id" name="hidbatch" value="@detail.BatchId" />
+                            <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
+                            <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
+                            <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
+                            <input id="hidinvserno" type="hidden" class="inv-fee" name="hidinvserno" value="@detail.PayOrder" />
+                        </td>
+                    </tr>
                 }
             </table>
         </div>
@@ -124,12 +124,12 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("Total")
+                        @Html.Label("Credit")
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                        @Html.TextBox("txtCredit", Model.ExtraPaidAmount, new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -137,6 +137,18 @@
                 </div>
                 <div class="col-sm-3">
                     @Html.TextArea("txtComments", new { @class = "form-control", @tabindex = 9 })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Total")
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -198,9 +210,14 @@
     $('.inv-list').click(function () {
         calculateonCheckbox();
     });
-    $('#txtDiscount,#txtPaid,#txtLateFee').on('blur', function () {
+    $('#txtDiscount,#txtLateFee').on('blur', function () {
         calculate();
     });
+    $('#txtPaid').on('blur', function () {
+        $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
+        $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
+    });
+
     function calculate() {
         var total = 0;
         var checkall = true;
@@ -215,8 +232,9 @@
         $('#txtLateFee').val(parseFloat($('#txtLateFee').val() == "" ? 0 : $('#txtLateFee').val()).toFixed(2));
         $('#txtTotalFee').val(parseFloat($('#txtTotalFee').val() == "" ? 0 : $('#txtTotalFee').val()).toFixed(2));
         $('#txtDiscount').val(parseFloat($('#txtDiscount').val() == "" ? 0 : $('#txtDiscount').val()).toFixed(2));
-        $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2));
-        $('#txtPaid').val(parseFloat($('#txtPaid').val() == "" ? 0 : $('#txtPaid').val()).toFixed(2));
+        $('#txtCredit').val(parseFloat($('#txtCredit').val() == "" ? 0 : $('#txtCredit').val()).toFixed(2));
+        $('#txtTotal').val(parseFloat((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2) - parseFloat($('#txtCredit').val())).toFixed(2));
+        $('#txtPaid').val(parseFloat($('#txtTotal').val()).toFixed(2));
         $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
         $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
     }
@@ -234,7 +252,8 @@
         $('#txtLateFee').val(parseFloat($('#txtLateFee').val() == "" ? 0 : $('#txtLateFee').val()).toFixed(2));
         $('#txtTotalFee').val(parseFloat($('#txtTotalFee').val() == "" ? 0 : $('#txtTotalFee').val()).toFixed(2));
         $('#txtDiscount').val(parseFloat($('#txtDiscount').val() == "" ? 0 : $('#txtDiscount').val()).toFixed(2));
-        $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2));
+        $('#txtCredit').val(parseFloat($('#txtCredit').val() == "" ? 0 : $('#txtCredit').val()).toFixed(2));
+        $('#txtTotal').val((parseFloat($('#txtLateFee').val()) + parseFloat($('#txtTotalFee').val()) - parseFloat($('#txtDiscount').val())).toFixed(2) - parseFloat($('#txtCredit').val()));
         $('#txtPaid').val(parseFloat($('#txtTotal').val()).toFixed(2));
         $('#txtBalance').val((parseFloat($('#txtPaid').val()) - parseFloat($('#txtTotal').val())).toFixed(2));
         $('#txtBalance').css("background-color", (parseFloat($('#txtBalance').val()) < 0) ? "#D46A6A" : "#5FAE57");
@@ -292,6 +311,7 @@
                 TotalOtherAmount: parseFloat($('#txtLateFee').val()),
                 TotalDiscount: parseFloat($('#txtDiscount').val()),
                 TotalPaidAmount: parseFloat($('#txtPaid').val()),
+                ExtraPaidAmount: parseFloat($('#txtCredit').val()),
                 PaymentId: $('select[name="PaymentMode"]').val(),
                 Comments: $('#txtComments').val(),
                 TransactionNo: $('#PaymentMode').val() != "1" ? $('#TransactionNo').val() : '',
@@ -300,7 +320,7 @@
                 ReceivedBy: $('select[name="ReceivedBy"]').val(),
                 InvoiceDetails: invoicedetails
             }
-            var _message = validatePaidAmount(invoiceobj);
+            var _message = ((invoiceobj.TotalFee - invoiceobj.TotalDiscount + invoiceobj.TotalOtherAmount - invoiceobj.ExtraPaidAmount) > invoiceobj.TotalPaidAmount) ? validatePaidAmount(invoiceobj) : success;
             if (_message == success) {
                 if (checkForClosingPrevInv(invoiceobj)) {
                     swal({
@@ -369,14 +389,38 @@
         });
     }
     function validatePaidAmount(_invoice) {
+        debugger
         if (_invoice.InvoiceDetails.length > 1) {
-            if (parseFloat($('#txtDiscount').val()) > 0) {
-                return "Not Allowed to select multiple months with discount!";
-            }
             var sortedDetails = _.sortBy(_invoice.InvoiceDetails, ['BatchId', 'PayOrder']);
-            var objDetails = _.last(sortedDetails);
-            if ((_invoice.TotalFee - objDetails.Fee) > _invoice.TotalPaidAmount) {
-                return "Paid Amount is insufficient!";
+            //var objDetails = _.last(sortedDetails);
+            //var _totalamount = _invoice.TotalFee - _invoice.TotalDiscount + _invoice.TotalOtherAmount;
+            var _paidamount = _invoice.TotalPaidAmount + _invoice.ExtraPaidAmount;
+            var _discount = _invoice.TotalDiscount;
+            for (index = 0; index < sortedDetails.length; index++) {
+                var element = sortedDetails[index];
+                if (index == 0) {
+                    if ((element.Fee + _invoice.TotalOtherAmount) > _discount) {
+                        _paidamount = _paidamount - (element.Fee + _invoice.TotalOtherAmount - _discount);
+                        _discount = 0;
+                    }
+                    else {
+                        _discount = _discount - (element.Fee + _invoice.TotalOtherAmount);
+                    }
+                }
+                else if (index == sortedDetails.length - 1) {
+                    if (_paidamount <= 0) {
+                        return "Paid Amount is insufficient!";
+                    }
+                }
+                else {
+                    if (_discount < element.Fee || _discount == 0) {
+                        _paidamount = _paidamount - element.Fee - _discount;
+                        _discount = 0;
+                    }
+                    else {
+                        _discount = _discount - element.Fee;
+                    }
+                }
             }
         }
         return success;

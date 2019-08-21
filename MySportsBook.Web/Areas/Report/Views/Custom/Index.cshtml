@@ -1,5 +1,7 @@
 ﻿@model DataTable
 @{
+    /**/
+
     ViewBag.Title = "Index";
     if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
 }
@@ -120,11 +122,4 @@
     </div>
 </main>
 @Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
-<script type="text/javascript">
-    $(function () {
-        //$('.table').DataTable();
-        $('.table').dataTable({
-            "searching": true
-        });
-    });
-</script>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

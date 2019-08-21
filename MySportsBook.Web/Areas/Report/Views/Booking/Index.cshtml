@@ -39,7 +39,7 @@
                                 <th>
                                     @Html.DisplayName("Amount")
                                 </th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -72,9 +72,4 @@
 </main>
 
 
-
-<script type="text/javascript">
-    $(function () {
-        $('.table').DataTable();
-    });
-    </script>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

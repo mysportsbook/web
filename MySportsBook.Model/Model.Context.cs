@@ -25,14 +25,13 @@ namespace MySportsBook.Model
         {
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
-
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<BatchCount> BatchCounts { get; set; }
         public virtual DbSet<Configuration_BatchType> Configuration_BatchType { get; set; }
         public virtual DbSet<Configuration_Format> Configuration_Format { get; set; }
@@ -40,9 +39,9 @@ namespace MySportsBook.Model
         public virtual DbSet<Configuration_PlayerType> Configuration_PlayerType { get; set; }
         public virtual DbSet<Configuration_Screen> Configuration_Screen { get; set; }
         public virtual DbSet<Configuration_Status> Configuration_Status { get; set; }
-        public virtual DbSet<Configuration_StudioUser> Configuration_StudioUser { get; set; }
         public virtual DbSet<Configuration_User> Configuration_User { get; set; }
         public virtual DbSet<Confirguration_PaymentMode> Confirguration_PaymentMode { get; set; }
+        public virtual DbSet<IncomeDetail> IncomeDetails { get; set; }
         public virtual DbSet<Master_Batch> Master_Batch { get; set; }
         public virtual DbSet<Master_BatchTiming> Master_BatchTiming { get; set; }
         public virtual DbSet<Master_CoachingLevel> Master_CoachingLevel { get; set; }
@@ -52,6 +51,7 @@ namespace MySportsBook.Model
         public virtual DbSet<Master_Role> Master_Role { get; set; }
         public virtual DbSet<Master_RoleScreen> Master_RoleScreen { get; set; }
         public virtual DbSet<Master_ScreenNumberFormat> Master_ScreenNumberFormat { get; set; }
+        public virtual DbSet<Master_SMS_Config> Master_SMS_Config { get; set; }
         public virtual DbSet<Master_Sport> Master_Sport { get; set; }
         public virtual DbSet<Master_UserRole> Master_UserRole { get; set; }
         public virtual DbSet<Master_UserVenue> Master_UserVenue { get; set; }
@@ -59,10 +59,8 @@ namespace MySportsBook.Model
         public virtual DbSet<Master_VenueScreen> Master_VenueScreen { get; set; }
         public virtual DbSet<OtherBooking> OtherBookings { get; set; }
         public virtual DbSet<OtherBookingDetail> OtherBookingDetails { get; set; }
-        public virtual DbSet<Studio_Event> Studio_Event { get; set; }
         public virtual DbSet<Studio_ExpenseDetail> Studio_ExpenseDetail { get; set; }
-        public virtual DbSet<Studio_ExpenseType> Studio_ExpenseType { get; set; }
-        public virtual DbSet<Studio_IncomeDetail> Studio_IncomeDetail { get; set; }
+        public virtual DbSet<StudioEvent> StudioEvents { get; set; }
         public virtual DbSet<Transaction_Attendance> Transaction_Attendance { get; set; }
         public virtual DbSet<Transaction_Enquiry_Comments> Transaction_Enquiry_Comments { get; set; }
         public virtual DbSet<Transaction_Invoice> Transaction_Invoice { get; set; }
@@ -70,71 +68,96 @@ namespace MySportsBook.Model
         public virtual DbSet<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         public virtual DbSet<Transaction_Receipt> Transaction_Receipt { get; set; }
         public virtual DbSet<Transaction_Voucher> Transaction_Voucher { get; set; }
-    
+        public virtual DbSet<Scheduler> Schedulers { get; set; }
+        public virtual DbSet<SMSTransactionRequest> SMSTransactionRequests { get; set; }
+        public virtual DbSet<V_INVOICEandRECEIPT> V_INVOICEandRECEIPT { get; set; }
+        public virtual DbSet<V_InvoiceDetails> V_InvoiceDetails { get; set; }
+        public virtual DbSet<V_invoiceWithoutReceipt> V_invoiceWithoutReceipt { get; set; }
+        public virtual DbSet<V_PlayerDetails> V_PlayerDetails { get; set; }
+        public virtual DbSet<V_PlayerSport> V_PlayerSport { get; set; }
+
         [DbFunction("Entities", "Split")]
         public virtual IQueryable<Split_Result> Split(string inputString, string delimiter)
         {
             var inputStringParameter = inputString != null ?
                 new ObjectParameter("InputString", inputString) :
                 new ObjectParameter("InputString", typeof(string));
-    
+
             var delimiterParameter = delimiter != null ?
                 new ObjectParameter("Delimiter", delimiter) :
                 new ObjectParameter("Delimiter", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[Entities].[Split](@InputString, @Delimiter)", inputStringParameter, delimiterParameter);
         }
-    
+
         public virtual ObjectResult<string> GenerateRunningNumber(Nullable<int> venueId, Nullable<int> screenId)
         {
             var venueIdParameter = venueId.HasValue ?
                 new ObjectParameter("VenueId", venueId) :
                 new ObjectParameter("VenueId", typeof(int));
-    
+
             var screenIdParameter = screenId.HasValue ?
                 new ObjectParameter("ScreenId", screenId) :
                 new ObjectParameter("ScreenId", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateRunningNumber", venueIdParameter, screenIdParameter);
         }
-    
+
         public virtual ObjectResult<rp_COLLECTIONDETAIL_Result> rp_COLLECTIONDETAIL(Nullable<int> vENUEID, Nullable<System.DateTime> mONTH, string tYPE)
         {
             var vENUEIDParameter = vENUEID.HasValue ?
                 new ObjectParameter("VENUEID", vENUEID) :
                 new ObjectParameter("VENUEID", typeof(int));
-    
+
             var mONTHParameter = mONTH.HasValue ?
                 new ObjectParameter("MONTH", mONTH) :
                 new ObjectParameter("MONTH", typeof(System.DateTime));
-    
+
             var tYPEParameter = tYPE != null ?
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COLLECTIONDETAIL_Result>("rp_COLLECTIONDETAIL", vENUEIDParameter, mONTHParameter, tYPEParameter);
         }
-    
-        public virtual ObjectResult<rp_COMMONPROCEDURE_Result> rp_COMMONPROCEDURE(string sTOREPROC, string pARAMETERS)
+
+        public virtual ObjectResult<rp_COMMONPROCEDURE_Result> rp_COMMONPROCEDURE(string sTOREPROC, string pARAMETERS, Nullable<int> venueID)
         {
             var sTOREPROCParameter = sTOREPROC != null ?
                 new ObjectParameter("STOREPROC", sTOREPROC) :
                 new ObjectParameter("STOREPROC", typeof(string));
-    
+
             var pARAMETERSParameter = pARAMETERS != null ?
                 new ObjectParameter("PARAMETERS", pARAMETERS) :
                 new ObjectParameter("PARAMETERS", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COMMONPROCEDURE_Result>("rp_COMMONPROCEDURE", sTOREPROCParameter, pARAMETERSParameter);
+
+            var venueIDParameter = venueID.HasValue ?
+                new ObjectParameter("VenueID", venueID) :
+                new ObjectParameter("VenueID", typeof(int));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COMMONPROCEDURE_Result>("rp_COMMONPROCEDURE", sTOREPROCParameter, pARAMETERSParameter, venueIDParameter);
         }
-    
+
         public virtual ObjectResult<Transaction_SaveInvoice_Result> Transaction_SaveInvoice(string xML)
         {
             var xMLParameter = xML != null ?
                 new ObjectParameter("XML", xML) :
                 new ObjectParameter("XML", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transaction_SaveInvoice_Result>("Transaction_SaveInvoice", xMLParameter);
+        }
+
+        public virtual ObjectResult<GetAllUserWithVenues_Result> GetAllUserWithVenues()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllUserWithVenues_Result>("GetAllUserWithVenues");
+        }
+
+        public virtual int UpdateSchedulerBySchedulerName(string schedulerName)
+        {
+            var schedulerNameParameter = schedulerName != null ?
+                new ObjectParameter("SchedulerName", schedulerName) :
+                new ObjectParameter("SchedulerName", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSchedulerBySchedulerName", schedulerNameParameter);
         }
 
         public DataTable GetResultReport(int venueID, string storeProc, string parameters)

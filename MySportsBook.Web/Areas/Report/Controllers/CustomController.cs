@@ -14,6 +14,16 @@ namespace MySportsBook.Web.Areas.Report.Controllers
             return View();
         }
 
+        public ActionResult Defaulters()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Defaulters(string Month)
+        {
+            return View(CalltheCustomStoreProc(currentUser.CurrentVenueId, "Defaulter", Month));
+        }
+
         [HttpPost]
         public ActionResult Index(string ReportType, string Month)
         {
@@ -23,12 +33,11 @@ namespace MySportsBook.Web.Areas.Report.Controllers
         [NonAction]
         private DataTable CalltheCustomStoreProc(int venueID, string storeProc, string parameters)
         {
-            if (currentUser.UserId < 4)
-            {
+            if (currentUser.UserId < 4 || storeProc == "Defaulter")
                 return dbContext.GetResultReport(venueID, storeProc, parameters);
-            }
             return new DataTable();
-
         }
+
+       
     }
 }

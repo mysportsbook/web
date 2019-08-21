@@ -50,28 +50,28 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
+                                <tr>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Configuration_StudioUser.Name)
-                                </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Studio_Event.OrderNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Studio_Event.CustomerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Configuration_StudioUser.Name)
+                                    </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ReceivedDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                            </tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReceivedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

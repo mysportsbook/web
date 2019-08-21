@@ -1,0 +1,312 @@
+﻿@model MySportsBook.Model.Transaction_Receipt
+@{
+    ViewBag.Title = "Edit Receipt";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Receipt", "Edit")</li>
+        <li class="breadcrumb-item active">Edit</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Edit Receipt</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PK_ReceiptId)
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ReceiptNumber, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.ReceiptNumber, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ReceiptDate, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.TextBox("ReceiptDate", Model.ReceiptDate, new { @class = "form-control date" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.FirstName, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.Transaction_Invoice.Master_Player.FirstName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.Mobile, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.Transaction_Invoice.Master_Player.Mobile, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.Label("Payment Mode")
+                                            @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control", @tabindex = 6 })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.Label("Received By")
+                                            @Html.DropDownList("ReceivedBy", null, htmlAttributes: new { @class = "form-control", @tabindex = 5 })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.TransactionNumber, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.TransactionNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.TextBox("TransactionDate", (Model.TransactionDate.HasValue ? string.Format("{0} {1} {2}", Model.TransactionDate.Value.Day.ToString("00"), Model.TransactionDate.Value.ToString("MMM"), Model.TransactionDate.Value.ToString("yyyy")) : string.Empty), new { @class = "form-control date" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @Html.Label("Comments", htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.TotalFee, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.EditorFor(model => model.TotalFee, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled  text-right" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Credit Amount")
+                                            @Html.TextBox("CreditAmount", (Model.CreditAmount.HasValue ? Model.CreditAmount.Value : 0).ToString("0.00"), new { @class = "form-control  text-right", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Other Amount")
+                                            @Html.EditorFor(model => model.TotalOtherAmount, new { htmlAttributes = new { @class = "form-control  text-right" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Discount")
+                                            @Html.EditorFor(model => model.TotalDiscountAmount, new { htmlAttributes = new { @class = "form-control  text-right" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Paid Amount")
+                                            @Html.EditorFor(model => model.AmountPaid, new { htmlAttributes = new { @class = "form-control  text-right" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Balance")
+                                            @Html.TextBox("Balance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-primary btn-submit" type="button" id="btnSumbit">
+                                    <i class="fa fa-cloud-upload"></i> Save Changes
+                                </button>
+                                <button class="btn btn-sm btn-danger" type="reset">
+                                    <i class="fa fa-reply"></i> Back
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <strong>Invoice</strong>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>
+                                                Period
+                                            </th>
+                                            <th>
+                                                Amount to be paid
+                                            </th>
+                                            <th>
+                                                Amountpaid
+                                            </th>
+                                            <th>
+                                                Close
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Transaction_Invoice.Transaction_InvoiceDetail)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>@Html.DisplayFor(modelItem => item.InvoicePeriod)</span>
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(modelItem => item.BatchAmount, new { htmlAttributes = new { @class = "form-control batchamount text-right" } })
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(modelItem => item.PaidAmount, new { htmlAttributes = new { @class = "form-control paidamount text-right", @disabled = "disabled" } })
+                                                </td>
+                                                <td>
+                                                    @Html.CheckBox("chkClose", (item.PaidAmount == 0), new { @class = "form-control chkClose" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script type="text/javascript">
+    $(document).ready(() => {
+        $('.date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 2000,
+            locale: {
+                format: 'DD MMM YYYY'
+            }
+        });
+        $('.btn-submit').click(() => {
+            var invoiceDetails = [];
+            $($(".chkClose").get().reverse()).each(function () {
+                if (!$(this).is(':checked')) {
+                    invoiceDetails.push({
+                        InvoicePeriod: $(this).find('td>span').text().trim(),
+                        Fee: parseInt($(this).find('td > input[id="item_BatchAmount"]').val().trim()),
+                        PaidAmount: parseInt($(this).find('td > input[id="item_PaidAmount"]').val().trim())
+                    });
+                }
+            });
+            var invoiceModel = {
+                ReceiptNumber: $('#ReceiptNumber').val(),
+                PlayerId: $('#PlayerId').val(),
+                TotalFee: parseFloat($('#TotalFee').val()),
+                TotalOtherAmount: parseFloat($('#TotalOtherAmount').val()),
+                TotalDiscount: parseFloat($('#TotalDiscountAmount').val()),
+                TotalPaidAmount: parseFloat($('#AmountPaid').val()),
+                ExtraPaidAmount: parseFloat($('#CreditAmount').val()),
+                PaymentId: $('select[name="PaymentMode"]').val(),
+                Comments: $('#Description').val(),
+                TransactionNo: $('#PaymentMode').val() != "1" ? $('#TransactionNumber').val() : '',
+                TransactionDate: $('#PaymentMode').val() != "1" ? $('#TransactionDate').val() : null,
+                InvoiceDate: $('#ReceiptDate').val(),
+                ReceivedBy: $('select[name="ReceivedBy"]').val(),
+                InvoiceDetails: invoiceDetails
+            }
+            console.log(window.$temp1 = invoiceModel);
+            console.log(window.$temp2 = invoiceDetails);
+            //saveData(invoiceModel, $('#Player_FirstName').val(), SaveOrUpdate.update);
+        });
+        $('.batchamount').blur(() => {
+            calculateTotalFee();
+            calculate();
+        });
+        $('.chkClose').change(() => {
+            addRemoveButton();
+            calculate();
+        });
+        $('#AmountPaid,#TotalOtherAmount,#TotalDiscountAmount').blur(() => {
+            calculate();
+        });
+        addRemoveButton();
+    });
+
+    const calculateTotalFee = () => {
+        let _totalFee = 0;
+        $('.batchamount').each(function () {
+            if (!$(this).closest('tr').find('.chkClose').is(':checked'))
+                _totalFee += parseFloat($(this).val())
+        });
+        $('#TotalFee').val(_totalFee.toFixed(2));
+        return _totalFee;
+    };
+    const splitAmount = () => {
+        let _paidFee = parseFloat($('#AmountPaid').val()) + parseFloat($('#CreditAmount').val()) - parseFloat($('#TotalOtherAmount').val()) + parseFloat($('#TotalDiscountAmount').val());
+        $($(".chkClose").get().reverse()).each(function () {
+            if (!$(this).is(':checked')) {
+                let _batchFee = parseFloat($(this).closest('tr').find('.batchamount').val());
+                if (_paidFee > _batchFee) {
+                    $(this).closest('tr').find('.paidamount').val(_batchFee.toFixed(2));
+                    _paidFee = parseFloat(_paidFee) - parseFloat(_batchFee);
+                }
+                else {
+                    $(this).closest('tr').find('.paidamount').val(_paidFee.toFixed(2));
+                    _paidFee = parseFloat(0);
+                }
+            }
+            else {
+                $(this).closest('tr').find('.paidamount').val('0.00');
+            }
+        });
+    };
+    const calculate = () => {
+        splitAmount();
+        let _totalFee = calculateTotalFee();
+        let _otherFee = (parseFloat($('#AmountPaid').val()) + parseFloat($('#CreditAmount').val()) - parseFloat($('#TotalOtherAmount').val()) + parseFloat($('#TotalDiscountAmount').val()));
+        $('#Balance').val((_otherFee - _totalFee).toFixed(2)).css("background-color", (parseFloat($('#Balance').val()) < 0) ? "#D46A6A" : "#5FAE57");
+
+    };
+    const removeRow = (e) => {
+        var _count = $('.chkClose:input:not(:checked)').length;
+        if (_count != undefined && _count > 0) {
+            $($(".chkClose").get().reverse()).each(function () {
+
+            });
+        }
+        $(e).closest('tr').remove();
+        addRemoveButton();
+        calculate();
+    };
+    const addRemoveButton = () => {
+        var $row = $('.table tbody').find('tr:first');
+        $row.find('.chkClose').removeAttr('checked').attr('disabled','disabled');
+        if (!$row.find('i').hasClass("removeRow"))
+            $row.append('<td><i class="fa fa-times fa-2x removeRow" onclick="removeRow(this)" ></i></td>')
+
+    };
+</script>

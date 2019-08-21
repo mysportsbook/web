@@ -21,15 +21,15 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // GET: Studio/Home
         public ActionResult Index()
         {
-            var _Events = dbContext.Studio_Event.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x.PK_EventId).ToListAsync().Result;
+            var _Events = dbContext.StudioEvents.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x.PK_EventId).ToListAsync().Result;
             var _Expenses = dbContext.Studio_ExpenseDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
-            var _Income = dbContext.Studio_IncomeDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
+            //var _Income = dbContext.StudioIncomeDetail.Where(x => x.CreatedDate.Month == DateTime.Now.Month && x.CreatedDate.Year == DateTime.Now.Year).Select(x => x).ToListAsync().Result;
 
             Studio_Home_Index _details = new Studio_Home_Index()
             {
                 CurrentMonthEvents = _Events.Count().ToString(),
                 CurrentMonthExpenses = _Expenses.Sum(x => x.Amount).ToString(),
-                CurrentMonthIncome = _Income.Sum(x => x.Amount).ToString()
+                //CurrentMonthIncome = _Income.Sum(x => x.Amount).ToString()
             };
             //var studio_Event = dbContext.Studio_Event.Include(s => s.Configuration_User).Include(s => s.Configuration_Status);
             return View(_details);

@@ -66,6 +66,9 @@
                                     <th>
                                         @Html.DisplayName("AmountPaid")
                                     </th>
+                                    <th>
+                                        @Html.DisplayName("ReceivedBy")
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +95,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.AmountPaid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReceivedBy)
                                         </td>
                                     </tr>
                                 }
@@ -124,8 +130,4 @@
     </div>
 </main>
 @Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
-<script type="text/javascript">
-    $(function () {
-        $('.table').DataTable();
-    });
-</script>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

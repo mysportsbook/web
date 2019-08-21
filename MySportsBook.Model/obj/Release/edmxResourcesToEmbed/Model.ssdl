@@ -60,14 +60,6 @@
     <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="StatusCode" Type="varchar" MaxLength="10" />
   </EntityType>
-  <EntityType Name="Configuration_StudioUser">
-    <Key>
-      <PropertyRef Name="PK_StudioUserId" />
-    </Key>
-    <Property Name="PK_StudioUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Configuration_User">
     <Key>
       <PropertyRef Name="PK_UserId" />
@@ -76,7 +68,7 @@
     <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" />
     <Property Name="LastName" Type="varchar" MaxLength="50" />
-    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
     <Property Name="Mobile" Type="varchar" MaxLength="50" />
     <Property Name="PasswordHash" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="PasswordSalt" Type="varchar" MaxLength="500" Nullable="false" />
@@ -93,6 +85,19 @@
     <Property Name="PK_PaymentModeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PaymentMode" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="PaymentModeCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="IncomeDetail">
+    <Key>
+      <PropertyRef Name="IncomeDetailId" />
+    </Key>
+    <Property Name="IncomeDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReceivedDate" Type="date" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ReceivedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Master_Batch">
     <Key>
@@ -240,6 +245,14 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="Master_SMS_Config">
+    <Key>
+      <PropertyRef Name="PK_SMSId" />
+    </Key>
+    <Property Name="PK_SMSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_VenueId" Type="int" Nullable="false" />
+    <Property Name="SMSCode" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="Master_Sport">
     <Key>
       <PropertyRef Name="PK_SportId" />
@@ -283,6 +296,8 @@
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="DailyCollectionEmail" Type="bit" Nullable="false" />
+    <Property Name="DailyCollectionSMS" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Master_Venue">
     <Key>
@@ -354,7 +369,68 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
-  <EntityType Name="Studio_Event">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.Scheduler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Scheduler">
+    <Key>
+      <PropertyRef Name="SchedulerID" />
+      <PropertyRef Name="SchedulerName" />
+      <PropertyRef Name="LastRun" />
+      <PropertyRef Name="SchedulerProc" />
+      <PropertyRef Name="IsNotificationSent" />
+    </Key>
+    <Property Name="SchedulerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchedulerName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastRun" Type="datetime" Nullable="false" />
+    <Property Name="SchedulerProc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsNotificationSent" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SMSTransactionRequest">
+    <Key>
+      <PropertyRef Name="SMSTransactionID" />
+    </Key>
+    <Property Name="SMSTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderID" Type="varchar" MaxLength="6" />
+    <Property Name="PaymentBy" Type="varchar" MaxLength="100" />
+    <Property Name="PaymentMonth" Type="varchar" MaxLength="75" />
+    <Property Name="PaymentFor" Type="varchar" MaxLength="100" />
+    <Property Name="PaymentAmount" Type="varchar" MaxLength="50" />
+    <Property Name="MessageBody" Type="varchar" MaxLength="320" />
+    <Property Name="ReceipentNumber" Type="varchar" MaxLength="200" />
+    <Property Name="ReceiptNumber" Type="varchar" MaxLength="75" />
+    <Property Name="IsSent" Type="bit" />
+    <Property Name="ResponseString" Type="varchar" MaxLength="100" />
+    <Property Name="VenueName" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="Sport" Type="varchar" MaxLength="50" />
+    <Property Name="Batch" Type="varchar" MaxLength="50" />
+    <Property Name="SportID" Type="int" />
+    <Property Name="PlayerID" Type="int" />
+    <Property Name="BatchID" Type="int" />
+    <Property Name="VenueID" Type="int" />
+    <Property Name="Receiver" Type="varchar" MaxLength="50" />
+    <Property Name="ReceivedBy" Type="int" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="InvoiceDetailID" Type="int" />
+    <Property Name="PaymentModeID" Type="int" />
+    <Property Name="PaymentMode" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Studio_ExpenseDetail">
+    <Key>
+      <PropertyRef Name="PK_ExpenseDetailId" />
+    </Key>
+    <Property Name="PK_ExpenseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpentBy" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="SpentDate" Type="date" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="FK_StatusId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudioEvent">
     <Key>
       <PropertyRef Name="PK_EventId" />
     </Key>
@@ -373,44 +449,6 @@
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="LastEventStatusChangedBy" Type="int" />
-  </EntityType>
-  <EntityType Name="Studio_ExpenseDetail">
-    <Key>
-      <PropertyRef Name="PK_ExpenseDetailId" />
-    </Key>
-    <Property Name="PK_ExpenseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FK_EventId" Type="int" Nullable="false" />
-    <Property Name="FK_ExpenseTypeId" Type="int" Nullable="false" />
-    <Property Name="FK_SpentBy" Type="int" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="SpentDate" Type="date" Nullable="false" />
-    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" Nullable="false" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Studio_ExpenseType">
-    <Key>
-      <PropertyRef Name="PK_ExpenseTypeId" />
-    </Key>
-    <Property Name="PK_ExpenseTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ExpenseType" Type="nvarchar" MaxLength="50" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Studio_IncomeDetail">
-    <Key>
-      <PropertyRef Name="PK_IncomeDetailId" />
-    </Key>
-    <Property Name="PK_IncomeDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ReceivedDate" Type="date" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="FK_ReceivedBy" Type="int" />
-    <Property Name="CreatedBy" Type="int" Nullable="false" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-    <Property Name="FK_StatusId" Type="int" Nullable="false" />
-    <Property Name="FK_EventId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Transaction_Attendance">
     <Key>
@@ -516,7 +554,8 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="TransactionDate" Type="datetime" />
-    <Property Name="ReceivedBy" Type="int" />
+    <Property Name="ReceivedBy" Type="int" Nullable="false" />
+    <Property Name="CreditAmount" Type="decimal" Precision="5" Scale="2" />
   </EntityType>
   <EntityType Name="Transaction_Voucher">
     <Key>
@@ -536,6 +575,219 @@
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.V_INVOICEandRECEIPT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_INVOICEandRECEIPT">
+    <Key>
+      <PropertyRef Name="Receipt_ReceiptId" />
+      <PropertyRef Name="Receipt_ReceiptNumber" />
+      <PropertyRef Name="Receipt_ReceiptDate" />
+      <PropertyRef Name="Receipt_VenueId" />
+      <PropertyRef Name="Receipt_InvoiceId" />
+      <PropertyRef Name="Receipt_TotalFee" />
+      <PropertyRef Name="Receipt_AmountPaid" />
+      <PropertyRef Name="Receipt_PaymentModeId" />
+      <PropertyRef Name="Receipt_StatusId" />
+      <PropertyRef Name="Receipt_ReceivedBy" />
+      <PropertyRef Name="Invoice_InvoiceId" />
+      <PropertyRef Name="Invoice_InvoiceNumber" />
+      <PropertyRef Name="Invoice_VenueId" />
+      <PropertyRef Name="Invoice_PlayerId" />
+      <PropertyRef Name="Invoice_InvoiceDate" />
+      <PropertyRef Name="Invoice_DueDate" />
+      <PropertyRef Name="Invoice_TotalFee" />
+      <PropertyRef Name="InvoiceDetail_InvoiceDetailId" />
+      <PropertyRef Name="InvoiceDetail_InvoiceId" />
+      <PropertyRef Name="InvoiceDetail_BatchId" />
+      <PropertyRef Name="InvoiceDetail_InvoicePeriod" />
+      <PropertyRef Name="InvoiceDetail_BatchAmount" />
+      <PropertyRef Name="InvoiceDetail_PaidAmount" />
+    </Key>
+    <Property Name="Receipt_ReceiptId" Type="int" Nullable="false" />
+    <Property Name="Receipt_ReceiptNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Receipt_ReceiptDate" Type="datetime" Nullable="false" />
+    <Property Name="Receipt_VenueId" Type="int" Nullable="false" />
+    <Property Name="Receipt_InvoiceId" Type="int" Nullable="false" />
+    <Property Name="Receipt_TotalFee" Type="money" Nullable="false" />
+    <Property Name="Receipt_TotalOtherAmount" Type="money" />
+    <Property Name="Receipt_TotalDiscountAmount" Type="money" />
+    <Property Name="Receipt_AmountPaid" Type="money" Nullable="false" />
+    <Property Name="Receipt_Description" Type="varchar" MaxLength="100" />
+    <Property Name="Receipt_PaymentModeId" Type="int" Nullable="false" />
+    <Property Name="Receipt_TransactionNumber" Type="varchar" MaxLength="500" />
+    <Property Name="Receipt_StatusId" Type="int" Nullable="false" />
+    <Property Name="Receipt_TransactionDate" Type="datetime" />
+    <Property Name="Receipt_ReceivedBy" Type="int" Nullable="false" />
+    <Property Name="Invoice_InvoiceId" Type="int" Nullable="false" />
+    <Property Name="Invoice_InvoiceNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Invoice_VenueId" Type="int" Nullable="false" />
+    <Property Name="Invoice_PlayerId" Type="int" Nullable="false" />
+    <Property Name="Invoice_InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="Invoice_DueDate" Type="datetime" Nullable="false" />
+    <Property Name="Invoice_TotalFee" Type="money" Nullable="false" />
+    <Property Name="Invoice_TotalDiscount" Type="money" />
+    <Property Name="Invoice_OtherAmount" Type="money" />
+    <Property Name="Invoice_PaidAmount" Type="money" />
+    <Property Name="Invoice_Comments" Type="varchar" MaxLength="100" />
+    <Property Name="InvoiceDetail_InvoiceDetailId" Type="int" Nullable="false" />
+    <Property Name="InvoiceDetail_InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InvoiceDetail_BatchId" Type="int" Nullable="false" />
+    <Property Name="InvoiceDetail_InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDetail_BatchAmount" Type="money" Nullable="false" />
+    <Property Name="InvoiceDetail_Comments" Type="varchar" MaxLength="100" />
+    <Property Name="InvoiceDetail_PaidAmount" Type="money" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.V_InvoiceDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_InvoiceDetails">
+    <Key>
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="VenueId" />
+      <PropertyRef Name="PlayerId" />
+      <PropertyRef Name="BatchId" />
+      <PropertyRef Name="BatchAmount" />
+      <PropertyRef Name="InvoicePeriod" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="DueDate" />
+      <PropertyRef Name="TotalFee" />
+      <PropertyRef Name="DetailsPaidAmount" />
+      <PropertyRef Name="ReceiptPaidAmount" />
+    </Key>
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VenueId" Type="int" Nullable="false" />
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="BatchId" Type="int" Nullable="false" />
+    <Property Name="BatchAmount" Type="money" Nullable="false" />
+    <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="ReceivedBy" Type="varchar" MaxLength="50" />
+    <Property Name="DueDate" Type="datetime" Nullable="false" />
+    <Property Name="TotalFee" Type="money" Nullable="false" />
+    <Property Name="TotalDiscount" Type="money" />
+    <Property Name="OtherAmount" Type="money" />
+    <Property Name="InvoicePaidAmount" Type="money" />
+    <Property Name="DetailsPaidAmount" Type="money" Nullable="false" />
+    <Property Name="ReceiptPaidAmount" Type="money" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.V_invoiceWithoutReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_invoiceWithoutReceipt">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="VenueId" />
+      <PropertyRef Name="PlayerId" />
+      <PropertyRef Name="BatchId" />
+      <PropertyRef Name="BatchAmount" />
+      <PropertyRef Name="InvoicePeriod" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="DueDate" />
+      <PropertyRef Name="TotalFee" />
+      <PropertyRef Name="DetailsPaidAmount" />
+      <PropertyRef Name="InvoiceDetailId" />
+    </Key>
+    <Property Name="InvoiceID" Type="int" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VenueId" Type="int" Nullable="false" />
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="BatchId" Type="int" Nullable="false" />
+    <Property Name="BatchAmount" Type="money" Nullable="false" />
+    <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" Nullable="false" />
+    <Property Name="TotalFee" Type="money" Nullable="false" />
+    <Property Name="TotalDiscount" Type="money" />
+    <Property Name="OtherAmount" Type="money" />
+    <Property Name="InvoicePaidAmount" Type="money" />
+    <Property Name="DetailsPaidAmount" Type="money" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" />
+    <Property Name="InvoiceDetailId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_PlayerDetails">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+      <PropertyRef Name="PlayerName" />
+      <PropertyRef Name="PlayerNameLastName" />
+      <PropertyRef Name="Mobile" />
+      <PropertyRef Name="VenueId" />
+      <PropertyRef Name="SportID" />
+      <PropertyRef Name="SportName" />
+      <PropertyRef Name="BatchID" />
+      <PropertyRef Name="BatchName" />
+      <PropertyRef Name="BatchCode" />
+      <PropertyRef Name="BatchType" />
+      <PropertyRef Name="PlayerSportId" />
+      <PropertyRef Name="PlayerFee" />
+    </Key>
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="PlayerName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PlayerNameLastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VenueId" Type="int" Nullable="false" />
+    <Property Name="SportID" Type="int" Nullable="false" />
+    <Property Name="SportName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BatchID" Type="int" Nullable="false" />
+    <Property Name="BatchName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BatchCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="BatchType" Type="int" Nullable="false" />
+    <Property Name="CreditBalance" Type="money" />
+    <Property Name="PlayerSportId" Type="int" Nullable="false" />
+    <Property Name="LastGeneratedMonth" Type="varchar" MaxLength="10" />
+    <Property Name="PlayerFee" Type="money" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_PlayerSport">
+    <Key>
+      <PropertyRef Name="Player_PlayerId" />
+      <PropertyRef Name="Player_VenueId" />
+      <PropertyRef Name="Player_PlayerTypeId" />
+      <PropertyRef Name="Player_FirstName" />
+      <PropertyRef Name="Player_Mobile" />
+      <PropertyRef Name="Player_PlayerStatusId" />
+      <PropertyRef Name="Player_Fee" />
+      <PropertyRef Name="Batch_BatchId" />
+      <PropertyRef Name="Batch_VenueId" />
+      <PropertyRef Name="Batch_BatchName" />
+      <PropertyRef Name="Batch_BatchCode" />
+      <PropertyRef Name="Batch_BatchCourtID" />
+      <PropertyRef Name="Batch_Fee" />
+      <PropertyRef Name="Sport_SportId" />
+      <PropertyRef Name="Sport_SportName" />
+      <PropertyRef Name="Sport_SportCode" />
+      <PropertyRef Name="Sport_VenueId" />
+      <PropertyRef Name="Sport_Fee" />
+      <PropertyRef Name="Court_CourtCode" />
+      <PropertyRef Name="Court_CourtName" />
+    </Key>
+    <Property Name="Player_PlayerId" Type="int" Nullable="false" />
+    <Property Name="Player_VenueId" Type="int" Nullable="false" />
+    <Property Name="Player_PlayerTypeId" Type="int" Nullable="false" />
+    <Property Name="Player_FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Player_LastName" Type="varchar" MaxLength="100" />
+    <Property Name="Player_PlayerAddress" Type="varchar" MaxLength="100" />
+    <Property Name="Player_Email" Type="varchar" MaxLength="100" />
+    <Property Name="Player_Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Player_PlayerStatusId" Type="int" Nullable="false" />
+    <Property Name="Player_PlayerCreditBalance" Type="money" />
+    <Property Name="Player_Fee" Type="money" Nullable="false" />
+    <Property Name="Batch_BatchId" Type="int" Nullable="false" />
+    <Property Name="Batch_VenueId" Type="int" Nullable="false" />
+    <Property Name="Batch_BatchName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Batch_BatchCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Batch_BatchCourtID" Type="int" Nullable="false" />
+    <Property Name="Batch_Fee" Type="money" Nullable="false" />
+    <Property Name="Sport_SportId" Type="int" Nullable="false" />
+    <Property Name="Sport_SportName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Sport_SportCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Sport_VenueId" Type="int" Nullable="false" />
+    <Property Name="Sport_Fee" Type="money" Nullable="false" />
+    <Property Name="Court_CourtCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Court_CourtName" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <Association Name="FK_BatchCount_Master_Batch">
     <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
@@ -570,18 +822,6 @@
       </Principal>
       <Dependent Role="BatchCount">
         <PropertyRef Name="FK_VenueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Configuration_StudioUser_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Configuration_StudioUser">
-        <PropertyRef Name="FK_StatusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -633,26 +873,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ExpenseDetail_StudioEvent">
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_Event">
-        <PropertyRef Name="PK_EventId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_EventId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_IncomeDetail_Configuration_Status">
     <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
+    <End Role="IncomeDetail" Type="Self.IncomeDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Configuration_Status">
         <PropertyRef Name="PK_StatusId" />
       </Principal>
-      <Dependent Role="Studio_IncomeDetail">
+      <Dependent Role="IncomeDetail">
         <PropertyRef Name="FK_StatusId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1197,6 +1425,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Master_SMS_Config_Master_Venue">
+    <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+    <End Role="Master_SMS_Config" Type="Self.Master_SMS_Config" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Venue">
+        <PropertyRef Name="PK_VenueId" />
+      </Principal>
+      <Dependent Role="Master_SMS_Config">
+        <PropertyRef Name="FK_VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Master_Sport_Configuration_Status">
     <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
     <End Role="Master_Sport" Type="Self.Master_Sport" Multiplicity="*" />
@@ -1521,86 +1761,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Studio_Event_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_Event">
-        <PropertyRef Name="FK_StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_ExpenseDetail_Configuration_StudioUser">
-    <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="1" />
+  <Association Name="FK_Studio_ExpenseDetail_Configuration_User">
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
     <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Configuration_StudioUser">
-        <PropertyRef Name="PK_StudioUserId" />
+      <Principal Role="Configuration_User">
+        <PropertyRef Name="PK_UserId" />
       </Principal>
       <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_SpentBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_ExpenseDetail_Studio_ExpenseType">
-    <End Role="Studio_ExpenseType" Type="Self.Studio_ExpenseType" Multiplicity="1" />
-    <End Role="Studio_ExpenseDetail" Type="Self.Studio_ExpenseDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_ExpenseType">
-        <PropertyRef Name="PK_ExpenseTypeId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseDetail">
-        <PropertyRef Name="FK_ExpenseTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_ExpenseType_Configuration_Status">
-    <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
-    <End Role="Studio_ExpenseType" Type="Self.Studio_ExpenseType" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_Status">
-        <PropertyRef Name="PK_StatusId" />
-      </Principal>
-      <Dependent Role="Studio_ExpenseType">
-        <PropertyRef Name="FK_StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_IncomeDetail_Configuration_StudioUser">
-    <End Role="Configuration_StudioUser" Type="Self.Configuration_StudioUser" Multiplicity="0..1" />
-    <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Configuration_StudioUser">
-        <PropertyRef Name="PK_StudioUserId" />
-      </Principal>
-      <Dependent Role="Studio_IncomeDetail">
-        <PropertyRef Name="FK_ReceivedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Studio_IncomeDetail_Studio_Event">
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="1" />
-    <End Role="Studio_IncomeDetail" Type="Self.Studio_IncomeDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Studio_Event">
-        <PropertyRef Name="PK_EventId" />
-      </Principal>
-      <Dependent Role="Studio_IncomeDetail">
-        <PropertyRef Name="FK_EventId" />
+        <PropertyRef Name="SpentBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_StudioEvent_Configuration_Status">
     <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
-    <End Role="Studio_Event" Type="Self.Studio_Event" Multiplicity="*" />
+    <End Role="StudioEvent" Type="Self.StudioEvent" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Configuration_User">
         <PropertyRef Name="PK_UserId" />
       </Principal>
-      <Dependent Role="Studio_Event">
+      <Dependent Role="StudioEvent">
         <PropertyRef Name="CreatedBy" />
       </Dependent>
     </ReferentialConstraint>
@@ -1930,7 +2110,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Transaction_Receipt_Configuration_User2">
-    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+    <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
     <End Role="Transaction_Receipt" Type="Self.Transaction_Receipt" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Configuration_User">
@@ -2013,10 +2193,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_GetLastInvoicePaidMonthByPlayerIdAndBatchID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+    <Parameter Name="PlayerID" Type="int" Mode="In" />
+    <Parameter Name="BatchID" Type="int" Mode="In" />
+  </Function>
   <Function Name="GenerateRunningNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="VenueId" Type="int" Mode="In" />
     <Parameter Name="ScreenId" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetAllUserWithVenues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="rp_COLLECTIONDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="VENUEID" Type="int" Mode="In" />
     <Parameter Name="MONTH" Type="date" Mode="In" />
@@ -2025,6 +2210,7 @@
   <Function Name="rp_COMMONPROCEDURE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="STOREPROC" Type="varchar" Mode="In" />
     <Parameter Name="PARAMETERS" Type="varchar(max)" Mode="In" />
+    <Parameter Name="VenueID" Type="int" Mode="In" />
   </Function>
   <Function Name="Split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="InputString" Type="varchar" Mode="In" />
@@ -2040,6 +2226,9 @@
   <Function Name="Transaction_SaveInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="XML" Type="xml" Mode="In" />
   </Function>
+  <Function Name="UpdateSchedulerBySchedulerName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SchedulerName" Type="varchar" Mode="In" />
+  </Function>
   <EntityContainer Name="MySportsBookModelStoreContainer">
     <EntitySet Name="BatchCount" EntityType="Self.BatchCount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_BatchType" EntityType="Self.Configuration_BatchType" Schema="dbo" store:Type="Tables" />
@@ -2048,9 +2237,9 @@
     <EntitySet Name="Configuration_PlayerType" EntityType="Self.Configuration_PlayerType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Screen" EntityType="Self.Configuration_Screen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_Status" EntityType="Self.Configuration_Status" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Configuration_StudioUser" EntityType="Self.Configuration_StudioUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncomeDetail" EntityType="Self.IncomeDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Batch" EntityType="Self.Master_Batch" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_BatchTiming" EntityType="Self.Master_BatchTiming" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_CoachingLevel" EntityType="Self.Master_CoachingLevel" Schema="dbo" store:Type="Tables" />
@@ -2060,6 +2249,7 @@
     <EntitySet Name="Master_Role" EntityType="Self.Master_Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_ScreenNumberFormat" EntityType="Self.Master_ScreenNumberFormat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_SMS_Config" EntityType="Self.Master_SMS_Config" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_Sport" EntityType="Self.Master_Sport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_UserRole" EntityType="Self.Master_UserRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master_UserVenue" EntityType="Self.Master_UserVenue" Schema="dbo" store:Type="Tables" />
@@ -2067,10 +2257,8 @@
     <EntitySet Name="Master_VenueScreen" EntityType="Self.Master_VenueScreen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OtherBooking" EntityType="Self.OtherBooking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OtherBookingDetail" EntityType="Self.OtherBookingDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_Event" EntityType="Self.Studio_Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Studio_ExpenseDetail" EntityType="Self.Studio_ExpenseDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_ExpenseType" EntityType="Self.Studio_ExpenseType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Studio_IncomeDetail" EntityType="Self.Studio_IncomeDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudioEvent" EntityType="Self.StudioEvent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Attendance" EntityType="Self.Transaction_Attendance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Enquiry_Comments" EntityType="Self.Transaction_Enquiry_Comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Invoice" EntityType="Self.Transaction_Invoice" Schema="dbo" store:Type="Tables" />
@@ -2078,6 +2266,168 @@
     <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Receipt" EntityType="Self.Transaction_Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Voucher" EntityType="Self.Transaction_Voucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Scheduler" EntityType="Self.Scheduler" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Scheduler].[SchedulerID] AS [SchedulerID], 
+    [Scheduler].[SchedulerName] AS [SchedulerName], 
+    [Scheduler].[LastRun] AS [LastRun], 
+    [Scheduler].[SchedulerProc] AS [SchedulerProc], 
+    [Scheduler].[IsNotificationSent] AS [IsNotificationSent]
+    FROM [dbo].[Scheduler] AS [Scheduler]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SMSTransactionRequest" EntityType="Self.SMSTransactionRequest" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SMSTransactionRequest].[SMSTransactionID] AS [SMSTransactionID], 
+    [SMSTransactionRequest].[SenderID] AS [SenderID], 
+    [SMSTransactionRequest].[PaymentBy] AS [PaymentBy], 
+    [SMSTransactionRequest].[PaymentMonth] AS [PaymentMonth], 
+    [SMSTransactionRequest].[PaymentFor] AS [PaymentFor], 
+    [SMSTransactionRequest].[PaymentAmount] AS [PaymentAmount], 
+    [SMSTransactionRequest].[MessageBody] AS [MessageBody], 
+    [SMSTransactionRequest].[ReceipentNumber] AS [ReceipentNumber], 
+    [SMSTransactionRequest].[ReceiptNumber] AS [ReceiptNumber], 
+    [SMSTransactionRequest].[IsSent] AS [IsSent], 
+    [SMSTransactionRequest].[ResponseString] AS [ResponseString], 
+    [SMSTransactionRequest].[VenueName] AS [VenueName], 
+    [SMSTransactionRequest].[CreatedOn] AS [CreatedOn], 
+    [SMSTransactionRequest].[Sport] AS [Sport], 
+    [SMSTransactionRequest].[Batch] AS [Batch], 
+    [SMSTransactionRequest].[SportID] AS [SportID], 
+    [SMSTransactionRequest].[PlayerID] AS [PlayerID], 
+    [SMSTransactionRequest].[BatchID] AS [BatchID], 
+    [SMSTransactionRequest].[VenueID] AS [VenueID], 
+    [SMSTransactionRequest].[Receiver] AS [Receiver], 
+    [SMSTransactionRequest].[ReceivedBy] AS [ReceivedBy], 
+    [SMSTransactionRequest].[InvoiceID] AS [InvoiceID], 
+    [SMSTransactionRequest].[InvoiceDetailID] AS [InvoiceDetailID], 
+    [SMSTransactionRequest].[PaymentModeID] AS [PaymentModeID], 
+    [SMSTransactionRequest].[PaymentMode] AS [PaymentMode]
+    FROM [dbo].[SMSTransactionRequest] AS [SMSTransactionRequest]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_INVOICEandRECEIPT" EntityType="Self.V_INVOICEandRECEIPT" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_INVOICEandRECEIPT].[Receipt_ReceiptId] AS [Receipt_ReceiptId], 
+    [V_INVOICEandRECEIPT].[Receipt_ReceiptNumber] AS [Receipt_ReceiptNumber], 
+    [V_INVOICEandRECEIPT].[Receipt_ReceiptDate] AS [Receipt_ReceiptDate], 
+    [V_INVOICEandRECEIPT].[Receipt_VenueId] AS [Receipt_VenueId], 
+    [V_INVOICEandRECEIPT].[Receipt_InvoiceId] AS [Receipt_InvoiceId], 
+    [V_INVOICEandRECEIPT].[Receipt_TotalFee] AS [Receipt_TotalFee], 
+    [V_INVOICEandRECEIPT].[Receipt_TotalOtherAmount] AS [Receipt_TotalOtherAmount], 
+    [V_INVOICEandRECEIPT].[Receipt_TotalDiscountAmount] AS [Receipt_TotalDiscountAmount], 
+    [V_INVOICEandRECEIPT].[Receipt_AmountPaid] AS [Receipt_AmountPaid], 
+    [V_INVOICEandRECEIPT].[Receipt_Description] AS [Receipt_Description], 
+    [V_INVOICEandRECEIPT].[Receipt_PaymentModeId] AS [Receipt_PaymentModeId], 
+    [V_INVOICEandRECEIPT].[Receipt_TransactionNumber] AS [Receipt_TransactionNumber], 
+    [V_INVOICEandRECEIPT].[Receipt_StatusId] AS [Receipt_StatusId], 
+    [V_INVOICEandRECEIPT].[Receipt_TransactionDate] AS [Receipt_TransactionDate], 
+    [V_INVOICEandRECEIPT].[Receipt_ReceivedBy] AS [Receipt_ReceivedBy], 
+    [V_INVOICEandRECEIPT].[Invoice_InvoiceId] AS [Invoice_InvoiceId], 
+    [V_INVOICEandRECEIPT].[Invoice_InvoiceNumber] AS [Invoice_InvoiceNumber], 
+    [V_INVOICEandRECEIPT].[Invoice_VenueId] AS [Invoice_VenueId], 
+    [V_INVOICEandRECEIPT].[Invoice_PlayerId] AS [Invoice_PlayerId], 
+    [V_INVOICEandRECEIPT].[Invoice_InvoiceDate] AS [Invoice_InvoiceDate], 
+    [V_INVOICEandRECEIPT].[Invoice_DueDate] AS [Invoice_DueDate], 
+    [V_INVOICEandRECEIPT].[Invoice_TotalFee] AS [Invoice_TotalFee], 
+    [V_INVOICEandRECEIPT].[Invoice_TotalDiscount] AS [Invoice_TotalDiscount], 
+    [V_INVOICEandRECEIPT].[Invoice_OtherAmount] AS [Invoice_OtherAmount], 
+    [V_INVOICEandRECEIPT].[Invoice_PaidAmount] AS [Invoice_PaidAmount], 
+    [V_INVOICEandRECEIPT].[Invoice_Comments] AS [Invoice_Comments], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_InvoiceDetailId] AS [InvoiceDetail_InvoiceDetailId], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_InvoiceId] AS [InvoiceDetail_InvoiceId], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_BatchId] AS [InvoiceDetail_BatchId], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_InvoicePeriod] AS [InvoiceDetail_InvoicePeriod], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_BatchAmount] AS [InvoiceDetail_BatchAmount], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_Comments] AS [InvoiceDetail_Comments], 
+    [V_INVOICEandRECEIPT].[InvoiceDetail_PaidAmount] AS [InvoiceDetail_PaidAmount]
+    FROM [dbo].[V_INVOICEandRECEIPT] AS [V_INVOICEandRECEIPT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_InvoiceDetails" EntityType="Self.V_InvoiceDetails" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_InvoiceDetails].[InvoiceNumber] AS [InvoiceNumber], 
+    [V_InvoiceDetails].[VenueId] AS [VenueId], 
+    [V_InvoiceDetails].[PlayerId] AS [PlayerId], 
+    [V_InvoiceDetails].[BatchId] AS [BatchId], 
+    [V_InvoiceDetails].[BatchAmount] AS [BatchAmount], 
+    [V_InvoiceDetails].[InvoicePeriod] AS [InvoicePeriod], 
+    [V_InvoiceDetails].[InvoiceDate] AS [InvoiceDate], 
+    [V_InvoiceDetails].[ReceivedBy] AS [ReceivedBy], 
+    [V_InvoiceDetails].[DueDate] AS [DueDate], 
+    [V_InvoiceDetails].[TotalFee] AS [TotalFee], 
+    [V_InvoiceDetails].[TotalDiscount] AS [TotalDiscount], 
+    [V_InvoiceDetails].[OtherAmount] AS [OtherAmount], 
+    [V_InvoiceDetails].[InvoicePaidAmount] AS [InvoicePaidAmount], 
+    [V_InvoiceDetails].[DetailsPaidAmount] AS [DetailsPaidAmount], 
+    [V_InvoiceDetails].[ReceiptPaidAmount] AS [ReceiptPaidAmount], 
+    [V_InvoiceDetails].[Comments] AS [Comments]
+    FROM [dbo].[V_InvoiceDetails] AS [V_InvoiceDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_invoiceWithoutReceipt" EntityType="Self.V_invoiceWithoutReceipt" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_invoiceWithoutReceipt].[InvoiceID] AS [InvoiceID], 
+    [V_invoiceWithoutReceipt].[InvoiceNumber] AS [InvoiceNumber], 
+    [V_invoiceWithoutReceipt].[VenueId] AS [VenueId], 
+    [V_invoiceWithoutReceipt].[PlayerId] AS [PlayerId], 
+    [V_invoiceWithoutReceipt].[BatchId] AS [BatchId], 
+    [V_invoiceWithoutReceipt].[BatchAmount] AS [BatchAmount], 
+    [V_invoiceWithoutReceipt].[InvoicePeriod] AS [InvoicePeriod], 
+    [V_invoiceWithoutReceipt].[InvoiceDate] AS [InvoiceDate], 
+    [V_invoiceWithoutReceipt].[DueDate] AS [DueDate], 
+    [V_invoiceWithoutReceipt].[TotalFee] AS [TotalFee], 
+    [V_invoiceWithoutReceipt].[TotalDiscount] AS [TotalDiscount], 
+    [V_invoiceWithoutReceipt].[OtherAmount] AS [OtherAmount], 
+    [V_invoiceWithoutReceipt].[InvoicePaidAmount] AS [InvoicePaidAmount], 
+    [V_invoiceWithoutReceipt].[DetailsPaidAmount] AS [DetailsPaidAmount], 
+    [V_invoiceWithoutReceipt].[Comments] AS [Comments], 
+    [V_invoiceWithoutReceipt].[InvoiceDetailId] AS [InvoiceDetailId]
+    FROM [dbo].[V_invoiceWithoutReceipt] AS [V_invoiceWithoutReceipt]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_PlayerDetails" EntityType="Self.V_PlayerDetails" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_PlayerDetails].[PlayerId] AS [PlayerId], 
+    [V_PlayerDetails].[PlayerName] AS [PlayerName], 
+    [V_PlayerDetails].[PlayerNameLastName] AS [PlayerNameLastName], 
+    [V_PlayerDetails].[Mobile] AS [Mobile], 
+    [V_PlayerDetails].[VenueId] AS [VenueId], 
+    [V_PlayerDetails].[SportID] AS [SportID], 
+    [V_PlayerDetails].[SportName] AS [SportName], 
+    [V_PlayerDetails].[BatchID] AS [BatchID], 
+    [V_PlayerDetails].[BatchName] AS [BatchName], 
+    [V_PlayerDetails].[BatchCode] AS [BatchCode], 
+    [V_PlayerDetails].[BatchType] AS [BatchType], 
+    [V_PlayerDetails].[CreditBalance] AS [CreditBalance], 
+    [V_PlayerDetails].[PlayerSportId] AS [PlayerSportId], 
+    [V_PlayerDetails].[LastGeneratedMonth] AS [LastGeneratedMonth], 
+    [V_PlayerDetails].[PlayerFee] AS [PlayerFee]
+    FROM [dbo].[V_PlayerDetails] AS [V_PlayerDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_PlayerSport" EntityType="Self.V_PlayerSport" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_PlayerSport].[Player_PlayerId] AS [Player_PlayerId], 
+    [V_PlayerSport].[Player_VenueId] AS [Player_VenueId], 
+    [V_PlayerSport].[Player_PlayerTypeId] AS [Player_PlayerTypeId], 
+    [V_PlayerSport].[Player_FirstName] AS [Player_FirstName], 
+    [V_PlayerSport].[Player_LastName] AS [Player_LastName], 
+    [V_PlayerSport].[Player_PlayerAddress] AS [Player_PlayerAddress], 
+    [V_PlayerSport].[Player_Email] AS [Player_Email], 
+    [V_PlayerSport].[Player_Mobile] AS [Player_Mobile], 
+    [V_PlayerSport].[Player_PlayerStatusId] AS [Player_PlayerStatusId], 
+    [V_PlayerSport].[Player_PlayerCreditBalance] AS [Player_PlayerCreditBalance], 
+    [V_PlayerSport].[Player_Fee] AS [Player_Fee], 
+    [V_PlayerSport].[Batch_BatchId] AS [Batch_BatchId], 
+    [V_PlayerSport].[Batch_VenueId] AS [Batch_VenueId], 
+    [V_PlayerSport].[Batch_BatchName] AS [Batch_BatchName], 
+    [V_PlayerSport].[Batch_BatchCode] AS [Batch_BatchCode], 
+    [V_PlayerSport].[Batch_BatchCourtID] AS [Batch_BatchCourtID], 
+    [V_PlayerSport].[Batch_Fee] AS [Batch_Fee], 
+    [V_PlayerSport].[Sport_SportId] AS [Sport_SportId], 
+    [V_PlayerSport].[Sport_SportName] AS [Sport_SportName], 
+    [V_PlayerSport].[Sport_SportCode] AS [Sport_SportCode], 
+    [V_PlayerSport].[Sport_VenueId] AS [Sport_VenueId], 
+    [V_PlayerSport].[Sport_Fee] AS [Sport_Fee], 
+    [V_PlayerSport].[Court_CourtCode] AS [Court_CourtCode], 
+    [V_PlayerSport].[Court_CourtName] AS [Court_CourtName]
+    FROM [dbo].[V_PlayerSport] AS [V_PlayerSport]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_BatchCount_Master_Batch" Association="Self.FK_BatchCount_Master_Batch">
       <End Role="Master_Batch" EntitySet="Master_Batch" />
       <End Role="BatchCount" EntitySet="BatchCount" />
@@ -2089,10 +2439,6 @@
     <AssociationSet Name="FK_BatchCount_Master_Venue" Association="Self.FK_BatchCount_Master_Venue">
       <End Role="Master_Venue" EntitySet="Master_Venue" />
       <End Role="BatchCount" EntitySet="BatchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Configuration_StudioUser_Configuration_Status" Association="Self.FK_Configuration_StudioUser_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
     </AssociationSet>
     <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -2110,13 +2456,9 @@
       <End Role="Configuration_User" EntitySet="Configuration_User" />
       <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
     </AssociationSet>
-    <AssociationSet Name="FK_ExpenseDetail_StudioEvent" Association="Self.FK_ExpenseDetail_StudioEvent">
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
     <AssociationSet Name="FK_IncomeDetail_Configuration_Status" Association="Self.FK_IncomeDetail_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
+      <End Role="IncomeDetail" EntitySet="IncomeDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_Master_Batch_Configuration_BatchType" Association="Self.FK_Master_Batch_Configuration_BatchType">
       <End Role="Configuration_BatchType" EntitySet="Configuration_BatchType" />
@@ -2298,6 +2640,10 @@
       <End Role="Master_Venue" EntitySet="Master_Venue" />
       <End Role="Master_ScreenNumberFormat" EntitySet="Master_ScreenNumberFormat" />
     </AssociationSet>
+    <AssociationSet Name="FK_Master_SMS_Config_Master_Venue" Association="Self.FK_Master_SMS_Config_Master_Venue">
+      <End Role="Master_Venue" EntitySet="Master_Venue" />
+      <End Role="Master_SMS_Config" EntitySet="Master_SMS_Config" />
+    </AssociationSet>
     <AssociationSet Name="FK_Master_Sport_Configuration_Status" Association="Self.FK_Master_Sport_Configuration_Status">
       <End Role="Configuration_Status" EntitySet="Configuration_Status" />
       <End Role="Master_Sport" EntitySet="Master_Sport" />
@@ -2406,33 +2752,13 @@
       <End Role="OtherBooking" EntitySet="OtherBooking" />
       <End Role="OtherBookingDetail" EntitySet="OtherBookingDetail" />
     </AssociationSet>
-    <AssociationSet Name="FK_Studio_Event_Configuration_Status" Association="Self.FK_Studio_Event_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_ExpenseDetail_Configuration_StudioUser" Association="Self.FK_Studio_ExpenseDetail_Configuration_StudioUser">
-      <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
+    <AssociationSet Name="FK_Studio_ExpenseDetail_Configuration_User" Association="Self.FK_Studio_ExpenseDetail_Configuration_User">
+      <End Role="Configuration_User" EntitySet="Configuration_User" />
       <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_ExpenseDetail_Studio_ExpenseType" Association="Self.FK_Studio_ExpenseDetail_Studio_ExpenseType">
-      <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
-      <End Role="Studio_ExpenseDetail" EntitySet="Studio_ExpenseDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_ExpenseType_Configuration_Status" Association="Self.FK_Studio_ExpenseType_Configuration_Status">
-      <End Role="Configuration_Status" EntitySet="Configuration_Status" />
-      <End Role="Studio_ExpenseType" EntitySet="Studio_ExpenseType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_IncomeDetail_Configuration_StudioUser" Association="Self.FK_Studio_IncomeDetail_Configuration_StudioUser">
-      <End Role="Configuration_StudioUser" EntitySet="Configuration_StudioUser" />
-      <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Studio_IncomeDetail_Studio_Event" Association="Self.FK_Studio_IncomeDetail_Studio_Event">
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
-      <End Role="Studio_IncomeDetail" EntitySet="Studio_IncomeDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_StudioEvent_Configuration_Status" Association="Self.FK_StudioEvent_Configuration_Status">
       <End Role="Configuration_User" EntitySet="Configuration_User" />
-      <End Role="Studio_Event" EntitySet="Studio_Event" />
+      <End Role="StudioEvent" EntitySet="StudioEvent" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Attendance_Master_Batch" Association="Self.FK_Transaction_Attendance_Master_Batch">
       <End Role="Master_Batch" EntitySet="Master_Batch" />

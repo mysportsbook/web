@@ -1,0 +1,14 @@
+D:\Personal\Winners\MySportsBook\web - Copy\SQLSMS\bin\Release\SQLSMS.dacpac
+D:\Personal\Winners\MySportsBook\web - Copy\SQLSMS\bin\Release\SQLSMS.dll
+D:\Personal\Winners\MySportsBook\web - Copy\SQLSMS\bin\Release\SQLSMS.pdb
+D:\Personal\Winners\MySportsBook\web - Copy\SQLSMS\obj\Release\SQLSMS.dll
+D:\Personal\Winners\MySportsBook\web - Copy\SQLSMS\obj\Release\SQLSMS.pdb
+D:\Training\MSB\Latest\web\SQLSMS\bin\Release\SQLSMS.dacpac
+D:\Training\MSB\Latest\web\SQLSMS\bin\Release\SQLSMS.dll
+D:\Training\MSB\Latest\web\SQLSMS\bin\Release\SQLSMS.pdb
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\Model.xml
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\refactor.xml
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\postdeploy.sql
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\predeploy.sql
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\SQLSMS.dll
+D:\Training\MSB\Latest\web\SQLSMS\obj\Release\SQLSMS.pdb

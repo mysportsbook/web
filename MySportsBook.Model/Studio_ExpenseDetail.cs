@@ -15,9 +15,7 @@ namespace MySportsBook.Model
     public partial class Studio_ExpenseDetail
     {
         public int PK_ExpenseDetailId { get; set; }
-        public int FK_EventId { get; set; }
-        public int FK_ExpenseTypeId { get; set; }
-        public int FK_SpentBy { get; set; }
+        public int SpentBy { get; set; }
         public string Description { get; set; }
         public System.DateTime SpentDate { get; set; }
         public decimal Amount { get; set; }
@@ -26,9 +24,7 @@ namespace MySportsBook.Model
         public System.DateTime CreatedDate { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
-        public virtual Configuration_StudioUser Configuration_StudioUser { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
-        public virtual Studio_Event Studio_Event { get; set; }
-        public virtual Studio_ExpenseType Studio_ExpenseType { get; set; }
+        public virtual Configuration_User Configuration_User1 { get; set; }
     }
 }

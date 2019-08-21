@@ -1,6 +1,11 @@
 ﻿<script>
     $(function () {
-        $('.table').DataTable();
+        $('.table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf'
+            ]
+        });
     });
     function editData(id) {
         loader();

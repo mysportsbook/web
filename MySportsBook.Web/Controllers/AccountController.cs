@@ -20,6 +20,7 @@ namespace MySportsBook.Web.Controllers
         [HttpPost]
         public ActionResult Login(Configuration_User configuration_User)
         {
+            DateTime date = DateTime.ParseExact("APR2018", "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture);
             Configuration_User _configuration_User = new Configuration_User();
             if (Verify(configuration_User.UserName, configuration_User.PasswordHash))
             {

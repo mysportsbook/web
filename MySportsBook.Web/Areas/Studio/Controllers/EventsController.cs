@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MySportsBook.Model;
+using MySportsBook.Web.Controllers;
+using MySportsBook.Web.Filters;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using MySportsBook.Model;
-using MySportsBook.Web.Controllers;
-using MySportsBook.Web.Filters;
 
 namespace MySportsBook.Web.Areas.Studio.Controllers
 {
     [UserAuthentication]
     public class EventsController : BaseController
     {
-      
+
 
         // GET: Studio/Events
         public async Task<ActionResult> Index()
         {
-            return View(await dbContext.Studio_Event.ToListAsync());
+            return View(await dbContext.StudioEvents.ToListAsync());
         }
 
-        
+
 
         // GET: Studio/Events/Create
         public ActionResult Create()
@@ -36,43 +34,43 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(Studio_Event studioEvent)
+        public ActionResult Create(StudioEvent studioEvent)
         {
-            
-                try
-                {
 
-                    studioEvent.FK_StatusId = 3;
-                    studioEvent.CreatedBy = currentUser.UserId;
-                    studioEvent.CreatedDate = DateTime.Now.ToLocalTime();
+            try
+            {
+
+                studioEvent.FK_StatusId = 3;
+                studioEvent.CreatedBy = currentUser.UserId;
+                studioEvent.CreatedDate = DateTime.Now.ToLocalTime();
                 string OrderNumber = DateTime.Now.ToString("yyyyMMM").ToUpper();
-                var LastOrderNumber = dbContext.Studio_Event.Where(x => x.OrderNumber.ToUpper().Contains(OrderNumber)).OrderByDescending(x=>x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
-                
+                var LastOrderNumber = dbContext.StudioEvents.Where(x => x.OrderNumber.ToUpper().Contains(OrderNumber)).OrderByDescending(x => x.PK_EventId).Select(x => x.OrderNumber).Take(1).FirstOrDefault();
+
                 if (LastOrderNumber == null)
                 {
-                    int LastId = dbContext.Studio_Event.OrderByDescending(x => x.PK_EventId).Select(x => x.PK_EventId).Take(1).FirstOrDefault();
-                    studioEvent.OrderNumber = OrderNumber+ String.Format("{0:000}", Increasecount(LastId==null?"0":LastId.ToString())) + "001";
+                    int LastId = dbContext.StudioEvents.OrderByDescending(x => x.PK_EventId).Select(x => x.PK_EventId).Take(1).FirstOrDefault();
+                    studioEvent.OrderNumber = OrderNumber + String.Format("{0:000}", Increasecount(LastId == 0 ? "0" : LastId.ToString())) + "001";
                 }
                 else
                 {
-                    studioEvent.OrderNumber = OrderNumber+ String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(0, 3))) + "" + String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(3)));
+                    studioEvent.OrderNumber = OrderNumber + String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(0, 3))) + "" + String.Format("{0:000}", Increasecount(LastOrderNumber.Replace(OrderNumber, "").Substring(3)));
                 }
-                dbContext.Studio_Event.Add(studioEvent);
-                    dbContext.SaveChangesAsync().Wait();
-                    return Json(true, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
+                dbContext.StudioEvents.Add(studioEvent);
+                dbContext.SaveChangesAsync().Wait();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
 
-                    return Json(false, JsonRequestBehavior.AllowGet);
-                }
-           
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         private int Increasecount(string numbers)
         {
             return (Convert.ToInt32(numbers) + 1);
-           
+
         }
 
         // GET: Studio/Events/Edit/5
@@ -82,8 +80,8 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Studio_Event studioEvent = await dbContext.Studio_Event.FindAsync(id);
-            
+            StudioEvent studioEvent = await dbContext.StudioEvents.FindAsync(id);
+
             if (studioEvent == null)
             {
                 return HttpNotFound();
@@ -95,13 +93,13 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult> Edit(Studio_Event studioEvent)
+        public async Task<ActionResult> Edit(StudioEvent studioEvent)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Studio_Event _Events = await dbContext.Studio_Event.Where(x =>  x.PK_EventId == studioEvent.PK_EventId).FirstOrDefaultAsync();
+                    StudioEvent _Events = await dbContext.StudioEvents.Where(x => x.PK_EventId == studioEvent.PK_EventId).FirstOrDefaultAsync();
                     if (_Events == null)
                     {
                         return HttpNotFound();
@@ -120,7 +118,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                     return Json(false, JsonRequestBehavior.AllowGet);
@@ -129,23 +127,23 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult Index(Studio_Event events)
+        public ActionResult Index(StudioEvent events)
         {
             try
             {
-                var _Events = dbContext.Studio_Event.Find(events.PK_EventId);
-                if(_Events==null)
+                var _Events = dbContext.StudioEvents.Find(events.PK_EventId);
+                if (_Events == null)
                 {
                     return HttpNotFound();
                 }
 
                 _Events.FK_StatusId = _Events.FK_StatusId == 3 ? 4 : 3;
-                _Events.LastEventStatusChangedBy = currentUser.UserId;
+                _Events.ModifiedBy = currentUser.UserId;
                 dbContext.Entry(_Events).State = EntityState.Modified;
                 dbContext.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }

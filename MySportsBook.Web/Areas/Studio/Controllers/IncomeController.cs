@@ -20,7 +20,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // GET: Studio/Income
         public async Task<ActionResult> Index()
         {
-            return View(await dbContext.Studio_IncomeDetail.ToListAsync());
+            return View();//await dbContext.Studio_IncomeDetail.ToListAsync());
         }
 
         // GET: Studio/Income/Create
@@ -33,7 +33,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 Value = ""
             });
 
-            dbContext.Studio_Event.Where(x => x.FK_StatusId == 3).ToList().ForEach(x =>
+            dbContext.StudioEvents.Where(x => x.FK_StatusId == 3).ToList().ForEach(x =>
             {
                 ddlList.Add(new SelectListItem
                 {
@@ -49,14 +49,14 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Configuration_StudioUser.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
-            {
-                ddlList.Add(new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.PK_StudioUserId.ToString()
-                });
-            });
+            //dbContext.Configuration_StudioUser.Where(x => x.FK_StatusId == 1).ToList().ForEach(x =>
+            //{
+            //    ddlList.Add(new SelectListItem
+            //    {
+            //        Text = x.Name,
+            //        Value = x.PK_StudioUserId.ToString()
+            //    });
+            //});
             ViewBag.StudioUser = new SelectList(ddlList, "Value", "Text");
 
             return View();
@@ -66,46 +66,46 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(Studio_IncomeDetail incomeDetail)
-        {
-            try
-            {
-                incomeDetail.FK_StatusId = 1;
-                incomeDetail.CreatedBy = currentUser.UserId;
-                incomeDetail.CreatedDate = DateTime.Now.ToLocalTime();
+        //public ActionResult Create(StudioIncomeDetail incomeDetail)
+        //{
+        //    try
+        //    {
+        //        incomeDetail.FK_StatusId = 1;
+        //        incomeDetail.CreatedBy = currentUser.UserId;
+        //        incomeDetail.CreatedDate = DateTime.Now.ToLocalTime();
 
-                dbContext.Studio_IncomeDetail.Add(incomeDetail);
-                dbContext.SaveChangesAsync().Wait();
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
+        //        //dbContext.Studio_IncomeDetail.Add(incomeDetail);
+        //        dbContext.SaveChangesAsync().Wait();
+        //        return Json(true, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                return Json(false, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(false, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         // GET: Studio/Income/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Studio_IncomeDetail incomeDetail = await dbContext.Studio_IncomeDetail.FindAsync(id);
-            if (incomeDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(incomeDetail);
-        }
+        //public async Task<ActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    //Studio_IncomeDetail incomeDetail = await dbContext.Studio_IncomeDetail.FindAsync(id);
+        //    //if (incomeDetail == null)
+        //    //{
+        //    //    return HttpNotFound();
+        //    //}
+        //    return View(incomeDetail);
+        //}
 
         // POST: Studio/Income/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        //[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IncomeDetailId,ReceivedDate,Description,Amount,ReceivedBy,CreatedBy,CreatedDate,Status")] Studio_IncomeDetail incomeDetail)
+        public async Task<ActionResult> Edit([Bind(Include = "IncomeDetailId,ReceivedDate,Description,Amount,ReceivedBy,CreatedBy,CreatedDate,Status")] StudioEvent incomeDetail)
         {
             if (ModelState.IsValid)
             {

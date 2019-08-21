@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 This file is used by the publish/package process of your Web project. You can customize the behavior of this process
 by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>E:\DotNet\MySportsBook\Publish\web</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Training\MSB\Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/31/2018 18:10:52</publishTime>
     </File>
     <File Include="Areas/Configuration/Views/User/Index.cshtml">
-      <publishTime>05/01/2019 23:46:41</publishTime>
+      <publishTime>06/16/2019 16:11:42</publishTime>
     </File>
     <File Include="Areas/Configuration/Views/web.config">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -43,7 +43,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Master/Views/Batch/Index.cshtml">
-      <publishTime>05/01/2019 23:47:55</publishTime>
+      <publishTime>06/16/2019 16:15:58</publishTime>
     </File>
     <File Include="Areas/Master/Views/CoachingLevel/Create.cshtml">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -88,7 +88,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Master/Views/Player/Index.cshtml">
-      <publishTime>05/01/2019 23:52:37</publishTime>
+      <publishTime>07/23/2019 16:41:41</publishTime>
     </File>
     <File Include="Areas/Master/Views/Role/Create.cshtml">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -103,7 +103,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Master/Views/Role/Index.cshtml">
-      <publishTime>11/03/2018 16:44:29</publishTime>
+      <publishTime>06/16/2019 16:17:02</publishTime>
     </File>
     <File Include="Areas/Master/Views/Sport/Create.cshtml">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -139,31 +139,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Booking/Index.cshtml">
-      <publishTime>05/01/2019 23:56:15</publishTime>
+      <publishTime>06/16/2019 16:19:54</publishTime>
     </File>
     <File Include="Areas/Report/Views/Booking/NewBooking.cshtml">
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Daily.cshtml">
-      <publishTime>05/01/2019 23:57:05</publishTime>
+      <publishTime>06/16/2019 16:19:22</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Monthly.cshtml">
       <publishTime>04/17/2019 01:58:42</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Player.cshtml">
-      <publishTime>05/01/2019 23:57:21</publishTime>
+      <publishTime>06/16/2019 16:19:35</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Split.cshtml">
       <publishTime>01/06/2019 23:26:45</publishTime>
     </File>
+    <File Include="Areas/Report/Views/Custom/Defaulters.cshtml">
+      <publishTime>05/18/2019 12:12:02</publishTime>
+    </File>
     <File Include="Areas/Report/Views/Custom/Index.cshtml">
-      <publishTime>05/01/2019 23:58:24</publishTime>
+      <publishTime>06/16/2019 16:21:00</publishTime>
     </File>
     <File Include="Areas/Report/Views/Enquiry/Index.cshtml">
-      <publishTime>05/01/2019 23:58:56</publishTime>
+      <publishTime>06/16/2019 16:21:24</publishTime>
     </File>
     <File Include="Areas/Report/Views/Invoice/Index.cshtml">
-      <publishTime>05/01/2019 23:59:14</publishTime>
+      <publishTime>06/16/2019 16:21:39</publishTime>
     </File>
     <File Include="Areas/Report/Views/Shared/_enquiryComments.cshtml">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -172,46 +175,55 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Events/Create.cshtml">
-      <publishTime>12/26/2018 10:46:48</publishTime>
+      <publishTime>12/26/2018 10:46:50</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Events/Edit.cshtml">
-      <publishTime>12/15/2018 20:41:49</publishTime>
+      <publishTime>12/15/2018 20:41:50</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Events/Index.cshtml">
-      <publishTime>05/01/2019 23:59:41</publishTime>
+      <publishTime>04/25/2019 23:17:16</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Expense/Create.cshtml">
-      <publishTime>12/26/2018 10:46:48</publishTime>
+      <publishTime>05/30/2019 23:32:40</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Expense/Edit.cshtml">
-      <publishTime>12/15/2018 20:41:49</publishTime>
+      <publishTime>05/30/2019 23:57:34</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Expense/Index.cshtml">
-      <publishTime>05/01/2019 23:59:51</publishTime>
+      <publishTime>05/30/2019 23:51:58</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Home/Index.cshtml">
       <publishTime>12/15/2018 20:41:49</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Income/Create.cshtml">
-      <publishTime>12/26/2018 10:46:48</publishTime>
+      <publishTime>12/26/2018 10:46:50</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Income/Edit.cshtml">
-      <publishTime>12/15/2018 20:41:49</publishTime>
+      <publishTime>12/15/2018 20:41:50</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Income/Index.cshtml">
-      <publishTime>05/02/2019 00:00:26</publishTime>
+      <publishTime>04/25/2019 23:16:38</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Reports/Index.cshtml">
-      <publishTime>05/02/2019 00:01:22</publishTime>
+      <publishTime>04/25/2019 23:16:32</publishTime>
     </File>
     <File Include="Areas/Studio/Views/Web.config">
       <publishTime>12/15/2018 20:41:49</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Invoice/Index.cshtml">
-      <publishTime>05/02/2019 00:03:58</publishTime>
+      <publishTime>05/02/2019 00:43:57</publishTime>
+    </File>
+    <File Include="Areas/Transaction/Views/Receipt/Edit.cshtml">
+      <publishTime>08/02/2019 23:29:02</publishTime>
+    </File>
+    <File Include="Areas/Transaction/Views/Receipt/Index.cshtml">
+      <publishTime>07/29/2019 20:22:49</publishTime>
+    </File>
+    <File Include="Areas/Transaction/Views/Receipt/Player.cshtml">
+      <publishTime>08/01/2019 22:19:17</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Shared/_Payment.cshtml">
-      <publishTime>05/02/2019 00:04:46</publishTime>
+      <publishTime>08/01/2019 15:56:37</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Shared/_PaymentHistory.cshtml">
       <publishTime>01/06/2019 21:06:16</publishTime>
@@ -265,19 +277,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:36</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll">
-      <publishTime>05/02/2019 00:11:51</publishTime>
+      <publishTime>08/20/2019 11:40:11</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll.config">
-      <publishTime>04/16/2019 11:29:57</publishTime>
+      <publishTime>07/23/2019 16:21:02</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.pdb">
-      <publishTime>05/02/2019 00:11:51</publishTime>
+      <publishTime>07/23/2019 17:26:39</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.dll">
-      <publishTime>05/02/2019 00:26:09</publishTime>
+      <publishTime>08/20/2019 11:40:13</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.pdb">
-      <publishTime>05/02/2019 00:26:09</publishTime>
+      <publishTime>07/23/2019 17:30:29</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>11/03/2018 16:44:37</publishTime>
@@ -630,6 +642,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/esm/popper.min.js.map">
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
+    <File Include="Scripts/Export/buttons.dataTables.min.css">
+      <publishTime>05/10/2019 16:39:18</publishTime>
+    </File>
+    <File Include="Scripts/Export/buttons.flash.min.js">
+      <publishTime>05/10/2019 16:38:56</publishTime>
+    </File>
+    <File Include="Scripts/Export/buttons.html5.min.js">
+      <publishTime>05/10/2019 16:39:12</publishTime>
+    </File>
+    <File Include="Scripts/Export/buttons.print.min.js">
+      <publishTime>05/10/2019 16:39:16</publishTime>
+    </File>
+    <File Include="Scripts/Export/dataTables.buttons.min.js">
+      <publishTime>05/10/2019 16:40:30</publishTime>
+    </File>
+    <File Include="Scripts/Export/jszip.min.js">
+      <publishTime>05/10/2019 16:39:04</publishTime>
+    </File>
+    <File Include="Scripts/Export/pdfmake.min.js">
+      <publishTime>05/10/2019 16:39:06</publishTime>
+    </File>
+    <File Include="Scripts/Export/vfs_fonts.js">
+      <publishTime>05/10/2019 16:39:10</publishTime>
+    </File>
     <File Include="Scripts/jquery-3.3.1.js">
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
@@ -772,16 +808,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:30</publishTime>
     </File>
     <File Include="Views/Shared/Layout/_AdminLayout.cshtml">
-      <publishTime>05/02/2019 00:07:23</publishTime>
+      <publishTime>07/29/2019 20:25:11</publishTime>
     </File>
     <File Include="Views/Shared/Layout/_Layout.cshtml">
-      <publishTime>05/02/2019 00:20:34</publishTime>
+      <publishTime>06/16/2019 16:28:41</publishTime>
     </File>
     <File Include="Views/Shared/Script/_DateTimePicker.cshtml">
       <publishTime>11/04/2018 15:21:16</publishTime>
     </File>
     <File Include="Views/Shared/Script/_EditDelete.cshtml">
-      <publishTime>11/03/2018 16:44:30</publishTime>
+      <publishTime>06/16/2019 16:29:15</publishTime>
     </File>
     <File Include="Views/Shared/Script/_Loader.cshtml">
       <publishTime>11/03/2018 16:44:30</publishTime>
@@ -805,7 +841,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/17/2019 01:14:24</publishTime>
+      <publishTime>08/20/2019 11:40:14</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -40,8 +40,8 @@
                                 </th>
 
                                 @*<th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>*@
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>*@
                                 <th>@Html.DisplayName("Status")</th>
                             </tr>
                         </thead>
@@ -73,8 +73,8 @@
                                     </td>
 
                                     @*<td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>*@
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>*@
                                     <td>
 
                                         <button class="@Statusbtnclass" onclick="changeStatus(@item.PK_EventId,this)" type="button">Change Status</button>

@@ -32,7 +32,8 @@ namespace MySportsBook.Model
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<System.DateTime> TransactionDate { get; set; }
-        public Nullable<int> ReceivedBy { get; set; }
+        public int ReceivedBy { get; set; }
+        public Nullable<decimal> CreditAmount { get; set; }
     
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }

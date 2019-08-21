@@ -36,35 +36,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Configuration_User.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Configuration_User1.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Master_Venue.VenueName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PK_RoleId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PK_RoleId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PK_RoleId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Configuration_Status.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Configuration_User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Configuration_User1.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Master_Venue.VenueName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PK_RoleId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PK_RoleId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PK_RoleId })
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

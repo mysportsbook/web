@@ -34,10 +34,11 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             //return View(master_Player);
 
             var master_Player = dbContext.Master_Player
-               .Include(m => m.Transaction_PlayerSport).Include(m => m.Master_Batch)
-             .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1)
-             .OrderByDescending(x => x.CreatedDate);
-
+                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
+                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
+                 .Include(m => m.Configuration_Status)
+                .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1)
+                .OrderByDescending(x => x.CreatedDate);
             return View(await master_Player.ToListAsync());
         }
 

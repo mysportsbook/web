@@ -13,17 +13,16 @@ namespace MySportsBook.Model
     
     public partial class rp_COMMONPROCEDURE_Result
     {
-        public int PK_SportId { get; set; }
-        public string SportName { get; set; }
-        public string SportCode { get; set; }
-        public int FK_VenueId { get; set; }
-        public decimal Fee { get; set; }
-        public bool AllowCoaching { get; set; }
-        public int FK_StatusId { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<int> SplitPercentage { get; set; }
+        public string Name { get; set; }
+        public string Inv_Period { get; set; }
+        public string Collected_on { get; set; }
+        public string Sport { get; set; }
+        public string Batch { get; set; }
+        public string Payment_Mode { get; set; }
+        public decimal Fees { get; set; }
+        public Nullable<decimal> Chargers { get; set; }
+        public Nullable<decimal> Discount { get; set; }
+        public decimal Amount { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -1,580 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MySportsBookModelStoreContainer" CdmEntityContainer="Entities">
-    <EntitySetMapping Name="BatchCounts">
-      <EntityTypeMapping TypeName="MySportsBook.Model.BatchCount">
-        <MappingFragment StoreEntitySet="BatchCount">
-          <ScalarProperty Name="PK_BatchCount" ColumnName="PK_BatchCount" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
-          <ScalarProperty Name="Count" ColumnName="Count" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_BatchType">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_BatchType">
-        <MappingFragment StoreEntitySet="Configuration_BatchType">
-          <ScalarProperty Name="PK_BatchTypeId" ColumnName="PK_BatchTypeId" />
-          <ScalarProperty Name="BatchType" ColumnName="BatchType" />
-          <ScalarProperty Name="BatchTypeCode" ColumnName="BatchTypeCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_Format">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Format">
-        <MappingFragment StoreEntitySet="Configuration_Format">
-          <ScalarProperty Name="PK_NumberFormatId" ColumnName="PK_NumberFormatId" />
-          <ScalarProperty Name="NumberFormat" ColumnName="NumberFormat" />
-          <ScalarProperty Name="Divider" ColumnName="Divider" />
-          <ScalarProperty Name="NumberLength" ColumnName="NumberLength" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_InvoicePeriod">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_InvoicePeriod">
-        <MappingFragment StoreEntitySet="Configuration_InvoicePeriod">
-          <ScalarProperty Name="PK_InvoicePeriodId" ColumnName="PK_InvoicePeriodId" />
-          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
-          <ScalarProperty Name="InvoicePeriodCode" ColumnName="InvoicePeriodCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_PlayerType">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_PlayerType">
-        <MappingFragment StoreEntitySet="Configuration_PlayerType">
-          <ScalarProperty Name="PK_PlayerTypeId" ColumnName="PK_PlayerTypeId" />
-          <ScalarProperty Name="PlayerType" ColumnName="PlayerType" />
-          <ScalarProperty Name="PlayerTypeCode" ColumnName="PlayerTypeCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_Screen">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Screen">
-        <MappingFragment StoreEntitySet="Configuration_Screen">
-          <ScalarProperty Name="PK_ScreenId" ColumnName="PK_ScreenId" />
-          <ScalarProperty Name="Screen" ColumnName="Screen" />
-          <ScalarProperty Name="ScreenCode" ColumnName="ScreenCode" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_Status">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Status">
-        <MappingFragment StoreEntitySet="Configuration_Status">
-          <ScalarProperty Name="PK_StatusId" ColumnName="PK_StatusId" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_StudioUser">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_StudioUser">
-        <MappingFragment StoreEntitySet="Configuration_StudioUser">
-          <ScalarProperty Name="PK_StudioUserId" ColumnName="PK_StudioUserId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Configuration_User">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_User">
-        <MappingFragment StoreEntitySet="Configuration_User">
-          <ScalarProperty Name="PK_UserId" ColumnName="PK_UserId" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Confirguration_PaymentMode">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Confirguration_PaymentMode">
-        <MappingFragment StoreEntitySet="Confirguration_PaymentMode">
-          <ScalarProperty Name="PK_PaymentModeId" ColumnName="PK_PaymentModeId" />
-          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-          <ScalarProperty Name="PaymentModeCode" ColumnName="PaymentModeCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Batch">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Batch">
-        <MappingFragment StoreEntitySet="Master_Batch">
-          <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
-          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
-          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-          <ScalarProperty Name="MaxPlayers" ColumnName="MaxPlayers" />
-          <ScalarProperty Name="FK_BatchTypeId" ColumnName="FK_BatchTypeId" />
-          <ScalarProperty Name="FK_CoachId" ColumnName="FK_CoachId" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="Count" ColumnName="Count" />
-          <ScalarProperty Name="IsAttendanceRequired" ColumnName="IsAttendanceRequired" />
-          <ScalarProperty Name="IsFull" ColumnName="IsFull" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_BatchTiming">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_BatchTiming">
-        <MappingFragment StoreEntitySet="Master_BatchTiming">
-          <ScalarProperty Name="PK_BatchTimingId" ColumnName="PK_BatchTimingId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_CoachingLevel">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_CoachingLevel">
-        <MappingFragment StoreEntitySet="Master_CoachingLevel">
-          <ScalarProperty Name="PK_CoachingLevelId" ColumnName="PK_CoachingLevelId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Court">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Court">
-        <MappingFragment StoreEntitySet="Master_Court">
-          <ScalarProperty Name="PK_CourtId" ColumnName="PK_CourtId" />
-          <ScalarProperty Name="CourtName" ColumnName="CourtName" />
-          <ScalarProperty Name="CourtCode" ColumnName="CourtCode" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_SportId" ColumnName="FK_SportId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Enquiry">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Enquiry">
-        <MappingFragment StoreEntitySet="Master_Enquiry">
-          <ScalarProperty Name="PK_EnquiryId" ColumnName="PK_EnquiryId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="Game" ColumnName="Game" />
-          <ScalarProperty Name="Slot" ColumnName="Slot" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Player">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Player">
-        <MappingFragment StoreEntitySet="Master_Player">
-          <ScalarProperty Name="PK_PlayerId" ColumnName="PK_PlayerId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_PlayerTypeId" ColumnName="FK_PlayerTypeId" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="EmailEnabled" ColumnName="EmailEnabled" />
-          <ScalarProperty Name="SMSEnabled" ColumnName="SMSEnabled" />
-          <ScalarProperty Name="WhatsupEnabled" ColumnName="WhatsupEnabled" />
-          <ScalarProperty Name="LoginRequired" ColumnName="LoginRequired" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Role">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Role">
-        <MappingFragment StoreEntitySet="Master_Role">
-          <ScalarProperty Name="PK_RoleId" ColumnName="PK_RoleId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_RoleScreen">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_RoleScreen">
-        <MappingFragment StoreEntitySet="Master_RoleScreen">
-          <ScalarProperty Name="PK_RoleScreenId" ColumnName="PK_RoleScreenId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
-          <ScalarProperty Name="FK_VenueScreenId" ColumnName="FK_VenueScreenId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_ScreenNumberFormat">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_ScreenNumberFormat">
-        <MappingFragment StoreEntitySet="Master_ScreenNumberFormat">
-          <ScalarProperty Name="PK_ScreenNumberFormatId" ColumnName="PK_ScreenNumberFormatId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
-          <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
-          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Sport">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Sport">
-        <MappingFragment StoreEntitySet="Master_Sport">
-          <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
-          <ScalarProperty Name="SportName" ColumnName="SportName" />
-          <ScalarProperty Name="SportCode" ColumnName="SportCode" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-          <ScalarProperty Name="AllowCoaching" ColumnName="AllowCoaching" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_UserRole">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserRole">
-        <MappingFragment StoreEntitySet="Master_UserRole">
-          <ScalarProperty Name="PK_UserRoleId" ColumnName="PK_UserRoleId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
-          <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_UserVenue">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserVenue">
-        <MappingFragment StoreEntitySet="Master_UserVenue">
-          <ScalarProperty Name="PK_UserVenueId" ColumnName="PK_UserVenueId" />
-          <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_Venue">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Venue">
-        <MappingFragment StoreEntitySet="Master_Venue">
-          <ScalarProperty Name="PK_VenueId" ColumnName="PK_VenueId" />
-          <ScalarProperty Name="VenueName" ColumnName="VenueName" />
-          <ScalarProperty Name="VenueCode" ColumnName="VenueCode" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="EmailEnabled" ColumnName="EmailEnabled" />
-          <ScalarProperty Name="SMSEnabled" ColumnName="SMSEnabled" />
-          <ScalarProperty Name="WhatsappEnabled" ColumnName="WhatsappEnabled" />
-          <ScalarProperty Name="ShouldAdvInvGenerate" ColumnName="ShouldAdvInvGenerate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="GuestPlayerId" ColumnName="GuestPlayerId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Master_VenueScreen">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Master_VenueScreen">
-        <MappingFragment StoreEntitySet="Master_VenueScreen">
-          <ScalarProperty Name="PK_VenueScreenId" ColumnName="PK_VenueScreenId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
-          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
-          <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
-          <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OtherBookings">
-      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBooking">
-        <MappingFragment StoreEntitySet="OtherBooking">
-          <ScalarProperty Name="PK_BookingId" ColumnName="PK_BookingId" />
-          <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Mode" ColumnName="Mode" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OtherBookingDetails">
-      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBookingDetail">
-        <MappingFragment StoreEntitySet="OtherBookingDetail">
-          <ScalarProperty Name="PK_BookingDetailId" ColumnName="PK_BookingDetailId" />
-          <ScalarProperty Name="FK_BookingId" ColumnName="FK_BookingId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="Court" ColumnName="Court" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Slot" ColumnName="Slot" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Studio_Event">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_Event">
-        <MappingFragment StoreEntitySet="Studio_Event">
-          <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
-          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
-          <ScalarProperty Name="Venue" ColumnName="Venue" />
-          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="LastEventStatusChangedBy" ColumnName="LastEventStatusChangedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Studio_ExpenseDetail">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseDetail">
-        <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
-          <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
-          <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
-          <ScalarProperty Name="FK_ExpenseTypeId" ColumnName="FK_ExpenseTypeId" />
-          <ScalarProperty Name="FK_SpentBy" ColumnName="FK_SpentBy" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="SpentDate" ColumnName="SpentDate" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Studio_ExpenseType">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseType">
-        <MappingFragment StoreEntitySet="Studio_ExpenseType">
-          <ScalarProperty Name="PK_ExpenseTypeId" ColumnName="PK_ExpenseTypeId" />
-          <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Studio_IncomeDetail">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_IncomeDetail">
-        <MappingFragment StoreEntitySet="Studio_IncomeDetail">
-          <ScalarProperty Name="PK_IncomeDetailId" ColumnName="PK_IncomeDetailId" />
-          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="FK_ReceivedBy" ColumnName="FK_ReceivedBy" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="FK_EventId" ColumnName="FK_EventId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Attendance">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Attendance">
-        <MappingFragment StoreEntitySet="Transaction_Attendance">
-          <ScalarProperty Name="PK_AttendanceId" ColumnName="PK_AttendanceId" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
-          <ScalarProperty Name="Present" ColumnName="Present" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Enquiry_Comments">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Enquiry_Comments">
-        <MappingFragment StoreEntitySet="Transaction_Enquiry_Comments">
-          <ScalarProperty Name="PK_EnquiryCommentsId" ColumnName="PK_EnquiryCommentsId" />
-          <ScalarProperty Name="FK_EnquiryId" ColumnName="FK_EnquiryId" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Invoice">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Invoice">
-        <MappingFragment StoreEntitySet="Transaction_Invoice">
-          <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
-          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
-          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
-          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
-          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
-          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_InvoiceDetail">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_InvoiceDetail">
-        <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
-          <ScalarProperty Name="PK_InvoiceDetailId" ColumnName="PK_InvoiceDetailId" />
-          <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
-          <ScalarProperty Name="BatchAmount" ColumnName="BatchAmount" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_PlayerSport">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_PlayerSport">
-        <MappingFragment StoreEntitySet="Transaction_PlayerSport">
-          <ScalarProperty Name="PK_PlayerSportId" ColumnName="PK_PlayerSportId" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
-          <ScalarProperty Name="FK_SportId" ColumnName="FK_SportId" />
-          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
-          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
-          <ScalarProperty Name="FK_InvoicePeriodId" ColumnName="FK_InvoicePeriodId" />
-          <ScalarProperty Name="LastGeneratedMonth" ColumnName="LastGeneratedMonth" />
-          <ScalarProperty Name="IsCoach" ColumnName="IsCoach" />
-          <ScalarProperty Name="FK_CoachingLevelId" ColumnName="FK_CoachingLevelId" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Receipt">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Receipt">
-        <MappingFragment StoreEntitySet="Transaction_Receipt">
-          <ScalarProperty Name="PK_ReceiptId" ColumnName="PK_ReceiptId" />
-          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
-          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
-          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
-          <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
-          <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
-          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="FK_PaymentModeId" ColumnName="FK_PaymentModeId" />
-          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Voucher">
-      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Voucher">
-        <MappingFragment StoreEntitySet="Transaction_Voucher">
-          <ScalarProperty Name="PK_VoucherId" ColumnName="PK_VoucherId" />
-          <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
-          <ScalarProperty Name="VoucherDate" ColumnName="VoucherDate" />
-          <ScalarProperty Name="PaymentFor" ColumnName="PaymentFor" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="TransactionNumer" ColumnName="TransactionNumer" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionName="MySportsBook.Model.Store.Split" FunctionImportName="Split">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MySportsBook.Model.Split_Result">
@@ -605,18 +31,17 @@
     <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBook.Model.Store.rp_COMMONPROCEDURE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COMMONPROCEDURE_Result">
-          <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
-          <ScalarProperty Name="SportName" ColumnName="SportName" />
-          <ScalarProperty Name="SportCode" ColumnName="SportCode" />
-          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-          <ScalarProperty Name="AllowCoaching" ColumnName="AllowCoaching" />
-          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Inv_Period" ColumnName="Inv Period" />
+          <ScalarProperty Name="Collected_on" ColumnName="Collected on" />
+          <ScalarProperty Name="Sport" ColumnName="Sport" />
+          <ScalarProperty Name="Batch" ColumnName="Batch" />
+          <ScalarProperty Name="Payment_Mode" ColumnName="Payment Mode" />
+          <ScalarProperty Name="Fees" ColumnName="Fees" />
+          <ScalarProperty Name="Chargers" ColumnName="Chargers" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -642,5 +67,760 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="BatchCounts">
+      <EntityTypeMapping TypeName="MySportsBook.Model.BatchCount">
+        <MappingFragment StoreEntitySet="BatchCount">
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
+          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_BatchCount" ColumnName="PK_BatchCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_BatchType">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_BatchType">
+        <MappingFragment StoreEntitySet="Configuration_BatchType">
+          <ScalarProperty Name="BatchTypeCode" ColumnName="BatchTypeCode" />
+          <ScalarProperty Name="BatchType" ColumnName="BatchType" />
+          <ScalarProperty Name="PK_BatchTypeId" ColumnName="PK_BatchTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_Format">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Format">
+        <MappingFragment StoreEntitySet="Configuration_Format">
+          <ScalarProperty Name="NumberLength" ColumnName="NumberLength" />
+          <ScalarProperty Name="Divider" ColumnName="Divider" />
+          <ScalarProperty Name="NumberFormat" ColumnName="NumberFormat" />
+          <ScalarProperty Name="PK_NumberFormatId" ColumnName="PK_NumberFormatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_InvoicePeriod">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_InvoicePeriod">
+        <MappingFragment StoreEntitySet="Configuration_InvoicePeriod">
+          <ScalarProperty Name="InvoicePeriodCode" ColumnName="InvoicePeriodCode" />
+          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+          <ScalarProperty Name="PK_InvoicePeriodId" ColumnName="PK_InvoicePeriodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_PlayerType">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_PlayerType">
+        <MappingFragment StoreEntitySet="Configuration_PlayerType">
+          <ScalarProperty Name="PlayerTypeCode" ColumnName="PlayerTypeCode" />
+          <ScalarProperty Name="PlayerType" ColumnName="PlayerType" />
+          <ScalarProperty Name="PK_PlayerTypeId" ColumnName="PK_PlayerTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_Screen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Screen">
+        <MappingFragment StoreEntitySet="Configuration_Screen">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ScreenCode" ColumnName="ScreenCode" />
+          <ScalarProperty Name="Screen" ColumnName="Screen" />
+          <ScalarProperty Name="PK_ScreenId" ColumnName="PK_ScreenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_Status">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Status">
+        <MappingFragment StoreEntitySet="Configuration_Status">
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PK_StatusId" ColumnName="PK_StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configuration_User">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_User">
+        <MappingFragment StoreEntitySet="Configuration_User">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PK_UserId" ColumnName="PK_UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Confirguration_PaymentMode">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Confirguration_PaymentMode">
+        <MappingFragment StoreEntitySet="Confirguration_PaymentMode">
+          <ScalarProperty Name="PaymentModeCode" ColumnName="PaymentModeCode" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="PK_PaymentModeId" ColumnName="PK_PaymentModeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IncomeDetails">
+      <EntityTypeMapping TypeName="MySportsBook.Model.IncomeDetail">
+        <MappingFragment StoreEntitySet="IncomeDetail">
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="IncomeDetailId" ColumnName="IncomeDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Batch">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Batch">
+        <MappingFragment StoreEntitySet="Master_Batch">
+          <ScalarProperty Name="IsFull" ColumnName="IsFull" />
+          <ScalarProperty Name="IsAttendanceRequired" ColumnName="IsAttendanceRequired" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="FK_CoachId" ColumnName="FK_CoachId" />
+          <ScalarProperty Name="FK_BatchTypeId" ColumnName="FK_BatchTypeId" />
+          <ScalarProperty Name="MaxPlayers" ColumnName="MaxPlayers" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
+          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_BatchId" ColumnName="PK_BatchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_BatchTiming">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_BatchTiming">
+        <MappingFragment StoreEntitySet="Master_BatchTiming">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
+          <ScalarProperty Name="PK_BatchTimingId" ColumnName="PK_BatchTimingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_CoachingLevel">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_CoachingLevel">
+        <MappingFragment StoreEntitySet="Master_CoachingLevel">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_CoachingLevelId" ColumnName="PK_CoachingLevelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Court">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Court">
+        <MappingFragment StoreEntitySet="Master_Court">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_SportId" ColumnName="FK_SportId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="CourtCode" ColumnName="CourtCode" />
+          <ScalarProperty Name="CourtName" ColumnName="CourtName" />
+          <ScalarProperty Name="PK_CourtId" ColumnName="PK_CourtId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Enquiry">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Enquiry">
+        <MappingFragment StoreEntitySet="Master_Enquiry">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Slot" ColumnName="Slot" />
+          <ScalarProperty Name="Game" ColumnName="Game" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_EnquiryId" ColumnName="PK_EnquiryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Player">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Player">
+        <MappingFragment StoreEntitySet="Master_Player">
+          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="LoginRequired" ColumnName="LoginRequired" />
+          <ScalarProperty Name="WhatsupEnabled" ColumnName="WhatsupEnabled" />
+          <ScalarProperty Name="SMSEnabled" ColumnName="SMSEnabled" />
+          <ScalarProperty Name="EmailEnabled" ColumnName="EmailEnabled" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="FK_PlayerTypeId" ColumnName="FK_PlayerTypeId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_PlayerId" ColumnName="PK_PlayerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Role">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Role">
+        <MappingFragment StoreEntitySet="Master_Role">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_RoleId" ColumnName="PK_RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_RoleScreen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_RoleScreen">
+        <MappingFragment StoreEntitySet="Master_RoleScreen">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_VenueScreenId" ColumnName="FK_VenueScreenId" />
+          <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_RoleScreenId" ColumnName="PK_RoleScreenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_ScreenNumberFormat">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_ScreenNumberFormat">
+        <MappingFragment StoreEntitySet="Master_ScreenNumberFormat">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
+          <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_ScreenNumberFormatId" ColumnName="PK_ScreenNumberFormatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_SMS_Config">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_SMS_Config">
+        <MappingFragment StoreEntitySet="Master_SMS_Config">
+          <ScalarProperty Name="SMSCode" ColumnName="SMSCode" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_SMSId" ColumnName="PK_SMSId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Sport">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Sport">
+        <MappingFragment StoreEntitySet="Master_Sport">
+          <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="AllowCoaching" ColumnName="AllowCoaching" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="SportCode" ColumnName="SportCode" />
+          <ScalarProperty Name="SportName" ColumnName="SportName" />
+          <ScalarProperty Name="PK_SportId" ColumnName="PK_SportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_UserRole">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserRole">
+        <MappingFragment StoreEntitySet="Master_UserRole">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+          <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_UserRoleId" ColumnName="PK_UserRoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_UserVenue">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_UserVenue">
+        <MappingFragment StoreEntitySet="Master_UserVenue">
+          <ScalarProperty Name="DailyCollectionSMS" ColumnName="DailyCollectionSMS" />
+          <ScalarProperty Name="DailyCollectionEmail" ColumnName="DailyCollectionEmail" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+          <ScalarProperty Name="PK_UserVenueId" ColumnName="PK_UserVenueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Venue">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_Venue">
+        <MappingFragment StoreEntitySet="Master_Venue">
+          <ScalarProperty Name="GuestPlayerId" ColumnName="GuestPlayerId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ShouldAdvInvGenerate" ColumnName="ShouldAdvInvGenerate" />
+          <ScalarProperty Name="WhatsappEnabled" ColumnName="WhatsappEnabled" />
+          <ScalarProperty Name="SMSEnabled" ColumnName="SMSEnabled" />
+          <ScalarProperty Name="EmailEnabled" ColumnName="EmailEnabled" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="VenueCode" ColumnName="VenueCode" />
+          <ScalarProperty Name="VenueName" ColumnName="VenueName" />
+          <ScalarProperty Name="PK_VenueId" ColumnName="PK_VenueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_VenueScreen">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Master_VenueScreen">
+        <MappingFragment StoreEntitySet="Master_VenueScreen">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_FormatId" ColumnName="FK_FormatId" />
+          <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="FK_ScreenId" ColumnName="FK_ScreenId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_VenueScreenId" ColumnName="PK_VenueScreenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherBookings">
+      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBooking">
+        <MappingFragment StoreEntitySet="OtherBooking">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
+          <ScalarProperty Name="PK_BookingId" ColumnName="PK_BookingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherBookingDetails">
+      <EntityTypeMapping TypeName="MySportsBook.Model.OtherBookingDetail">
+        <MappingFragment StoreEntitySet="OtherBookingDetail">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Slot" ColumnName="Slot" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Court" ColumnName="Court" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="FK_BookingId" ColumnName="FK_BookingId" />
+          <ScalarProperty Name="PK_BookingDetailId" ColumnName="PK_BookingDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Studio_ExpenseDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Studio_ExpenseDetail">
+        <MappingFragment StoreEntitySet="Studio_ExpenseDetail">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="SpentDate" ColumnName="SpentDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SpentBy" ColumnName="SpentBy" />
+          <ScalarProperty Name="PK_ExpenseDetailId" ColumnName="PK_ExpenseDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudioEvents">
+      <EntityTypeMapping TypeName="MySportsBook.Model.StudioEvent">
+        <MappingFragment StoreEntitySet="StudioEvent">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Venue" ColumnName="Venue" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="PK_EventId" ColumnName="PK_EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Attendance">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Attendance">
+        <MappingFragment StoreEntitySet="Transaction_Attendance">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Present" ColumnName="Present" />
+          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
+          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="PK_AttendanceId" ColumnName="PK_AttendanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Enquiry_Comments">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Enquiry_Comments">
+        <MappingFragment StoreEntitySet="Transaction_Enquiry_Comments">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="FK_EnquiryId" ColumnName="FK_EnquiryId" />
+          <ScalarProperty Name="PK_EnquiryCommentsId" ColumnName="PK_EnquiryCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Invoice">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Invoice">
+        <MappingFragment StoreEntitySet="Transaction_Invoice">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
+          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="PK_InvoiceId" ColumnName="PK_InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_InvoiceDetail">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_InvoiceDetail">
+        <MappingFragment StoreEntitySet="Transaction_InvoiceDetail">
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="BatchAmount" ColumnName="BatchAmount" />
+          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
+          <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
+          <ScalarProperty Name="PK_InvoiceDetailId" ColumnName="PK_InvoiceDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_PlayerSport">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_PlayerSport">
+        <MappingFragment StoreEntitySet="Transaction_PlayerSport">
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="FK_CoachingLevelId" ColumnName="FK_CoachingLevelId" />
+          <ScalarProperty Name="IsCoach" ColumnName="IsCoach" />
+          <ScalarProperty Name="LastGeneratedMonth" ColumnName="LastGeneratedMonth" />
+          <ScalarProperty Name="FK_InvoicePeriodId" ColumnName="FK_InvoicePeriodId" />
+          <ScalarProperty Name="FK_CourtId" ColumnName="FK_CourtId" />
+          <ScalarProperty Name="FK_BatchId" ColumnName="FK_BatchId" />
+          <ScalarProperty Name="FK_SportId" ColumnName="FK_SportId" />
+          <ScalarProperty Name="FK_PlayerId" ColumnName="FK_PlayerId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="PK_PlayerSportId" ColumnName="PK_PlayerSportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Receipt">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Receipt">
+        <MappingFragment StoreEntitySet="Transaction_Receipt">
+          <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+          <ScalarProperty Name="FK_PaymentModeId" ColumnName="FK_PaymentModeId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+          <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
+          <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="FK_InvoiceId" ColumnName="FK_InvoiceId" />
+          <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="PK_ReceiptId" ColumnName="PK_ReceiptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Voucher">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Voucher">
+        <MappingFragment StoreEntitySet="Transaction_Voucher">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+          <ScalarProperty Name="TransactionNumer" ColumnName="TransactionNumer" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaymentFor" ColumnName="PaymentFor" />
+          <ScalarProperty Name="VoucherDate" ColumnName="VoucherDate" />
+          <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+          <ScalarProperty Name="PK_VoucherId" ColumnName="PK_VoucherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedulers">
+      <EntityTypeMapping TypeName="MySportsBook.Model.Scheduler">
+        <MappingFragment StoreEntitySet="Scheduler">
+          <ScalarProperty Name="IsNotificationSent" ColumnName="IsNotificationSent" />
+          <ScalarProperty Name="SchedulerProc" ColumnName="SchedulerProc" />
+          <ScalarProperty Name="LastRun" ColumnName="LastRun" />
+          <ScalarProperty Name="SchedulerName" ColumnName="SchedulerName" />
+          <ScalarProperty Name="SchedulerID" ColumnName="SchedulerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SMSTransactionRequests">
+      <EntityTypeMapping TypeName="MySportsBook.Model.SMSTransactionRequest">
+        <MappingFragment StoreEntitySet="SMSTransactionRequest">
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="PaymentModeID" ColumnName="PaymentModeID" />
+          <ScalarProperty Name="InvoiceDetailID" ColumnName="InvoiceDetailID" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+          <ScalarProperty Name="VenueID" ColumnName="VenueID" />
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+          <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+          <ScalarProperty Name="SportID" ColumnName="SportID" />
+          <ScalarProperty Name="Batch" ColumnName="Batch" />
+          <ScalarProperty Name="Sport" ColumnName="Sport" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="VenueName" ColumnName="VenueName" />
+          <ScalarProperty Name="ResponseString" ColumnName="ResponseString" />
+          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="ReceipentNumber" ColumnName="ReceipentNumber" />
+          <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="PaymentFor" ColumnName="PaymentFor" />
+          <ScalarProperty Name="PaymentMonth" ColumnName="PaymentMonth" />
+          <ScalarProperty Name="PaymentBy" ColumnName="PaymentBy" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="SMSTransactionID" ColumnName="SMSTransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_INVOICEandRECEIPT">
+      <EntityTypeMapping TypeName="MySportsBook.Model.V_INVOICEandRECEIPT">
+        <MappingFragment StoreEntitySet="V_INVOICEandRECEIPT">
+          <ScalarProperty Name="InvoiceDetail_PaidAmount" ColumnName="InvoiceDetail_PaidAmount" />
+          <ScalarProperty Name="InvoiceDetail_Comments" ColumnName="InvoiceDetail_Comments" />
+          <ScalarProperty Name="InvoiceDetail_BatchAmount" ColumnName="InvoiceDetail_BatchAmount" />
+          <ScalarProperty Name="InvoiceDetail_InvoicePeriod" ColumnName="InvoiceDetail_InvoicePeriod" />
+          <ScalarProperty Name="InvoiceDetail_BatchId" ColumnName="InvoiceDetail_BatchId" />
+          <ScalarProperty Name="InvoiceDetail_InvoiceId" ColumnName="InvoiceDetail_InvoiceId" />
+          <ScalarProperty Name="InvoiceDetail_InvoiceDetailId" ColumnName="InvoiceDetail_InvoiceDetailId" />
+          <ScalarProperty Name="Invoice_Comments" ColumnName="Invoice_Comments" />
+          <ScalarProperty Name="Invoice_PaidAmount" ColumnName="Invoice_PaidAmount" />
+          <ScalarProperty Name="Invoice_OtherAmount" ColumnName="Invoice_OtherAmount" />
+          <ScalarProperty Name="Invoice_TotalDiscount" ColumnName="Invoice_TotalDiscount" />
+          <ScalarProperty Name="Invoice_TotalFee" ColumnName="Invoice_TotalFee" />
+          <ScalarProperty Name="Invoice_DueDate" ColumnName="Invoice_DueDate" />
+          <ScalarProperty Name="Invoice_InvoiceDate" ColumnName="Invoice_InvoiceDate" />
+          <ScalarProperty Name="Invoice_PlayerId" ColumnName="Invoice_PlayerId" />
+          <ScalarProperty Name="Invoice_VenueId" ColumnName="Invoice_VenueId" />
+          <ScalarProperty Name="Invoice_InvoiceNumber" ColumnName="Invoice_InvoiceNumber" />
+          <ScalarProperty Name="Invoice_InvoiceId" ColumnName="Invoice_InvoiceId" />
+          <ScalarProperty Name="Receipt_ReceivedBy" ColumnName="Receipt_ReceivedBy" />
+          <ScalarProperty Name="Receipt_TransactionDate" ColumnName="Receipt_TransactionDate" />
+          <ScalarProperty Name="Receipt_StatusId" ColumnName="Receipt_StatusId" />
+          <ScalarProperty Name="Receipt_TransactionNumber" ColumnName="Receipt_TransactionNumber" />
+          <ScalarProperty Name="Receipt_PaymentModeId" ColumnName="Receipt_PaymentModeId" />
+          <ScalarProperty Name="Receipt_Description" ColumnName="Receipt_Description" />
+          <ScalarProperty Name="Receipt_AmountPaid" ColumnName="Receipt_AmountPaid" />
+          <ScalarProperty Name="Receipt_TotalDiscountAmount" ColumnName="Receipt_TotalDiscountAmount" />
+          <ScalarProperty Name="Receipt_TotalOtherAmount" ColumnName="Receipt_TotalOtherAmount" />
+          <ScalarProperty Name="Receipt_TotalFee" ColumnName="Receipt_TotalFee" />
+          <ScalarProperty Name="Receipt_InvoiceId" ColumnName="Receipt_InvoiceId" />
+          <ScalarProperty Name="Receipt_VenueId" ColumnName="Receipt_VenueId" />
+          <ScalarProperty Name="Receipt_ReceiptDate" ColumnName="Receipt_ReceiptDate" />
+          <ScalarProperty Name="Receipt_ReceiptNumber" ColumnName="Receipt_ReceiptNumber" />
+          <ScalarProperty Name="Receipt_ReceiptId" ColumnName="Receipt_ReceiptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_InvoiceDetails">
+      <EntityTypeMapping TypeName="MySportsBook.Model.V_InvoiceDetails">
+        <MappingFragment StoreEntitySet="V_InvoiceDetails">
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ReceiptPaidAmount" ColumnName="ReceiptPaidAmount" />
+          <ScalarProperty Name="DetailsPaidAmount" ColumnName="DetailsPaidAmount" />
+          <ScalarProperty Name="InvoicePaidAmount" ColumnName="InvoicePaidAmount" />
+          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
+          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+          <ScalarProperty Name="BatchAmount" ColumnName="BatchAmount" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="VenueId" ColumnName="VenueId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_invoiceWithoutReceipt">
+      <EntityTypeMapping TypeName="MySportsBook.Model.V_invoiceWithoutReceipt">
+        <MappingFragment StoreEntitySet="V_invoiceWithoutReceipt">
+          <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="DetailsPaidAmount" ColumnName="DetailsPaidAmount" />
+          <ScalarProperty Name="InvoicePaidAmount" ColumnName="InvoicePaidAmount" />
+          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
+          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+          <ScalarProperty Name="BatchAmount" ColumnName="BatchAmount" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="VenueId" ColumnName="VenueId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_PlayerDetails">
+      <EntityTypeMapping TypeName="MySportsBook.Model.V_PlayerDetails">
+        <MappingFragment StoreEntitySet="V_PlayerDetails">
+          <ScalarProperty Name="PlayerFee" ColumnName="PlayerFee" />
+          <ScalarProperty Name="LastGeneratedMonth" ColumnName="LastGeneratedMonth" />
+          <ScalarProperty Name="PlayerSportId" ColumnName="PlayerSportId" />
+          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
+          <ScalarProperty Name="BatchType" ColumnName="BatchType" />
+          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+          <ScalarProperty Name="SportName" ColumnName="SportName" />
+          <ScalarProperty Name="SportID" ColumnName="SportID" />
+          <ScalarProperty Name="VenueId" ColumnName="VenueId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="PlayerNameLastName" ColumnName="PlayerNameLastName" />
+          <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_PlayerSport">
+      <EntityTypeMapping TypeName="MySportsBook.Model.V_PlayerSport">
+        <MappingFragment StoreEntitySet="V_PlayerSport">
+          <ScalarProperty Name="Court_CourtName" ColumnName="Court_CourtName" />
+          <ScalarProperty Name="Court_CourtCode" ColumnName="Court_CourtCode" />
+          <ScalarProperty Name="Sport_Fee" ColumnName="Sport_Fee" />
+          <ScalarProperty Name="Sport_VenueId" ColumnName="Sport_VenueId" />
+          <ScalarProperty Name="Sport_SportCode" ColumnName="Sport_SportCode" />
+          <ScalarProperty Name="Sport_SportName" ColumnName="Sport_SportName" />
+          <ScalarProperty Name="Sport_SportId" ColumnName="Sport_SportId" />
+          <ScalarProperty Name="Batch_Fee" ColumnName="Batch_Fee" />
+          <ScalarProperty Name="Batch_BatchCourtID" ColumnName="Batch_BatchCourtID" />
+          <ScalarProperty Name="Batch_BatchCode" ColumnName="Batch_BatchCode" />
+          <ScalarProperty Name="Batch_BatchName" ColumnName="Batch_BatchName" />
+          <ScalarProperty Name="Batch_VenueId" ColumnName="Batch_VenueId" />
+          <ScalarProperty Name="Batch_BatchId" ColumnName="Batch_BatchId" />
+          <ScalarProperty Name="Player_Fee" ColumnName="Player_Fee" />
+          <ScalarProperty Name="Player_PlayerCreditBalance" ColumnName="Player_PlayerCreditBalance" />
+          <ScalarProperty Name="Player_PlayerStatusId" ColumnName="Player_PlayerStatusId" />
+          <ScalarProperty Name="Player_Mobile" ColumnName="Player_Mobile" />
+          <ScalarProperty Name="Player_Email" ColumnName="Player_Email" />
+          <ScalarProperty Name="Player_PlayerAddress" ColumnName="Player_PlayerAddress" />
+          <ScalarProperty Name="Player_LastName" ColumnName="Player_LastName" />
+          <ScalarProperty Name="Player_FirstName" ColumnName="Player_FirstName" />
+          <ScalarProperty Name="Player_PlayerTypeId" ColumnName="Player_PlayerTypeId" />
+          <ScalarProperty Name="Player_VenueId" ColumnName="Player_VenueId" />
+          <ScalarProperty Name="Player_PlayerId" ColumnName="Player_PlayerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllUserWithVenues" FunctionName="MySportsBook.Model.Store.GetAllUserWithVenues">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MySportsBook.Model.GetAllUserWithVenues_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="VenueID" ColumnName="VenueID" />
+          <ScalarProperty Name="VenueName" ColumnName="VenueName" />
+          <ScalarProperty Name="VenueCode" ColumnName="VenueCode" />
+          <ScalarProperty Name="DailyCollectionEmail" ColumnName="DailyCollectionEmail" />
+          <ScalarProperty Name="DailyCollectionSMS" ColumnName="DailyCollectionSMS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateSchedulerBySchedulerName" FunctionName="MySportsBook.Model.Store.UpdateSchedulerBySchedulerName" />
   </EntityContainerMapping>
 </Mapping>

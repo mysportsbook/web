@@ -92,9 +92,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $('.table').DataTable();
-    });
+   
     function viewFollowUp(id, btn) {
         $.ajax({
             type: "GET",
@@ -115,3 +113,4 @@
     }
 
 </script>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")

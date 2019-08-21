@@ -46,7 +46,7 @@
                                     </td>
                                     <td>
                                         @{
-                                            string _batches = item.Transaction_PlayerSport.Count > 0 ? string.Join(", ", item.Transaction_PlayerSport.Where(x => x.FK_StatusId == 1).Select(i => i.Master_Batch.BatchName)) : string.Empty;
+                                            string _batches = item.Transaction_PlayerSport.Count > 0 ? string.Join(", ", item.Transaction_PlayerSport.Where(x => x.FK_StatusId == 1).Select(i => i.Master_Batch != null ? i.Master_Batch.BatchName : "")) : string.Empty;
                                         }
                                         @Html.DisplayFor(modelItem => _batches)
                                     </td>
@@ -58,8 +58,8 @@
                                         @Html.HiddenFor(modelItem => item.PK_PlayerId)
                                     </td>
                                     @*<td>
-                        <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
-                    </td>*@
+                                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -139,5 +139,5 @@
             }
         });
     }
-    
+
 </script>
