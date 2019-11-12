@@ -53,9 +53,6 @@ D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Debug\EntityFramework.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Debug\EntityFramework.SqlServer.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Debug\EntityFramework.xml
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Debug\EntityFramework.SqlServer.xml
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csprojAssemblyReference.cache
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CoreCompileInputs.cache
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CopyComplete
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\bin\Debug\MySportsBook.Model.dll.config
@@ -78,3 +75,6 @@ D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Debug\EntityFramework.xml
 D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Debug\EntityFramework.SqlServer.xml
 D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.dll
 D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.pdb
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csprojAssemblyReference.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CoreCompileInputs.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Debug\MySportsBook.Model.csproj.CopyComplete

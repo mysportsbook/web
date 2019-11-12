@@ -145,7 +145,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Daily.cshtml">
-      <publishTime>06/16/2019 16:19:22</publishTime>
+      <publishTime>10/18/2019 18:04:16</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Monthly.cshtml">
       <publishTime>04/17/2019 01:58:42</publishTime>
@@ -160,7 +160,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2019 12:12:02</publishTime>
     </File>
     <File Include="Areas/Report/Views/Custom/Index.cshtml">
-      <publishTime>06/16/2019 16:21:00</publishTime>
+      <publishTime>10/18/2019 17:59:31</publishTime>
     </File>
     <File Include="Areas/Report/Views/Enquiry/Index.cshtml">
       <publishTime>06/16/2019 16:21:24</publishTime>
@@ -214,7 +214,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2019 00:43:57</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Receipt/Edit.cshtml">
-      <publishTime>08/02/2019 23:29:02</publishTime>
+      <publishTime>08/25/2019 00:14:06</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Receipt/Index.cshtml">
       <publishTime>07/29/2019 20:22:49</publishTime>
@@ -277,7 +277,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:36</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll">
-      <publishTime>08/20/2019 11:40:11</publishTime>
+      <publishTime>10/18/2019 18:18:34</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll.config">
       <publishTime>07/23/2019 16:21:02</publishTime>
@@ -286,7 +286,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2019 17:26:39</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.dll">
-      <publishTime>08/20/2019 11:40:13</publishTime>
+      <publishTime>10/18/2019 18:18:36</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.pdb">
       <publishTime>07/23/2019 17:30:29</publishTime>
@@ -532,7 +532,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Content/style.css">
-      <publishTime>03/31/2019 17:26:31</publishTime>
+      <publishTime>08/23/2019 13:50:37</publishTime>
     </File>
     <File Include="Content/sweetalert.css">
       <publishTime>03/31/2019 17:18:24</publishTime>
@@ -793,7 +793,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2019 00:06:43</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>12/15/2018 20:41:49</publishTime>
+      <publishTime>10/17/2019 13:36:57</publishTime>
     </File>
     <File Include="Views/Account/SelectVenue.cshtml">
       <publishTime>11/03/2018 16:44:30</publishTime>
@@ -841,7 +841,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/20/2019 11:40:14</publishTime>
+      <publishTime>10/16/2019 09:58:15</publishTime>
     </File>
   </ItemGroup>
 </Project>

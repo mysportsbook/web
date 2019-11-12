@@ -16,7 +16,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -32,29 +32,30 @@
                                 <div class="row">
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     @Html.HiddenFor(model => model.PK_ReceiptId)
+                                    @Html.HiddenFor(model => model.Transaction_Invoice.Master_Player.PK_PlayerId)
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.ReceiptNumber, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.LabelFor(model => model.ReceiptNumber, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.ReceiptNumber, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.ReceiptDate, htmlAttributes: new { @class = "control-label col-md-8" })
-                                            @Html.TextBox("ReceiptDate", Model.ReceiptDate, new { @class = "form-control date" })
+                                            @Html.LabelFor(model => model.ReceiptDate, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBox("ReceiptDate", Model.ReceiptDate.ToString("dd MMM yyyy"), new { @class = "form-control date1" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.FirstName, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.FirstName, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.Transaction_Invoice.Master_Player.FirstName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.Mobile, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.LabelFor(model => model.Transaction_Invoice.Master_Player.Mobile, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.Transaction_Invoice.Master_Player.Mobile, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         </div>
                                     </div>
@@ -76,27 +77,27 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.TransactionNumber, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.LabelFor(model => model.TransactionNumber, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.TransactionNumber, new { htmlAttributes = new { @class = "form-control" } })
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-8" })
-                                            @Html.TextBox("TransactionDate", (Model.TransactionDate.HasValue ? string.Format("{0} {1} {2}", Model.TransactionDate.Value.Day.ToString("00"), Model.TransactionDate.Value.ToString("MMM"), Model.TransactionDate.Value.ToString("yyyy")) : string.Empty), new { @class = "form-control date" })
+                                            @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBox("TransactionDate", (Model.TransactionDate.HasValue ? Model.TransactionDate.Value.ToString("dd MMM yyyy") : string.Empty), new { @class = "form-control date1" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @Html.Label("Comments", htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.Label("Comments", htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.TotalFee, htmlAttributes: new { @class = "control-label col-md-8" })
+                                            @Html.LabelFor(model => model.TotalFee, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.TotalFee, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled  text-right" } })
                                         </div>
                                     </div>
@@ -112,6 +113,7 @@
                                         <div class="form-group">
                                             @Html.Label("Other Amount")
                                             @Html.EditorFor(model => model.TotalOtherAmount, new { htmlAttributes = new { @class = "form-control  text-right" } })
+
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -144,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -175,12 +177,14 @@
                                     <tbody>
                                         @foreach (var item in Model.Transaction_Invoice.Transaction_InvoiceDetail)
                                         {
-                                            <tr>
+                                            <tr class="InvoiceDetailModel">
                                                 <td>
                                                     <span>@Html.DisplayFor(modelItem => item.InvoicePeriod)</span>
                                                 </td>
                                                 <td>
                                                     @Html.EditorFor(modelItem => item.BatchAmount, new { htmlAttributes = new { @class = "form-control batchamount text-right" } })
+                                                    @Html.HiddenFor(modelItem => item.BatchAmount, new { @class = "hidbatchamount" })
+                                                    <smaller><span class="amountdiscription"></span></smaller>
                                                 </td>
                                                 <td>
                                                     @Html.EditorFor(modelItem => item.PaidAmount, new { htmlAttributes = new { @class = "form-control paidamount text-right", @disabled = "disabled" } })
@@ -192,6 +196,9 @@
                                         }
                                     </tbody>
                                 </table>
+                                <div class="row justify-content-center align-self-center" style="float:right">
+                                    <div class="foo closecolor"></div><small>While be <b>CLOSED AUTOMATICALLY BY SYSTEM</b></small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -203,7 +210,7 @@
 @Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
 <script type="text/javascript">
     $(document).ready(() => {
-        $('.date').daterangepicker({
+        $('.date1').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 2000,
@@ -212,19 +219,21 @@
             }
         });
         $('.btn-submit').click(() => {
+            loader();
             var invoiceDetails = [];
-            $($(".chkClose").get().reverse()).each(function () {
-                if (!$(this).is(':checked')) {
-                    invoiceDetails.push({
-                        InvoicePeriod: $(this).find('td>span').text().trim(),
-                        Fee: parseInt($(this).find('td > input[id="item_BatchAmount"]').val().trim()),
-                        PaidAmount: parseInt($(this).find('td > input[id="item_PaidAmount"]').val().trim())
-                    });
-                }
+            $('.InvoiceDetailModel').each(function (key, value) {
+                var inv = {
+                    "InvoicePeriod": $(value).find("span").html(),
+                    "BatchAmount": $(value).find(".batchamount").val(),
+                    "PaidAmount": $(value).find(".paidamount").val(),
+                    "ShouldClose": $($(value).find(".chkClose")).is(":checked")
+                };
+                invoiceDetails.push(inv);
             });
             var invoiceModel = {
+                ReceiptId: $("input[name$=PK_ReceiptId]").val(),
                 ReceiptNumber: $('#ReceiptNumber').val(),
-                PlayerId: $('#PlayerId').val(),
+                PlayerId: $("input[name$=PK_PlayerId]").val(),
                 TotalFee: parseFloat($('#TotalFee').val()),
                 TotalOtherAmount: parseFloat($('#TotalOtherAmount').val()),
                 TotalDiscount: parseFloat($('#TotalDiscountAmount').val()),
@@ -238,9 +247,34 @@
                 ReceivedBy: $('select[name="ReceivedBy"]').val(),
                 InvoiceDetails: invoiceDetails
             }
-            console.log(window.$temp1 = invoiceModel);
-            console.log(window.$temp2 = invoiceDetails);
-            //saveData(invoiceModel, $('#Player_FirstName').val(), SaveOrUpdate.update);
+            $.ajax({
+                type: "POST",
+                url: "/Receipt/Edit",
+                data: { invoiceModel: invoiceModel },
+                success: function (data) {
+                    loader();
+                    if (response) {
+                        swal({
+                            title: "Success!",
+                            text: "Updated sucessfully!",
+                            type: "success",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Ok!",
+                            closeOnConfirm: false
+                        });
+                    }
+                    else {
+                        swal("Failed!", "Failed!", "error", {
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    console.log(exception);
+                }
+            });
         });
         $('.batchamount').blur(() => {
             calculateTotalFee();
@@ -254,11 +288,12 @@
             calculate();
         });
         addRemoveButton();
+        calculate();
     });
 
     const calculateTotalFee = () => {
         let _totalFee = 0;
-        $('.batchamount').each(function () {
+        $('.hidbatchamount').each(function () {
             if (!$(this).closest('tr').find('.chkClose').is(':checked'))
                 _totalFee += parseFloat($(this).val())
         });
@@ -266,10 +301,29 @@
         return _totalFee;
     };
     const splitAmount = () => {
-        let _paidFee = parseFloat($('#AmountPaid').val()) + parseFloat($('#CreditAmount').val()) - parseFloat($('#TotalOtherAmount').val()) + parseFloat($('#TotalDiscountAmount').val());
+        resetBatchAmount();
+        let _count = 1;
+        let _paidFee = parseFloat($('#AmountPaid').val()) + parseFloat($('#CreditAmount').val());
+        $('.amountdiscription').text('');
         $($(".chkClose").get().reverse()).each(function () {
             if (!$(this).is(':checked')) {
-                let _batchFee = parseFloat($(this).closest('tr').find('.batchamount').val());
+                let _batchFee = 0;
+                _batchFee = parseFloat($(this).closest('tr').find('.batchamount').val());
+                if (_count == 1) {
+                    _batchFee += parseFloat($('#TotalOtherAmount').val()) - parseFloat($('#TotalDiscountAmount').val()) - parseFloat($('#CreditAmount').val())
+                    $(this).closest('tr').find('.batchamount').val(_batchFee.toFixed(2))
+                    _count = _count + 1;
+                    if (parseFloat($('#TotalOtherAmount').val()) != 0 || parseFloat($('#TotalDiscountAmount').val()) != 0) {
+
+                        let _result = "(" + parseFloat($(this).closest('tr').find('.hidbatchamount').val()).toFixed(2).toString();
+                        if (parseFloat($('#TotalOtherAmount').val()) != 0)
+                            _result = _result + "+" + parseFloat($('#TotalOtherAmount').val()).toFixed(2).toString();
+                        if (parseFloat($('#TotalDiscountAmount').val()) != 0)
+                            _result = _result + "-" + parseFloat($('#TotalDiscountAmount').val()).toFixed(2).toString();
+                        _result = _result + "=" + _batchFee.toFixed(2).toString() + ")";
+                        $(this).closest('tr').find('.amountdiscription').text(_result)
+                    }
+                }
                 if (_paidFee > _batchFee) {
                     $(this).closest('tr').find('.paidamount').val(_batchFee.toFixed(2));
                     _paidFee = parseFloat(_paidFee) - parseFloat(_batchFee);
@@ -278,6 +332,7 @@
                     $(this).closest('tr').find('.paidamount').val(_paidFee.toFixed(2));
                     _paidFee = parseFloat(0);
                 }
+
             }
             else {
                 $(this).closest('tr').find('.paidamount').val('0.00');
@@ -289,24 +344,69 @@
         let _totalFee = calculateTotalFee();
         let _otherFee = (parseFloat($('#AmountPaid').val()) + parseFloat($('#CreditAmount').val()) - parseFloat($('#TotalOtherAmount').val()) + parseFloat($('#TotalDiscountAmount').val()));
         $('#Balance').val((_otherFee - _totalFee).toFixed(2)).css("background-color", (parseFloat($('#Balance').val()) < 0) ? "#D46A6A" : "#5FAE57");
-
+        setColor();
     };
     const removeRow = (e) => {
         var _count = $('.chkClose:input:not(:checked)').length;
-        if (_count != undefined && _count > 0) {
-            $($(".chkClose").get().reverse()).each(function () {
-
-            });
-        }
         $(e).closest('tr').remove();
         addRemoveButton();
         calculate();
     };
     const addRemoveButton = () => {
         var $row = $('.table tbody').find('tr:first');
-        $row.find('.chkClose').removeAttr('checked').attr('disabled','disabled');
+        $row.find('.chkClose').removeAttr('checked').attr('disabled', 'disabled');
         if (!$row.find('i').hasClass("removeRow"))
-            $row.append('<td><i class="fa fa-times fa-2x removeRow" onclick="removeRow(this)" ></i></td>')
+            $row.append('<td><i class="fa fa-times fa-2x removeRow" onclick="removeRow(this)" style="cursor: pointer;" ></i></td>')
 
     };
+    const resetBatchAmount = () => {
+        $('.batchamount').each(function () {
+            $(this).val(parseFloat($(this).next('.hidbatchamount').val()).toFixed(2));
+        });
+    }
+    const setColor = () => {
+        $('.paidamount').each(function () {
+            if (parseFloat($(this).val()) == 0 && $(this).closest('tr').find('.chkClose').is(':checked')) {
+                $(this).closest('tr').css('background-color', '#f86c6b');
+            }
+            else {
+                $(this).closest('tr').css('background-color', 'rgba(0,0,0,.05)');
+            }
+        });
+
+    }
+
+    const addRow = () => {
+        let _row = '<tr class="InvoiceDetailModel">';
+        var _month = $('.table tbody').find('tr:first').find('span');
+        var _batchAmount = parseFloat($('.table tbody').find('tr:first').find('.hidbatchamount').val()).toFixed(2);
+        _row = _row + '<td><span>APR2019</span></td>';
+        _row = _row + '<td><input class="form-control batchamount text-right text-box single-line" data-val="true" data-val-number="The field BatchAmount must be a number." data-val-required="The BatchAmount field is required." id="item_BatchAmount" name="item.BatchAmount" type="text" value="' + _batchAmount + '">';
+        _row = _row + '<input class="hidbatchamount" id="item_BatchAmount" name="item.BatchAmount" type="hidden" value="' + _batchAmount + '">';
+        _row = _row + '<smaller><span class="amountdiscription"></span></smaller></td>';
+        _row = _row + '<td><input class="form-control paidamount text-right text-box single-line" data-val="true" disabled="disabled" id="item_PaidAmount" name="item.PaidAmount" type="text" value="0.00"></td>';
+        _row = _row + '<td><input class="form-control chkClose" id="chkClose" name="chkClose" type="checkbox" value="true" disabled="disabled"><input name="chkClose" type="hidden" value="false"></td></tr>';
+        calculate();
+    }
 </script>
+<style>
+    .foo {
+        float: left;
+        width: 15px;
+        height: 15px;
+        margin: 5px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+
+    .closecolor {
+        background: #f86c6b;
+    }
+
+    .align-middle {
+        vertical-align: middle !important;
+    }
+
+    small {
+        margin: 5px;
+    }
+</style>

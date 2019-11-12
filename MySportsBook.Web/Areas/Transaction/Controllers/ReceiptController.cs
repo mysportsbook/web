@@ -2,6 +2,7 @@
 using MySportsBook.Model.ViewModel;
 using MySportsBook.Web.Controllers;
 using MySportsBook.Web.Filters;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,6 +15,11 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
     [UserAuthentication]
     public class ReceiptController : BaseController
     {
+        private string CloseMessage = "CLOSED AUTOMATICALLY BY THE SYSTEM!";
+        Transaction_Receipt _master_Receipt;
+        List<InvoiceDetailModel> _invoiceDetailModels;
+        List<Transaction_Invoice> _transactionInvoices;
+        Transaction_Invoice _transactionInvoiceReceipt, _transactionInvoiceClose;
         // GET: Transaction/Invoice
         public async Task<ActionResult> Index()
         {
@@ -23,78 +29,11 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
 
         public ActionResult Edit(int? id)
         {
-            //var master_Receipt = dbContext.Transaction_Receipt.Include(m => m.Confirguration_PaymentMode).Include(m => m.Transaction_Invoice.Transaction_InvoiceDetail).Include(m => m.Transaction_Invoice.Master_Player).Include(m => m.Configuration_Status).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.Transaction_Invoice.FK_PlayerId == id).OrderByDescending(s => s.CreatedDate).Take(2);
+            GetInvoices(id.Value);
+            ViewBag.PaymentMode = new SelectList(dbContext.Confirguration_PaymentMode, "PK_PaymentModeId", "PaymentMode", _master_Receipt.FK_PaymentModeId);
+            ViewBag.ReceivedBy = new SelectList(dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0), "PK_UserId", "UserName", _master_Receipt.ReceivedBy);
+            return View(_master_Receipt);
 
-            var _transactionInvoices = dbContext.Transaction_Invoice.Include(x => x.Transaction_InvoiceDetail).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerId == id).OrderByDescending(s => s.CreatedDate).Take(2);
-            if (_transactionInvoices != null)
-            {
-                var master_Receipt = new Transaction_Receipt();
-                List<InvoiceDetailModel> obj = new List<InvoiceDetailModel>();
-                if (_transactionInvoices.All(x => dbContext.Transaction_Receipt.Any(r => r.FK_InvoiceId == x.PK_InvoiceId)))
-                {
-                    var _transactionInvoice = _transactionInvoices.FirstOrDefault();
-                    if (_transactionInvoice != null)
-                    {
-                        _transactionInvoice.Transaction_InvoiceDetail.FirstOrDefault().BatchAmount = (decimal)(_transactionInvoice.Transaction_InvoiceDetail.FirstOrDefault().BatchAmount + _transactionInvoice.TotalDiscount - _transactionInvoice.OtherAmount);
-                        _transactionInvoice.Transaction_InvoiceDetail.FirstOrDefault().PaidAmount = (decimal)(_transactionInvoice.Transaction_InvoiceDetail.FirstOrDefault().PaidAmount + _transactionInvoice.TotalDiscount - _transactionInvoice.OtherAmount);
-                        master_Receipt = dbContext.Transaction_Receipt.Include(m => m.Confirguration_PaymentMode).Include(m => m.Transaction_Invoice.Transaction_InvoiceDetail).Include(m => m.Transaction_Invoice.Master_Player).Include(m => m.Configuration_Status).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.Transaction_Invoice.FK_PlayerId == id && _transactionInvoice.PK_InvoiceId == x.FK_InvoiceId && x.FK_StatusId == 1).ToList().FirstOrDefault();
-                    }
-                    else
-                        return Json(false, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    var _transactionInvoiceReceipt = _transactionInvoices.FirstOrDefault();
-                    var _transactionInvoiceClose = _transactionInvoices.ToList().LastOrDefault();
-                    _transactionInvoiceReceipt.Transaction_InvoiceDetail.FirstOrDefault().BatchAmount = (decimal)(_transactionInvoiceReceipt.Transaction_InvoiceDetail.FirstOrDefault().BatchAmount + _transactionInvoiceReceipt.TotalDiscount - _transactionInvoiceReceipt.OtherAmount);
-                    _transactionInvoiceReceipt.Transaction_InvoiceDetail.FirstOrDefault().PaidAmount = (decimal)(_transactionInvoiceReceipt.Transaction_InvoiceDetail.FirstOrDefault().PaidAmount + _transactionInvoiceReceipt.TotalDiscount - _transactionInvoiceReceipt.OtherAmount);
-
-                    master_Receipt = dbContext.Transaction_Receipt.Include(m => m.Confirguration_PaymentMode).Include(m => m.Transaction_Invoice.Transaction_InvoiceDetail).Include(m => m.Transaction_Invoice.Master_Player).Include(m => m.Configuration_Status).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.Transaction_Invoice.FK_PlayerId == id && _transactionInvoiceReceipt.PK_InvoiceId == x.FK_InvoiceId && x.FK_StatusId == 1).ToList().FirstOrDefault();
-                    if (master_Receipt != null)
-                    {
-                        if (_transactionInvoices.Count() > 1)
-                        {
-
-                            _transactionInvoiceClose.Transaction_InvoiceDetail.ToList().ForEach(x =>
-                            {
-                                //master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.Add(x);
-                                obj.Add(new InvoiceDetailModel()
-                                {
-                                    InvoicePeriod = x.InvoicePeriod,
-                                    Fee = (double)x.BatchAmount,
-                                    PaidAmount = (double)x.PaidAmount
-
-                                });
-                            });
-
-
-                        }
-
-                    }
-                }
-                //Reordering the Display List
-                if (master_Receipt != null)
-                {
-                    master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.ToList().ForEach(x =>
-                    {
-                        obj.Add(new InvoiceDetailModel()
-                        {
-                            InvoicePeriod = x.InvoicePeriod,
-                            Fee = (double)x.BatchAmount,
-                            PaidAmount = (double)x.PaidAmount
-                        });
-                    });
-                    master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.Clear();
-                    obj.OrderByDescending(x => x.InvoicePeriodDate).ToList().ForEach(x =>
-                    {
-                        master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.Add(new Transaction_InvoiceDetail() { InvoicePeriod = x.InvoicePeriod, BatchAmount = (decimal)x.Fee, PaidAmount = (decimal)x.PaidAmount });
-                    });
-                }
-                ViewBag.PaymentMode = new SelectList(dbContext.Confirguration_PaymentMode, "PK_PaymentModeId", "PaymentMode", master_Receipt.FK_PaymentModeId);
-                ViewBag.ReceivedBy = new SelectList(dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0), "PK_UserId", "UserName", master_Receipt.ReceivedBy);
-                return View(master_Receipt);
-            }
-            return View();
         }
 
         [HttpPost]
@@ -120,5 +59,112 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 .OrderByDescending(x => x.CreatedDate);
             return View(await master_Player.ToListAsync());
         }
+
+
+        #region[ Non Action Methods]
+        private bool Save(InvoiceModel invoiceModel)
+        {
+            GetInvoices(invoiceModel.PlayerId);
+            if (_master_Receipt.PK_ReceiptId == invoiceModel.ReceiptId)
+            {
+                CloseInvoices(invoiceModel);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        void CloseInvoices(InvoiceModel invoiceModel)
+        {
+            List<string> _oldclosedMonths = _transactionInvoiceClose.Transaction_InvoiceDetail.Select(x => x.InvoicePeriod).ToList();
+            List<string> _newclosedMonths = invoiceModel.InvoiceDetails.Where(x => x.ShouldClose).Select(x => x.InvoicePeriod).ToList();
+            var _deleteMonths = _oldclosedMonths.Except(_newclosedMonths).ToList();
+            var _addMonths = _newclosedMonths.Except(_oldclosedMonths).ToList();
+            if (_deleteMonths?.Count > 0)
+            {
+                List<int> _ids = new List<int>();
+                _transactionInvoiceClose.Transaction_InvoiceDetail.ToList().FindAll(x => _deleteMonths.Any(m => m == x.InvoicePeriod)).ForEach(c =>
+                {
+                    _ids.Add(c.PK_InvoiceDetailId);
+                });
+                var _details = dbContext.Transaction_InvoiceDetail
+                    .Where(p => p.FK_InvoiceId == _transactionInvoiceClose.PK_InvoiceId && _ids.Contains(p.PK_InvoiceDetailId)).ToList();
+                dbContext.Transaction_InvoiceDetail.RemoveRange(_details);
+            }
+            if (_addMonths?.Count > 0)
+            {
+                invoiceModel.InvoiceDetails.FindAll(x => _addMonths.Any(m => m == x.InvoicePeriod)).ForEach(c =>
+                {
+                    dbContext.Transaction_InvoiceDetail.Add(new Transaction_InvoiceDetail()
+                    {
+                        FK_BatchId = c.BatchId,
+                        FK_InvoiceId = invoiceModel.InvoiceId,
+                        FK_StatusId = 4,
+                        BatchAmount = (decimal)c.Fee,
+                        InvoicePeriod = c.InvoicePeriod,
+                        PaidAmount = 0,
+                        Comments = CloseMessage,
+                        CreatedBy = currentUser.UserId,
+                        CreatedDate = DateTime.Now.ToLocalTime()
+                    });
+                });
+            }
+            dbContext.SaveChanges();
+
+        }
+
+        void GetInvoices(int PlayerId)
+        {
+            _transactionInvoices = new List<Transaction_Invoice>();
+            _transactionInvoiceReceipt = new Transaction_Invoice();
+            _master_Receipt = new Transaction_Receipt();
+            _invoiceDetailModels = new List<InvoiceDetailModel>();
+            _transactionInvoices = dbContext.Transaction_Invoice
+               .Include(x => x.Transaction_InvoiceDetail)
+               .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerId == PlayerId)
+               .OrderByDescending(s => s.CreatedDate).Take(2).ToList();
+            _transactionInvoiceReceipt = _transactionInvoices.FirstOrDefault();
+            _master_Receipt = dbContext.Transaction_Receipt.Include(m => m.Confirguration_PaymentMode).Include(m => m.Transaction_Invoice.Transaction_InvoiceDetail).Include(m => m.Transaction_Invoice.Master_Player).Include(m => m.Configuration_Status).Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.Transaction_Invoice.FK_PlayerId == PlayerId && _transactionInvoiceReceipt.PK_InvoiceId == x.FK_InvoiceId && x.FK_StatusId == 1).ToList().FirstOrDefault();
+            if (!_transactionInvoices.All(x => dbContext.Transaction_Receipt.Any(r => r.FK_InvoiceId == x.PK_InvoiceId)))
+            {
+                var _transactionInvoiceClose = _transactionInvoices.ToList().LastOrDefault();
+                if (_transactionInvoices.Count() > 1)
+                {
+                    _transactionInvoiceClose.Transaction_InvoiceDetail.ToList().ForEach(x =>
+                    {
+                        _invoiceDetailModels.Add(new InvoiceDetailModel()
+                        {
+                            InvoicePeriod = x.InvoicePeriod,
+                            Fee = (double)x.BatchAmount,
+                            PaidAmount = (double)x.PaidAmount
+
+                        });
+                    });
+                }
+            }
+            //Reordering the Display List
+            if (_master_Receipt != null)
+            {
+                _master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.ToList().ForEach(x =>
+                {
+                    _invoiceDetailModels.Add(new InvoiceDetailModel()
+                    {
+                        InvoicePeriod = x.InvoicePeriod,
+                        Fee = (double)x.BatchAmount,
+                        PaidAmount = (double)x.PaidAmount
+                    });
+                });
+                _master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.Clear();
+                _invoiceDetailModels.OrderByDescending(x => x.InvoicePeriodDate).ToList().ForEach(x =>
+                {
+                    _master_Receipt.Transaction_Invoice.Transaction_InvoiceDetail.Add(new Transaction_InvoiceDetail() { InvoicePeriod = x.InvoicePeriod, BatchAmount = (decimal)x.Fee, PaidAmount = (decimal)x.PaidAmount });
+                });
+            }
+        }
+
+        #endregion[ Non Action Methods]
     }
 }

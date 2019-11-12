@@ -408,6 +408,11 @@ hr {
     font-weight: 400
 }
 
+smaller {
+    font-size: 75%;
+    font-weight: 400
+}
+
 .mark, mark {
     padding: .2em;
     background-color: #fcf8e3

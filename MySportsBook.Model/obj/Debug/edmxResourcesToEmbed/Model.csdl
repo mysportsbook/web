@@ -12,11 +12,6 @@
       <Parameter Name="VenueId" Mode="In" Type="Int32" />
       <Parameter Name="ScreenId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBook.Model.rp_COLLECTIONDETAIL_Result)">
-      <Parameter Name="VENUEID" Mode="In" Type="Int32" />
-      <Parameter Name="MONTH" Mode="In" Type="DateTime" />
-      <Parameter Name="TYPE" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="rp_COMMONPROCEDURE" ReturnType="Collection(MySportsBook.Model.rp_COMMONPROCEDURE_Result)">
       <Parameter Name="STOREPROC" Mode="In" Type="String" />
       <Parameter Name="PARAMETERS" Mode="In" Type="String" />
@@ -540,22 +535,12 @@
     <FunctionImport Name="UpdateSchedulerBySchedulerName">
       <Parameter Name="SchedulerName" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBook.Model.rp_COLLECTIONDETAIL_Result)">
+      <Parameter Name="VENUEID" Mode="In" Type="Int32" />
+      <Parameter Name="MONTH" Mode="In" Type="DateTime" />
+      <Parameter Name="TYPE" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
-  <ComplexType Name="rp_COLLECTIONDETAIL_Result">
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
-    <Property Type="String" Name="InvoicePeriod" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="CollectedDate" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="PaymentMode" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="SportName" Nullable="false" MaxLength="100" />
-    <Property Type="String" Name="BatchCode" Nullable="false" MaxLength="20" />
-    <Property Type="Decimal" Name="TotalFee" Nullable="false" Precision="19" />
-    <Property Type="Decimal" Name="TotalOtherAmount" Nullable="true" Precision="19" />
-    <Property Type="Decimal" Name="TotalDiscountAmount" Nullable="true" Precision="19" />
-    <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" />
-    <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="TransactionNumber" Nullable="true" MaxLength="500" />
-    <Property Type="String" Name="TransactionDate" Nullable="true" MaxLength="30" />
-  </ComplexType>
   <ComplexType Name="rp_COMMONPROCEDURE_Result">
     <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
     <Property Type="String" Name="Inv_Period" Nullable="false" MaxLength="50" />
@@ -3009,5 +2994,21 @@
     <Property Type="String" Name="VenueCode" Nullable="false" MaxLength="10" />
     <Property Type="Boolean" Name="DailyCollectionEmail" Nullable="false" />
     <Property Type="Boolean" Name="DailyCollectionSMS" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="rp_COLLECTIONDETAIL_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
+    <Property Type="String" Name="InvoicePeriod" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CollectedDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="PaymentMode" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="SportName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="BatchCode" Nullable="false" MaxLength="20" />
+    <Property Type="Decimal" Name="TotalFee" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="TotalOtherAmount" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="TotalDiscountAmount" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="TransactionNumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TransactionDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ReceivedBy" Nullable="false" MaxLength="100" />
   </ComplexType>
 </Schema>

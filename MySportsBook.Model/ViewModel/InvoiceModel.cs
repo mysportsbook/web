@@ -23,6 +23,7 @@ namespace MySportsBook.Model.ViewModel
         public bool IsGuestPlayer { get; set; }
         /*Receipt*/
         public string ReceiptNumber { get; set; }
+        public int ReceiptId { get; set; }
     }
     public class InvoiceDetailModel
     {
@@ -39,6 +40,8 @@ namespace MySportsBook.Model.ViewModel
         public int StatusId { get; set; }
         public int PlayerId { get; set; }
         public string Comments { get; set; }
+
+        public bool ShouldClose { get; set; }
         public DateTime InvoicePeriodDate
         {
             get
@@ -46,6 +49,7 @@ namespace MySportsBook.Model.ViewModel
                return InvoicePeriod.Split('-').Length > 1 ? DateTime.ParseExact(InvoicePeriod.Split('-')[1], "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture): DateTime.ParseExact(InvoicePeriod, "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
         }
+       
     }
 
 

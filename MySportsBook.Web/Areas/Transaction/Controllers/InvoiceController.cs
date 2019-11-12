@@ -22,7 +22,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         // public ActionResult Index()
         {
             var master_Player = dbContext.Master_Player
-                .Include(m => m.Transaction_PlayerSport).Include(m => m.Master_Batch)
+                .Include(m => m.Transaction_PlayerSport).Include(m => m.Transaction_PlayerSport.Select(b => b.Master_Batch))
               .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1);
             return View(await master_Player.ToListAsync());
         }
@@ -50,7 +50,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             {
                 return Save(invoiceModel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -338,12 +338,11 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                             x.Comments = CloseMessage;
                             x.InvoiceId = _invoiceModel.InvoiceId;
                             x.StatusId = 4;
-                            x.Fee = 0;
                             x.PaidAmount = 0;
                             GenerateInvoiceDetail(x, false);
                         });
                         dbContext.SaveChanges();
-                        CloseInvoices(_invoiceModel);
+                        CloseOthersInvoices(_invoiceModel);
                     }
                 }
                 SplitTheAmountInDetail(ref invoice);
@@ -354,18 +353,18 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 x.PlayerId = invoice.PlayerId;
                 x.InvoiceId = invoice.InvoiceId;
                 x.Comments = invoice.Comments;
-                x.StatusId = x.Fee == x.PaidAmount ? 4 : 3;
+                x.StatusId = (x.Fee == x.PaidAmount ? 4 : 3);
                 GenerateInvoiceDetail(x, false);
             });
             dbContext.SaveChanges();
-            CloseInvoices(invoice);
+            CloseOthersInvoices(invoice);
             GenerateReceipt(invoice);
             UpdateLastInvGenerated(invoice);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         [NonAction]
-        private void CloseInvoices(InvoiceModel invoice)
+        private void CloseOthersInvoices(InvoiceModel invoice)
         {
             var _invoices = dbContext.Transaction_Invoice.Where(c => c.FK_PlayerId == invoice.PlayerId && c.FK_StatusId == 3);
 
@@ -616,7 +615,6 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             dbContext.Transaction_Invoice.Add(_transInvoice);
             dbContext.SaveChanges();
             invoice.InvoiceId = _transInvoice.PK_InvoiceId;
-            dbContext.SaveChanges();
             return true;
         }
 
@@ -696,7 +694,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 Description = invoice.Comments,
                 CreatedBy = currentUser.UserId,
                 CreatedDate = DateTime.Now.ToLocalTime(),
-                CreditAmount=(_player.CreditBalance.HasValue ? _player.CreditBalance.Value : 0)
+                CreditAmount = (_player.CreditBalance.HasValue ? _player.CreditBalance.Value : 0)
             });
             dbContext.SaveChanges();
             if (invoice.ExtraPaidAmount != (double)(_player.CreditBalance.HasValue ? _player.CreditBalance.Value : 0))
@@ -712,26 +710,33 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         [NonAction]
         private bool UpdateLastInvGenerated(InvoiceModel invoiceModel)
         {
-            var _selectedbatchIds = invoiceModel.InvoiceDetails.Select(x => x.BatchId).Distinct();
-            foreach (var batch in _selectedbatchIds)
+            var _receipt = dbContext.Transaction_Receipt.FirstOrDefault(x => x.FK_InvoiceId == invoiceModel.InvoiceId);
+            if (_receipt != null)
             {
-                var _payorder = invoiceModel.InvoiceDetails.Where(x => x.BatchId == batch && x.StatusId == 4).Max(xs => xs.PayOrder);
-                if (_payorder != 0)
+                var _selectedbatchIds = invoiceModel.InvoiceDetails.Select(x => x.BatchId).Distinct();
+                foreach (var batch in _selectedbatchIds)
                 {
-                    var _detail = invoiceModel.InvoiceDetails.Where(x => x.BatchId == batch && x.PayOrder == _payorder && x.StatusId == 4).FirstOrDefault();
-                    if (_detail != null)
+                    if (invoiceModel.InvoiceDetails.Any(x => x.BatchId == batch && x.StatusId == 4))
                     {
-                        var _playersport = dbContext.Transaction_PlayerSport.Where(s => s.FK_PlayerId == invoiceModel.PlayerId && s.FK_BatchId == batch && s.FK_StatusId == 1).FirstOrDefault();
-                        if (_playersport != null)
+                        var _payorder = invoiceModel.InvoiceDetails.Where(x => x.BatchId == batch && x.StatusId == 4).Max(xs => xs.PayOrder);
+                        if (_payorder != 0)
                         {
-                            _playersport.LastGeneratedMonth = _detail.InvoicePeriod.IndexOf('-') > 0 ? _detail.InvoicePeriod.Split('-')[1].ToString().Trim() : _detail.InvoicePeriod;
-                            _playersport.ModifiedBy = currentUser.UserId;
-                            _playersport.ModifiedDate = DateTime.Now.ToLocalTime();
-                            dbContext.Entry(_playersport).State = EntityState.Modified;
+                            var _detail = invoiceModel.InvoiceDetails.FirstOrDefault(x => x.BatchId == batch && x.PayOrder == _payorder && x.StatusId == 4);
+                            if (_detail != null)
+                            {
+                                var _playersport = dbContext.Transaction_PlayerSport.FirstOrDefault(s => s.FK_PlayerId == invoiceModel.PlayerId && s.FK_BatchId == batch && s.FK_StatusId == 1);
+                                if (_playersport != null)
+                                {
+                                    _playersport.LastGeneratedMonth = _detail.InvoicePeriod.IndexOf('-') > 0 ? _detail.InvoicePeriod.Split('-')[1].ToString().Trim() : _detail.InvoicePeriod;
+                                    _playersport.ModifiedBy = currentUser.UserId;
+                                    _playersport.ModifiedDate = DateTime.Now.ToLocalTime();
+                                    dbContext.Entry(_playersport).State = EntityState.Modified;
+                                }
+                                _detail.PlayerId = invoiceModel.PlayerId;
+                                GenerateInvoiceDetail(_detail, true);
+                                dbContext.SaveChanges();
+                            }
                         }
-                        _detail.PlayerId = invoiceModel.PlayerId;
-                        GenerateInvoiceDetail(_detail, true);
-                        dbContext.SaveChanges();
                     }
                 }
             }

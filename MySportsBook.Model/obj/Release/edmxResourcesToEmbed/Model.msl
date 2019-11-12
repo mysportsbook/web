@@ -9,25 +9,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="GenerateRunningNumber" FunctionName="MySportsBook.Model.Store.GenerateRunningNumber" />
-    <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
-          <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
-          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-          <ScalarProperty Name="SportName" ColumnName="SportName" />
-          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
-          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
-          <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
-          <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
-          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="rp_COMMONPROCEDURE" FunctionName="MySportsBook.Model.Store.rp_COMMONPROCEDURE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COMMONPROCEDURE_Result">
@@ -822,5 +803,25 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UpdateSchedulerBySchedulerName" FunctionName="MySportsBook.Model.Store.UpdateSchedulerBySchedulerName" />
+    <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+          <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="SportName" ColumnName="SportName" />
+          <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
+          <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
+          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

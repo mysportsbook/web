@@ -17,8 +17,6 @@ D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Release\EntityFramework.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Release\EntityFramework.xml
 D:\Training\MSB\GitHub\web\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.xml
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CoreCompileInputs.cache
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CopyComplete
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
 D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\bin\Release\MySportsBook.Model.dll.config
@@ -33,7 +31,6 @@ C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Rele
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.csproj.CopyComplete
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
 C:\Users\Kalaivani\source\repos\mysportsbook\web_New\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb
-D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csprojAssemblyReference.cache
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\bin\Release\MySportsBook.Model.dll.config
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\bin\Release\MySportsBook.Model.dll
 E:\DotNet\MySportsBook\GitHub\web\MySportsBook.Model\bin\Release\MySportsBook.Model.pdb
@@ -55,3 +52,4 @@ D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.xml
 D:\Training\MSB\Latest\web\MySportsBook.Model\bin\Release\EntityFramework.SqlServer.xml
 D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Release\MySportsBook.Model.dll
 D:\Training\MSB\Latest\web\MySportsBook.Model\obj\Release\MySportsBook.Model.pdb
+D:\Training\MSB\GitHub\web\MySportsBook.Model\obj\Release\MySportsBook.Model.csprojResolveAssemblyReference.cache
