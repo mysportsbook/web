@@ -540,6 +540,9 @@
       <Parameter Name="MONTH" Mode="In" Type="DateTime" />
       <Parameter Name="TYPE" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="DeleteReceipt" ReturnType="Collection(String)">
+      <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="rp_COMMONPROCEDURE_Result">
     <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
@@ -1213,7 +1216,7 @@
     <Property Name="TotalDiscount" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="OtherAmount" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="PaidAmount" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
     <Property Name="CreatedBy" Type="Int32" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1236,7 +1239,7 @@
     <Property Name="FK_BatchId" Type="Int32" Nullable="false" />
     <Property Name="InvoicePeriod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="BatchAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
     <Property Name="CreatedBy" Type="Int32" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1293,7 +1296,7 @@
     <Property Name="TotalOtherAmount" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="TotalDiscountAmount" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="AmountPaid" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="FK_PaymentModeId" Type="Int32" Nullable="false" />
     <Property Name="TransactionNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="FK_StatusId" Type="Int32" Nullable="false" />

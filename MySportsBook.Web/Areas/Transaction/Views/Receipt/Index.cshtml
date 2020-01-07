@@ -87,7 +87,7 @@
 
                                     </td>
                                     <td>
-                                        <button class="btn btn-block btn-outline-info" type="button" onclick="editReceipt('@item.PK_ReceiptId');">>Edit</button>
+                                        <button class="btn btn-block btn-outline-info" type="button" onclick="editReceipt('@item.PK_ReceiptId');">Edit</button>
                                         @Html.HiddenFor(modelItem => item.PK_ReceiptId)
                                     </td>
                                 </tr>
@@ -104,6 +104,6 @@
         $('.table').DataTable();
     });
     function editReceipt(id) {
-        window.location.href ="@Url.Action("Edit", "Receipt", new { Area = "Transaction" })" +"/"+id;
+        window.location.href ="@Url.Action("Delete", "Receipt", new { Area = "Transaction" })" +"/"+id;
     }
 </script>

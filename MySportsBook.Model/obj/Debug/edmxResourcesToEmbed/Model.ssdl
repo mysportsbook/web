@@ -487,7 +487,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
     <Property Name="TotalDiscount" Type="money" />
     <Property Name="OtherAmount" Type="money" />
     <Property Name="PaidAmount" Type="money" />
-    <Property Name="Comments" Type="varchar" MaxLength="100" />
+    <Property Name="Comments" Type="varchar" MaxLength="1000" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -503,7 +503,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
     <Property Name="FK_BatchId" Type="int" Nullable="false" />
     <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="BatchAmount" Type="money" Nullable="false" />
-    <Property Name="Comments" Type="varchar" MaxLength="100" />
+    <Property Name="Comments" Type="varchar" MaxLength="1000" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -545,7 +545,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
     <Property Name="TotalOtherAmount" Type="money" />
     <Property Name="TotalDiscountAmount" Type="money" />
     <Property Name="AmountPaid" Type="money" Nullable="false" />
-    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="1000" />
     <Property Name="FK_PaymentModeId" Type="int" Nullable="false" />
     <Property Name="TransactionNumber" Type="varchar" MaxLength="500" />
     <Property Name="FK_StatusId" Type="int" Nullable="false" />
@@ -2193,6 +2193,9 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="DeleteReceipt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PlayerId" Type="int" Mode="In" />
+  </Function>
   <Function Name="fn_GetLastInvoicePaidMonthByPlayerIdAndBatchID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="PlayerID" Type="int" Mode="In" />
     <Parameter Name="BatchID" Type="int" Mode="In" />

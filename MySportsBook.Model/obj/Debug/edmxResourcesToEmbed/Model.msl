@@ -823,5 +823,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
   </EntityContainerMapping>
 </Mapping>

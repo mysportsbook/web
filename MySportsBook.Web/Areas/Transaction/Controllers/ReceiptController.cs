@@ -48,6 +48,19 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            try
+            {
+                return Json(DeleteReceiptInvoice(id), JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: Master/Player
         public async Task<ActionResult> Player()
         {
@@ -76,6 +89,11 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             }
         }
 
+        bool DeleteReceiptInvoice(int? id)
+        {
+
+            return true;
+        }
 
         void CloseInvoices(InvoiceModel invoiceModel)
         {

@@ -159,6 +159,15 @@ namespace MySportsBook.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COLLECTIONDETAIL_Result>("rp_COLLECTIONDETAIL", vENUEIDParameter, mONTHParameter, tYPEParameter);
         }
+    
+        public virtual ObjectResult<string> DeleteReceipt(Nullable<int> playerId)
+        {
+            var playerIdParameter = playerId.HasValue ?
+                new ObjectParameter("PlayerId", playerId) :
+                new ObjectParameter("PlayerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("DeleteReceipt", playerIdParameter);
+        }
 
         public DataTable GetResultReport(int venueID, string storeProc, string parameters)
         {

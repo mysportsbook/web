@@ -50,7 +50,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             {
                 return Save(invoiceModel);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -270,20 +270,23 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         List<ReceiptModel> GetPaymentHistoryList(int PlayerId)
         {
             var master_Receipt = dbContext.Transaction_Receipt
-                                    .Join(dbContext.Transaction_Invoice, rec => rec.FK_InvoiceId, inv => inv.PK_InvoiceId, (receipt, invoice) => new { receipt, invoice })
+                                    .Join(dbContext.Configuration_User, rec => rec.ReceivedBy, user => user.PK_UserId, (receipt, user) => new { receipt, user })
+                                    .Join(dbContext.Transaction_Invoice, rec => rec.receipt.FK_InvoiceId, inv => inv.PK_InvoiceId, (receiptuser, invoice) => new { receiptuser, invoice })
                                     .Join(dbContext.Transaction_InvoiceDetail, recinv => recinv.invoice.PK_InvoiceId, detail => detail.FK_InvoiceId, (receiptinvoice, details) => new { receiptinvoice, details })
                                     .Join(dbContext.Master_Batch, recinv => recinv.details.FK_BatchId, batch => batch.PK_BatchId, (receiptinvoice, batch) => new { receiptinvoice, batch })
                                     .Join(dbContext.Master_Court, recinvbat => recinvbat.batch.FK_CourtId, cou => cou.PK_CourtId, (receiptinvoicebat, court) => new { receiptinvoicebat, court })
                                     .Join(dbContext.Master_Sport, recinvbatcou => recinvbatcou.court.FK_SportId, sport => sport.PK_SportId, (receiptinvoicebatcou, sport) => new { receiptinvoicebatcou, sport })
                                     .Where(p => p.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.invoice.FK_PlayerId == PlayerId)
-                                    .GroupBy(x => new { x.sport.SportName, x.receiptinvoicebatcou.receiptinvoicebat.batch.BatchName, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.AmountPaid, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptDate, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptNumber }).ToList()
+                                    .GroupBy(x => new { x.sport.SportName, x.receiptinvoicebatcou.receiptinvoicebat.batch.BatchName, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.AmountPaid, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.ReceiptDate, x.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.ReceiptNumber }).ToList()
                                     .Select(s => new ReceiptModel
                                     {
-                                        ReceiptNumber = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptNumber,
-                                        ReceiptDate = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.ReceiptDate,
-                                        AmountPaid = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receipt.AmountPaid,
+                                        ReceiptNumber = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.ReceiptNumber,
+                                        ReceiptDate = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.ReceiptDate,
+                                        AmountPaid = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.AmountPaid,
                                         Sport = String.Join(",", s.Select(c => c.sport.SportName).Distinct()),
-                                        Month = String.Join(",", s.Select(b => b.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.details.InvoicePeriod).Distinct())
+                                        Month = String.Join(",", s.Select(b => b.receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.details.InvoicePeriod).Distinct()),
+                                        PaymentMode = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.receipt.Confirguration_PaymentMode.PaymentModeCode,
+                                        Received = s.FirstOrDefault().receiptinvoicebatcou.receiptinvoicebat.receiptinvoice.receiptinvoice.receiptuser.user.FirstName
                                     });
             //.ToList().Select(x => new ReceiptModel
             //{
@@ -317,6 +320,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     _closedInvoiceDetails.Where(x => _allInvoiceDetailList.Any(d => d.BatchId == x.BatchId && d.InvoicePeriod == x.InvoicePeriod && d.InvoiceDetailssId > 0)).ToList().ForEach(x =>
                     {
                         GenerateInvoiceDetail(new InvoiceDetailModel() { PlayerId = invoice.PlayerId, BatchId = x.BatchId, InvoicePeriod = x.InvoicePeriod, Comments = CloseMessage, StatusId = 4 }, true);
+                        UpdateLastInvGeneratedClose(invoice.PlayerId, x.BatchId, x.InvoicePeriod);
                     });
                     if (_closedInvoiceDetails.Where(x => _allInvoiceDetailList.Any(d => d.BatchId == x.BatchId && d.InvoicePeriod == x.InvoicePeriod && d.InvoiceDetailssId == 0)).ToList().Count > 0)
                     {
@@ -340,6 +344,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                             x.StatusId = 4;
                             x.PaidAmount = 0;
                             GenerateInvoiceDetail(x, false);
+                            UpdateLastInvGeneratedClose(invoice.PlayerId, x.BatchId, x.InvoicePeriod);
                         });
                         dbContext.SaveChanges();
                         CloseOthersInvoices(_invoiceModel);
@@ -741,6 +746,19 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 }
             }
             return true;
+        }
+        [NonAction]
+        public void UpdateLastInvGeneratedClose(int playerid, int BatchId, string InvoicePeriod)
+        {
+            var _playersport = dbContext.Transaction_PlayerSport.Where(s => s.FK_PlayerId == playerid && s.FK_BatchId == BatchId && s.FK_StatusId == 1).FirstOrDefault();
+            if (_playersport != null)
+            {
+                _playersport.LastGeneratedMonth = InvoicePeriod.IndexOf('-') > 0 ? InvoicePeriod.Split('-')[1].ToString().Trim() : InvoicePeriod;
+                _playersport.ModifiedBy = currentUser.UserId;
+                _playersport.ModifiedDate = DateTime.Now.ToLocalTime();
+                dbContext.Entry(_playersport).State = EntityState.Modified;
+            }
+            dbContext.SaveChanges();
         }
         #endregion [ NonAction Methods ]
 

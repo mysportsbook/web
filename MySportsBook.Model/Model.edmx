@@ -492,7 +492,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
           <Property Name="TotalDiscount" Type="money" />
           <Property Name="OtherAmount" Type="money" />
           <Property Name="PaidAmount" Type="money" />
-          <Property Name="Comments" Type="varchar" MaxLength="100" />
+          <Property Name="Comments" Type="varchar" MaxLength="1000" />
           <Property Name="FK_StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -508,7 +508,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
           <Property Name="FK_BatchId" Type="int" Nullable="false" />
           <Property Name="InvoicePeriod" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BatchAmount" Type="money" Nullable="false" />
-          <Property Name="Comments" Type="varchar" MaxLength="100" />
+          <Property Name="Comments" Type="varchar" MaxLength="1000" />
           <Property Name="FK_StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -550,7 +550,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
           <Property Name="TotalOtherAmount" Type="money" />
           <Property Name="TotalDiscountAmount" Type="money" />
           <Property Name="AmountPaid" Type="money" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
           <Property Name="FK_PaymentModeId" Type="int" Nullable="false" />
           <Property Name="TransactionNumber" Type="varchar" MaxLength="500" />
           <Property Name="FK_StatusId" Type="int" Nullable="false" />
@@ -2198,6 +2198,9 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteReceipt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlayerId" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_GetLastInvoicePaidMonthByPlayerIdAndBatchID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="PlayerID" Type="int" Mode="In" />
           <Parameter Name="BatchID" Type="int" Mode="In" />
@@ -3446,6 +3449,9 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <Parameter Name="MONTH" Mode="In" Type="DateTime" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeleteReceipt" ReturnType="Collection(String)">
+            <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="rp_COMMONPROCEDURE_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
@@ -4119,7 +4125,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="TotalDiscount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OtherAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PaidAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -4142,7 +4148,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="FK_BatchId" Type="Int32" Nullable="false" />
           <Property Name="InvoicePeriod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BatchAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -4199,7 +4205,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="TotalOtherAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TotalDiscountAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="AmountPaid" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="FK_PaymentModeId" Type="Int32" Nullable="false" />
           <Property Name="TransactionNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
@@ -6745,6 +6751,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
