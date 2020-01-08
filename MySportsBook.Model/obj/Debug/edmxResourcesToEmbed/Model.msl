@@ -803,6 +803,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UpdateSchedulerBySchedulerName" FunctionName="MySportsBook.Model.Store.UpdateSchedulerBySchedulerName" />
+    <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
     <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
@@ -820,9 +821,10 @@
           <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
           <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
           <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
   </EntityContainerMapping>
 </Mapping>

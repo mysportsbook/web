@@ -109,7 +109,7 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId)" title="Edit Receipt" type="button">
+                                            <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId)" title="Delete Last Generated Receipt" type="button">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
@@ -135,7 +135,7 @@
                 loader();
                 $.ajax({
                     type: "GET",
-                    url: 'Transaction/Receipt/Delete/' + id,
+                    url:  "@Url.Action("Delete", "Receipt", new { Area= "Transaction" })"+"/"+id,
                     datatype: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {

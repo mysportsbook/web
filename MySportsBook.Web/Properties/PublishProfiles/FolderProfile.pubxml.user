@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Master/Views/Batch/Create.cshtml">
-      <publishTime>11/03/2018 16:44:29</publishTime>
+      <publishTime>12/28/2019 18:08:29</publishTime>
     </File>
     <File Include="Areas/Master/Views/Batch/Delete.cshtml">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -145,13 +145,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Daily.cshtml">
-      <publishTime>10/18/2019 18:04:16</publishTime>
+      <publishTime>01/08/2020 01:37:45</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Monthly.cshtml">
       <publishTime>04/17/2019 01:58:42</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Player.cshtml">
-      <publishTime>06/16/2019 16:19:35</publishTime>
+      <publishTime>01/08/2020 01:38:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Collection/Split.cshtml">
       <publishTime>01/06/2019 23:26:45</publishTime>
@@ -160,7 +160,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2019 12:12:02</publishTime>
     </File>
     <File Include="Areas/Report/Views/Custom/Index.cshtml">
-      <publishTime>10/18/2019 17:59:31</publishTime>
+      <publishTime>01/08/2020 01:40:29</publishTime>
     </File>
     <File Include="Areas/Report/Views/Enquiry/Index.cshtml">
       <publishTime>06/16/2019 16:21:24</publishTime>
@@ -217,16 +217,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/25/2019 00:14:06</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Receipt/Index.cshtml">
-      <publishTime>07/29/2019 20:22:49</publishTime>
+      <publishTime>01/06/2020 22:15:20</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Receipt/Player.cshtml">
-      <publishTime>08/01/2019 22:19:17</publishTime>
+      <publishTime>01/07/2020 23:40:31</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Shared/_Payment.cshtml">
       <publishTime>08/01/2019 15:56:37</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/Shared/_PaymentHistory.cshtml">
-      <publishTime>01/06/2019 21:06:16</publishTime>
+      <publishTime>01/07/2020 18:23:24</publishTime>
     </File>
     <File Include="Areas/Transaction/Views/web.config">
       <publishTime>11/03/2018 16:44:29</publishTime>
@@ -277,19 +277,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:36</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll">
-      <publishTime>10/18/2019 18:18:34</publishTime>
+      <publishTime>01/08/2020 01:43:49</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.dll.config">
-      <publishTime>07/23/2019 16:21:02</publishTime>
+      <publishTime>08/20/2019 11:37:52</publishTime>
     </File>
     <File Include="bin/MySportsBook.Model.pdb">
-      <publishTime>07/23/2019 17:26:39</publishTime>
+      <publishTime>01/08/2020 01:43:49</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.dll">
-      <publishTime>10/18/2019 18:18:36</publishTime>
+      <publishTime>01/08/2020 01:43:51</publishTime>
     </File>
     <File Include="bin/MySportsBook.Web.pdb">
-      <publishTime>07/23/2019 17:30:29</publishTime>
+      <publishTime>01/08/2020 01:43:51</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>11/03/2018 16:44:37</publishTime>
@@ -841,7 +841,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 16:44:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/16/2019 09:58:15</publishTime>
+      <publishTime>01/08/2020 01:43:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

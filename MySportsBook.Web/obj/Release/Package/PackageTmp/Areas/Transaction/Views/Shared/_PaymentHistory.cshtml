@@ -16,17 +16,21 @@
                     <th scope="col">Sport</th>
                     <th scope="col">Month</th>
                     <th scope="col">Amount</th>
+                    <th scope="col">Received By</th>
+                    <th scope="col">Pay-Mode</th>
                 </tr>
             </thead>
             @foreach (MySportsBook.Model.ViewModel.ReceiptModel detail in Model)
             {
-                <tr>
-                    <td>@detail.ReceiptNumber</td>
-                    <td>@detail.ReceiptDate.ToString("dd/MM/yyyy")</td>
-                    <td>@detail.Sport</td>
-                    <td>@detail.Month</td>
-                    <td>@detail.AmountPaid.ToString("0.00")</td>
-                </tr>
+            <tr>
+                <td>@detail.ReceiptNumber</td>
+                <td>@detail.ReceiptDate.ToString("dd/MM/yyyy")</td>
+                <td>@detail.Sport</td>
+                <td>@detail.Month</td>
+                <td>@detail.AmountPaid.ToString("0.00")</td>
+                <td>@detail.Received</td>
+                <td>@detail.PaymentMode</td>
+            </tr>
             }
         </table>
     }

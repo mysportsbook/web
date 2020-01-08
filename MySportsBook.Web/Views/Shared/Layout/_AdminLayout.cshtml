@@ -41,13 +41,14 @@
 
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    
     <header class="app-header navbar">
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/Account/Home">
             @*<img class="navbar-brand-full" src="/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-            <img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">*@
+                <img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">*@
             <span>My Sports</span>
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
@@ -59,7 +60,7 @@
                 <a class="nav-link" href="@Url.Action("SelectVenue", "Account" , new { Area = "" })" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-map-marker fa-2x hvr-wobble-vertical" title="Change Venue" aria-hidden="true"></i><span class="" style="padding-left:10px"><strong>@ViewBag.Venue</strong></span>
                 </a>
-                
+
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -70,29 +71,29 @@
                         <strong>Account</strong>
                     </div>
                     @*<a class="dropdown-item" href="#">
-                        <i class="fa fa-user"></i> Profile
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-wrench"></i> Settings
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-usd"></i> Payments
-                        <span class="badge badge-secondary">42</span>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-file"></i> Projects
-                        <span class="badge badge-primary">42</span>
-                    </a>
-                    <div class="divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-shield"></i> Lock Account
-                    </a>*@
+                            <i class="fa fa-user"></i> Profile
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-wrench"></i> Settings
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-usd"></i> Payments
+                            <span class="badge badge-secondary">42</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-file"></i> Projects
+                            <span class="badge badge-primary">42</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-shield"></i> Lock Account
+                        </a>*@
                     <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
                         <i class="fa fa-lock"></i> Logout
                     </a>
                 </div>
             </li>
-           
+
         </ul>
 
     </header>
@@ -171,10 +172,10 @@
                         </a>
                     </li>
                     @*<li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
-                <i class="nav-icon fa fa-file-text-o"></i> Player Collection
-            </a>
-        </li>*@
+                            <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
+                                <i class="nav-icon fa fa-file-text-o"></i> Player Collection
+                            </a>
+                        </li>*@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Custom", "Defaulters", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Defaulters

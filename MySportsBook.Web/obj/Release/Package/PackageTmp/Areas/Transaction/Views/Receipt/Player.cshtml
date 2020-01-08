@@ -109,8 +109,8 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <button class="btn btn-primary" onclick="editReceipt(@item.PK_PlayerId)" title="Edit Receipt" type="button">
-                                                <i class="fa fa-pencil"></i>
+                                            <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId)" title="Delete Last Generated Receipt" type="button">
+                                                <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -124,8 +124,49 @@
     </div>
 </main>
 <script>
-    function editReceipt(id) {
-        loader();
-        window.location.href = "@Url.Action("Edit", "Receipt", new { Area= "Transaction" })"+"/"+id;
+    function deleteReceipt(id) {
+        swal({
+            title: "Are you sure?",
+            text: "Do you want to delete the last generated receipt!",
+            icon: "warning",
+            buttons: true,
+        }).then((confirm) => {
+            if (confirm) {
+                loader();
+                $.ajax({
+                    type: "GET",
+                    url:  "@Url.Action("Delete", "Receipt", new { Area= "Transaction" })"+"/"+id,
+                    datatype: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        loader();
+                        if (response) {
+                            swal({
+                                title: "Success!",
+                                text: "Deleted sucessfully!",
+                                type: "success",
+                                icon: "success",
+                                showCancelButton: false,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Ok!",
+                                closeOnConfirm: false
+                            });
+                        }
+                        else {
+                            swal("Failed!", "Delete failed due to no receipt generated this month!", "error", {
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                        loader();
+                        swal("Failed!", "Delete failed due to no receipt generated this month! -" + exception, "error", {
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+        
     }
 </script>

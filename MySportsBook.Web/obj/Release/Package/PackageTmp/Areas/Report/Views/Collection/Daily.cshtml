@@ -49,6 +49,9 @@
                                         @Html.DisplayName("Name")
                                     </th>
                                     <th>
+                                        @Html.DisplayName("Receipt#")
+                                    </th>
+                                    <th>
                                         @Html.DisplayName("InvoicePeriod")
                                     </th>
                                     <th>
@@ -79,6 +82,9 @@
                                             @Html.DisplayFor(modelItem => item.Name)
                                         </td>
                                         <td>
+                                            @Html.DisplayFor(modelItem => item.ReceiptNumber)
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.InvoicePeriod)
                                         </td>
                                         <td>
@@ -105,30 +111,16 @@
                         </table>
                     </div>
                     <div class="row">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
-                            <div class="col-md-6">
-                                @Html.TextBox("txtCash", data.FindAll(x => x.PaymentMode == "Cash").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                        @foreach (var item in data.GroupBy(x => x.PaymentMode).ToDictionary(g => g.Key, g => g.Sum(s => s.AmountPaid)))
+                        {
+                            <div class="card text-center">
+                                <h6>Total @item.Key </h6>
+                                <div class="card-body text-center">
+                                    <span class="label label-default font-weight-bold">@item.Value.ToString("0.00")</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
-                            <div class="col-md-6">
-                                @Html.TextBox("txtTransfer", data.FindAll(x => x.PaymentMode == "Transfer").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
-                            <div class="col-md-6">
-                                @Html.TextBox("txtCheque", data.FindAll(x => x.PaymentMode == "Cheque").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-6 col-form-label" for="text-input">Total Paytm</label>
-                            <div class="col-md-6">
-                                @Html.TextBox("txtPaytm", data.FindAll(x => x.PaymentMode == "Paytm").Sum(x => x.AmountPaid).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                            </div>
-                        </div>
+                            <span>&nbsp;</span>
+                        }
                     </div>
                 </div>
             </div>

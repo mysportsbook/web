@@ -88,6 +88,18 @@
                     @if (Model != null && Model.Rows.Count > 0 && Model.Columns.Contains("Payment Mode"))
                     {
                         <div class="row">
+                            @foreach (var item in data.AsEnumerable().GroupBy(x => x.Field<string>("Payment Mode")).ToDictionary(g => g.Key, g => g.Sum(s => s.Field<decimal>("Amount"))))
+                            {
+                                <div class="card text-center">
+                                    <h6>Total @item.Key </h6>
+                                    <div class="card-body text-center">
+                                        <span class="label label-default font-weight-bold">@item.Value.ToString("0.00")</span>
+                                    </div>
+                                </div>
+                                <span>&nbsp;</span>
+                            }
+                        </div>
+                        @*<div class="row">
                             <div class="form-group row">
                                 <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
                                 <div class="col-md-6">
@@ -119,7 +131,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div>*@
                     }
                 </div>
             </div>

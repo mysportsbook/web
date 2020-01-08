@@ -572,4 +572,7 @@ D:\Training\MSB\Latest\web\MySportsBook.Web\bin\System.Web.Optimization.xml
 D:\Training\MSB\Latest\web\MySportsBook.Web\obj\Release\MySportsBook.Web.dll
 D:\Training\MSB\Latest\web\MySportsBook.Web\obj\Release\MySportsBook.Web.pdb
 D:\Training\MSB\Latest\web\MySportsBook.Web\obj\Release\MySportsBook.Web.csprojResolveAssemblyReference.cache
-D:\Training\MSB\GitHub\web\MySportsBook.Web\obj\Release\MySportsBook.Web.csprojResolveAssemblyReference.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Web\bin\MySportsBook.Model.dll.config
+D:\Training\MSB\GitHub\web\MySportsBook.Web\obj\Release\MySportsBook.Web.csprojAssemblyReference.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Web\obj\Release\MySportsBook.Web.csproj.CoreCompileInputs.cache
+D:\Training\MSB\GitHub\web\MySportsBook.Web\obj\Release\MySportsBook.Web.csproj.CopyComplete

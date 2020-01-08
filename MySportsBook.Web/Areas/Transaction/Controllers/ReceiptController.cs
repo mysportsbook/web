@@ -56,7 +56,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             {
                 return Json(DeleteReceiptInvoice(id), JsonRequestBehavior.AllowGet);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
@@ -91,8 +91,8 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
 
         bool DeleteReceiptInvoice(int? id)
         {
-
-            return true;
+            var _result = dbContext.DeleteReceipt(id).ToList();
+            return (_result.FirstOrDefault().HasValue && _result.FirstOrDefault().Value == 1);
         }
 
         void CloseInvoices(InvoiceModel invoiceModel)

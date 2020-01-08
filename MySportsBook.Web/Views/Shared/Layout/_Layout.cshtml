@@ -110,29 +110,23 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Invoice
                         </a>
                     </li>
+                    @{
+                        var _userId = ((MySportsBook.Model.ViewModel.CurrentUser)(System.Web.HttpContext.Current.Session["CURRENTUSER"])).UserId;
+                        if (_userId < 4)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Player", "Receipt", new { Area = "Transaction" })">
+                                    <i class="nav-icon fa fa-file-text-o"></i> Receipt
+                                </a>
+                            </li>
+                        }
+                    }
                     <li class="nav-title">Report</li>
-                    @*<li class="nav-item">
-            <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Report" })">
-                <i class="nav-icon fa fa-file-text-o"></i> Invoice
-            </a>
-        </li>
-        <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("", "Booking", new { Area = "Report" })">
-                    <i class="nav-icon fa fa-file-text-o"></i> Booking
-                </a>
-            </li>
-                    *@
-
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Daily", "Collection", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Daily Collection
                         </a>
                     </li>
-                    @*<li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Player Collection
-                        </a>
-                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Defaulters", "Custom", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Defaulters

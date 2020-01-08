@@ -27,3 +27,4 @@ D:\Training\MSB\GitHub\web\SQLSMS\obj\Debug\postdeploy.sql
 D:\Training\MSB\GitHub\web\SQLSMS\obj\Debug\predeploy.sql
 D:\Training\MSB\GitHub\web\SQLSMS\obj\Debug\SQLSMS.dll
 D:\Training\MSB\GitHub\web\SQLSMS\obj\Debug\SQLSMS.pdb
+D:\Training\MSB\GitHub\web\SQLSMS\obj\Debug\SQLSMS.sqlprojAssemblyReference.cache
