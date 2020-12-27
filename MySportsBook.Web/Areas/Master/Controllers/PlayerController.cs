@@ -16,6 +16,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
     [UserAuthentication]
     public class PlayerController : BaseController
     {
+        private int[] status = { 1, 2 };
         // GET: Master/Player
         public async Task<ActionResult> Index()
 
@@ -37,7 +38,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
                 .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
                  .Include(m => m.Configuration_Status)
-                .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1)
+                .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && status.Contains(x.FK_StatusId))
                 .OrderByDescending(x => x.CreatedDate);
             return View(await master_Player.ToListAsync());
         }
@@ -128,7 +129,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var master_Player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1);
+            var master_Player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId && status.Contains(x.FK_StatusId));
             if (master_Player == null || master_Player.Count() == 0)
             {
                 return HttpNotFound();
@@ -186,7 +187,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         {
             try
             {
-                var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == playermodel.Player.PK_PlayerId && x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1);
+                var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == playermodel.Player.PK_PlayerId && x.FK_VenueId == currentUser.CurrentVenueId && status.Contains(x.FK_StatusId));
                 if (_player == null || _player.Count() == 0)
                 {
                     return HttpNotFound();
@@ -197,7 +198,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 }
                 if (playermodel != null && playermodel.Player != null && playermodel.PlayerSports.Count > 0)
                 {
-                    if (!dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
+                    if (!dbContext.Master_Player.Where(x => status.Contains(x.FK_StatusId) && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
                     {
                         Master_Player master_Player = _player.FirstOrDefault();
                         master_Player.FK_PlayerTypeId = playermodel.Player.FK_PlayerTypeId;
@@ -308,7 +309,8 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // GET: Master/Player/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1);
+            
+            var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId && status.Contains(x.FK_StatusId));
             if (_player == null || _player.Count() == 0)
             {
                 return HttpNotFound();
@@ -318,7 +320,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 return HttpNotFound();
             }
             Master_Player master_Player = _player.FirstOrDefault();
-            master_Player.FK_StatusId = 2;
+            master_Player.FK_StatusId = 5;
             master_Player.ModifiedBy = currentUser.UserId;
             master_Player.ModifiedDate = DateTime.Now.ToLocalTime();
             dbContext.Entry(master_Player).State = EntityState.Modified;
@@ -347,6 +349,21 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                                                          Fee = (double)ps.playersport.playersport.playerbatchsport.playersport.Fee
                                                      }).ToList();
             return Json(_playersports, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ActivateDeactivate(int id)
+        {
+            var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId).FirstOrDefault();
+            if (_player == null)
+            {
+                return HttpNotFound();
+            }
+            _player.FK_StatusId = _player.FK_StatusId == 1 ? 2 : 1;
+            _player.ModifiedBy = currentUser.UserId;
+            _player.ModifiedDate = DateTime.Now.ToLocalTime();
+            dbContext.Entry(_player).State = EntityState.Modified;
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

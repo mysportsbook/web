@@ -26,7 +26,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // GET: Master/Court/Create
         public ActionResult Create()
         {
-            ViewBag.FK_SportId = new SelectList(dbContext.Master_Sport, "PK_SportId", "SportName");
+            ViewBag.FK_SportId = new SelectList(dbContext.Master_Sport.Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1), "PK_SportId", "SportName");
             return View();
         }
 

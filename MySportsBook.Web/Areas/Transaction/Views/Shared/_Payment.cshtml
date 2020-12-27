@@ -23,7 +23,7 @@
                 {
                     <tr>
                         <td>@detail.BatchName</td>
-                        <td>@detail.SportName</td>
+                        <td>@Html.Raw(detail.SportName)</td>
                         <td>@detail.InvoicePeriod</td>
                         <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
                         <td>
@@ -179,6 +179,9 @@
                 <div class="offset-md-9 col-sm-3">
                     <button type="button" class="btn btn-primary btn-block" onclick="confirmation()" tabindex="10">Pay</button>
                     @Html.HiddenFor(model => model.PlayerId)
+                </div>
+                <div class="offset-md-9 col-sm-3">
+                    <span class="badge badge-success">Last paid on: @Model.InvoiceDetails.FirstOrDefault().LastPaidDetails</span>
                 </div>
             </div>
         </div>

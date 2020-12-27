@@ -55,7 +55,18 @@
           <Property Name="PK_ScreenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Screen" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ScreenCode" Type="varchar" MaxLength="10" />
-          <Property Name="Type" Type="varchar" MaxLength="20" />
+          <Property Name="NavigationURL" Type="varchar" MaxLength="100" />
+          <Property Name="FK_ScreenTypeId" Type="int" Nullable="false" />
+          <Property Name="Area" Type="varchar" MaxLength="100" />
+          <Property Name="Controller" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Configuration_ScreenType">
+          <Key>
+            <PropertyRef Name="PK_ScreenTypeId" />
+          </Key>
+          <Property Name="PK_ScreenTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreenType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ScreenTypeCode" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Configuration_Status">
           <Key>
@@ -183,6 +194,24 @@
           <Property Name="Comments" Type="varchar" MaxLength="100" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Master_ExpenseType">
+          <Key>
+            <PropertyRef Name="PK_ExpenseTypeId" />
+          </Key>
+          <Property Name="PK_ExpenseTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_VenueId" Type="int" Nullable="false" />
+          <Property Name="ExpenseCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="ExpenseDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Master_IncomeType">
+          <Key>
+            <PropertyRef Name="PK_IncomeTypeId" />
+          </Key>
+          <Property Name="PK_IncomeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_VenueId" Type="int" Nullable="false" />
+          <Property Name="IncomeCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="IncomeDescription" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Master_Player">
           <Key>
@@ -333,8 +362,8 @@
           <Property Name="FK_VenueId" Type="int" Nullable="false" />
           <Property Name="FK_ScreenId" Type="int" Nullable="false" />
           <Property Name="Prefix" Type="varchar" MaxLength="10" />
-          <Property Name="CurrentNo" Type="int" Nullable="false" />
-          <Property Name="FK_FormatId" Type="int" Nullable="false" />
+          <Property Name="CurrentNo" Type="int" />
+          <Property Name="FK_FormatId" Type="int" />
           <Property Name="FK_StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -477,6 +506,40 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.SMSTransactionRequest' does 
           <Property Name="Comments" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction_Expense">
+          <Key>
+            <PropertyRef Name="PK_ExpenseId" />
+          </Key>
+          <Property Name="PK_ExpenseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_VenueId" Type="int" Nullable="false" />
+          <Property Name="FK_ExpenseTypeId" Type="int" Nullable="false" />
+          <Property Name="SpendBy" Type="int" Nullable="false" />
+          <Property Name="SpendDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="FK_StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Transaction_Income">
+          <Key>
+            <PropertyRef Name="PK_IncomeId" />
+          </Key>
+          <Property Name="PK_IncomeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_VenueId" Type="int" Nullable="false" />
+          <Property Name="FK_IncomeTypeId" Type="int" Nullable="false" />
+          <Property Name="ReceivedBy" Type="int" Nullable="false" />
+          <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="FK_StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Transaction_Invoice">
           <Key>
@@ -830,6 +893,18 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Configuration_Screen_Configuration_ScreenType">
+          <End Role="Configuration_ScreenType" Type="Self.Configuration_ScreenType" Multiplicity="1" />
+          <End Role="Configuration_Screen" Type="Self.Configuration_Screen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_ScreenType">
+              <PropertyRef Name="PK_ScreenTypeId" />
+            </Principal>
+            <Dependent Role="Configuration_Screen">
+              <PropertyRef Name="FK_ScreenTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Configuration_User_Configuration_Status">
           <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
           <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="*" />
@@ -1106,6 +1181,30 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_Expense_Master_Venue">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Master_ExpenseType" Type="Self.Master_ExpenseType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_ExpenseType">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_IncomeType_Master_Venue">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Master_IncomeType" Type="Self.Master_IncomeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_IncomeType">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_Player_Configuration_PlayerType">
           <End Role="Configuration_PlayerType" Type="Self.Configuration_PlayerType" Multiplicity="1" />
           <End Role="Master_Player" Type="Self.Master_Player" Multiplicity="*" />
@@ -1287,7 +1386,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format">
-          <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="1" />
+          <End Role="Configuration_Format" Type="Self.Configuration_Format" Multiplicity="0..1" />
           <End Role="Master_VenueScreen" Type="Self.Master_VenueScreen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Configuration_Format">
@@ -1838,6 +1937,150 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_Status">
+          <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="SpendBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User1">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User2">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Master_ExpenseType">
+          <End Role="Master_ExpenseType" Type="Self.Master_ExpenseType" Multiplicity="1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_ExpenseType">
+              <PropertyRef Name="PK_ExpenseTypeId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Master_Venue">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Transaction_Expense" Type="Self.Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_Status">
+          <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="ReceivedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User1">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User2">
+          <End Role="Configuration_User" Type="Self.Configuration_User" Multiplicity="0..1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Master_IncomeType">
+          <End Role="Master_IncomeType" Type="Self.Master_IncomeType" Multiplicity="1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_IncomeType">
+              <PropertyRef Name="PK_IncomeTypeId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="FK_IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Master_Venue">
+          <End Role="Master_Venue" Type="Self.Master_Venue" Multiplicity="1" />
+          <End Role="Transaction_Income" Type="Self.Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Invoice_Configuration_Status">
           <End Role="Configuration_Status" Type="Self.Configuration_Status" Multiplicity="1" />
           <End Role="Transaction_Invoice" Type="Self.Transaction_Invoice" Multiplicity="*" />
@@ -2244,6 +2487,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySet Name="Configuration_InvoicePeriod" EntityType="Self.Configuration_InvoicePeriod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_PlayerType" EntityType="Self.Configuration_PlayerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_Screen" EntityType="Self.Configuration_Screen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configuration_ScreenType" EntityType="Self.Configuration_ScreenType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_Status" EntityType="Self.Configuration_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration_User" EntityType="Self.Configuration_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Confirguration_PaymentMode" EntityType="Self.Confirguration_PaymentMode" Schema="dbo" store:Type="Tables" />
@@ -2253,6 +2497,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySet Name="Master_CoachingLevel" EntityType="Self.Master_CoachingLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Court" EntityType="Self.Master_Court" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Enquiry" EntityType="Self.Master_Enquiry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_ExpenseType" EntityType="Self.Master_ExpenseType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_IncomeType" EntityType="Self.Master_IncomeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Player" EntityType="Self.Master_Player" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Role" EntityType="Self.Master_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_RoleScreen" EntityType="Self.Master_RoleScreen" Schema="dbo" store:Type="Tables" />
@@ -2269,6 +2515,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySet Name="StudioEvent" EntityType="Self.StudioEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_Attendance" EntityType="Self.Transaction_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_Enquiry_Comments" EntityType="Self.Transaction_Enquiry_Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Expense" EntityType="Self.Transaction_Expense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Income" EntityType="Self.Transaction_Income" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_Invoice" EntityType="Self.Transaction_Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_InvoiceDetail" EntityType="Self.Transaction_InvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_PlayerSport" EntityType="Self.Transaction_PlayerSport" Schema="dbo" store:Type="Tables" />
@@ -2448,6 +2696,10 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="BatchCount" EntitySet="BatchCount" />
           </AssociationSet>
+          <AssociationSet Name="FK_Configuration_Screen_Configuration_ScreenType" Association="Self.FK_Configuration_Screen_Configuration_ScreenType">
+            <End Role="Configuration_ScreenType" EntitySet="Configuration_ScreenType" />
+            <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
+          </AssociationSet>
           <AssociationSet Name="FK_Configuration_User_Configuration_Status" Association="Self.FK_Configuration_User_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Configuration_User" EntitySet="Configuration_User" />
@@ -2539,6 +2791,14 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <AssociationSet Name="FK_Master_Court_Master_Venue" Association="Self.FK_Master_Court_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Master_Court" EntitySet="Master_Court" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_Expense_Master_Venue" Association="Self.FK_Master_Expense_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_ExpenseType" EntitySet="Master_ExpenseType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_IncomeType_Master_Venue" Association="Self.FK_Master_IncomeType_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_IncomeType" EntitySet="Master_IncomeType" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_Player_Configuration_PlayerType" Association="Self.FK_Master_Player_Configuration_PlayerType">
             <End Role="Configuration_PlayerType" EntitySet="Configuration_PlayerType" />
@@ -2784,6 +3044,54 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Master_Enquiry" EntitySet="Master_Enquiry" />
             <End Role="Transaction_Enquiry_Comments" EntitySet="Transaction_Enquiry_Comments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_Status" Association="Self.FK_Transaction_Expense_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User" Association="Self.FK_Transaction_Expense_Configuration_User">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User1" Association="Self.FK_Transaction_Expense_Configuration_User1">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User2" Association="Self.FK_Transaction_Expense_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Master_ExpenseType" Association="Self.FK_Transaction_Expense_Master_ExpenseType">
+            <End Role="Master_ExpenseType" EntitySet="Master_ExpenseType" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Master_Venue" Association="Self.FK_Transaction_Expense_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_Status" Association="Self.FK_Transaction_Income_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User" Association="Self.FK_Transaction_Income_Configuration_User">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User1" Association="Self.FK_Transaction_Income_Configuration_User1">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User2" Association="Self.FK_Transaction_Income_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Master_IncomeType" Association="Self.FK_Transaction_Income_Master_IncomeType">
+            <End Role="Master_IncomeType" EntitySet="Master_IncomeType" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Master_Venue" Association="Self.FK_Transaction_Income_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Invoice_Configuration_Status" Association="Self.FK_Transaction_Invoice_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
@@ -2929,12 +3237,25 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <FunctionImport Name="Transaction_SaveInvoice" ReturnType="Collection(MySportsBook.Model.Transaction_SaveInvoice_Result)">
           <Parameter Name="XML" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllUserWithVenues" ReturnType="Collection(MySportsBook.Model.GetAllUserWithVenues_Result)" />
+          <FunctionImport Name="UpdateSchedulerBySchedulerName">
+          <Parameter Name="SchedulerName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteReceipt" ReturnType="Collection(Int32)">
+          <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBook.Model.rp_COLLECTIONDETAIL_Result)">
+            <Parameter Name="VENUEID" Mode="In" Type="Int32" />
+            <Parameter Name="MONTH" Mode="In" Type="DateTime" />
+            <Parameter Name="TYPE" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="BatchCounts" EntityType="MySportsBook.Model.BatchCount" />
           <EntitySet Name="Configuration_BatchType" EntityType="MySportsBook.Model.Configuration_BatchType" />
           <EntitySet Name="Configuration_Format" EntityType="MySportsBook.Model.Configuration_Format" />
           <EntitySet Name="Configuration_InvoicePeriod" EntityType="MySportsBook.Model.Configuration_InvoicePeriod" />
           <EntitySet Name="Configuration_PlayerType" EntityType="MySportsBook.Model.Configuration_PlayerType" />
           <EntitySet Name="Configuration_Screen" EntityType="MySportsBook.Model.Configuration_Screen" />
+          <EntitySet Name="Configuration_ScreenType" EntityType="MySportsBook.Model.Configuration_ScreenType" />
           <EntitySet Name="Configuration_Status" EntityType="MySportsBook.Model.Configuration_Status" />
           <EntitySet Name="Configuration_User" EntityType="MySportsBook.Model.Configuration_User" />
           <EntitySet Name="Confirguration_PaymentMode" EntityType="MySportsBook.Model.Confirguration_PaymentMode" />
@@ -2944,6 +3265,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySet Name="Master_CoachingLevel" EntityType="MySportsBook.Model.Master_CoachingLevel" />
           <EntitySet Name="Master_Court" EntityType="MySportsBook.Model.Master_Court" />
           <EntitySet Name="Master_Enquiry" EntityType="MySportsBook.Model.Master_Enquiry" />
+          <EntitySet Name="Master_ExpenseType" EntityType="MySportsBook.Model.Master_ExpenseType" />
+          <EntitySet Name="Master_IncomeType" EntityType="MySportsBook.Model.Master_IncomeType" />
           <EntitySet Name="Master_Player" EntityType="MySportsBook.Model.Master_Player" />
           <EntitySet Name="Master_Role" EntityType="MySportsBook.Model.Master_Role" />
           <EntitySet Name="Master_RoleScreen" EntityType="MySportsBook.Model.Master_RoleScreen" />
@@ -2960,6 +3283,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySet Name="StudioEvents" EntityType="MySportsBook.Model.StudioEvent" />
           <EntitySet Name="Transaction_Attendance" EntityType="MySportsBook.Model.Transaction_Attendance" />
           <EntitySet Name="Transaction_Enquiry_Comments" EntityType="MySportsBook.Model.Transaction_Enquiry_Comments" />
+          <EntitySet Name="Transaction_Expense" EntityType="MySportsBook.Model.Transaction_Expense" />
+          <EntitySet Name="Transaction_Income" EntityType="MySportsBook.Model.Transaction_Income" />
           <EntitySet Name="Transaction_Invoice" EntityType="MySportsBook.Model.Transaction_Invoice" />
           <EntitySet Name="Transaction_InvoiceDetail" EntityType="MySportsBook.Model.Transaction_InvoiceDetail" />
           <EntitySet Name="Transaction_PlayerSport" EntityType="MySportsBook.Model.Transaction_PlayerSport" />
@@ -3003,6 +3328,10 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <AssociationSet Name="FK_Master_Player_Configuration_PlayerType" Association="MySportsBook.Model.FK_Master_Player_Configuration_PlayerType">
             <End Role="Configuration_PlayerType" EntitySet="Configuration_PlayerType" />
             <End Role="Master_Player" EntitySet="Master_Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Configuration_Screen_Configuration_ScreenType" Association="MySportsBook.Model.FK_Configuration_Screen_Configuration_ScreenType">
+            <End Role="Configuration_ScreenType" EntitySet="Configuration_ScreenType" />
+            <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
           </AssociationSet>
           <AssociationSet Name="FK_Master_ScreenNumberFormat_Configuration_Screen" Association="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Screen">
             <End Role="Configuration_Screen" EntitySet="Configuration_Screen" />
@@ -3067,6 +3396,14 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <AssociationSet Name="FK_Master_Venue_Configuration_Status" Association="MySportsBook.Model.FK_Master_Venue_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
             <End Role="Master_Venue" EntitySet="Master_Venue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_Status" Association="MySportsBook.Model.FK_Transaction_Expense_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_Status" Association="MySportsBook.Model.FK_Transaction_Income_Configuration_Status">
+            <End Role="Configuration_Status" EntitySet="Configuration_Status" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Invoice_Configuration_Status" Association="MySportsBook.Model.FK_Transaction_Invoice_Configuration_Status">
             <End Role="Configuration_Status" EntitySet="Configuration_Status" />
@@ -3232,6 +3569,30 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Configuration_User" EntitySet="Configuration_User" />
             <End Role="StudioEvent" EntitySet="StudioEvents" />
           </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User" Association="MySportsBook.Model.FK_Transaction_Expense_Configuration_User">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User1" Association="MySportsBook.Model.FK_Transaction_Expense_Configuration_User1">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Configuration_User2" Association="MySportsBook.Model.FK_Transaction_Expense_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User" Association="MySportsBook.Model.FK_Transaction_Income_Configuration_User">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User1" Association="MySportsBook.Model.FK_Transaction_Income_Configuration_User1">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Configuration_User2" Association="MySportsBook.Model.FK_Transaction_Income_Configuration_User2">
+            <End Role="Configuration_User" EntitySet="Configuration_User" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Invoice_Configuration_User" Association="MySportsBook.Model.FK_Transaction_Invoice_Configuration_User">
             <End Role="Configuration_User" EntitySet="Configuration_User" />
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
@@ -3336,6 +3697,22 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Master_Enquiry" EntitySet="Master_Enquiry" />
             <End Role="Transaction_Enquiry_Comments" EntitySet="Transaction_Enquiry_Comments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Master_Expense_Master_Venue" Association="MySportsBook.Model.FK_Master_Expense_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_ExpenseType" EntitySet="Master_ExpenseType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Master_ExpenseType" Association="MySportsBook.Model.FK_Transaction_Expense_Master_ExpenseType">
+            <End Role="Master_ExpenseType" EntitySet="Master_ExpenseType" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_IncomeType_Master_Venue" Association="MySportsBook.Model.FK_Master_IncomeType_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Master_IncomeType" EntitySet="Master_IncomeType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Master_IncomeType" Association="MySportsBook.Model.FK_Transaction_Income_Master_IncomeType">
+            <End Role="Master_IncomeType" EntitySet="Master_IncomeType" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
           <AssociationSet Name="FK_Master_Player_Master_Venue" Association="MySportsBook.Model.FK_Master_Player_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Master_Player" EntitySet="Master_Player" />
@@ -3416,6 +3793,14 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Transaction_Attendance" EntitySet="Transaction_Attendance" />
           </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Expense_Master_Venue" Association="MySportsBook.Model.FK_Transaction_Expense_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Transaction_Expense" EntitySet="Transaction_Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Income_Master_Venue" Association="MySportsBook.Model.FK_Transaction_Income_Master_Venue">
+            <End Role="Master_Venue" EntitySet="Master_Venue" />
+            <End Role="Transaction_Income" EntitySet="Transaction_Income" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Invoice_Master_Venue" Association="MySportsBook.Model.FK_Transaction_Invoice_Master_Venue">
             <End Role="Master_Venue" EntitySet="Master_Venue" />
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
@@ -3440,19 +3825,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             <End Role="Transaction_Invoice" EntitySet="Transaction_Invoice" />
             <End Role="Transaction_Receipt" EntitySet="Transaction_Receipt" />
           </AssociationSet>
-          <FunctionImport Name="GetAllUserWithVenues" ReturnType="Collection(MySportsBook.Model.GetAllUserWithVenues_Result)" />
-          <FunctionImport Name="UpdateSchedulerBySchedulerName">
-          <Parameter Name="SchedulerName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="DeleteReceipt" ReturnType="Collection(Int32)">
-          <Parameter Name="PlayerId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="rp_COLLECTIONDETAIL" ReturnType="Collection(MySportsBook.Model.rp_COLLECTIONDETAIL_Result)">
-            <Parameter Name="VENUEID" Mode="In" Type="Int32" />
-            <Parameter Name="MONTH" Mode="In" Type="DateTime" />
-            <Parameter Name="TYPE" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="rp_COMMONPROCEDURE_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
           <Property Type="String" Name="Inv_Period" Nullable="false" MaxLength="50" />
@@ -3483,6 +3856,34 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetAllUserWithVenues_Result">
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VenueID" Nullable="false" />
+          <Property Type="String" Name="VenueName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="VenueCode" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="DailyCollectionEmail" Nullable="false" />
+          <Property Type="Boolean" Name="DailyCollectionSMS" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="rp_COLLECTIONDETAIL_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
+          <Property Type="String" Name="InvoicePeriod" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CollectedDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="PaymentMode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SportName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BatchCode" Nullable="false" MaxLength="20" />
+          <Property Type="Decimal" Name="TotalFee" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalOtherAmount" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="TotalDiscountAmount" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TransactionNumber" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TransactionDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ReceivedBy" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceiptNumber" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="ReceiptDate" Nullable="false" Precision="23" />
         </ComplexType>
         <EntityType Name="BatchCount">
           <Key>
@@ -3542,9 +3943,22 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="PK_ScreenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Screen" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ScreenCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NavigationURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ScreenTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Configuration_ScreenType" Relationship="MySportsBook.Model.FK_Configuration_Screen_Configuration_ScreenType" FromRole="Configuration_Screen" ToRole="Configuration_ScreenType" />
           <NavigationProperty Name="Master_VenueScreen" Relationship="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Screen" FromRole="Configuration_Screen" ToRole="Master_VenueScreen" />
           <NavigationProperty Name="Master_ScreenNumberFormat" Relationship="MySportsBook.Model.FK_Master_ScreenNumberFormat_Configuration_Screen1" FromRole="Configuration_Screen" ToRole="Master_ScreenNumberFormat" />
+        </EntityType>
+        <EntityType Name="Configuration_ScreenType">
+          <Key>
+            <PropertyRef Name="PK_ScreenTypeId" />
+          </Key>
+          <Property Name="PK_ScreenTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScreenType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScreenTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Configuration_Screen" Relationship="MySportsBook.Model.FK_Configuration_Screen_Configuration_ScreenType" FromRole="Configuration_ScreenType" ToRole="Configuration_Screen" />
         </EntityType>
         <EntityType Name="Configuration_Status">
           <Key>
@@ -3567,6 +3981,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <NavigationProperty Name="Master_Sport" Relationship="MySportsBook.Model.FK_Master_Sport_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Sport" />
           <NavigationProperty Name="Master_UserVenue" Relationship="MySportsBook.Model.FK_Master_UserVenue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_UserVenue" />
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Master_Venue_Configuration_Status" FromRole="Configuration_Status" ToRole="Master_Venue" />
+          <NavigationProperty Name="Transaction_Expense" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Expense" />
+          <NavigationProperty Name="Transaction_Income" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Income" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBook.Model.FK_Transaction_Invoice_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_InvoiceDetail" Relationship="MySportsBook.Model.FK_Transaction_InvoiceDetail_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_InvoiceDetail" />
           <NavigationProperty Name="Transaction_PlayerSport" Relationship="MySportsBook.Model.FK_Transaction_PlayerSport_Configuration_Status" FromRole="Configuration_Status" ToRole="Transaction_PlayerSport" />
@@ -3627,6 +4043,12 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <NavigationProperty Name="OtherBookingDetails1" Relationship="MySportsBook.Model.FK_OtherBookingDetail_Configuration_User1" FromRole="Configuration_User" ToRole="OtherBookingDetail" />
           <NavigationProperty Name="Studio_ExpenseDetail1" Relationship="MySportsBook.Model.FK_Studio_ExpenseDetail_Configuration_User" FromRole="Configuration_User" ToRole="Studio_ExpenseDetail" />
           <NavigationProperty Name="StudioEvents" Relationship="MySportsBook.Model.FK_StudioEvent_Configuration_Status" FromRole="Configuration_User" ToRole="StudioEvent" />
+          <NavigationProperty Name="Transaction_Expense" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Expense" />
+          <NavigationProperty Name="Transaction_Expense1" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Expense" />
+          <NavigationProperty Name="Transaction_Expense2" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User2" FromRole="Configuration_User" ToRole="Transaction_Expense" />
+          <NavigationProperty Name="Transaction_Income" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Income" />
+          <NavigationProperty Name="Transaction_Income1" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Income" />
+          <NavigationProperty Name="Transaction_Income2" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User2" FromRole="Configuration_User" ToRole="Transaction_Income" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBook.Model.FK_Transaction_Invoice_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_Invoice1" Relationship="MySportsBook.Model.FK_Transaction_Invoice_Configuration_User1" FromRole="Configuration_User" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_InvoiceDetail" Relationship="MySportsBook.Model.FK_Transaction_InvoiceDetail_Configuration_User" FromRole="Configuration_User" ToRole="Transaction_InvoiceDetail" />
@@ -3770,6 +4192,28 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Enquiry_Master_Venue" FromRole="Master_Enquiry" ToRole="Master_Venue" />
           <NavigationProperty Name="Transaction_Enquiry_Comments" Relationship="MySportsBook.Model.FK_Transaction_Enquiry_Comments_Master_Enquiry" FromRole="Master_Enquiry" ToRole="Transaction_Enquiry_Comments" />
+        </EntityType>
+        <EntityType Name="Master_ExpenseType">
+          <Key>
+            <PropertyRef Name="PK_ExpenseTypeId" />
+          </Key>
+          <Property Name="PK_ExpenseTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Master_Expense_Master_Venue" FromRole="Master_ExpenseType" ToRole="Master_Venue" />
+          <NavigationProperty Name="Transaction_Expense" Relationship="MySportsBook.Model.FK_Transaction_Expense_Master_ExpenseType" FromRole="Master_ExpenseType" ToRole="Transaction_Expense" />
+        </EntityType>
+        <EntityType Name="Master_IncomeType">
+          <Key>
+            <PropertyRef Name="PK_IncomeTypeId" />
+          </Key>
+          <Property Name="PK_IncomeTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
+          <Property Name="IncomeCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Master_IncomeType_Master_Venue" FromRole="Master_IncomeType" ToRole="Master_Venue" />
+          <NavigationProperty Name="Transaction_Income" Relationship="MySportsBook.Model.FK_Transaction_Income_Master_IncomeType" FromRole="Master_IncomeType" ToRole="Transaction_Income" />
         </EntityType>
         <EntityType Name="Master_Player">
           <Key>
@@ -3966,6 +4410,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <NavigationProperty Name="Master_CoachingLevel" Relationship="MySportsBook.Model.FK_Master_CoachingLevel_Master_Venue" FromRole="Master_Venue" ToRole="Master_CoachingLevel" />
           <NavigationProperty Name="Master_Court" Relationship="MySportsBook.Model.FK_Master_Court_Master_Venue" FromRole="Master_Venue" ToRole="Master_Court" />
           <NavigationProperty Name="Master_Enquiry" Relationship="MySportsBook.Model.FK_Enquiry_Master_Venue" FromRole="Master_Venue" ToRole="Master_Enquiry" />
+          <NavigationProperty Name="Master_ExpenseType" Relationship="MySportsBook.Model.FK_Master_Expense_Master_Venue" FromRole="Master_Venue" ToRole="Master_ExpenseType" />
+          <NavigationProperty Name="Master_IncomeType" Relationship="MySportsBook.Model.FK_Master_IncomeType_Master_Venue" FromRole="Master_Venue" ToRole="Master_IncomeType" />
           <NavigationProperty Name="Master_Player" Relationship="MySportsBook.Model.FK_Master_Player_Master_Venue" FromRole="Master_Venue" ToRole="Master_Player" />
           <NavigationProperty Name="Master_Player1" Relationship="MySportsBook.Model.FK_Master_Venue_Master_Player" FromRole="Master_Venue" ToRole="Master_Player" />
           <NavigationProperty Name="Master_Role" Relationship="MySportsBook.Model.FK_Master_Role_Master_Venue" FromRole="Master_Venue" ToRole="Master_Role" />
@@ -3979,6 +4425,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <NavigationProperty Name="OtherBookings" Relationship="MySportsBook.Model.FK_OtherBooking_Master_Venue" FromRole="Master_Venue" ToRole="OtherBooking" />
           <NavigationProperty Name="OtherBookingDetails" Relationship="MySportsBook.Model.FK_OtherBookingDetail_Master_Venue" FromRole="Master_Venue" ToRole="OtherBookingDetail" />
           <NavigationProperty Name="Transaction_Attendance" Relationship="MySportsBook.Model.FK_Transaction_Attendance_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_Attendance" />
+          <NavigationProperty Name="Transaction_Expense" Relationship="MySportsBook.Model.FK_Transaction_Expense_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_Expense" />
+          <NavigationProperty Name="Transaction_Income" Relationship="MySportsBook.Model.FK_Transaction_Income_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_Income" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBook.Model.FK_Transaction_Invoice_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_Invoice" />
           <NavigationProperty Name="Transaction_PlayerSport" Relationship="MySportsBook.Model.FK_Transaction_PlayerSport_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_PlayerSport" />
           <NavigationProperty Name="Transaction_Receipt" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Master_Venue" FromRole="Master_Venue" ToRole="Transaction_Receipt" />
@@ -3991,8 +4439,8 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
           <Property Name="FK_ScreenId" Type="Int32" Nullable="false" />
           <Property Name="Prefix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CurrentNo" Type="Int32" Nullable="false" />
-          <Property Name="FK_FormatId" Type="Int32" Nullable="false" />
+          <Property Name="CurrentNo" Type="Int32" />
+          <Property Name="FK_FormatId" Type="Int32" />
           <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -4111,6 +4559,52 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Master_Enquiry" Relationship="MySportsBook.Model.FK_Transaction_Enquiry_Comments_Master_Enquiry" FromRole="Transaction_Enquiry_Comments" ToRole="Master_Enquiry" />
         </EntityType>
+        <EntityType Name="Transaction_Expense">
+          <Key>
+            <PropertyRef Name="PK_ExpenseId" />
+          </Key>
+          <Property Name="PK_ExpenseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
+          <Property Name="FK_ExpenseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="SpendBy" Type="Int32" Nullable="false" />
+          <Property Name="SpendDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_Status" FromRole="Transaction_Expense" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_User" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User" FromRole="Transaction_Expense" ToRole="Configuration_User" />
+          <NavigationProperty Name="Configuration_User1" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User1" FromRole="Transaction_Expense" ToRole="Configuration_User" />
+          <NavigationProperty Name="Configuration_User2" Relationship="MySportsBook.Model.FK_Transaction_Expense_Configuration_User2" FromRole="Transaction_Expense" ToRole="Configuration_User" />
+          <NavigationProperty Name="Master_ExpenseType" Relationship="MySportsBook.Model.FK_Transaction_Expense_Master_ExpenseType" FromRole="Transaction_Expense" ToRole="Master_ExpenseType" />
+          <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Transaction_Expense_Master_Venue" FromRole="Transaction_Expense" ToRole="Master_Venue" />
+        </EntityType>
+        <EntityType Name="Transaction_Income">
+          <Key>
+            <PropertyRef Name="PK_IncomeId" />
+          </Key>
+          <Property Name="PK_IncomeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_VenueId" Type="Int32" Nullable="false" />
+          <Property Name="FK_IncomeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedBy" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Configuration_Status" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_Status" FromRole="Transaction_Income" ToRole="Configuration_Status" />
+          <NavigationProperty Name="Configuration_User" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User" FromRole="Transaction_Income" ToRole="Configuration_User" />
+          <NavigationProperty Name="Configuration_User1" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User1" FromRole="Transaction_Income" ToRole="Configuration_User" />
+          <NavigationProperty Name="Configuration_User2" Relationship="MySportsBook.Model.FK_Transaction_Income_Configuration_User2" FromRole="Transaction_Income" ToRole="Configuration_User" />
+          <NavigationProperty Name="Master_IncomeType" Relationship="MySportsBook.Model.FK_Transaction_Income_Master_IncomeType" FromRole="Transaction_Income" ToRole="Master_IncomeType" />
+          <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Transaction_Income_Master_Venue" FromRole="Transaction_Income" ToRole="Master_Venue" />
+        </EntityType>
         <EntityType Name="Transaction_Invoice">
           <Key>
             <PropertyRef Name="PK_InvoiceId" />
@@ -4215,6 +4709,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="TransactionDate" Type="DateTime" Precision="3" />
           <Property Name="ReceivedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreditAmount" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Configuration_Status" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Configuration_Status" FromRole="Transaction_Receipt" ToRole="Configuration_Status" />
           <NavigationProperty Name="Configuration_User" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Configuration_User" FromRole="Transaction_Receipt" ToRole="Configuration_User" />
           <NavigationProperty Name="Configuration_User1" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Configuration_User1" FromRole="Transaction_Receipt" ToRole="Configuration_User" />
@@ -4222,7 +4717,6 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <NavigationProperty Name="Confirguration_PaymentMode" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Confirguration_PaymentMode" FromRole="Transaction_Receipt" ToRole="Confirguration_PaymentMode" />
           <NavigationProperty Name="Master_Venue" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Master_Venue" FromRole="Transaction_Receipt" ToRole="Master_Venue" />
           <NavigationProperty Name="Transaction_Invoice" Relationship="MySportsBook.Model.FK_Transaction_Receipt_Transaction_Invoice" FromRole="Transaction_Receipt" ToRole="Transaction_Invoice" />
-          <Property Name="CreditAmount" Type="Decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Transaction_Voucher">
           <Key>
@@ -4542,7 +5036,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Master_ScreenNumberFormat_Configuration_Format">
-          <End Type="MySportsBook.Model.Configuration_Format" Role="Configuration_Format" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Configuration_Format" Role="Configuration_Format" Multiplicity="0..1" />
           <End Type="MySportsBook.Model.Master_VenueScreen" Role="Master_VenueScreen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Configuration_Format">
@@ -4586,6 +5080,18 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Principal>
             <Dependent Role="Master_Player">
               <PropertyRef Name="FK_PlayerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Configuration_Screen_Configuration_ScreenType">
+          <End Type="MySportsBook.Model.Configuration_ScreenType" Role="Configuration_ScreenType" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Configuration_Screen" Role="Configuration_Screen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_ScreenType">
+              <PropertyRef Name="PK_ScreenTypeId" />
+            </Principal>
+            <Dependent Role="Configuration_Screen">
+              <PropertyRef Name="FK_ScreenTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4777,6 +5283,30 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
               <PropertyRef Name="PK_StatusId" />
             </Principal>
             <Dependent Role="Master_Venue">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_Status">
+          <End Type="MySportsBook.Model.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_Status">
+          <End Type="MySportsBook.Model.Configuration_Status" Role="Configuration_Status" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_Status">
+              <PropertyRef Name="PK_StatusId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
               <PropertyRef Name="FK_StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5273,6 +5803,78 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="SpendBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User1">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Configuration_User2">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="0..1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="ReceivedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User1">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Configuration_User2">
+          <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="0..1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration_User">
+              <PropertyRef Name="PK_UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Invoice_Configuration_User">
           <End Type="MySportsBook.Model.Configuration_User" Role="Configuration_User" Multiplicity="1" />
           <End Type="MySportsBook.Model.Transaction_Invoice" Role="Transaction_Invoice" Multiplicity="*" />
@@ -5585,6 +6187,54 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Master_Expense_Master_Venue">
+          <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Master_ExpenseType" Role="Master_ExpenseType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_ExpenseType">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Expense_Master_ExpenseType">
+          <End Type="MySportsBook.Model.Master_ExpenseType" Role="Master_ExpenseType" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_ExpenseType">
+              <PropertyRef Name="PK_ExpenseTypeId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_IncomeType_Master_Venue">
+          <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Master_IncomeType" Role="Master_IncomeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Master_IncomeType">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Master_IncomeType">
+          <End Type="MySportsBook.Model.Master_IncomeType" Role="Master_IncomeType" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_IncomeType">
+              <PropertyRef Name="PK_IncomeTypeId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="FK_IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Master_Player_Master_Venue">
           <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
           <End Type="MySportsBook.Model.Master_Player" Role="Master_Player" Multiplicity="*" />
@@ -5825,6 +6475,30 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Expense_Master_Venue">
+          <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Expense" Role="Transaction_Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Transaction_Expense">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Income_Master_Venue">
+          <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
+          <End Type="MySportsBook.Model.Transaction_Income" Role="Transaction_Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Venue">
+              <PropertyRef Name="PK_VenueId" />
+            </Principal>
+            <Dependent Role="Transaction_Income">
+              <PropertyRef Name="FK_VenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Invoice_Master_Venue">
           <End Type="MySportsBook.Model.Master_Venue" Role="Master_Venue" Multiplicity="1" />
           <End Type="MySportsBook.Model.Transaction_Invoice" Role="Transaction_Invoice" Multiplicity="*" />
@@ -5897,35 +6571,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetAllUserWithVenues_Result">
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="VenueID" Nullable="false" />
-          <Property Type="String" Name="VenueName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="VenueCode" Nullable="false" MaxLength="10" />
-          <Property Type="Boolean" Name="DailyCollectionEmail" Nullable="false" />
-          <Property Type="Boolean" Name="DailyCollectionSMS" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="rp_COLLECTIONDETAIL_Result">
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
-          <Property Type="String" Name="InvoicePeriod" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CollectedDate" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="PaymentMode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="SportName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="BatchCode" Nullable="false" MaxLength="20" />
-          <Property Type="Decimal" Name="TotalFee" Nullable="false" Precision="19" />
-          <Property Type="Decimal" Name="TotalOtherAmount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="TotalDiscountAmount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="TransactionNumber" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="TransactionDate" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="ReceivedBy" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ReceiptNumber" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="ReceiptDate" Nullable="false" Precision="23" />
-        </ComplexType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -5975,6 +6621,44 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUserWithVenues" FunctionName="MySportsBook.Model.Store.GetAllUserWithVenues">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MySportsBook.Model.GetAllUserWithVenues_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="VenueID" ColumnName="VenueID" />
+                <ScalarProperty Name="VenueName" ColumnName="VenueName" />
+                <ScalarProperty Name="VenueCode" ColumnName="VenueCode" />
+                <ScalarProperty Name="DailyCollectionEmail" ColumnName="DailyCollectionEmail" />
+                <ScalarProperty Name="DailyCollectionSMS" ColumnName="DailyCollectionSMS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateSchedulerBySchedulerName" FunctionName="MySportsBook.Model.Store.UpdateSchedulerBySchedulerName" />
+          <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
+          <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
+                <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="SportName" ColumnName="SportName" />
+                <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
+                <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+                <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
+                <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6029,10 +6713,22 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
           <EntitySetMapping Name="Configuration_Screen">
             <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_Screen">
               <MappingFragment StoreEntitySet="Configuration_Screen">
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="FK_ScreenTypeId" ColumnName="FK_ScreenTypeId" />
+                <ScalarProperty Name="NavigationURL" ColumnName="NavigationURL" />
                 <ScalarProperty Name="ScreenCode" ColumnName="ScreenCode" />
                 <ScalarProperty Name="Screen" ColumnName="Screen" />
                 <ScalarProperty Name="PK_ScreenId" ColumnName="PK_ScreenId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configuration_ScreenType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Configuration_ScreenType">
+              <MappingFragment StoreEntitySet="Configuration_ScreenType">
+                <ScalarProperty Name="ScreenTypeCode" ColumnName="ScreenTypeCode" />
+                <ScalarProperty Name="ScreenType" ColumnName="ScreenType" />
+                <ScalarProperty Name="PK_ScreenTypeId" ColumnName="PK_ScreenTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6169,6 +6865,26 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
                 <ScalarProperty Name="PK_EnquiryId" ColumnName="PK_EnquiryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_ExpenseType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_ExpenseType">
+              <MappingFragment StoreEntitySet="Master_ExpenseType">
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="ExpenseCode" ColumnName="ExpenseCode" />
+                <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+                <ScalarProperty Name="PK_ExpenseTypeId" ColumnName="PK_ExpenseTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_IncomeType">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Master_IncomeType">
+              <MappingFragment StoreEntitySet="Master_IncomeType">
+                <ScalarProperty Name="IncomeDescription" ColumnName="IncomeDescription" />
+                <ScalarProperty Name="IncomeCode" ColumnName="IncomeCode" />
+                <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+                <ScalarProperty Name="PK_IncomeTypeId" ColumnName="PK_IncomeTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6431,6 +7147,42 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="FK_EnquiryId" ColumnName="FK_EnquiryId" />
                 <ScalarProperty Name="PK_EnquiryCommentsId" ColumnName="PK_EnquiryCommentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Expense">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Expense">
+              <MappingFragment StoreEntitySet="Transaction_Expense">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SpendDate" ColumnName="SpendDate" />
+                <ScalarProperty Name="SpendBy" ColumnName="SpendBy" />
+                <ScalarProperty Name="FK_ExpenseTypeId" ColumnName="FK_ExpenseTypeId" />
+                <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+                <ScalarProperty Name="PK_ExpenseId" ColumnName="PK_ExpenseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Income">
+            <EntityTypeMapping TypeName="MySportsBook.Model.Transaction_Income">
+              <MappingFragment StoreEntitySet="Transaction_Income">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="FK_IncomeTypeId" ColumnName="FK_IncomeTypeId" />
+                <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
+                <ScalarProperty Name="PK_IncomeId" ColumnName="PK_IncomeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6718,45 +7470,7 @@ warning 6002: The table/view 'MySportsBook_Live.dbo.V_PlayerSport' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllUserWithVenues" FunctionName="MySportsBook.Model.Store.GetAllUserWithVenues">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBook.Model.GetAllUserWithVenues_Result">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="VenueID" ColumnName="VenueID" />
-                <ScalarProperty Name="VenueName" ColumnName="VenueName" />
-                <ScalarProperty Name="VenueCode" ColumnName="VenueCode" />
-                <ScalarProperty Name="DailyCollectionEmail" ColumnName="DailyCollectionEmail" />
-                <ScalarProperty Name="DailyCollectionSMS" ColumnName="DailyCollectionSMS" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateSchedulerBySchedulerName" FunctionName="MySportsBook.Model.Store.UpdateSchedulerBySchedulerName" />
-          <FunctionImportMapping FunctionImportName="DeleteReceipt" FunctionName="MySportsBook.Model.Store.DeleteReceipt" />
-          <FunctionImportMapping FunctionImportName="rp_COLLECTIONDETAIL" FunctionName="MySportsBook.Model.Store.rp_COLLECTIONDETAIL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MySportsBook.Model.rp_COLLECTIONDETAIL_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="InvoicePeriod" ColumnName="InvoicePeriod" />
-                <ScalarProperty Name="CollectedDate" ColumnName="CollectedDate" />
-                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-                <ScalarProperty Name="SportName" ColumnName="SportName" />
-                <ScalarProperty Name="BatchCode" ColumnName="BatchCode" />
-                <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
-                <ScalarProperty Name="TotalOtherAmount" ColumnName="TotalOtherAmount" />
-                <ScalarProperty Name="TotalDiscountAmount" ColumnName="TotalDiscountAmount" />
-                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
-                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
-                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

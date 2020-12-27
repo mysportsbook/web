@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MySportsBook.Model.ViewModel
 {
-    public class BatchModel
+    public class BatchModel 
     {
         public int BatchId { get; set; }
         public string BatchCode { get; set; }

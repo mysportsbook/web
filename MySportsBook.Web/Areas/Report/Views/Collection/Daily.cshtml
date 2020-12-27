@@ -121,6 +121,12 @@
                             </div>
                             <span>&nbsp;</span>
                         }
+                        <div class="card text-center">
+                            <h6>Total</h6>
+                            <div class="card-body text-center">
+                                <span class="label label-default font-weight-bold"> @data.Sum(myRow => myRow.AmountPaid).ToString("0.00")</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

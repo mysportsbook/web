@@ -2,6 +2,7 @@
     $(function () {
         $('.table').DataTable({
             dom: 'Bfrtip',
+            scrollX: true,
             buttons: [
                 'csv', 'excel', 'pdf'
             ]
@@ -48,6 +49,52 @@
                         });
                     }
                 });
+            }
+        });
+    }
+
+    function StatusChangeData(id) {
+        var currentdoggle = $("#Player_" + id).prop('checked');
+        
+        swal({
+            title: "Status update",
+            text: "Are you sure want to change the status!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willChange) => {
+            if (willChange) {
+                loader();
+                $.ajax({
+                    url: "@Url.Action("ActivateDeactivate", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })" + "/" + id,
+                    type: "GET",
+                    success: function (data) {
+                        loader();
+                        if (data) {
+                            swal({
+                                title: "Status!",
+                                text: "Your data has been modified!",
+                                icon: "success",
+                                type: "success",
+                            }).then(function () {
+                                window.location.reload();
+                            });
+                        }
+                        else
+                            swal("Failed!", "failed to Activate or Deactivate!", "error", {
+                                icon: "error"
+                            });
+                    },
+                    error: function (jqXHR, exception) {
+                        loader();
+                        swal("Failed!", "Failed to Activate or Deactivate! -" + exception, "error", {
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+            else {
+                    $("#Player_" + id).prop('checked', !currentdoggle);
             }
         });
     }

@@ -1,0 +1,113 @@
+﻿@model MySportsBook.Model.Transaction_Income
+
+@{
+    ViewBag.Title = "Create";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; }
+    else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Income", "")</li>
+        <li class="breadcrumb-item active">Income</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Income</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Income List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PK_IncomeId)
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Income Type", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.DropDownList("IncomeType", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessage("Please provide a Income Type!")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ReceivedBy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.ReceivedBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
+                                            @Html.ValidationMessage("Please provide a ReceivedBy!")
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Received On", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @maxlength = "100" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script>
+
+    function validate() {
+
+        return true;
+    }
+    function save() {
+        var Incomemodel = {
+            "PK_IncomeId": $('input[name="PK_IncomeId"]').val(),
+            "ReceivedBy": $('input[name="ReceivedBy"]').val(),
+            "ReceivedDate": $('input[name="ReceivedDate"]').val(),
+            "Amount": $('input[name="Amount"]').val(),
+            "Description": $('textarea[name="Description"]').val()
+        }
+        saveData(Incomemodel, $('input[name="ReceivedBy"]').val(), SaveOrUpdate.update);
+    }
+</script>

@@ -40,8 +40,8 @@ namespace MySportsBook.Model.ViewModel
         public int StatusId { get; set; }
         public int PlayerId { get; set; }
         public string Comments { get; set; }
-
         public bool ShouldClose { get; set; }
+        public string LastPaidDetails { get; set; }
         public DateTime InvoicePeriodDate
         {
             get

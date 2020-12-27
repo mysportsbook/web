@@ -24,8 +24,12 @@ namespace MySportsBook.Model
         public int PK_ScreenId { get; set; }
         public string Screen { get; set; }
         public string ScreenCode { get; set; }
-        public string Type { get; set; }
+        public string NavigationURL { get; set; }
+        public int FK_ScreenTypeId { get; set; }
+        public string Area { get; set; }
+        public string Controller { get; set; }
     
+        public virtual Configuration_ScreenType Configuration_ScreenType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_VenueScreen> Master_VenueScreen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

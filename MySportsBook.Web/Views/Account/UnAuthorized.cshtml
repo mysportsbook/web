@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "Home";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin)
+    {
+        Layout = "/Views/Shared/Layout/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/Layout/_Layout.cshtml";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UnAUnAuthorized</title>
+</head>
+<body>
+    <div>
+    </div>
+</body>
+</html>

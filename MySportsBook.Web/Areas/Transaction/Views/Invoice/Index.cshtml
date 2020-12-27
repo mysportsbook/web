@@ -32,36 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Mobile)
-                                    </td>
-                                    <td>
-                                        @{
-                                            string _batches = item.Transaction_PlayerSport.Count > 0 ? string.Join(", ", item.Transaction_PlayerSport.Where(x => x.FK_StatusId == 1).Select(i => i.Master_Batch != null ? i.Master_Batch.BatchName : "")) : string.Empty;
-                                        }
-                                        @Html.DisplayFor(modelItem => _batches)
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-block btn-outline-info" onclick="payHistory(@item.PK_PlayerId,this)" type="button">Payment History</button>
-                                        @Html.HiddenFor(modelItem => item.PK_PlayerId)
-                                    </td>
-                                    @*<td>
-                                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
-                                        </td>*@
-                                </tr>
-                            }
+                          
                         </tbody>
                     </table>
                 </div>
@@ -87,7 +58,42 @@
 @Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
 <script type="text/javascript">
     $(function () {
-        $('.table').DataTable();
+        $('.table').DataTable({
+            
+            "processing": true,
+            "serverSide": true,
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax":
+            {
+                "url": 'Transaction/Invoice/GetPlayersDetails',
+                "type": "POST",
+                "dataType": "JSON",
+            },
+            "columns": [
+                { "data": "FirstName", "class": "text-left" },
+                { "data": "LastName", "class": "text-left" },
+                { "data": "Mobile", "class": "text-center" },
+                { "data": "Batches", "class": "text-left" },
+                {
+                    "data": "PK_PlayerId", "class": "text-center",
+                    "render": function (data, type, row) {
+                        var data = '<button class="btn btn-block btn-outline-info" onclick="payInvoice(' + row.PK_PlayerId + ',this)" type="button">View Dues</button>';
+                        
+                        return data;
+                    },
+                },
+                {
+                    "data": "PK_PlayerId", "class": "text-center",
+                    "render": function (data, type, row) {
+                        var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this)" type="button">Payment History</button>';
+
+                        return data;
+                    },
+                },
+            ],
+            bDestroy: true,
+        });
     });
     function payInvoice(id, btn) {
         loader();

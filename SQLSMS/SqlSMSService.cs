@@ -8,7 +8,7 @@ using System.Data.SqlTypes;
 public partial class StoredProcedures
 {
     [Microsoft.SqlServer.Server.SqlProcedure]
-    public static void SqlSMSService(string messageBody, string mobiles, out SqlString retValue)
+    public static void SqlSMSService(string messageBody, string mobiles,string authkey,string sender, out SqlString retValue)
     {
         string sendSMSUri;
         StreamReader reader;
@@ -18,10 +18,10 @@ public partial class StoredProcedures
         HttpWebResponse response;
         StringBuilder sbPostData;
         sbPostData = new StringBuilder();
-        sbPostData.AppendFormat("authkey={0}", "266693Afd2XBri7RK5c84da98");
+        sbPostData.AppendFormat("authkey={0}", authkey);
         sbPostData.AppendFormat("&mobiles={0}", mobiles);
         sbPostData.AppendFormat("&message={0}", HttpUtility.UrlEncode(messageBody));
-        sbPostData.AppendFormat("&sender={0}", "FEEPAY");
+        sbPostData.AppendFormat("&sender={0}", sender);
         sbPostData.AppendFormat("&route={0}", "4");
 
         try

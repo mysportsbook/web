@@ -109,9 +109,21 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId)" title="Delete Last Generated Receipt" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            @{
+                                                string _receiptno = string.Empty;
+                                                if (item.Transaction_Invoice.Select(x => x.Transaction_Receipt).Count() > 0)
+                                                {
+                                                    var _receipt = item.Transaction_Invoice.Select(x => x.Transaction_Receipt.OrderByDescending(r => r.PK_ReceiptId).Take(1)).First();
+
+                                                    if (_receipt != null && _receipt.FirstOrDefault() != null)
+                                                    {
+                                                        _receiptno = _receipt.First().ReceiptNumber;
+                                                    }
+                                                }
+                                                <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId,@_receiptno)" title="Delete Last Generated Receipt (@_receiptno)" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            }
                                         </div>
                                     </td>
                                 </tr>
@@ -124,10 +136,10 @@
     </div>
 </main>
 <script>
-    function deleteReceipt(id) {
+    function deleteReceipt(id,receiptNo) {
         swal({
             title: "Are you sure?",
-            text: "Do you want to delete the last generated receipt!",
+            text: "Do you want to delete the last generated receipt! - " + receiptNo,
             icon: "warning",
             buttons: true,
         }).then((confirm) => {
@@ -167,6 +179,6 @@
                 });
             }
         });
-        
+
     }
 </script>

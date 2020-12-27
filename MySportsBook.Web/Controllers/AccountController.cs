@@ -20,7 +20,6 @@ namespace MySportsBook.Web.Controllers
         [HttpPost]
         public ActionResult Login(Configuration_User configuration_User)
         {
-            DateTime date = DateTime.ParseExact("APR2018", "MMMyyyy", System.Globalization.CultureInfo.InvariantCulture);
             Configuration_User _configuration_User = new Configuration_User();
             if (Verify(configuration_User.UserName, configuration_User.PasswordHash))
             {
@@ -29,7 +28,9 @@ namespace MySportsBook.Web.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
+
         // GET: Account
+        [RoleAuthorize(Helper.RoleAction.VIEW)]
         public ActionResult Home()
         {
             DataTable dt = new DataTable();
@@ -141,6 +142,12 @@ namespace MySportsBook.Web.Controllers
         {
             System.Web.HttpContext.Current.Session["CURRENTUSER"] = null;
             return RedirectToAction("Login");
+        }
+
+        // GET: Account
+        public ActionResult UnAuthorized()
+        {
+            return View();
         }
     }
 }

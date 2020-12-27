@@ -128,14 +128,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Configuration\ConfigurationAreaRegistration.cs" />
+    <Compile Include="Areas\Configuration\Controllers\UserAccessController.cs" />
     <Compile Include="Areas\Configuration\Controllers\UserController.cs" />
     <Compile Include="Areas\Master\Controllers\BatchController.cs" />
     <Compile Include="Areas\Master\Controllers\CoachingLevelController.cs" />
     <Compile Include="Areas\Master\Controllers\CourtController.cs" />
     <Compile Include="Areas\Master\Controllers\PlayerController.cs" />
     <Compile Include="Areas\Master\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Master\Controllers\RoleScreenController.cs" />
+    <Compile Include="Areas\Master\Controllers\ScreenController.cs" />
     <Compile Include="Areas\Master\Controllers\SportController.cs" />
     <Compile Include="Areas\Master\Controllers\VenueController.cs" />
+    <Compile Include="Areas\Master\Controllers\VenueScreenController.cs" />
     <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
     <Compile Include="Areas\Report\Controllers\BookingController.cs" />
     <Compile Include="Areas\Report\Controllers\CollectionController.cs" />
@@ -143,23 +147,23 @@
     <Compile Include="Areas\Report\Controllers\EnquiryController.cs" />
     <Compile Include="Areas\Report\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
-    <Compile Include="Areas\Studio\Controllers\EventsController.cs" />
-    <Compile Include="Areas\Studio\Controllers\ExpenseController.cs" />
-    <Compile Include="Areas\Studio\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Studio\Controllers\IncomeController.cs" />
-    <Compile Include="Areas\Studio\Controllers\ReportsController.cs" />
-    <Compile Include="Areas\Studio\StudioAreaRegistration.cs" />
+    <Compile Include="Areas\Transaction\Controllers\ExpenseController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\IncomeController.cs" />
     <Compile Include="Areas\Transaction\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Transaction\Controllers\ReceiptController.cs" />
+    <Compile Include="Areas\Transaction\Models\PlayersViewMobel.cs" />
     <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DropDownController.cs" />
     <Compile Include="Cryptography.cs" />
+    <Compile Include="Filters\RoleAuthorizeAttribute.cs" />
     <Compile Include="Filters\UserAuthentication.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ConnectionDataControl.cs" />
+    <Compile Include="Helper\RoleAction.cs" />
     <Compile Include="Helper\DropDownItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -272,24 +276,19 @@
     <Content Include="Areas\Report\Views\Collection\Daily.cshtml" />
     <Content Include="Areas\Report\Views\Collection\Player.cshtml" />
     <Content Include="Areas\Report\Views\Custom\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Events\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Expense\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Create.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Edit.cshtml" />
-    <Content Include="Areas\Studio\Views\Income\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Reports\Index.cshtml" />
-    <Content Include="Areas\Studio\Views\Web.config" />
     <Content Include="Areas\Transaction\Views\Shared\_PaymentHistory.cshtml" />
     <Content Include="Areas\Report\Views\Collection\Split.cshtml" />
     <Content Include="Areas\Report\Views\Custom\Defaulters.cshtml" />
     <Content Include="Areas\Transaction\Views\Receipt\Index.cshtml" />
     <Content Include="Areas\Transaction\Views\Receipt\Edit.cshtml" />
     <Content Include="Areas\Transaction\Views\Receipt\Player.cshtml" />
+    <Content Include="Areas\Transaction\Views\Expense\Create.cshtml" />
+    <Content Include="Areas\Transaction\Views\Expense\Edit.cshtml" />
+    <Content Include="Areas\Transaction\Views\Expense\Index.cshtml" />
+    <Content Include="Areas\Transaction\Views\Income\Create.cshtml" />
+    <Content Include="Areas\Transaction\Views\Income\Edit.cshtml" />
+    <Content Include="Areas\Transaction\Views\Income\Index.cshtml" />
+    <Content Include="Areas\Master\Views\VenueScreen\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -366,23 +365,32 @@
     <Content Include="Views\Shared\Script\_SweetAlert.cshtml" />
     <Content Include="Views\Shared\Script\_DateTimePicker.cshtml" />
     <Content Include="Views\Shared\Button\_SaveAndContinueButton.cshtml" />
+    <Content Include="Views\Account\UnAuthorized.cshtml" />
+    <None Include="Web.Base.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Configuration\Models\" />
     <Folder Include="Areas\Configuration\Views\Shared\" />
+    <Folder Include="Areas\Configuration\Views\UserAccess\" />
     <Folder Include="Areas\Master\Models\" />
+    <Folder Include="Areas\Master\Views\RoleScreen\" />
+    <Folder Include="Areas\Master\Views\Screen\" />
     <Folder Include="Areas\Master\Views\Shared\" />
     <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Report\Views\Report\" />
-    <Folder Include="Areas\Studio\Models\" />
-    <Folder Include="Areas\Studio\Views\Shared\" />
-    <Folder Include="Areas\Transaction\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\DropDown\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
@@ -411,6 +419,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Base|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
@@ -451,4 +462,8 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" />
+  <Target Name="BeforeBuild">
+    <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
+  </Target>
 </Project>

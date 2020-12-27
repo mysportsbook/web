@@ -1,0 +1,122 @@
+﻿@model MySportsBook.Model.Transaction_Income
+
+@{
+    ViewBag.Title = "Create";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; }
+    else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Income", "")</li>
+        <li class="breadcrumb-item active">Incomes</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Income</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Incomes List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Income Type", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.DropDownList("IncomesType", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessage("Please provide a Income Type!")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Received by", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.DropDownList("ReceivedUser", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessage("Please provide a Received By!")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Received On", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @maxlength = "100" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveAndContinueButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script>
+    function validate() {
+
+        return true;
+    }
+    var eventmodel;
+    function loadmodel() {
+        eventmodel = {
+            "FK_IncomeTypeId": $('select[name="IncomesType"]').val(),
+            "ReceivedBy": $('select[name="ReceivedUser"]').val(),
+            "ReceivedDate": $('input[name="ReceivedDate"]').val(),
+            "Amount": $('input[name="Amount"]').val(),
+            "Description": $('textarea[name="Description"]').val()
+        }
+    }
+    function save() {
+        loadmodel()
+        saveData(eventmodel, "", SaveOrUpdate.save);
+    }
+    function saveandcontinue() {
+        loadmodel();
+        saveData(eventmodel, "", SaveOrUpdate.saveandcontinue);
+    }
+
+
+</script>
+
+
+
+
+
+

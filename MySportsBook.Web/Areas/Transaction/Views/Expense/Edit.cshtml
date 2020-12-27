@@ -1,0 +1,113 @@
+﻿@model MySportsBook.Model.Transaction_Expense
+
+@{
+    ViewBag.Title = "Create";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; }
+    else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Expenses", "")</li>
+        <li class="breadcrumb-item active">Expenses</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Expenses</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-list-alt float-right"> @Html.ActionLink("Expenses List", "")</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PK_ExpenseId)
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Expense Type", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.DropDownList("ExpensesType", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessage("Please provide a Expense Type!")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SpentBy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.SpentBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
+                                            @Html.ValidationMessage("Please provide a SpentBy!")
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.Label("Spent On", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.SpentDate, new { htmlAttributes = new { @class = "form-control date", @maxlength = "50" } })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @maxlength = "100" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @Html.Partial("~/Views/Shared/Button/_SaveButton.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+<script>
+
+    function validate() {
+
+        return true;
+    }
+    function save() {
+        var expensesmodel = {
+            "PK_ExpenseDetailId": $('input[name="PK_ExpenseDetailId"]').val(),
+            "SpentBy": $('input[name="SpentBy"]').val(),
+            "SpentDate": $('input[name="SpentDate"]').val(),
+            "Amount": $('input[name="Amount"]').val(),
+            "Description": $('textarea[name="Description"]').val()
+        }
+        saveData(expensesmodel, $('input[name="SpentBy"]').val(), SaveOrUpdate.update);
+    }
+</script>

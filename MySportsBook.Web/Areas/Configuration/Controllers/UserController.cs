@@ -2,6 +2,7 @@
 using MySportsBook.Web.Controllers;
 using MySportsBook.Web.Filters;
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,12 +13,11 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
     [UserAuthentication]
     public class UserController : BaseController
     {
-        private MySportsBookEntities db = new MySportsBookEntities();
 
         // GET: Configuration/User
         public async Task<ActionResult> Index()
         {
-            var configuration_User = db.Configuration_User.Include(c => c.Configuration_Status);
+            var configuration_User = dbContext.Configuration_User.Include(c => c.Configuration_Status);
             return View(await configuration_User.ToListAsync());
         }
 
@@ -28,7 +28,7 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuration_User configuration_User = await db.Configuration_User.FindAsync(id);
+            Configuration_User configuration_User = await dbContext.Configuration_User.FindAsync(id);
             if (configuration_User == null)
             {
                 return HttpNotFound();
@@ -51,14 +51,14 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pass = new Cryptography("winners@456");
+                var pass = new Cryptography(ConfigurationManager.AppSettings["DefaultPassword"].ToString());
                 configuration_User.PasswordSalt = pass.Salt;
                 configuration_User.PasswordHash = pass.Hash;
                 configuration_User.FK_StatusId = 1;
                 configuration_User.CreatedBy = currentUser.UserId;
                 configuration_User.CreatedDate = DateTime.Now.ToLocalTime();
-                db.Configuration_User.Add(configuration_User);
-                await db.SaveChangesAsync();
+                dbContext.Configuration_User.Add(configuration_User);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -72,14 +72,14 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuration_User configuration_User = await db.Configuration_User.FindAsync(id);
+            Configuration_User configuration_User = await dbContext.Configuration_User.FindAsync(id);
             if (configuration_User == null)
             {
                 return HttpNotFound();
             }
             configuration_User.PasswordSalt = string.Empty;
             configuration_User.PasswordHash = string.Empty;
-            ViewBag.FK_StatusId = new SelectList(db.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
+            ViewBag.FK_StatusId = new SelectList(dbContext.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
             return View(configuration_User);
         }
 
@@ -92,7 +92,7 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var _user = db.Configuration_User.Find(configuration_User.PK_UserId);
+                var _user = dbContext.Configuration_User.Find(configuration_User.PK_UserId);
                 if (_user != null)
                 {
                     if (configuration_User.PasswordHash != string.Empty)
@@ -103,13 +103,13 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
                         _user.ModifiedBy = currentUser.UserId;
                         _user.ModifiedDate = DateTime.Now.ToLocalTime();
                     }
-                    db.Entry(_user).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    dbContext.Entry(_user).State = EntityState.Modified;
+                    await dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
 
             }
-            ViewBag.FK_StatusId = new SelectList(db.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
+            ViewBag.FK_StatusId = new SelectList(dbContext.Configuration_Status, "PK_StatusId", "Status", configuration_User.FK_StatusId);
             return View(configuration_User);
         }
 
@@ -120,7 +120,7 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuration_User configuration_User = await db.Configuration_User.FindAsync(id);
+            Configuration_User configuration_User = await dbContext.Configuration_User.FindAsync(id);
             if (configuration_User == null)
             {
                 return HttpNotFound();
@@ -133,19 +133,11 @@ namespace MySportsBook.Web.Areas.Configuration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Configuration_User configuration_User = await db.Configuration_User.FindAsync(id);
-            db.Configuration_User.Remove(configuration_User);
-            await db.SaveChangesAsync();
+            Configuration_User configuration_User = await dbContext.Configuration_User.FindAsync(id);
+            dbContext.Configuration_User.Remove(configuration_User);
+            await dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

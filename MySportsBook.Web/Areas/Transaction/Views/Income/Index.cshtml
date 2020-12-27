@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MySportsBook.Model.Transaction_Income>
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; }
+    else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Income", "")</li>
+        <li class="breadcrumb-item active">Index</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Income</strong>
+                    <i class="fa fa-plus float-right">  @Html.ActionLink("Create New", "Create")</i>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Income")
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Received By")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Received On")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Amount")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Action")
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Master_IncomeType.IncomeDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Configuration_User.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceivedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editData(@item.PK_IncomeId)" title="Edit" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-danger" onclick="deleteData(@item.PK_IncomeId)" title="Delete" type="button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("/Views/Shared/Script/_EditDelete.cshtml")
+
+<script type="text/javascript">
+    $(function () {
+        $('.table').DataTable();
+    });
+</script>
+
+
+

@@ -12,33 +12,26 @@ namespace MySportsBook.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Master_VenueScreen
+    public partial class Transaction_Expense
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Master_VenueScreen()
-        {
-            this.Master_RoleScreen = new HashSet<Master_RoleScreen>();
-        }
-    
-        public int PK_VenueScreenId { get; set; }
+        public int PK_ExpenseId { get; set; }
         public int FK_VenueId { get; set; }
-        public int FK_ScreenId { get; set; }
-        public string Prefix { get; set; }
-        public Nullable<int> CurrentNo { get; set; }
-        public Nullable<int> FK_FormatId { get; set; }
+        public int FK_ExpenseTypeId { get; set; }
+        public int SpendBy { get; set; }
+        public System.DateTime SpendDate { get; set; }
+        public decimal Amount { get; set; }
+        public string Description { get; set; }
         public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Configuration_Format Configuration_Format { get; set; }
-        public virtual Configuration_Screen Configuration_Screen { get; set; }
         public virtual Configuration_Status Configuration_Status { get; set; }
         public virtual Configuration_User Configuration_User { get; set; }
         public virtual Configuration_User Configuration_User1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Master_RoleScreen> Master_RoleScreen { get; set; }
+        public virtual Configuration_User Configuration_User2 { get; set; }
+        public virtual Master_ExpenseType Master_ExpenseType { get; set; }
         public virtual Master_Venue Master_Venue { get; set; }
     }
 }

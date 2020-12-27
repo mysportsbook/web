@@ -2,10 +2,10 @@ using System;
 
 public partial class StoredProcedures
 {
-   
+
     [Microsoft.SqlServer.Server.SqlProcedure]
     public static void SqlSendEmail(string paymentFor = "", string paymentBy = "", string paymentMonth = "",
-        string paymentAmount = "", string paymentMode = "", string venueEmailID = "", string emailID = "", string SMSTransactionID = "")
+        string paymentAmount = "", string paymentMode = "", string venueEmailID = "", string emailID = "", string SMSTransactionID = "", string password = "")
     {
         // Put your code here
         Mailer mailer = new Mailer();
@@ -15,7 +15,7 @@ public partial class StoredProcedures
                     + " - " + paymentMonth
                     + " - " + paymentAmount
                     + " - " + paymentMode;
-        mailer.SendEmail(subject, venueEmailID, GetHTMLFromSMSRequest(paymentFor, paymentBy, paymentMonth, paymentAmount), null);
+        mailer.SendEmail(subject, venueEmailID, GetHTMLFromSMSRequest(paymentFor, paymentBy, paymentMonth, paymentAmount), null, password);
     }
     private static string GetHTMLFromSMSRequest(string paymentFor, string paymentBy, string paymentMonth, string paymentAmount, string messageBody = "", string responseString = "")
     {

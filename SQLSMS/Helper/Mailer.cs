@@ -17,7 +17,7 @@ public class Mailer
     string port;
     string body;
     string userName;
-    string password;
+    //string password;
     #endregion "Private Variables"
 
     #region "Public Variables"
@@ -63,20 +63,23 @@ public class Mailer
         host = "smtp.gmail.com";
         port = "587";
         userName = from;
-        password = "winners1@3";
+        //password = "winners1@3";
         UseSSL = true;
     }
 
-    public void SendMail(List<string> AttachFile)
+    public void SendMail(List<string> AttachFile,string password)
     {
-        SendMail(from, AttachFile);
+        SendMail(from, AttachFile, password);
     }
 
-    public void SendMail(string _from, List<string> AttachFile)
+    public void SendMail(string _from, List<string> AttachFile, string password)
     {
         //Mail will not be sent if from address or host or port not available 
         if (string.IsNullOrEmpty(_from) || string.IsNullOrEmpty(host) || string.IsNullOrEmpty(port))
+        {
             return;
+        }
+
         SmtpClient smtpClient = new SmtpClient();
         MailMessage message = new MailMessage();
         //try
@@ -105,7 +108,9 @@ public class Mailer
                 for (_intValue = 0; _intValue < strSplit.Length; _intValue++)
                 {
                     if (!string.IsNullOrEmpty(strSplit[_intValue]))
+                    {
                         message.To.Add(strSplit[_intValue]);
+                    }
                 }
             }
             else if ((to != "") && (to.LastIndexOf(",") >= 0))
@@ -116,13 +121,17 @@ public class Mailer
                 for (_intValue = 0; _intValue < strSplit.Length; _intValue++)
                 {
                     if (!string.IsNullOrEmpty(strSplit[_intValue]))
+                    {
                         message.To.Add(strSplit[_intValue]);
+                    }
                 }
             }
             else
             {
                 if (to != "")
+                {
                     message.To.Add(to);
+                }
             }
         }
         if (cc != null)
@@ -135,13 +144,17 @@ public class Mailer
                 for (_intValue = 0; _intValue < strSplit.Length; _intValue++)
                 {
                     if (!string.IsNullOrEmpty(strSplit[_intValue]))
+                    {
                         message.CC.Add(strSplit[_intValue]);
+                    }
                 }
             }
             else
             {
                 if (cc != "")
+                {
                     message.CC.Add(cc);
+                }
             }
         }
         if (Bcc != null)
@@ -154,13 +167,17 @@ public class Mailer
                 for (_intValue = 0; _intValue < strSplit.Length; _intValue++)
                 {
                     if (!string.IsNullOrEmpty(strSplit[_intValue]))
+                    {
                         message.Bcc.Add(strSplit[_intValue]);
+                    }
                 }
             }
             else
             {
                 if (Bcc != "")
+                {
                     message.Bcc.Add(Bcc);
+                }
             }
         }
 
@@ -194,15 +211,15 @@ public class Mailer
         //}
     }
 
-    public static void SendEmail(string subject, string to, string cc, string body, List<string> AttachFiles)
-    {
-        SendEmail(subject, null, to, cc, body, AttachFiles);
-    }
-    public static void SendEmail(string subject, string from, string to, string cc, string body)
-    {
-        SendEmail(subject, from, to, cc, body, null);
-    }
-    public static void SendEmail(string subject, string _from, string to, string cc, string body, List<string> AttachFiles)
+    //public static void SendEmail(string subject, string to, string cc, string body, List<string> AttachFiles)
+    //{
+    //    SendEmail(subject, null, to, cc, body, AttachFiles);
+    //}
+    //public static void SendEmail(string subject, string from, string to, string cc, string body)
+    //{
+    //    SendEmail(subject, from, to, cc, body, null);
+    //}
+    public static void SendEmail(string subject, string _from, string to, string cc, string body, List<string> AttachFiles, string password = "winners1@3")
     {
         string toMailAddress = string.Empty;
         string CCMailAddress = string.Empty;
@@ -241,11 +258,15 @@ public class Mailer
         objMailer.Subject = subject;
         objMailer.Body = body;
         if (!string.IsNullOrEmpty(_from))
-            objMailer.SendMail(_from, AttachFiles);
+        {
+            objMailer.SendMail(_from, AttachFiles, password);
+        }
         else
-            objMailer.SendMail(AttachFiles);
+        {
+            objMailer.SendMail(AttachFiles, password);
+        }
     }
-    public void SendEmail(string subject, string to, string body, List<string> AttachFiles)
+    public void SendEmail(string subject, string to, string body, List<string> AttachFiles, string password = "winners1@3")
     {
         string toMailAddress = string.Empty;
         string CCMailAddress = string.Empty;
@@ -271,9 +292,13 @@ public class Mailer
         objMailer.Subject = subject;
         objMailer.Body = body;
         if (!string.IsNullOrEmpty(from))
-            objMailer.SendMail(fromName, AttachFiles);
+        {
+            objMailer.SendMail(fromName, AttachFiles, password);
+        }
         else
-            objMailer.SendMail(AttachFiles);
+        {
+            objMailer.SendMail(AttachFiles, password);
+        }
     }
 
 }

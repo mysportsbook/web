@@ -73,11 +73,26 @@
                                     @foreach (DataRow item in Model.Rows)
                                     {
                                         <tr>
+
                                             @foreach (DataColumn column in Model.Columns)
                                             {
+                                                string _result = string.Empty;
+                                                if (column.DataType == typeof(decimal) || column.DataType == typeof(decimal?) || column.DataType == typeof(double) || column.DataType == typeof(double?))
+                                                {
+                                                    _result = ((decimal?)item[column.ColumnName]).HasValue ? ((decimal?)item[column.ColumnName]).Value.ToString("0.00") : "0.00";
+                                                }
+                                                else if (column.DataType == typeof(bool) || column.DataType == typeof(bool?))
+                                                {
+                                                    _result = ((bool?)item[column.ColumnName]).HasValue && ((bool?)item[column.ColumnName]).Value ? "True" : "False";
+                                                }
+                                                else
+                                                {
+                                                    _result = item[column.ColumnName].ToString();
+                                                }
                                                 <td>
-                                                    @item[column.ColumnName].ToString()
+                                                    @_result
                                                 </td>
+
                                             }
                                         </tr>
                                     }
@@ -101,6 +116,12 @@
                                     <span>&nbsp;</span>
                                 }
                             </div>
+                            <div class="card text-center">
+                                <h6>Total</h6>
+                                <div class="card-body text-center">
+                                    <span class="label label-default font-weight-bold"> @data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00")</span>
+                                </div>
+                            </div>
                         }
                         else if (Model.Columns.Contains("Mode"))
                         {
@@ -115,42 +136,48 @@
                                     </div>
                                     <span>&nbsp;</span>
                                 }
+                                <div class="card text-center">
+                                    <h6>Total</h6>
+                                    <div class="card-body text-center">
+                                        <span class="label label-default font-weight-bold"> @data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00")</span>
+                                    </div>
+                                </div>
                             </div>
                         }
-                        @*<div class="row">
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("txtCash", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cash").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("txtTransfer", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Transfer").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("txtCheque", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cheque").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-form-label" for="text-input">Total Paytm</label>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("txtPaytm", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Paytm").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-form-label" for="text-input">Total Collection</label>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("txtTotal", data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
-                                    </div>
-                                </div>
-
-                            </div>*@
                     }
+                    @*<div class="row">
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Cash</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCash", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cash").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Transfer</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtTransfer", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Transfer").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Cheque</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtCheque", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Cheque").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Paytm</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtPaytm", data.AsEnumerable().Where(myRow => myRow.Field<string>("Payment Mode") == "Paytm").Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-6 col-form-label" for="text-input">Total Collection</label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("txtTotal", data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00"), new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            </div>
+
+                        </div>*@
                 </div>
             </div>
         </div>

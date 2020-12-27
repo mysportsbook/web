@@ -31,6 +31,8 @@ namespace MySportsBook.Model
             this.Master_Sport = new HashSet<Master_Sport>();
             this.Master_UserVenue = new HashSet<Master_UserVenue>();
             this.Master_Venue = new HashSet<Master_Venue>();
+            this.Transaction_Expense = new HashSet<Transaction_Expense>();
+            this.Transaction_Income = new HashSet<Transaction_Income>();
             this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
             this.Transaction_InvoiceDetail = new HashSet<Transaction_InvoiceDetail>();
             this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
@@ -70,6 +72,10 @@ namespace MySportsBook.Model
         public virtual ICollection<Master_UserVenue> Master_UserVenue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master_Venue> Master_Venue { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Expense> Transaction_Expense { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Income> Transaction_Income { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

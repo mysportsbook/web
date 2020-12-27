@@ -56,21 +56,34 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             {
                 return Json(DeleteReceiptInvoice(id), JsonRequestBehavior.AllowGet);
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
         // GET: Master/Player
-        public async Task<ActionResult> Player()
+        public ActionResult Player()
         {
             var master_Player = dbContext.Master_Player
                 .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
                 .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
                 .Include(m => m.Configuration_Status)
+                .Include(m => m.Transaction_Invoice.Select(q => q.Transaction_Receipt))
                 .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && x.FK_StatusId == 1)
-                .OrderByDescending(x => x.CreatedDate);
-            return View(await master_Player.ToListAsync());
+                .OrderByDescending(x => x.CreatedDate).ToList()
+                .Select(x => new Master_Player()
+                {
+                    PK_PlayerId=x.PK_PlayerId,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Mobile = x.Mobile,
+                    FK_StatusId = x.FK_StatusId,
+                    Transaction_PlayerSport = x.Transaction_PlayerSport,
+                    Configuration_Status = x.Configuration_Status,
+                    Transaction_Invoice = x.Transaction_Invoice.OrderByDescending(s => s.PK_InvoiceId).Take(1).ToList()
+
+                }).ToList();
+            return View(master_Player.ToList());
         }
 
 

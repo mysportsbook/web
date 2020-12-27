@@ -1,0 +1,119 @@
+﻿@model IEnumerable<MySportsBook.Model.Master_VenueScreen>
+
+@{
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("VenueScreen", "")</li>
+        <li class="breadcrumb-item active">View</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-11">
+                            <i class="fa fa-align-justify"></i>
+                            <strong>Screens</strong>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-sm btn-primary hvr-icon-buzz" type="button" id="btnSumbit" onclick="save()">
+                                <i class="fa fa-floppy-o hvr-icon"></i> Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0 screentable" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Screen")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Prefix")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("CurrentNo")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Format")
+                                </th>
+                                <th>@Html.DisplayName("Active")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Configuration_Screen.Screen)
+                                    </td>
+                                    <td>
+                                        @if (item.Configuration_Screen.FK_ScreenTypeId == 3)
+                                        {
+                                            @Html.TextBoxFor(modelItem => item.Prefix, new { @class = "form-control", @maxlength = "4" })
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("N/A")
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Configuration_Screen.FK_ScreenTypeId == 3)
+                                        {
+                                            @Html.TextBoxFor(modelItem => item.CurrentNo, new { @class = "form-control", @type = "number", @min = "0" })
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("N/A")
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Configuration_Screen.FK_ScreenTypeId == 3)
+                                        {
+                                            @Html.DropDownList("FK_FormatId", new SelectList(ViewBag.NumberFormat, "Value", "Text", item.FK_FormatId.ToString()), htmlAttributes: new { @class = "form-control" })
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("N/A")
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkbox-2x" type="checkbox" id="gridCheck"
+                                                       @(item.Configuration_Status.Status == "Active" ? "checked='checked'" : string.Empty)>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .checkbox-1x {
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+    }
+
+    .checkbox-2x {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+    }
+</style>
+<script>
+    function save() {
+
+    }
+</script>
