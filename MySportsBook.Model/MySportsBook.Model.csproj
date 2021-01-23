@@ -65,6 +65,9 @@
     <Compile Include="BatchCount.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CCTransaction.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration_BatchType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -92,9 +95,6 @@
     <Compile Include="Confirguration_PaymentMode.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="GetAllUserWithVenues_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="IncomeDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -111,12 +111,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Master_Enquiry.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Master_ExpenseType.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Master_IncomeType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Master_Player.cs">
@@ -171,9 +165,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="rp_COLLECTIONDETAIL_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
+    <Compile Include="rp_COLLECTIONDETAIL_Result.cs" />
     <Compile Include="rp_COMMONPROCEDURE_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -183,13 +175,13 @@
     <Compile Include="SMSTransactionRequest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Split_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="StudioEvent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Studio_ExpenseDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction_Attendance.cs">
@@ -198,25 +190,10 @@
     <Compile Include="Transaction_Enquiry_Comments.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Transaction_Expense.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction_Income.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction_Invoice.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction_InvoiceDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Transaction_PlayerSport.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction_Receipt.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction_SaveInvoice_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction_Voucher.cs">

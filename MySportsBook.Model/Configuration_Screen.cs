@@ -25,9 +25,10 @@ namespace MySportsBook.Model
         public string Screen { get; set; }
         public string ScreenCode { get; set; }
         public string NavigationURL { get; set; }
-        public int FK_ScreenTypeId { get; set; }
         public string Area { get; set; }
         public string Controller { get; set; }
+        public Nullable<int> FK_ScreenTypeId { get; set; }
+        public string Action { get; set; }
     
         public virtual Configuration_ScreenType Configuration_ScreenType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -41,13 +41,13 @@ namespace MySportsBook.Web.Controllers
             //LastMonthValue = dbContext.Master_Player.Where(v => v.FK_VenueId == currentUser.CurrentVenueId && v.FK_StatusId == 1).Count()
             //};
 
-            dt = dbContext.GetResultReport(currentUser.CurrentVenueId, "Dashboard", DateTime.Now.ToString("MMMyyyy"));
+            //dt = dbContext.GetResultReport(currentUser.CurrentVenueId, "Dashboard", DateTime.Now.ToString("MMMyyyy"));
 
             Dashboard dashboard = new Dashboard()
             {
-                PlayerCount = dt.Rows[0]["TotalPlayers"].ToString(),
-                CurrentMonthValue = currentUser.UserId < 4 ? dt.Rows[0]["CurrentMonthCollection"].ToString() : "0",
-                LastMonthValue = currentUser.UserId < 4 ? dt.Rows[0]["LastMonthCollection"].ToString() : "0"
+                PlayerCount = "0", // dt.Rows[0]["TotalPlayers"].ToString(),
+                CurrentMonthValue = "0", // currentUser.UserId < 4 ? dt.Rows[0]["CurrentMonthCollection"].ToString() : "0",
+                LastMonthValue = "0" //currentUser.UserId < 4 ? dt.Rows[0]["LastMonthCollection"].ToString() : "0"
             };
 
             return View(dashboard);

@@ -25,19 +25,19 @@ namespace MySportsBook.Web.Areas.Report.Controllers
             List<InvoiceReportModel> _invoiceReportModel = new List<InvoiceReportModel>();
 
             //var _Invoices = dbContext.Transaction_Invoice.Where(x => (x.InvoiceDate >= _invoiceReportSearchModel.StartDate) && (x.InvoiceDate <= _invoiceReportSearchModel.EndDate) && (x.PaidAmount==(_invoiceReportSearchModel.Collected == true? x.TotalFee+x.TotalDiscount: x.PaidAmount)) && (x.TotalFee + x.TotalDiscount != (_invoiceReportSearchModel.Pending == true? x.PaidAmount : x.TotalDiscount)) && x.FK_VenueId == currentUser.CurrentVenueId).ToList();
-            var _Invoices = dbContext.Transaction_Invoice.Where(x => (x.InvoiceDate >= _invoiceReportSearchModel.StartDate) && (x.InvoiceDate <= _invoiceReportSearchModel.EndDate) && x.FK_VenueId == currentUser.CurrentVenueId).ToList();
-            _Invoices.ForEach(invoice => {
-            var _PlayerSport = dbContext.Transaction_PlayerSport.Where(x => x.FK_PlayerId == invoice.FK_PlayerId).FirstOrDefault();
-            var player = dbContext.Master_Player.Where(x => x.PK_PlayerId == invoice.FK_PlayerId).FirstOrDefault();
-                    _invoiceReportModel.Add(new InvoiceReportModel()
-                    {
-                        Amount = invoice.TotalFee,
-                        Name = player.FirstName + " " + player.LastName,
-                        Mobile = player.Mobile,
-                        Status = invoice.TotalFee == invoice.PaidAmount + invoice.TotalDiscount ? "Collected" : "Pending",
-                        Batch = dbContext.Master_Batch.Where(x => x.PK_BatchId == _PlayerSport.FK_BatchId).Select(x => x.BatchName).SingleOrDefault()
-                    });
-                });
+            //var _Invoices = dbContext.Transaction_Invoice.Where(x => (x.InvoiceDate >= _invoiceReportSearchModel.StartDate) && (x.InvoiceDate <= _invoiceReportSearchModel.EndDate) && x.FK_VenueId == currentUser.CurrentVenueId).ToList();
+            //_Invoices.ForEach(invoice => {
+            //var _PlayerSport = dbContext.Transaction_PlayerSport.Where(x => x.FK_PlayerId == invoice.FK_PlayerId).FirstOrDefault();
+            //var player = dbContext.Master_Player.Where(x => x.PK_PlayerId == invoice.FK_PlayerId).FirstOrDefault();
+            //        _invoiceReportModel.Add(new InvoiceReportModel()
+            //        {
+            //            Amount = invoice.TotalFee,
+            //            Name = player.FirstName + " " + player.LastName,
+            //            Mobile = player.Mobile,
+            //            Status = invoice.TotalFee == invoice.PaidAmount + invoice.TotalDiscount ? "Collected" : "Pending",
+            //            Batch = dbContext.Master_Batch.Where(x => x.PK_BatchId == _PlayerSport.FK_BatchId).Select(x => x.BatchName).SingleOrDefault()
+            //        });
+            //    });
            
             return View(_invoiceReportModel);
         }

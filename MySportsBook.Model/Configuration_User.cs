@@ -53,16 +53,6 @@ namespace MySportsBook.Model
             this.OtherBookingDetails1 = new HashSet<OtherBookingDetail>();
             this.Studio_ExpenseDetail1 = new HashSet<Studio_ExpenseDetail>();
             this.StudioEvents = new HashSet<StudioEvent>();
-            this.Transaction_Expense = new HashSet<Transaction_Expense>();
-            this.Transaction_Expense1 = new HashSet<Transaction_Expense>();
-            this.Transaction_Expense2 = new HashSet<Transaction_Expense>();
-            this.Transaction_Income = new HashSet<Transaction_Income>();
-            this.Transaction_Income1 = new HashSet<Transaction_Income>();
-            this.Transaction_Income2 = new HashSet<Transaction_Income>();
-            this.Transaction_Invoice = new HashSet<Transaction_Invoice>();
-            this.Transaction_Invoice1 = new HashSet<Transaction_Invoice>();
-            this.Transaction_InvoiceDetail = new HashSet<Transaction_InvoiceDetail>();
-            this.Transaction_InvoiceDetail1 = new HashSet<Transaction_InvoiceDetail>();
             this.Transaction_PlayerSport = new HashSet<Transaction_PlayerSport>();
             this.Transaction_PlayerSport1 = new HashSet<Transaction_PlayerSport>();
             this.Transaction_Receipt = new HashSet<Transaction_Receipt>();
@@ -159,26 +149,6 @@ namespace MySportsBook.Model
         public virtual ICollection<Studio_ExpenseDetail> Studio_ExpenseDetail1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudioEvent> StudioEvents { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Expense> Transaction_Expense { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Expense> Transaction_Expense1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Expense> Transaction_Expense2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Income> Transaction_Income { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Income> Transaction_Income1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Income> Transaction_Income2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Invoice> Transaction_Invoice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_Invoice> Transaction_Invoice1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_InvoiceDetail> Transaction_InvoiceDetail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction_InvoiceDetail> Transaction_InvoiceDetail1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_PlayerSport> Transaction_PlayerSport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

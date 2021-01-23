@@ -39,7 +39,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.SpentBy, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            @Html.EditorFor(model => model.SpentBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })
+                                            @*@Html.EditorFor(model => model.SpentBy, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", data_required = "true" } })*@
+                                            @Html.DropDownList("StudioUser",null, new { @class = "form-control" })
                                             @Html.ValidationMessage("Please provide a SpentBy!")
                                         </div>
                                     </div>
@@ -95,13 +96,16 @@
         return true;
     }
     function save() {
+        var e = document.getElementById("StudioUser");
+        var strUser = e.options[e.selectedIndex].text;
+        var SpendBy = e.options[e.selectedIndex].value;
         var expensesmodel = {
             "PK_ExpenseDetailId": $('input[name="PK_ExpenseDetailId"]').val(),
-            "SpentBy": $('input[name="SpentBy"]').val(),
+            "SpentBy": SpendBy,
             "SpentDate": $('input[name="SpentDate"]').val(),
             "Amount": $('input[name="Amount"]').val(),
             "Description": $('textarea[name="Description"]').val()
         }
-        saveData(expensesmodel, $('input[name="SpentBy"]').val(), SaveOrUpdate.update);
+        saveData(expensesmodel, strUser, SaveOrUpdate.update);
     }
 </script>

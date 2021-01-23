@@ -110,17 +110,7 @@
                                     <td>
                                         <div>
                                             @{
-                                                string _receiptno = string.Empty;
-                                                if (item.Transaction_Invoice.Select(x => x.Transaction_Receipt).Count() > 0)
-                                                {
-                                                    var _receipt = item.Transaction_Invoice.Select(x => x.Transaction_Receipt.OrderByDescending(r => r.PK_ReceiptId).Take(1)).First();
-
-                                                    if (_receipt != null && _receipt.FirstOrDefault() != null)
-                                                    {
-                                                        _receiptno = _receipt.First().ReceiptNumber;
-                                                    }
-                                                }
-                                                <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId,@_receiptno)" title="Delete Last Generated Receipt (@_receiptno)" type="button">
+                                                <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId,0)" title="Delete Last Generated Receipt" type="button">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             }

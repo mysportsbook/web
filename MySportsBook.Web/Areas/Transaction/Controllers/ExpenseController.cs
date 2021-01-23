@@ -16,7 +16,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         // GET: Transaction/Expense
         public async Task<ActionResult> Index()
         {
-            return View(await dbContext.Transaction_Expense.Include(x => x.Configuration_User).Include(x => x.Master_ExpenseType).ToListAsync());
+            return View(await dbContext.Studio_ExpenseDetail.Include(x => x.Configuration_User).ToListAsync());
         }
 
         // GET: Transaction/Expense/Create
@@ -28,14 +28,14 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Master_ExpenseType.ToList().ForEach(x =>
-            {
-                ddlList.Add(new SelectListItem
-                {
-                    Text = x.ExpenseDescription,
-                    Value = x.PK_ExpenseTypeId.ToString()
-                });
-            });
+            //dbContext.Master_ExpenseType.ToList().ForEach(x =>
+            //{
+            //    ddlList.Add(new SelectListItem
+            //    {
+            //        Text = x.ExpenseDescription,
+            //        Value = x.PK_ExpenseTypeId.ToString()
+            //    });
+            //});
             ViewBag.ExpensesType = new SelectList(ddlList, "Value", "Text"); ;
             ddlList = new List<SelectListItem>();
             dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0).ToList().ForEach(x =>
@@ -55,7 +55,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(Transaction_Expense expenseDetail)
+        public ActionResult Create(Studio_ExpenseDetail expenseDetail)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 expenseDetail.CreatedBy = currentUser.UserId;
                 expenseDetail.CreatedDate = DateTime.Now.ToLocalTime();
 
-                dbContext.Transaction_Expense.Add(expenseDetail);
+                dbContext.Studio_ExpenseDetail.Add(expenseDetail);
                 dbContext.SaveChangesAsync().Wait();
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -81,7 +81,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction_Expense expenseDetail = await dbContext.Transaction_Expense.FindAsync(id);
+            Studio_ExpenseDetail expenseDetail = await dbContext.Studio_ExpenseDetail.FindAsync(id);
             if (expenseDetail == null)
             {
                 return HttpNotFound();
@@ -92,15 +92,15 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 Text = "--Select--",
                 Value = ""
             });
-            dbContext.Master_ExpenseType.ToList().ForEach(x =>
-            {
-                ddlList.Add(new SelectListItem
-                {
-                    Text = x.ExpenseDescription,
-                    Value = x.PK_ExpenseTypeId.ToString()
-                });
-            });
-            ViewBag.ExpensesType = new SelectList(ddlList, "Value", "Text", expenseDetail.FK_ExpenseTypeId);
+            //dbContext.Master_ExpenseType.ToList().ForEach(x =>
+            //{
+            //    ddlList.Add(new SelectListItem
+            //    {
+            //        Text = x.ExpenseDescription,
+            //        Value = x.PK_ExpenseTypeId.ToString()
+            //    });
+            //});
+            ViewBag.ExpensesType = new SelectList(ddlList, "Value", "Text");
             dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0).ToList().ForEach(x =>
             {
                 ddlList.Add(new SelectListItem
@@ -109,7 +109,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                     Value = x.PK_UserId.ToString()
                 });
             });
-            ViewBag.SpendUser = new SelectList(ddlList, "Value", "Text", expenseDetail.SpendBy);
+            ViewBag.SpendUser = new SelectList(ddlList, "Value", "Text", expenseDetail.SpentBy);
 
             return View(expenseDetail);
         }
@@ -119,23 +119,21 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PK_ExpenseId,FK_ExpenseTypeId,SpendBy,SpendDate,Description,Amount")] Transaction_Expense expenseDetail)
+        public async Task<ActionResult> Edit([Bind(Include = "PK_ExpenseId,FK_ExpenseTypeId,SpendBy,SpendDate,Description,Amount")] Studio_ExpenseDetail expenseDetail)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Transaction_Expense _expense = await dbContext.Transaction_Expense.Where(x => x.PK_ExpenseId == expenseDetail.PK_ExpenseId).FirstOrDefaultAsync();
+                    Studio_ExpenseDetail _expense = await dbContext.Studio_ExpenseDetail.Where(x => x.PK_ExpenseDetailId == expenseDetail.PK_ExpenseDetailId).FirstOrDefaultAsync();
                     if (_expense == null)
                     {
                         return HttpNotFound();
                     }
-                    _expense.FK_ExpenseTypeId = expenseDetail.FK_ExpenseTypeId;
-                    _expense.SpendBy = expenseDetail.SpendBy;
+                   // _expense.FK_ExpenseTypeId = expenseDetail.FK_ExpenseTypeId;
+                    _expense.SpentBy = expenseDetail.SpentBy;
                     _expense.Description = expenseDetail.Description;
-                    _expense.SpendDate = expenseDetail.SpendDate;
-                    _expense.ModifiedBy = currentUser.UserId;
-                    _expense.ModifiedDate = DateTime.Now;
+                    _expense.SpentDate = expenseDetail.SpentDate;
                     dbContext.Entry(_expense).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
                     return Json(true, JsonRequestBehavior.AllowGet);

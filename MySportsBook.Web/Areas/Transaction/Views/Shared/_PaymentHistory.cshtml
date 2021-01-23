@@ -1,4 +1,4 @@
-﻿@model List<MySportsBook.Model.ViewModel.ReceiptModel>
+﻿@model List<MySportsBook.Web.Models.ReceiptViewModel>
 <div class="row">
     @if (Model.Count == 0)
     {
@@ -11,27 +11,52 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ReceiptNumber</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Receipt#</th>
+                    <th scope="col">Paid on</th>
                     <th scope="col">Sport</th>
+                    <th scope="col">Batch</th>
                     <th scope="col">Month</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Received By</th>
-                    <th scope="col">Pay-Mode</th>
+                    <th scope="col">Mode</th>
+                    <th scope="col">Receiver</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
-            @foreach (MySportsBook.Model.ViewModel.ReceiptModel detail in Model)
+            @foreach (MySportsBook.Web.Models.ReceiptViewModel detail in Model)
             {
             <tr>
                 <td>@detail.ReceiptNumber</td>
-                <td>@detail.ReceiptDate.ToString("dd/MM/yyyy")</td>
+                <td>@detail.ReceiptDate.ToString("dd MMM yyyy")</td>
                 <td>@detail.Sport</td>
-                <td>@detail.Month</td>
+                <td>@detail.Batch</td>
+                <td>@detail.ReceiptPeriod</td>
                 <td>@detail.AmountPaid.ToString("0.00")</td>
-                <td>@detail.Received</td>
                 <td>@detail.PaymentMode</td>
+                <td>@detail.ReceivedBy</td>
+                <td>
+                    @*@{
+                        string _receiptno = string.Empty;
+                        if (detail.ReceiptNumber)
+                        {
+                            var _receipt = item.Transaction_Invoice.Select(x => x.Transaction_Receipt.OrderByDescending(r => r.PK_ReceiptId).Take(1)).First();
+
+                            if (_receipt != null && _receipt.FirstOrDefault() != null)
+                            {
+                                _receiptno = _receipt.First().ReceiptNumber;
+                            }
+                        }
+                        <button class="btn btn-danger" onclick="deleteReceipt(@item.PK_PlayerId,@_receiptno)" title="Delete Last Generated Receipt (@_receiptno)" type="button">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    }*@
+                </td>
+
             </tr>
             }
         </table>
+        if (!Model.FirstOrDefault().IsFullPaymentHistory)
+        {
+        <button type="button" class="btn btn-block btn-outline-info" onclick="payHistory(@Model.FirstOrDefault().PlayerId,this,1)">Load More...</button>
+        }
     }
 </div>

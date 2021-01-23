@@ -46,8 +46,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/Account/Home">
-            <img class="navbar-brand-full" src="" width="89" height="25" alt="">
-            <img class="navbar-brand-minimized" src="" width="30" height="30" alt="My Sports">
+            <img class="navbar-brand-full" src="~/img/MSBLogo.png" width="89" height="80" alt="">
+            <img class="navbar-brand-minimized" src="~/img/MSBLogo.png" width="30" height="30" alt="My Sports">
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
             <span class="navbar-toggler-icon"></span>
@@ -117,6 +117,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("Player", "Receipt", new { Area = "Transaction" })">
                                     <i class="nav-icon fa fa-file-text-o"></i> Receipt
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("PlayerPayment", "Receipt", new { Area = "Transaction" })">
+                                    <i class="nav-icon fa fa-file-text-o"></i> Player Payments
                                 </a>
                             </li>
                         }

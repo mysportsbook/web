@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MySportsBook.Model.Master_Player>
+﻿@model IEnumerable<MySportsBook.Web.Areas.Transaction.Models.PlayersViewMobel>
 
 @{
     ViewBag.Title = "Invoice";
@@ -20,6 +20,23 @@
                     <strong>Payment</strong>
                 </div>
                 <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row" style="margin-bottom:10px;">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.TextBox("search", "", new { @class = "form-control" })
+                                        <span class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
                         <thead class="thead-light">
                             <tr>
@@ -29,10 +46,37 @@
                                 <th>@Html.Label("Batchs")</th>
                                 <th>@Html.Label("View Dues")</th>
                                 <th>@Html.Label("Payment History")</th>
+                                @*<th>@Html.Label("Full Payment History")</th>*@
                             </tr>
                         </thead>
                         <tbody>
-                          
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Batches)
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-block btn-outline-info" onclick="payHistory(@item.PK_PlayerId,this)" type="button">Payment History</button>
+                                        @Html.HiddenFor(modelItem => item.PK_PlayerId)
+                                    </td>
+                                    @*<td>
+                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                        </td>*@
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -60,39 +104,47 @@
     $(function () {
         $('.table').DataTable({
             
-            "processing": true,
-            "serverSide": true,
-            "filter": true, // this is for disable filter (search box)
-            "orderMulti": false, // for disable multiple column at once
-            "ajax":
-            {
-                "url": 'Transaction/Invoice/GetPlayersDetails',
-                "type": "POST",
-                "dataType": "JSON",
-            },
-            "columns": [
-                { "data": "FirstName", "class": "text-left" },
-                { "data": "LastName", "class": "text-left" },
-                { "data": "Mobile", "class": "text-center" },
-                { "data": "Batches", "class": "text-left" },
-                {
-                    "data": "PK_PlayerId", "class": "text-center",
-                    "render": function (data, type, row) {
-                        var data = '<button class="btn btn-block btn-outline-info" onclick="payInvoice(' + row.PK_PlayerId + ',this)" type="button">View Dues</button>';
+            //"processing": true,
+            //"serverSide": true,
+            //"filter": true, // this is for disable filter (search box)
+            //"orderMulti": false, // for disable multiple column at once
+            //"ajax":
+            //{
+            //    "url": 'Transaction/Invoice/GetPlayersDetails',
+            //    "type": "POST",
+            //    "dataType": "JSON",
+            //},
+            //"columns": [
+            //    { "data": "FirstName", "class": "text-left" },
+            //    { "data": "LastName", "class": "text-left" },
+            //    { "data": "Mobile", "class": "text-center" },
+            //    { "data": "Batches", "class": "text-left" },
+            //    {
+            //        "data": "PK_PlayerId", "class": "text-center",
+            //        "render": function (data, type, row) {
+            //            var data = '<button class="btn btn-block btn-outline-info" onclick="payInvoice(' + row.PK_PlayerId + ',this)" type="button">View Dues</button>';
                         
-                        return data;
-                    },
-                },
-                {
-                    "data": "PK_PlayerId", "class": "text-center",
-                    "render": function (data, type, row) {
-                        var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this)" type="button">Payment History</button>';
+            //            return data;
+            //        },
+            //    },
+            //    {
+            //        "data": "PK_PlayerId", "class": "text-center",
+            //        "render": function (data, type, row) {
+            //            var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this,0)" type="button">Payment History</button>';
 
-                        return data;
-                    },
-                },
-            ],
-            bDestroy: true,
+            //            return data;
+            //        },
+            //    },
+                //{
+                //    "data": "PK_PlayerId", "class": "text-center",
+                //    "render": function (data, type, row) {
+                //        var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this,1)" type="button">Full Payment History</button>';
+
+                //        return data;
+                //    },
+                //},
+           // ],
+           // bDestroy: true,
         });
     });
     function payInvoice(id, btn) {
@@ -120,11 +172,11 @@
             }
         });
     }
-    function payHistory(id, btn) {
+    function payHistory(id, btn,t) {
         loader();
         $.ajax({
             type: "GET",
-            url: "/Transaction/Invoice/GetPaymentHistory/" + id,
+            url: "/Transaction/Invoice/GetPaymentHistory?id=" + id+"&type="+t,
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {

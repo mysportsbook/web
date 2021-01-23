@@ -47,8 +47,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/Account/Home">
-            @*<img class="navbar-brand-full" src="/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-                <img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">*@
+            <img class="navbar-brand-full" src="~/img/MSBLogo.png" width="89" height="80" alt="">
+            <img class="navbar-brand-minimized" src="~/img/MSBLogo.png" width="30" height="30" alt="My Sports">
             <span>My Sports</span>
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
@@ -150,6 +150,11 @@
                             <i class="nav-icon fa fa-file-text-o"></i> Receipt
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("PlayerPayment", "Receipt", new { Area = "Transaction" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Player Payments
+                        </a>
+                    </li>
                     <li class="nav-title">Report</li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Invoice", new { Area = "Report" })">
@@ -172,10 +177,10 @@
                         </a>
                     </li>
                     @*<li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
-                                <i class="nav-icon fa fa-file-text-o"></i> Player Collection
-                            </a>
-                        </li>*@
+            <a class="nav-link" href="@Url.Action("Player", "Collection", new { Area = "Report" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Player Collection
+            </a>
+        </li>*@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Custom", "Defaulters", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Defaulters

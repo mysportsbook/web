@@ -89,10 +89,13 @@
     }
     var eventmodel;
     function loadmodel() {
+        var e = document.getElementById("StudioUser");
+        var strUser = e.options[e.selectedIndex].text;
+        var SpendBy = e.options[e.selectedIndex].value;
         eventmodel = {
             "FK_EventId": $('select[name="Events"]').val(),
             "FK_ExpenseTypeId": $('select[name="ExpensesType"]').val(),
-            "FK_SpentBy": $('select[name="StudioUser"]').val(),
+            "SpentBy": SpendBy,
             "SpentDate": $('input[name="SpentDate"]').val(),
             "Amount": $('input[name="Amount"]').val(),
             "Description": $('textarea[name="Description"]').val()

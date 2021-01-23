@@ -10,16 +10,13 @@
 namespace MySportsBook.Model
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class GetAllUserWithVenues_Result
+    public partial class CCTransaction
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Mobile { get; set; }
-        public int VenueID { get; set; }
-        public string VenueName { get; set; }
-        public string VenueCode { get; set; }
-        public bool DailyCollectionEmail { get; set; }
-        public bool DailyCollectionSMS { get; set; }
+        public int ID { get; set; }
+        public string TransactionDetail { get; set; }
+        public string Type { get; set; }
+        public Nullable<decimal> Cost { get; set; }
     }
 }

@@ -2,189 +2,189 @@
 <div class="row">
     @if (Model.NoDues)
     {
-        <div class="col-sm-12">
-            <span><strong>No Pending due(s).</strong></span>
-        </div>
+    <div class="col-sm-12">
+        <span><strong>No Pending due(s).</strong></span>
+    </div>
     }
     else
     {
-        <div class="col-sm-5">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Batch</th>
-                        <th scope="col">Sport</th>
-                        <th scope="col">Month</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col"><input type="checkbox" class="inv-list-all" /></th>
-                    </tr>
-                </thead>
-                @foreach (MySportsBook.Model.ViewModel.InvoiceDetailModel detail in Model.InvoiceDetails)
-                {
-                    <tr>
-                        <td>@detail.BatchName</td>
-                        <td>@Html.Raw(detail.SportName)</td>
-                        <td>@detail.InvoicePeriod</td>
-                        <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
-                        <td>
-                            <input type="checkbox" class="inv-list" />
-                            <input id="hidbatch" type="hidden" class="inv-batch-id" name="hidbatch" value="@detail.BatchId" />
-                            <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
-                            <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
-                            <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
-                            <input id="hidinvserno" type="hidden" class="inv-fee" name="hidinvserno" value="@detail.PayOrder" />
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-        <div class="col-sm-7">
-            <div class="row">
-                <div class="col-sm-3">
-                    @Html.Label("Inv Date")
-                </div>
-                <div class="col-sm-3">
-                    @Html.TextBox("InvoiceDate", "", new { @class = "form-control date", @tabindex = 1 })
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Received By")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.DropDownList("ReceivedBy", null, htmlAttributes: new { @class = "form-control", @tabindex = 5 })
-                    </div>
+    <div class="col-sm-5">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Sport</th>
+                    <th scope="col">Batch</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col"><input type="checkbox" class="inv-list-all" /></th>
+                </tr>
+            </thead>
+            @foreach (MySportsBook.Model.ViewModel.InvoiceDetailModel detail in Model.InvoiceDetails)
+            {
+            <tr>
+                <td>@Html.Raw(detail.SportName)</td>
+                <td>@detail.BatchName</td>
+                <td>@detail.InvoicePeriod</td>
+                <td><label class="inv-amount">@detail.Fee.ToString("0.00")</label></td>
+                <td>
+                    <input type="checkbox" class="inv-list" />
+                    <input id="hidbatch" type="hidden" class="inv-batch-id" name="hidbatch" value="@detail.BatchId" />
+                    <input id="hidinvperiodid" type="hidden" class="inv-period-id" name="hidinvperiodid" value="@detail.InvoicePeriodId" />
+                    <input id="hidinvperiod" type="hidden" class="inv-period" name="hidinvperiod" value="@detail.InvoicePeriod" />
+                    <input id="hidinvfee" type="hidden" class="inv-fee" name="hidinvfee" value="@detail.Fee" />
+                    <input id="hidinvserno" type="hidden" class="inv-fee" name="hidinvserno" value="@detail.PayOrder" />
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    <div class="col-sm-7">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Label("Inv Date")
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("InvoiceDate", "", new { @class = "form-control date", @tabindex = 1 })
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Received By")
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Total Fee")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtTotalFee", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Payment Mode")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control", @tabindex = 6 })
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Discount(-)")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtDiscount", "0.00", new { @class = "form-control text-right", @tabindex = 2 })
-                    </div>
-                </div>
-                <div class="col-sm-3 transaction" style="display:none">
-                    <div class="form-group">
-                        @Html.Label("Trans/Cheque#")
-                    </div>
-                </div>
-                <div class="col-sm-3 transaction" style="display:none">
-                    <div class="form-group">
-                        @Html.TextBox("TransactionNo", "", new { @class = "form-control", @tabindex = 7 })
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("OtherAmount(+)")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right", @tabindex = 3 })
-                    </div>
-                </div>
-                <div class="col-sm-3 transaction" style="display:none">
-                    @Html.Label("Trans/Cheque Date")
-                </div>
-                <div class="col-sm-3 transaction" style="display:none">
-                    @Html.TextBox("TransactionDate", "", new { @class = "form-control date", @tabindex = 8 })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Credit")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtCredit", Model.ExtraPaidAmount, new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    @Html.Label("Comments")
-                </div>
-                <div class="col-sm-3">
-                    @Html.TextArea("txtComments", new { @class = "form-control", @tabindex = 9 })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Total")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Paid")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right", @tabindex = 4 })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.Label("Balance")
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        @Html.TextBox("txtBalance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="offset-md-9 col-sm-3">
-                    <button type="button" class="btn btn-primary btn-block" onclick="confirmation()" tabindex="10">Pay</button>
-                    @Html.HiddenFor(model => model.PlayerId)
-                </div>
-                <div class="offset-md-9 col-sm-3">
-                    <span class="badge badge-success">Last paid on: @Model.InvoiceDetails.FirstOrDefault().LastPaidDetails</span>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.DropDownList("ReceivedBy", null, htmlAttributes: new { @class = "form-control", @tabindex = 5 })
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Total Fee")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtTotalFee", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Payment Mode")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.DropDownList("PaymentMode", null, htmlAttributes: new { @class = "form-control", @tabindex = 6 })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Discount(-)")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtDiscount", "0.00", new { @class = "form-control text-right", @tabindex = 2 })
+                </div>
+            </div>
+            <div class="col-sm-3 transaction" style="display:none">
+                <div class="form-group">
+                    @Html.Label("Trans/Cheque#")
+                </div>
+            </div>
+            <div class="col-sm-3 transaction" style="display:none">
+                <div class="form-group">
+                    @Html.TextBox("TransactionNo", "", new { @class = "form-control", @tabindex = 7 })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("OtherAmount(+)")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtLateFee", "0.00", new { @class = "form-control text-right", @tabindex = 3 })
+                </div>
+            </div>
+            <div class="col-sm-3 transaction" style="display:none">
+                @Html.Label("Trans/Cheque Date")
+            </div>
+            <div class="col-sm-3 transaction" style="display:none">
+                @Html.TextBox("TransactionDate", "", new { @class = "form-control date", @tabindex = 8 })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Credit")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtCredit", Model.ExtraPaidAmount, new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                </div>
+            </div>
+            <div class="col-sm-3">
+                @Html.Label("Comments")
+            </div>
+            <div class="col-sm-3">
+                @Html.TextArea("txtComments", new { @class = "form-control", @tabindex = 9 })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Total")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtTotal", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Paid")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtPaid", "0.00", new { @class = "form-control text-right", @tabindex = 4 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Balance")
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.TextBox("txtBalance", "0.00", new { @readonly = "true", @class = "form-control text-right", @tabindex = "-1" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-9 col-sm-3">
+                <button type="button" class="btn btn-primary btn-block" onclick="confirmation()" tabindex="10">Pay</button>
+                @Html.HiddenFor(model => model.PlayerId)
+            </div>
+            <div class="offset-md-9 col-sm-3">
+                <span class="badge badge-success">Last paid on: @Model.InvoiceDetails.FirstOrDefault().LastPaidDetails</span>
+            </div>
+        </div>
+    </div>
     }
 </div>
 <script>
@@ -295,6 +295,13 @@
             });
             if (invoicedetails.length <= 0) {
                 swal("Failed!", "Please select the month(s) to pay!", "error", {
+                    icon: "error"
+                });
+                loader();
+                return false;
+            }
+    if (invoicedetails.length > 1) {
+                swal("Failed!", "Please select Only one month(s) to pay!", "error", {
                     icon: "error"
                 });
                 loader();

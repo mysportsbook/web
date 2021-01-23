@@ -24,8 +24,8 @@ namespace MySportsBook.Model
         public int FK_VenueId { get; set; }
         public int FK_ScreenId { get; set; }
         public string Prefix { get; set; }
-        public Nullable<int> CurrentNo { get; set; }
-        public Nullable<int> FK_FormatId { get; set; }
+        public int CurrentNo { get; set; }
+        public int FK_FormatId { get; set; }
         public int FK_StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }

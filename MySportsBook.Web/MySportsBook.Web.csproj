@@ -147,10 +147,17 @@
     <Compile Include="Areas\Report\Controllers\EnquiryController.cs" />
     <Compile Include="Areas\Report\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Areas\Studio\Controllers\EventsController.cs" />
+    <Compile Include="Areas\Studio\Controllers\ExpenseController.cs" />
+    <Compile Include="Areas\Studio\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Studio\Controllers\IncomeController.cs" />
+    <Compile Include="Areas\Studio\Controllers\ReportsController.cs" />
+    <Compile Include="Areas\Studio\StudioAreaRegistration.cs" />
     <Compile Include="Areas\Transaction\Controllers\ExpenseController.cs" />
     <Compile Include="Areas\Transaction\Controllers\IncomeController.cs" />
     <Compile Include="Areas\Transaction\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Transaction\Controllers\ReceiptController.cs" />
+    <Compile Include="Areas\Transaction\Models\PlayerReceiptViewModel.cs" />
     <Compile Include="Areas\Transaction\Models\PlayersViewMobel.cs" />
     <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -163,8 +170,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConnectionDataControl.cs" />
+    <Compile Include="Helper\ConvertHelper.cs" />
     <Compile Include="Helper\RoleAction.cs" />
     <Compile Include="Helper\DropDownItem.cs" />
+    <Compile Include="Models\ReceiptViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +212,7 @@
     <Content Include="img\brand\logo.svg" />
     <Content Include="img\brand\sygnet.svg" />
     <Content Include="img\favicon.ico" />
+    <Content Include="img\MSBLogo.png" />
     <Content Include="Scripts\bootstrap-timepicker.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -211,6 +221,7 @@
     <Content Include="Scripts\coreui.min.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\dataTables.fixedColumns.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -289,6 +300,19 @@
     <Content Include="Areas\Transaction\Views\Income\Edit.cshtml" />
     <Content Include="Areas\Transaction\Views\Income\Index.cshtml" />
     <Content Include="Areas\Master\Views\VenueScreen\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Events\Create.cshtml" />
+    <Content Include="Areas\Studio\Views\Events\Edit.cshtml" />
+    <Content Include="Areas\Studio\Views\Events\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Expense\Create.cshtml" />
+    <Content Include="Areas\Studio\Views\Expense\Edit.cshtml" />
+    <Content Include="Areas\Studio\Views\Expense\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Income\Create.cshtml" />
+    <Content Include="Areas\Studio\Views\Income\Edit.cshtml" />
+    <Content Include="Areas\Studio\Views\Income\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Reports\Index.cshtml" />
+    <Content Include="Areas\Studio\Views\Web.config" />
+    <Content Include="Areas\Transaction\Views\Receipt\PlayerPayment.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -384,7 +408,8 @@
     <Folder Include="Areas\Master\Views\Shared\" />
     <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Report\Views\Report\" />
-    <Folder Include="Models\" />
+    <Folder Include="Areas\Studio\Models\" />
+    <Folder Include="Areas\Studio\Views\Shared\" />
     <Folder Include="Views\DropDown\" />
   </ItemGroup>
   <ItemGroup>

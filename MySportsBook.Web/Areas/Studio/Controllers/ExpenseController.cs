@@ -20,7 +20,7 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // GET: Studio/Expense
         public async Task<ActionResult> Index()
         {
-            return View(await dbContext.Studio_ExpenseDetail.ToListAsync());
+            return View(await dbContext.Studio_ExpenseDetail.Include(u=>u.Configuration_User1).ToListAsync());
         }
 
         // GET: Studio/Expense/Create
@@ -56,7 +56,6 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
                 });
             });
             ViewBag.Events = new SelectList(ddlList, "Value", "Text");
-
 
             ddlList = new List<SelectListItem>();
             ddlList.Add(new SelectListItem
@@ -113,6 +112,24 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            List<SelectListItem>  ddlList = new List<SelectListItem>();
+            ddlList.Add(new SelectListItem
+            {
+                Text = "--Select--",
+                Value = ""
+            });
+            dbContext.Configuration_User.Where(x => dbContext.Master_UserVenue.Any(v => v.FK_UserId == x.PK_UserId && v.FK_VenueId == currentUser.CurrentVenueId) && x.PK_UserId != 0).ToList().ForEach(x =>
+            {
+                ddlList.Add(new SelectListItem
+                {
+                    Text = x.FirstName,
+                    Value = x.PK_UserId.ToString()
+                });
+            });
+            ViewBag.StudioUser = new SelectList(ddlList, "Value", "Text",expenseDetail.SpentBy);
+
             return View(expenseDetail);
         }
 
@@ -120,7 +137,6 @@ namespace MySportsBook.Web.Areas.Studio.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "PK_ExpenseDetailId,SpentBy,Description,SpentDate")] Studio_ExpenseDetail expenseDetail)
         {
             if (ModelState.IsValid)

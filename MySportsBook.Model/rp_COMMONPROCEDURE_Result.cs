@@ -13,16 +13,18 @@ namespace MySportsBook.Model
     
     public partial class rp_COMMONPROCEDURE_Result
     {
-        public string Name { get; set; }
-        public string Inv_Period { get; set; }
-        public string Collected_on { get; set; }
-        public string Sport { get; set; }
-        public string Batch { get; set; }
-        public string Payment_Mode { get; set; }
-        public decimal Fees { get; set; }
-        public Nullable<decimal> Chargers { get; set; }
-        public Nullable<decimal> Discount { get; set; }
-        public decimal Amount { get; set; }
-        public string UserName { get; set; }
+        public string NAME { get; set; }
+        public string RECEIPT_ { get; set; }
+        public string INV_PERIOD { get; set; }
+        public string COLLECTED_ON { get; set; }
+        public string SPORT { get; set; }
+        public string BATCH { get; set; }
+        public string MODE { get; set; }
+        public decimal FEES { get; set; }
+        public Nullable<decimal> CHARGERS { get; set; }
+        public Nullable<decimal> DISCOUNT { get; set; }
+        public decimal AMOUNT { get; set; }
+        public string USERNAME { get; set; }
+        public string Notes { get; set; }
     }
 }
