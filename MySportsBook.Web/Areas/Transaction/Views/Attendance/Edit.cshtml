@@ -1,0 +1,148 @@
+﻿@model IEnumerable<MySportsBook.Web.Areas.Transaction.Models.AttendanceBatchPlayerViewModel>
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Attendance", "Index")</li>
+        <li class="breadcrumb-item active">Attendance</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Attendance</strong>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                    <div class="row" style="margin-bottom:10px;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.Label("Batch", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("BatchId", null, new { @class = "form-control", id = "batchId" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                @Html.Label("Date")
+                                @Html.TextBox("Date", "", new { @class = "form-control date" })
+                            </div>
+                        </div>
+                     <!--   <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.Label("Player")
+                                <div class="input-group">
+                                    @Html.TextBox("Player", "", new { @class = "form-control" })
+                                    <span class="input-group-append">
+                                        <button class="btn btn-primary" type="button">Add Player@*<i class="fa fa-search" style="margin-left: 5px;"></i>*@</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-md-2">
+                            <br />
+                            <button class="btn btn-primary" style="margin-top:8px" type="submit"><i class="fa fa-floppy-o" style="margin-right: 5px;"></i>Save</button>
+                        </div>
+                    </div>
+                        <div class="">
+                            <table id="BatchPlayerTable" class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                                <thead class="">
+                                    <tr>
+                                        <th></th>
+                                        <th> Name </th>
+                                        <th> Mobile </th>
+                                        <th> Last Paid Month </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Playerbody">
+                                    @foreach (var item in Model)
+                                    {
+                                        var Ischecked = item.Present ? "checked" : "";
+                                        <tr>
+                                            <td><input type="checkbox" name="Players" value="@item.PlayerId" @Ischecked  /></td>
+                                            <td>@item.FirstName @item.LastName</td>
+                                            <td>@item.Mobile</td>
+                                            <td>@item.LastPaidMonth</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+
+<script>
+
+    $(function () {
+        DataTableEnableDisable(true);
+    });
+
+    function DataTableEnableDisable(v) {
+        if (v == true) {
+            $('#BatchPlayerTable').DataTable({
+                dom: 'Bfrtip',
+                scrollX: true,
+                buttons: [
+                    'csv', 'excel', 'pdf'
+                ],
+                "pageLength": 100
+                //"lengthMenu": [100, 500, 1000]
+            });
+        }
+        else {
+            $('#BatchPlayerTable').DataTable().destroy();
+        }
+    }
+    $(document).ready(function () {
+        @*$("#batchId").change(function () {
+            DataTableEnableDisable(false);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetBatchPlayersById", "Attendance",new { Area= "Transaction" })',
+                dataType: 'json',
+                data: { id: $("#batchId").val() },
+                success: function (data) {
+                    var result = '';
+                    if (data != undefined && data != null && data.length != 0) {
+                        $.each(data, function (key, value) {
+                            var lastName = "";
+                            if (value.LastName != null) {
+                                lastName = value.LastName;
+                            }
+
+                            result += '<tr>'+
+                                '<td><input type="checkbox" name="Players" value="' + value.PlayerId+'" /></td >'+
+                                '<td>' + value.FirstName + ' ' + lastName  +'</td> '+
+                                '<td>' + value.Mobile +'</td> '+
+                                '<td>' + value.LastPaidMonth +'</td> '+
+                                '</tr>'
+                        });
+                        $('#Playerbody').html(result);
+
+                    }
+                    DataTableEnableDisable(true);
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve' + ex);
+                }
+            });
+            return false;
+        })*@
+    });
+</script>

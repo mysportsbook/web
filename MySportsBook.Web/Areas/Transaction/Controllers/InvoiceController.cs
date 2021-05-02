@@ -57,7 +57,8 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                             LastName = ConvertHelper.ConvertToString(row["LastName"]),
                             Mobile = ConvertHelper.ConvertToString(row["Mobile"]),
                             PK_PlayerId = ConvertHelper.ConvertToInteger(row["PK_PlayerId"]),
-                            Batches = ConvertHelper.ConvertToString(row["FirstName"])
+                            Batches = ConvertHelper.ConvertToString(row["BatchName"]),
+                            ProfileImg = ConvertHelper.ConvertToString(row["ProfileImg"])
                         });
                     }
                 }
@@ -296,7 +297,7 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
                 if (_creditBalance < 0)
                 {
 
-                    var batch = dbContext.Transaction_PlayerSport.Include(x => x.Master_Batch).Include(x => x.Master_Sport).Where(x => x.FK_PlayerId == playerId).FirstOrDefault();
+                    var batch = dbContext.Transaction_PlayerSport.Include(x => x.Master_Batch).Include(x => x.Master_Sport).Where(x => x.FK_PlayerId == playerId && x.FK_StatusId==1).FirstOrDefault();
                     invoiceModel.InvoiceDetails.Add(
                     new InvoiceDetailModel()
                     {

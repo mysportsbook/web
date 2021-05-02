@@ -1,11 +1,13 @@
 ﻿<script>
     $(function () {
-        $('.table').DataTable({
+        var table = $('.table').DataTable({
             dom: 'Bfrtip',
             scrollX: true,
             buttons: [
                 'csv', 'excel', 'pdf'
-            ]
+            ],
+            "pageLength": 100
+            //"lengthMenu": [100, 500, 1000]
         });
     });
     function editData(id) {
@@ -55,7 +57,7 @@
 
     function StatusChangeData(id) {
         var currentdoggle = $("#Player_" + id).prop('checked');
-        
+
         swal({
             title: "Status update",
             text: "Are you sure want to change the status!",

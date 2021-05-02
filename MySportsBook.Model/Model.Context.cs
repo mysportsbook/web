@@ -94,24 +94,24 @@ namespace MySportsBook.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteReceipt", playerIdParameter);
         }
-
+    
         public virtual ObjectResult<rp_COMMONPROCEDURE_Result> rp_COLLECTIONDETAIL(Nullable<int> vENUEID, Nullable<System.DateTime> mONTH, string tYPE)
         {
             var vENUEIDParameter = vENUEID.HasValue ?
                 new ObjectParameter("VENUEID", vENUEID) :
                 new ObjectParameter("VENUEID", typeof(int));
-
+    
             var mONTHParameter = mONTH.HasValue ?
                 new ObjectParameter("MONTH", mONTH) :
                 new ObjectParameter("MONTH", typeof(System.DateTime));
-
+    
             var tYPEParameter = tYPE != null ?
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rp_COMMONPROCEDURE_Result>("rp_COLLECTIONDETAIL", vENUEIDParameter, mONTHParameter, tYPEParameter);
         }
-
+    
         public virtual ObjectResult<rp_COMMONPROCEDURE_Result> rp_COMMONPROCEDURE(string sTOREPROC, string pARAMETERS, Nullable<int> venueID)
         {
             var sTOREPROCParameter = sTOREPROC != null ?
@@ -149,6 +149,6 @@ namespace MySportsBook.Model
             }
             return retVal.Tables[0];
         }
-        
-        }
+
+    }
 }

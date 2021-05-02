@@ -1,0 +1,176 @@
+﻿@model IEnumerable<MySportsBook.Web.Areas.Transaction.Models.AttendanceBatchViewModel>
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
+}
+
+@using System.Data;
+@{ var data = Model; }
+<style>
+    td.details-control {
+        background: url('../../../../img/DataTable/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('../../../../img/DataTable/details_close.png') no-repeat center center;
+    }
+</style>
+
+<main class="main">
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">@Html.ActionLink("Attendance", "Index")</li>
+        <li class="breadcrumb-item active">Attendance</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>
+                    <strong>Custom</strong>
+                    <i class="fa fa-plus float-right">  @Html.ActionLink("Create New", "Create")</i>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row" style="margin-bottom:10px;">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("From Date", htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBox("FromDate", "", new { @class = "form-control date" })
+                                    @*@Html.DropDownList("ReportType", null, new { @class = "form-control" })*@
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("To Date")
+                                    <div class="input-group">
+                                        @Html.TextBox("ToDate", "", new { @class = "form-control date" })
+                                        <span class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                        <div class="">
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                <table class="tableWithTable table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            @*<th></th>*@
+                                            <th>Name</th>
+                                            <th>Player Batch</th>
+                                            <th>Mobile</th>
+                                            <th>Date</th>
+                                            <th>Attn Batch Code</th>
+                                            <th>Attn Batch Name</th>
+                                            <th>Fees</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+
+                                            var date = @item.Date.Split(' ');
+                                            <tr data-date="@item.Date" data-batchId="@item.FK_BatchId">
+                                                @*<td class="details-control"></td>*@
+                                                <td>@item.FirstName @item.LastName</td>
+                                                <td>@item.BatchName</td>
+                                                <td>@item.Mobile</td>
+                                                <td>@date[0]</td>
+                                                <td>@item.AttendanceBatchCode</td>
+                                                <td>@item.AttendanceBatchName</td>
+                                                <td>@item.Fees</td>
+                                                @*<td>
+                                <button class="btn btn-primary" data-date="@item.Date" data-batchId="@item.FK_BatchId" onclick="editAttendance(this)" title="Edit" type="button">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                           
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
+
+
+<script>
+    $(document).ready(function () {
+
+        var table = $('.tableWithTable').DataTable({
+        });
+        // Add event listener for opening and closing details
+        $('.tableWithTable tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                //row.child(format(row.data())).show();
+                var date = tr.attr("data-date");
+                var batchId = tr.attr("data-batchId");
+                $.when(format(date, batchId)).done(function (result) {
+                    var data = '<table class="tableWithTable table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0"  style="padding-left:50px;"><thead>'
+                        + '<th>First Name</th><th>Last Name</th><th>Mobile</th><th>Email</th><th>Is Present</th></thead><tbody>';
+                    $.each(result, function (key, value) {
+                        data += '<tr><td>' + value.FirstName + '</td>'
+                            + '<td>' + value.LastName + '</td>'
+                            + '<td>' + value.Mobile + '</td>'
+                            + '<td>' + value.Email + '</td>'
+                            + '<td>' + value.Present + '</td>'
+                              + '</tr>';
+                    });
+                    data += '</tbody></table>';
+                    row.child(data).show();
+                    tr.addClass('shown');
+                });
+                tr.addClass('shown');
+            }
+        });
+    });
+
+    function format(date, batchId) {
+
+        var result = $.ajax({
+            url: "@Url.Action("GetAttendanceBatchPlayer", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })",
+            type: "POST",
+            data: { date: date, batchId: batchId },
+            datatype: "json",
+            success: function (data) {
+                return data;
+            }
+        });
+
+        return result;
+    }
+
+    function editAttendance(e) {
+        var date = $(e).attr("data-date");
+        var batchId = $(e).attr("data-batchId");
+        window.location.href = "@Url.Action("Edit", ViewContext.RouteData.Values["controller"].ToString(), new { Area= ViewContext.RouteData.DataTokens["area"] ==null?string.Empty: ViewContext.RouteData.DataTokens["area"] })" + "?id=" + batchId + "&date=" + date;
+
+    }
+</script>

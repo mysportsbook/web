@@ -38,5 +38,6 @@ namespace MySportsBook.Model
         public decimal Sport_Fee { get; set; }
         public string Court_CourtCode { get; set; }
         public string Court_CourtName { get; set; }
+        public string LastGeneratedMonth { get; set; }
     }
 }

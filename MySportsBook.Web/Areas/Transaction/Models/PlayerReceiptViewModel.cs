@@ -16,5 +16,8 @@ namespace MySportsBook.Web.Areas.Transaction.Models
         public string Years { get; set; }
         public string Mobile { get; set; }
         public string Batch { get; set; }
+        public int FK_StatusId { get; set; }
+        public string Sport { get; set; }
+        public string ReceiptNumber { get; set; }
     }
 }

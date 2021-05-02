@@ -1,14 +1,22 @@
 ﻿using MySportsBook.Model;
 using MySportsBook.Model.ViewModel;
+using MySportsBook.Web.Areas.Transaction.Models;
 using MySportsBook.Web.Controllers;
 using MySportsBook.Web.Filters;
+using MySportsBook.Web.Helper;
+using MySportsBook.Web.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MySportsBook.Web.Areas.Master.Controllers
@@ -34,13 +42,55 @@ namespace MySportsBook.Web.Areas.Master.Controllers
             //
             //return View(master_Player);
 
-            var master_Player = dbContext.Master_Player
-                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
-                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
-                 .Include(m => m.Configuration_Status)
-                .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && status.Contains(x.FK_StatusId))
-                .OrderByDescending(x => x.CreatedDate);
-            return View(await master_Player.ToListAsync());
+            //var master_Player = dbContext.Master_Player
+            //    .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
+            //    .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
+            //     .Include(m => m.Configuration_Status)
+            //    .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_PlayerTypeId == 1 && status.Contains(x.FK_StatusId))
+            //    .OrderByDescending(x => x.CreatedDate);
+            List<PlayersViewMobel> datas = new List<PlayersViewMobel>() { };
+            return View(datas);
+        }
+        [HttpPost]
+        public ActionResult Index(string search = "")
+        {
+            List<PlayersViewMobel> datas = new List<PlayersViewMobel>() { };
+            try
+            {
+                ConnectionDataControl clsDataControl = new ConnectionDataControl();
+                DataTable collectionDataTable = new DataTable();
+                clsDataControl.DynamicParameters.Clear();
+                clsDataControl.DynamicParameters.Add("@VenueId", currentUser.CurrentVenueId);
+                clsDataControl.DynamicParameters.Add("@Search", search);
+                clsDataControl.DynamicParameters.Add("@IsInvoiceScreen", 0);
+
+                collectionDataTable = clsDataControl.GetDetails(argstrQuery: "GetAllPlayersByVenueID", IsParameter: true);
+
+                if (collectionDataTable != null && collectionDataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in collectionDataTable.Rows)
+                    {
+                        datas.Add(new PlayersViewMobel()
+                        {
+                            FirstName = ConvertHelper.ConvertToString(row["FirstName"], string.Empty),
+                            LastName = ConvertHelper.ConvertToString(row["LastName"]),
+                            Mobile = ConvertHelper.ConvertToString(row["Mobile"]),
+                            PK_PlayerId = ConvertHelper.ConvertToInteger(row["PK_PlayerId"]),
+                            Batches = ConvertHelper.ConvertToString(row["BatchName"]),
+                            FK_StatusId = ConvertHelper.ConvertToInteger(row["StatusId"]),
+                            SportName = ConvertHelper.ConvertToString(row["SportName"]),
+                            Fees = ConvertHelper.ConvertToDecimal(row["Fees"]),
+                            ProfileImg = ConvertHelper.ConvertToString(row["ProfileImg"])
+
+                        });
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            return View(datas);
         }
 
         // GET: Master/Player/Create
@@ -85,17 +135,36 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
         //public async Task<ActionResult> Create(PlayerModel playerModel)
-        public ActionResult Create(PlayerModel playermodel)
+        public ActionResult Create(dataModel dataModel)
         {
             try
             {
+                PlayerModel playermodel = JsonConvert.DeserializeObject<PlayerModel>(dataModel.playerModelobj);
                 if (!dbContext.Master_Player.Where(x => x.FK_StatusId == 1 && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
                 {
+                    if (Request.Files.Count > 0)
+                    {
+                        try
+                        {
+                            //  Get all files from Request object  
+                            HttpFileCollectionBase files = Request.Files;
+                            HttpPostedFileBase file = files[0];
+                            playermodel.Player.ProfileImg = GenerateThumbnails(0.5, file.InputStream);
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+
                     playermodel.Player.FK_StatusId = 1;
                     playermodel.Player.FK_VenueId = currentUser.CurrentVenueId;
                     playermodel.Player.CreatedBy = currentUser.UserId;
                     playermodel.Player.CreatedDate = DateTime.Now.ToLocalTime();
+                    //playermodel.Player.ProfileImg = Image;
                     dbContext.Master_Player.Add(playermodel.Player);
                     dbContext.SaveChanges();
                     playermodel.PlayerSports.ForEach(ps =>
@@ -183,10 +252,12 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(PlayerModel playermodel)
+        public ActionResult Edit(dataModel dataModel)
         {
             try
             {
+                PlayerModel playermodel = JsonConvert.DeserializeObject<PlayerModel>(dataModel.playerModelobj);
+
                 var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == playermodel.Player.PK_PlayerId && x.FK_VenueId == currentUser.CurrentVenueId && status.Contains(x.FK_StatusId));
                 if (_player == null || _player.Count() == 0)
                 {
@@ -196,6 +267,8 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 {
                     return HttpNotFound();
                 }
+
+                
                 if (playermodel != null && playermodel.Player != null && playermodel.PlayerSports.Count > 0)
                 {
                     if (!dbContext.Master_Player.Where(x => status.Contains(x.FK_StatusId) && x.PK_PlayerId != playermodel.Player.PK_PlayerId && x.FirstName + x.LastName + x.Mobile == playermodel.Player.FirstName + playermodel.Player.LastName + playermodel.Player.Mobile).Any())
@@ -214,6 +287,21 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                         master_Player.FK_StatusId = 1;
                         master_Player.ModifiedBy = currentUser.UserId;
                         master_Player.ModifiedDate = DateTime.Now.ToLocalTime();
+                        if (Request.Files.Count > 0)
+                        {
+                            try
+                            {
+                                //  Get all files from Request object  
+                                HttpFileCollectionBase files = Request.Files;
+                                HttpPostedFileBase file = files[0];
+                                master_Player.ProfileImg = GenerateThumbnails(0.5, file.InputStream);
+                            }
+                            catch
+                            {
+
+                            }
+
+                        }
                         dbContext.Entry(master_Player).State = EntityState.Modified;
                         var _playersport = dbContext.Transaction_PlayerSport.Where(x => x.FK_PlayerId == master_Player.PK_PlayerId && x.FK_StatusId == 1);
                         if (playermodel.PlayerSports.Count() > 0 && _playersport.Count() > 0)
@@ -309,7 +397,7 @@ namespace MySportsBook.Web.Areas.Master.Controllers
         // GET: Master/Player/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            
+
             var _player = dbContext.Master_Player.Where(x => x.PK_PlayerId == id && x.FK_VenueId == currentUser.CurrentVenueId && status.Contains(x.FK_StatusId));
             if (_player == null || _player.Count() == 0)
             {
@@ -373,6 +461,31 @@ namespace MySportsBook.Web.Areas.Master.Controllers
                 dbContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string GenerateThumbnails(double scaleFactor, Stream sourcePath)
+        {
+            string _result = "";
+            using (var image = Image.FromStream(sourcePath))
+            {
+                var newWidth = (int)(image.Width * scaleFactor);
+                var newHeight = (int)(image.Height * scaleFactor);
+                var thumbnailImg = new Bitmap(newWidth, newHeight);
+                var thumbGraph = Graphics.FromImage(thumbnailImg);
+                thumbGraph.CompositingQuality = CompositingQuality.HighQuality;
+                thumbGraph.SmoothingMode = SmoothingMode.HighQuality;
+                thumbGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                var imageRectangle = new Rectangle(0, 0, newWidth, newHeight);
+                thumbGraph.DrawImage(image, imageRectangle);
+                using (MemoryStream m = new MemoryStream())
+                {
+                    image.Save(m, image.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+                    // Convert byte[] to Base64 String
+                    _result = Convert.ToBase64String(imageBytes);
+                }
+            }
+            return _result;
         }
 
 

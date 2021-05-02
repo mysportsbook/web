@@ -229,6 +229,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.CCTransaction' does not have 
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="CreditBalance" Type="money" />
+          <Property Name="ProfileImg" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Master_Role">
           <Key>
@@ -719,12 +720,15 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerDetails' does not hav
             <PropertyRef Name="VenueId" />
             <PropertyRef Name="SportID" />
             <PropertyRef Name="SportName" />
+            <PropertyRef Name="SportCode" />
             <PropertyRef Name="BatchID" />
             <PropertyRef Name="BatchName" />
             <PropertyRef Name="BatchCode" />
             <PropertyRef Name="BatchType" />
             <PropertyRef Name="PlayerSportId" />
             <PropertyRef Name="PlayerFee" />
+            <PropertyRef Name="PlayerStatusId" />
+            <PropertyRef Name="IsAttendanceRequired" />
           </Key>
           <Property Name="PlayerId" Type="int" Nullable="false" />
           <Property Name="PlayerName" Type="varchar" MaxLength="100" Nullable="false" />
@@ -733,6 +737,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerDetails' does not hav
           <Property Name="VenueId" Type="int" Nullable="false" />
           <Property Name="SportID" Type="int" Nullable="false" />
           <Property Name="SportName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SportCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="BatchID" Type="int" Nullable="false" />
           <Property Name="BatchName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="BatchCode" Type="varchar" MaxLength="20" Nullable="false" />
@@ -741,6 +746,8 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerDetails' does not hav
           <Property Name="PlayerSportId" Type="int" Nullable="false" />
           <Property Name="LastGeneratedMonth" Type="varchar" MaxLength="10" />
           <Property Name="PlayerFee" Type="money" Nullable="false" />
+          <Property Name="PlayerStatusId" Type="int" Nullable="false" />
+          <Property Name="IsAttendanceRequired" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -791,6 +798,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <Property Name="Sport_Fee" Type="money" Nullable="false" />
           <Property Name="Court_CourtCode" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Court_CourtName" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="LastGeneratedMonth" Type="varchar" MaxLength="10" />
         </EntityType>
         <Association Name="FK_BatchCount_Master_Batch">
           <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
@@ -2261,6 +2269,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
     [V_PlayerDetails].[VenueId] AS [VenueId], 
     [V_PlayerDetails].[SportID] AS [SportID], 
     [V_PlayerDetails].[SportName] AS [SportName], 
+    [V_PlayerDetails].[SportCode] AS [SportCode], 
     [V_PlayerDetails].[BatchID] AS [BatchID], 
     [V_PlayerDetails].[BatchName] AS [BatchName], 
     [V_PlayerDetails].[BatchCode] AS [BatchCode], 
@@ -2268,7 +2277,9 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
     [V_PlayerDetails].[CreditBalance] AS [CreditBalance], 
     [V_PlayerDetails].[PlayerSportId] AS [PlayerSportId], 
     [V_PlayerDetails].[LastGeneratedMonth] AS [LastGeneratedMonth], 
-    [V_PlayerDetails].[PlayerFee] AS [PlayerFee]
+    [V_PlayerDetails].[PlayerFee] AS [PlayerFee], 
+    [V_PlayerDetails].[PlayerStatusId] AS [PlayerStatusId], 
+    [V_PlayerDetails].[IsAttendanceRequired] AS [IsAttendanceRequired]
     FROM [dbo].[V_PlayerDetails] AS [V_PlayerDetails]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_PlayerSport" EntityType="Self.V_PlayerSport" store:Type="Views" store:Schema="dbo">
@@ -2296,7 +2307,8 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
     [V_PlayerSport].[Sport_VenueId] AS [Sport_VenueId], 
     [V_PlayerSport].[Sport_Fee] AS [Sport_Fee], 
     [V_PlayerSport].[Court_CourtCode] AS [Court_CourtCode], 
-    [V_PlayerSport].[Court_CourtName] AS [Court_CourtName]
+    [V_PlayerSport].[Court_CourtName] AS [Court_CourtName], 
+    [V_PlayerSport].[LastGeneratedMonth] AS [LastGeneratedMonth]
     FROM [dbo].[V_PlayerSport] AS [V_PlayerSport]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_BatchCount_Master_Batch" Association="Self.FK_BatchCount_Master_Batch">
@@ -3057,6 +3069,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <NavigationProperty Name="Master_Venue1" Relationship="Self.FK_Master_Venue_Master_Player" FromRole="Master_Player" ToRole="Master_Venue" />
           <NavigationProperty Name="Transaction_Attendance" Relationship="Self.FK_Transaction_Attendance_Master_Player" FromRole="Master_Player" ToRole="Transaction_Attendance" />
           <NavigationProperty Name="Transaction_PlayerSport" Relationship="Self.FK_Transaction_PlayerSport_Master_Player" FromRole="Master_Player" ToRole="Transaction_PlayerSport" />
+          <Property Name="ProfileImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Master_Role">
           <Key>
@@ -3652,6 +3665,9 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
             <PropertyRef Name="BatchType" />
             <PropertyRef Name="PlayerSportId" />
             <PropertyRef Name="PlayerFee" />
+            <PropertyRef Name="SportCode" />
+            <PropertyRef Name="PlayerStatusId" />
+            <PropertyRef Name="IsAttendanceRequired" />
           </Key>
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
           <Property Name="PlayerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -3668,6 +3684,9 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <Property Name="PlayerSportId" Type="Int32" Nullable="false" />
           <Property Name="LastGeneratedMonth" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PlayerFee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SportCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerStatusId" Type="Int32" Nullable="false" />
+          <Property Name="IsAttendanceRequired" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="V_PlayerSport">
           <Key>
@@ -3716,6 +3735,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <Property Name="Sport_Fee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Court_CourtCode" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Court_CourtName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastGeneratedMonth" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_BatchCount_Master_Batch">
           <End Role="Master_Batch" Type="Self.Master_Batch" Multiplicity="1" />
@@ -5722,6 +5742,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <EntitySetMapping Name="Master_Player">
             <EntityTypeMapping TypeName="MySportsBook_DevModel.Master_Player">
               <MappingFragment StoreEntitySet="Master_Player">
+                <ScalarProperty Name="ProfileImg" ColumnName="ProfileImg" />
                 <ScalarProperty Name="PK_PlayerId" ColumnName="PK_PlayerId" />
                 <ScalarProperty Name="FK_VenueId" ColumnName="FK_VenueId" />
                 <ScalarProperty Name="FK_PlayerTypeId" ColumnName="FK_PlayerTypeId" />
@@ -6201,6 +6222,9 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <EntitySetMapping Name="V_PlayerDetails">
             <EntityTypeMapping TypeName="MySportsBook_DevModel.V_PlayerDetails">
               <MappingFragment StoreEntitySet="V_PlayerDetails">
+                <ScalarProperty Name="IsAttendanceRequired" ColumnName="IsAttendanceRequired" />
+                <ScalarProperty Name="PlayerStatusId" ColumnName="PlayerStatusId" />
+                <ScalarProperty Name="SportCode" ColumnName="SportCode" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
                 <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
                 <ScalarProperty Name="PlayerNameLastName" ColumnName="PlayerNameLastName" />
@@ -6222,6 +6246,7 @@ warning 6002: The table/view 'MySportsBook_Dev.dbo.V_PlayerSport' does not have 
           <EntitySetMapping Name="V_PlayerSport">
             <EntityTypeMapping TypeName="MySportsBook_DevModel.V_PlayerSport">
               <MappingFragment StoreEntitySet="V_PlayerSport">
+                <ScalarProperty Name="LastGeneratedMonth" ColumnName="LastGeneratedMonth" />
                 <ScalarProperty Name="Player_PlayerId" ColumnName="Player_PlayerId" />
                 <ScalarProperty Name="Player_VenueId" ColumnName="Player_VenueId" />
                 <ScalarProperty Name="Player_PlayerTypeId" ColumnName="Player_PlayerTypeId" />

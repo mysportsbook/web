@@ -29,5 +29,8 @@ namespace MySportsBook.Model
         public int PlayerSportId { get; set; }
         public string LastGeneratedMonth { get; set; }
         public decimal PlayerFee { get; set; }
+        public string SportCode { get; set; }
+        public int PlayerStatusId { get; set; }
+        public bool IsAttendanceRequired { get; set; }
     }
 }

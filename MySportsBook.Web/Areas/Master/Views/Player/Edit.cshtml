@@ -116,6 +116,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Profile Image", htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="file" name="ImageData" id="ImageData" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 
@@ -323,7 +331,21 @@
                 },
                 PlayerSports: playersport
             }
-            saveData(playermodel, $('#Player_FirstName').val(), SaveOrUpdate.update);
+
+            var fileUpload = $("#ImageData").get(0);
+            var files = fileUpload.files;
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+            const data = JSON.stringify(playermodel)
+            // Adding one more key to FormData object
+            fileData.append('playerModelobj', data);
+            saveDataMultipart(fileData, $('#Player_FirstName').val(), SaveOrUpdate.save)
+            //saveData(playermodel, $('#Player_FirstName').val(), SaveOrUpdate.update);
         }
         else {
             swal("Failed!", "Please add atleast one sport!", "error", {

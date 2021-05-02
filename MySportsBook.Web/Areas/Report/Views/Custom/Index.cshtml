@@ -32,16 +32,17 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     @Html.Label("Report Type", htmlAttributes: new { @class = "control-label" })
-                                    <div class="input-group">
-                                        <select name="ReportType" class="form-control">
-                                            <option value="MonthlyCollection">Monthly Collection</option>
-                                            <option value="MonthlyTransaction">Monthly Transaction</option>
-                                            <option value="PendingPayments">PendingPayments</option>
-                                            <option value="ExcessPayments">Excess Payments</option>
-                                            <option value="Defaulter">Defaulter</option>
+                                    @*<div class="input-group">
+            <select name="ReportType" class="form-control">
+                <option value="MonthlyCollection">Monthly Collection</option>
+                <option value="MonthlyTransaction">Monthly Transaction</option>
+                <option value="PendingPayments">PendingPayments</option>
+                <option value="ExcessPayments">Excess Payments</option>
+                <option value="Defaulter">Defaulter</option>
 
-                                        </select>
-                                    </div>
+            </select>
+        </div>*@
+                                    @Html.DropDownList("ReportType", null, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -102,7 +103,7 @@
                             </table>
                         }
                     </div>
-                    @if (Model != null && Model.Rows.Count > 0 && (Model.Columns.Contains("Payment Mode") || Model.Columns.Contains("Mode")))
+                    @if (Model != null && Model.Rows.Count > 0 && (Model.Columns.Contains("Payment Mode") || Model.Columns.Contains("Mode ")))
                     {
                         if (Model.Columns.Contains("Payment Mode"))
                         {
@@ -125,10 +126,10 @@
                                 </div>
                             </div>
                         }
-                        else if (Model.Columns.Contains("Mode"))
+                        else if (Model.Columns.Contains("Mode "))
                         {
                             <div class="row">
-                                @foreach (var item in data.AsEnumerable().GroupBy(x => x.Field<string>("Mode")).ToDictionary(g => g.Key, g => g.Sum(s => s.Field<decimal>("Amount"))))
+                                @foreach (var item in data.AsEnumerable().GroupBy(x => x.Field<string>("Mode ")).ToDictionary(g => g.Key, g => g.Sum(s => s.Field<decimal>("Paid"))))
                                 {
                                     <div class="card text-center">
                                         <h6>Total @item.Key </h6>
@@ -141,7 +142,7 @@
                                 <div class="card text-center">
                                     <h6>Total</h6>
                                     <div class="card-body text-center">
-                                        <span class="label label-default font-weight-bold"> @data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Amount")).ToString("0.00")</span>
+                                        <span class="label label-default font-weight-bold"> @data.AsEnumerable().Sum(myRow => myRow.Field<decimal>("Paid")).ToString("0.00")</span>
                                     </div>
                                 </div>
                             </div>

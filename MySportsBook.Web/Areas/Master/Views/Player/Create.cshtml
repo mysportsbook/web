@@ -14,7 +14,7 @@
     </ol>
     <div class="container-fluid">
         <div class="animated fadeIn">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="row">
@@ -113,6 +113,14 @@
                                             <div class="checkbox">
                                                 @Html.CheckBoxFor(model => model.LoginRequired)
                                                 @Html.ValidationMessageFor(model => model.LoginRequired, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.Label("Profile Image", htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="file" name="ImageData" id="ImageData" />
                                             </div>
                                         </div>
                                     </div>
@@ -247,7 +255,7 @@
             });
         });
 
-        
+
 
         $('#Batch').change(function (e) {
             $('#Fee').val($('option:selected', this).attr('fee') == undefined ? "0.00" : parseFloat($('option:selected', this).attr('fee')).toFixed(2));
@@ -299,7 +307,20 @@
                 },
                 PlayerSports: playersport
             }
-            saveData(playermodel, $('input[name="FirstName"]').val(), SaveOrUpdate.save);
+
+            var fileUpload = $("#ImageData").get(0);
+            var files = fileUpload.files;
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+            const data = JSON.stringify(playermodel)
+            // Adding one more key to FormData object
+            fileData.append('playerModelobj', data);
+            saveDataMultipart(fileData, $('input[name="FirstName"]').val(), SaveOrUpdate.save)
         }
         else {
             swal("Failed!", "Please add atleast one sport!", "error", {

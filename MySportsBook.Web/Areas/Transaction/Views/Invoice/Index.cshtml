@@ -1,12 +1,20 @@
 ﻿@model IEnumerable<MySportsBook.Web.Areas.Transaction.Models.PlayersViewMobel>
 
 @{
-    ViewBag.Title = "Invoice";
-    if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; } else { Layout = "/Views/Shared/Layout/_Layout.cshtml"; }
-}
+    /**/
 
+    ViewBag.Title = "Invoice";
+    //if (ViewContext.ViewBag.IsAdmin != null && ViewContext.ViewBag.IsAdmin) { Layout = "/Views/Shared/Layout/_AdminLayout.cshtml"; }
+    //else
+    //{
+    //    Layout = "/Views/Shared/Layout/_Layout.cshtml";
+
+    //}
+    Layout = "/Views/Shared/Layout/_Layout_New.cshtml";
+}
+<!--
 <main class="main">
-    <!-- Breadcrumb-->
+
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
         <li class="breadcrumb-item">@Html.ActionLink("Invoice", "")</li>
@@ -25,10 +33,10 @@
                         @Html.AntiForgeryToken()
                         <div class="row" style="margin-bottom:10px;">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        @Html.TextBox("search", "", new { @class = "form-control" })
+                                        @Html.TextBox("search", "", new { @class = "form-control", @placeholder = "Name or phoneno" })
                                         <span class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
                                         </span>
@@ -40,8 +48,8 @@
                     <table class="table table-striped table-bordered table-responsive-sm table-hover table-outline mb-0" style="width:100%">
                         <thead class="thead-light">
                             <tr>
-                                <th>@Html.Label("First Name")</th>
-                                <th>@Html.Label("Last Name")</th>
+                                <th>@Html.Label("Profile Image")</th>
+                                <th>@Html.Label("Name")</th>
                                 <th>@Html.Label("Mobile")</th>
                                 <th>@Html.Label("Batchs")</th>
                                 <th>@Html.Label("View Dues")</th>
@@ -54,10 +62,15 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                        @{
+                                            if (!string.IsNullOrEmpty(item.ProfileImg))
+                                            {
+                                                <img class="img-avatar" src="@String.Format("data:image/gif;base64,{0}", item.ProfileImg)" width="50px" height="50px">
+                                            }
+                                        }
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
+                                        @Html.DisplayFor(modelItem => item.FirstName)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Mobile)
@@ -73,8 +86,8 @@
                                         @Html.HiddenFor(modelItem => item.PK_PlayerId)
                                     </td>
                                     @*<td>
-                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
-                        </td>*@
+                                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -83,9 +96,95 @@
             </div>
         </div>
     </div>
-</main>
+</main> -->
+<div id="content-header">
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+        <a href="#">Invoice</a>
+        <a href="#" class="current">Pay</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon">
+                        <i class="icon-info-sign"></i>
+                    </span>
+                    <h5>Payment</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+
+                        <div class="control-group">
+                            <label class="control-label">search</label>
+                            <div class="controls">
+                                @*@Html.TextBox("search", "", new { @class = "form-control", @placeholder = "Name or phoneno" })*@
+                                <input type="text" name="required" id="required" placeholder="Name or phoneno">
+                                <input type="submit" value="Validate" class="btn btn-success">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered data-table" style="width:100%">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>@Html.Label("Profile Image")</th>
+                                    <th>@Html.Label("Name")</th>
+                                    <th>@Html.Label("Mobile")</th>
+                                    <th>@Html.Label("Batchs")</th>
+                                    <th>@Html.Label("View Dues")</th>
+                                    <th>@Html.Label("Payment History")</th>
+                                    @*<th>@Html.Label("Full Payment History")</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{
+                                                if (!string.IsNullOrEmpty(item.ProfileImg))
+                                                {
+                                                    <img class="img-avatar" src="@String.Format("data:image/gif;base64,{0}", item.ProfileImg)" width="50px" height="50px">
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Mobile)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Batches)
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-block btn-outline-info" onclick="payInvoice(@item.PK_PlayerId,this)" type="button">View Dues</button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-block btn-outline-info" onclick="payHistory(@item.PK_PlayerId,this)" type="button">Payment History</button>
+                                            @Html.HiddenFor(modelItem => item.PK_PlayerId)
+                                        </td>
+                                        @*<td>
+                            <button class="btn btn-primary" onclick="editData(@item.PK_PlayerId)" title="Edit" type="button">
+                        </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+</div>
+
 <!-- Modal -->
-<div class="modal fade" id="invocemodel" tabindex="-1" role="dialog" aria-labelledby="invocemodel" aria-hidden="true">
+@*<div class="modal fade" id="invocemodel" tabindex="-1" role="dialog" aria-labelledby="invocemodel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,55 +197,23 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<div id="InvoiceModal" class="modal modal-lg hide">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3>Invoice</h3>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" class="btn btn-inverse" href="#">Cancel</a>
+    </div>
 </div>
 @Html.Partial("~/Views/Shared/Script/_DateTimePicker.cshtml")
 <script type="text/javascript">
-    $(function () {
-        $('.table').DataTable({
-            
-            //"processing": true,
-            //"serverSide": true,
-            //"filter": true, // this is for disable filter (search box)
-            //"orderMulti": false, // for disable multiple column at once
-            //"ajax":
-            //{
-            //    "url": 'Transaction/Invoice/GetPlayersDetails',
-            //    "type": "POST",
-            //    "dataType": "JSON",
-            //},
-            //"columns": [
-            //    { "data": "FirstName", "class": "text-left" },
-            //    { "data": "LastName", "class": "text-left" },
-            //    { "data": "Mobile", "class": "text-center" },
-            //    { "data": "Batches", "class": "text-left" },
-            //    {
-            //        "data": "PK_PlayerId", "class": "text-center",
-            //        "render": function (data, type, row) {
-            //            var data = '<button class="btn btn-block btn-outline-info" onclick="payInvoice(' + row.PK_PlayerId + ',this)" type="button">View Dues</button>';
-                        
-            //            return data;
-            //        },
-            //    },
-            //    {
-            //        "data": "PK_PlayerId", "class": "text-center",
-            //        "render": function (data, type, row) {
-            //            var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this,0)" type="button">Payment History</button>';
 
-            //            return data;
-            //        },
-            //    },
-                //{
-                //    "data": "PK_PlayerId", "class": "text-center",
-                //    "render": function (data, type, row) {
-                //        var data = '<button class="btn btn-block btn-outline-info" onclick="payHistory(' + row.PK_PlayerId + ',this,1)" type="button">Full Payment History</button>';
-
-                //        return data;
-                //    },
-                //},
-           // ],
-           // bDestroy: true,
-        });
-    });
     function payInvoice(id, btn) {
         loader();
         $.ajax({
@@ -158,7 +225,7 @@
                 loader();
                 $('.modal-title').html("Invoice");
                 $('.modal-body').html(response);
-                $('#invocemodel').modal('show');
+                $('#InvoiceModal').modal('show');
                 //$('.invdetail').remove();
                 //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
             },
@@ -172,18 +239,18 @@
             }
         });
     }
-    function payHistory(id, btn,t) {
+    function payHistory(id, btn, t) {
         loader();
         $.ajax({
             type: "GET",
-            url: "/Transaction/Invoice/GetPaymentHistory?id=" + id+"&type="+t,
+            url: "/Transaction/Invoice/GetPaymentHistory?id=" + id + "&type=" + t,
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
                 loader();
                 $('.modal-title').html("Payment(s)");
                 $('.modal-body').html(response);
-                $('#invocemodel').modal('show');
+                $('#InvoiceModal').modal('show');
                 //$('.invdetail').remove();
                 //$(btn).closest('tr').after('<tr id=' + id + ' class="invdetail"><td colspan="8">' + response + '</td></tr>');
             },

@@ -67,26 +67,68 @@ namespace MySportsBook.Web.Areas.Transaction.Controllers
         // GET: Master/Player
         public ActionResult Player()
         {
-            var master_Player =
-                dbContext.Master_Player
-                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
-                .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
-                .Include(m => m.Configuration_Status)
-                .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1)
-                .OrderByDescending(x => x.CreatedDate).ToList()
-                .Select(x => new Master_Player()
-                {
-                    PK_PlayerId = x.PK_PlayerId,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Mobile = x.Mobile,
-                    FK_StatusId = x.FK_StatusId,
-                    Transaction_PlayerSport = x.Transaction_PlayerSport,
-                    Configuration_Status = x.Configuration_Status,
-                    //Transaction_Invoice = x.Transaction_Invoice.OrderByDescending(s => s.PK_InvoiceId).Take(1).ToList()
+            List<PlayerReceiptViewModel> datas = new List<PlayerReceiptViewModel>() { };
+            //var master_Player =
+            //    dbContext.Master_Player
+            //    .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Sport))
+            //    .Include(m => m.Transaction_PlayerSport.Select(q => q.Master_Batch))
+            //    .Include(m => m.Configuration_Status)
+            //    .Where(x => x.FK_VenueId == currentUser.CurrentVenueId && x.FK_StatusId == 1)
+            //    .OrderByDescending(x => x.CreatedDate).ToList()
+            //    .Select(x => new Master_Player()
+            //    {
+            //        PK_PlayerId = x.PK_PlayerId,
+            //        FirstName = x.FirstName,
+            //        LastName = x.LastName,
+            //        Mobile = x.Mobile,
+            //        FK_StatusId = x.FK_StatusId,
+            //        Transaction_PlayerSport = x.Transaction_PlayerSport,
+            //        Configuration_Status = x.Configuration_Status,
+            //        //Transaction_Invoice = x.Transaction_Invoice.OrderByDescending(s => s.PK_InvoiceId).Take(1).ToList()
 
-                }).ToList();
-            return View(master_Player.ToList());
+            //    }).ToList();
+            return View(datas);
+        }
+
+        [HttpPost]
+        public ActionResult Player(string search = "")
+        {
+            List<PlayerReceiptViewModel> datas = new List<PlayerReceiptViewModel>() { };
+            try
+            {
+                ConnectionDataControl clsDataControl = new ConnectionDataControl();
+                DataTable collectionDataTable = new DataTable();
+                clsDataControl.DynamicParameters.Clear();
+                clsDataControl.DynamicParameters.Add("@VenueId", currentUser.CurrentVenueId);
+                clsDataControl.DynamicParameters.Add("@Search", search);
+
+                collectionDataTable = clsDataControl.GetDetails(argstrQuery: "GetAllPlayerLastReceipt", IsParameter: true);
+
+                if (collectionDataTable != null && collectionDataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in collectionDataTable.Rows)
+                    {
+                        datas.Add(new PlayerReceiptViewModel()
+                        {
+                            FirstName = ConvertHelper.ConvertToString(row["FirstName"], string.Empty),
+                            LastName = ConvertHelper.ConvertToString(row["LastName"]),
+                            Mobile = ConvertHelper.ConvertToString(row["Mobile"]),
+                            PK_PlayerId = ConvertHelper.ConvertToString(row["PK_PlayerId"]),
+                            Batch = ConvertHelper.ConvertToString(row["Batch"]),
+                            AmountPaid = ConvertHelper.ConvertToDecimal(row["Fees"]),
+                            FK_StatusId = ConvertHelper.ConvertToInteger(row["FK_StatusId"]),
+                            ReceiptNumber = ConvertHelper.ConvertToString(row["ReceiptNumber"]),
+                            Sport = ConvertHelper.ConvertToString(row["Sport"])
+
+                        });
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            return View(datas);
         }
 
         public ActionResult PlayerPayment()

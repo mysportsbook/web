@@ -45,9 +45,8 @@
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/Account/Home">
+        <a class="navbar-brand d-sm-down-none" href="/Account/Home">
             <img class="navbar-brand-full" src="~/img/MSBLogo.png" width="89" height="80" alt="">
-            <img class="navbar-brand-minimized" src="~/img/MSBLogo.png" width="30" height="30" alt="My Sports">
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
             <span class="navbar-toggler-icon"></span>
@@ -124,6 +123,16 @@
                                     <i class="nav-icon fa fa-file-text-o"></i> Player Payments
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("", "Expense", new { Area = "Studio" })">
+                                    <i class="nav-icon fa fa-file-text-o"></i> Expenses
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("", "Attendance", new { Area = "Transaction" })">
+                                    <i class="nav-icon fa fa-file-text-o"></i> Attendance
+                                </a>
+                            </li>
                         }
                     }
                     <li class="nav-title">Report</li>
@@ -139,12 +148,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Custom", new { Area = "Report" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Collection
+                            <i class="nav-icon fa fa-file-text-o"></i> Reports
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("", "Enquiry", new { Area = "Report" })">
                             <i class="nav-icon fa fa-file-text-o"></i> Enquiry
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("", "AttendanceReport", new { Area = "Report" })">
+                            <i class="nav-icon fa fa-file-text-o"></i> Attendance
                         </a>
                     </li>
 
@@ -169,22 +183,22 @@
                             <i class="nav-icon fa fa-object-ungroup"></i> Court
                         </a>
                     </li>
-                    <li class="nav-title">Studio</li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Events
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Expense", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Expenses
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("", "Income", new { Area = "Studio" })">
-                            <i class="nav-icon fa fa-file-text-o"></i> Income
-                        </a>
-                    </li>
+                    @*<li class="nav-title">Studio</li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("", "Events", new { Area = "Studio" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Events
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("", "Expense", new { Area = "Studio" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Expenses
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("", "Income", new { Area = "Studio" })">
+                <i class="nav-icon fa fa-file-text-o"></i> Income
+            </a>
+        </li>*@
                 </ul>
             </nav>
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>

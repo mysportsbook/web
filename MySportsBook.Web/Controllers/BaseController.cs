@@ -25,7 +25,7 @@ namespace MySportsBook.Web.Controllers
                 ViewBag.Venue = currentUser.CurrentVenueName;
                 if (currentUser.CurrentVenueId > 0)
                 {
-                    GetMenu(1);
+                    //GetMenu(1);
                 }
             }
             else
